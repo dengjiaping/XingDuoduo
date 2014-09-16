@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 数组 -->
+
+
+    <!-- 商城首页小分类地址后缀(按照顺序来) -->
+    <string-array name="center_classify_array">
+
+        <!-- 限时抢购 -->
+        <item>/goods!getGoodsAppByIt.action?sortType=isTime</item>
+        <!-- 高大上 -->
+        <item>/goods!getGoodsAppByIt.action?sortType=isBest</item>
+        <!-- 同志(一路同性) -->
+        <item>/goods!getGoodsAppByIt.action?sortType=isWalk </item>
+        <!-- 新品专区 -->
+        <item>/goods!getGoodsAppByIt.action?sortType=isNew</item>
+        <!-- 礼品专区 -->
+        <item>/goods!getGoodsAppByIt.action?sortType=isGift</item>
+        <!-- 恶搞专区 -->
+        <item>/goods!getGoodsAppByIt.action?sortType=isSpoof</item>
+        <!-- Top热卖 -->
+        <item>/goods!getGoodsAppByIt.action?sortType=isHot</item>
+    </string-array>
+    <!-- 分类名 -->
+    <string-array name="classify_name">
+        <item>避孕套</item>
+        <item>情趣内衣</item>
+        <item>男性道具</item>
+        <item>女性道具</item>
+        <item>调情助兴</item>
+        <item>另类道具</item>
+        <item>同性用品</item>
+        <item>延时喷雾</item>
+    </string-array>
+    <!-- 分类介绍 -->
+    <string-array name="classify_decription">
+        <item>尽情享受爱</item>
+        <item>尽显妖娆妩媚</item>
+        <item>放纵与享乐的情欲之旅</item>
+        <item>变幻无穷的体验</item>
+        <item>更深层的感受</item>
+        <item>野性全开</item>
+        <item>零距离接触</item>
+        <item>让你无负担享受</item>
+    </string-array>
+    <!-- 分类Id（网络连接失败时用） -->
+    <string-array name="classify_id">
+        <!-- 套套 -->
+        <item>ff8080814748d5a101474c50c67e000d</item>
+        <item>ff8080814748d5a101474c511800000f</item>
+        <item>ff8080814748d5a101474c5187700011</item>
+        <item>ff8080814748d5a101474c51cc570013</item>
+        <item>ff8080814748d5a101474c524e0e0015</item>
+        <item>ff8080814748d5a101474c52bc5b0017</item>
+        <item>ff8080814748d5a101474c534dbc0019</item>
+        <item>ff8080814748d5a101474c538ac3001b</item>
+    </string-array>
+    
+    
+	<!-- 支付方式 -->
+	<string-array name="pay_ways">
+	    <!-- 支付宝 -->
+	    <item>8a04bc8b47d8fb940147de2226d40021</item>
+	    <!-- 货到付款 -->
+	    <item>40288183305534f00130554ff4fe0003</item>
+	</string-array>
+	 
+    <!-- 运费 -->
+    <string-array name="trans_pay">
+        <!-- 支付宝10 -->
+        <item>40288186306e677a01306e68d4920000</item>
+        <!-- 支付宝0 -->
+        <item>8a04bc8b480d74e301481022dee20009</item>
+        <!-- 货到付款12 -->
+        <item>8a04bc8b480d74e30148102439c0000a</item>
+        <!-- 货到付款0 -->
+        <item>8a04bc8b480d74e30148102482f3000b</item>
+    </string-array>
+    
+</resources>

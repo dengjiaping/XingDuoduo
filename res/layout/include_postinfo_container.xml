@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <!-- 帖子详情container -->
+
+
+        <!-- 楼主 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:orientation="vertical"
+            android:padding="10dip" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <!-- 头像 -->
+
+                <ImageView
+                    android:id="@+id/iv_postinfo_starter_head"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:src="@drawable/bg_head" />
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <!-- 用户名 -->
+
+                        <TextView
+                            android:id="@+id/tv_postinfo_starter_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="5dip"
+                            android:textColor="@color/color_black2"
+                            android:textSize="@dimen/txt_size_15" />
+                        <!-- 性别 -->
+
+                        <ImageView
+                            android:id="@+id/iv_postinfo_starter_sex"
+                            android:layout_width="20dip"
+                            android:layout_height="20dip"
+                            android:src="@drawable/sex_female" />
+                    </LinearLayout>
+                    <!-- 发表时间 -->
+
+                    <TextView
+                        android:id="@+id/tv_postinfo_starter_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:paddingRight="10dip"
+                        android:textColor="@color/color_black3"
+                        android:textSize="@dimen/txt_size_12" />
+                </LinearLayout>
+                <!-- 回复按钮 -->
+
+                <Button
+                    android:id="@+id/btn_postinfo_starter_reply"
+                    android:layout_width="40dip"
+                    android:layout_height="25dip"
+                    android:background="@drawable/bg_reply" />
+            </LinearLayout>
+            <!-- 标题 -->
+
+            <TextView
+                android:id="@+id/tv_postinfo_starter_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:textColor="@color/color_black2"
+                android:textSize="@dimen/txt_size_15" />
+            <!-- 内容 -->
+
+            <TextView
+                android:id="@+id/tv_postinfo_starter_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dip"
+                android:textColor="@color/color_black3"
+                android:textSize="@dimen/txt_size_12" />
+            <!-- 图片 -->
+
+            <com.xiuman.xingduoduo.view.MyListView
+                android:id="@+id/lv_postinfo_starter_imgs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="5dip"
+                android:listSelector="@android:color/transparent" />
+        </LinearLayout>
+
+        <include layout="@layout/line_match_drawable" />
+        <!-- 回帖列表 -->
+
+        <com.xiuman.xingduoduo.view.MyListView
+            android:id="@+id/lv_postinfo_replys"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:divider="@drawable/line_small"
+            android:dividerHeight="0.1dip"
+            android:listSelector="@color/color_white" />
+    </LinearLayout>
+    <!-- 帖子标签(精化啥的) -->
+
+    <ImageView
+        android:id="@+id/iv_postinfo_tag"
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_bbs_plate_hot" />
+
+</RelativeLayout>

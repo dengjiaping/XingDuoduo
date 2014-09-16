@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 商品评价 -->
+    <!-- 标题栏 -->
+
+    <include layout="@layout/include_title_common" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView
+            android:id="@+id/pulllistview_discuss"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/color_black" />
+
+        <include
+            layout="@layout/network_error"
+            android:visibility="invisible" />
+
+        <RelativeLayout
+            android:id="@+id/rlyt_discuss_null_discuss"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dip"
+                android:gravity="center"
+                android:text="@string/discuss_null"
+                android:textColor="@color/color_black3"
+                android:textSize="@dimen/txt_size_18" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

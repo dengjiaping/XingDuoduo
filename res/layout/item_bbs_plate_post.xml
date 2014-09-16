@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/whole_bg_normal_selector"
+    android:orientation="vertical" >
+
+    <!-- 交流区帖子列表 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip" >
+
+        <!-- 用户头像 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <!-- 头像 -->
+
+            <ImageView
+                android:id="@+id/iv_item_post_plate_post_head"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:src="@drawable/bg_head" />
+
+            <LinearLayout
+                android:layout_marginLeft="10dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <!-- 用户名 -->
+
+                    <TextView
+                        android:id="@+id/tv_item_bbs_plate_post_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5dip"
+                        android:textColor="@color/color_black2"
+                        android:textSize="@dimen/txt_size_15" />
+
+                    <ImageView
+                        android:id="@+id/iv_item_post_plate_post_sex"
+                        android:layout_width="20dip"
+                        android:layout_height="20dip"
+                        android:src="@drawable/sex_female" />
+                </LinearLayout>
+				<!-- 发表时间 -->
+                <TextView
+                    android:id="@+id/tv_item_bbs_plate_post_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="10dip"
+                    android:textColor="@color/color_black3"
+                    android:textSize="@dimen/txt_size_12" />
+            </LinearLayout>
+        </LinearLayout>
+        <!-- 标题 -->
+
+        <TextView
+            android:layout_marginTop="10dip"
+            android:id="@+id/tv_item_bbs_plate_post_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_black2"
+            android:textSize="@dimen/txt_size_15" />
+        <!-- 内容 -->
+
+        <TextView
+            android:id="@+id/tv_item_bbs_plate_post_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:paddingTop="10dip"
+            android:textColor="@color/color_black3"
+            android:textSize="@dimen/txt_size_12" />
+        <!-- 图片列表(3张) -->
+
+        <LinearLayout
+            android:id="@+id/llyt_item_bbs_plate_post_img_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dip" >
+
+            <ImageView
+                android:id="@+id/iv_item_bbs_plate_post_img_1"
+                android:layout_width="0dip"
+                android:layout_height="70dip"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_item_bbs_plate_post_img_2"
+                android:layout_width="0dip"
+                android:layout_height="70dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop" />
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="70dip"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/iv_item_bbs_plate_post_img_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dip"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/tv_item_bbs_plate_post_img_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/color_black3"
+                    android:textColor="@color/color_white"
+                    android:textSize="10dip" />
+            </RelativeLayout>
+        </LinearLayout>
+        <!-- 楼主及回复信息 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:gravity="center_vertical" >
+			<View 
+			    android:layout_weight="1"
+			    android:layout_height="wrap_content"
+			    android:layout_width="0dip"/>
+            <TextView
+                android:id="@+id/tv_item_bbs_plate_post_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_reply_count"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dip"
+                android:textColor="@color/color_black3"
+                android:textSize="@dimen/txt_size_14" />
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 帖子标签(精华，推荐) -->
+
+    <ImageView
+        android:id="@+id/iv_item_bbs_plate_post_tag"
+        android:layout_width="20dip"
+        android:layout_height="20dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside" />
+
+</RelativeLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 用户收货地址管理 -->
+
+    <include layout="@layout/include_title_common2" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/lv_user_addresses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="45dip"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@drawable/line_small"
+            android:dividerHeight="0.2dip"
+            android:fadingEdge="none"
+            android:listSelector="@drawable/whole_bg_selector2"
+            android:scrollbars="none" />
+        <!-- 无收货地址 -->
+
+        <include
+            layout="@layout/include_null_address"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_add_address"
+            android:layout_width="match_parent"
+            android:layout_height="35dip"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="5dip"
+            android:background="@drawable/btn_color_selector"
+            android:gravity="center"
+            android:text="@string/add_address"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/txt_size_15" />
+        <!-- 无网络 -->
+
+        <include
+            layout="@layout/network_error"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+</LinearLayout>

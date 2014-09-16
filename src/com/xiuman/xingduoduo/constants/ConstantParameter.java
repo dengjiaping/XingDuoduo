@@ -1,0 +1,18 @@
+package com.xiuman.xingduoduo.constants;
+
+import com.xiuman.xingduoduo.R;
+
+/**
+ * 
+ * @名称：ConstantParameter.java 
+ * @描述：常量类(用于存放一些常量)
+ * @author danding
+ * @version 2014-6-5
+ */
+public class ConstantParameter {
+	// 商品分类的图标
+	public static int[] posters = new int[] { R.drawable.classify_item_1,
+			R.drawable.classify_item_2, R.drawable.classify_item_3,
+			R.drawable.classify_item_4, R.drawable.classify_item_5,
+			R.drawable.classify_item_6, R.drawable.classify_item_7,R.drawable.classify_item_8 };
+}

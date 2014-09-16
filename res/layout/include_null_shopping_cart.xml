@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlyt_null_cart"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:gravity="center" >
+
+    <!-- 空的购物车 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_null_cart"
+            android:scaleType="matrix" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/cart_tip1"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/txt_size_25" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/cart_tip2"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/txt_size_18" />
+
+        <Button
+            android:id="@+id/btn_go2center"
+            android:layout_width="150dip"
+            android:layout_height="40dip"
+            android:layout_marginTop="15dip"
+            android:background="@drawable/btn_color_selector"
+            android:text="@string/go2center"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/txt_size_18" />
+    </LinearLayout>
+
+</RelativeLayout>

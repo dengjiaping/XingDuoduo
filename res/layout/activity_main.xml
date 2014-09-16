@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 使用Fragment将5个tab放在同一个Activity中 -->
+
+
+    <!-- 包含标题栏的内容部分 -->
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+    </FrameLayout>
+
+    <!-- 底部的按钮tab -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50.5dip"
+        android:background="@android:color/white"
+        android:orientation="vertical" >
+
+        <include layout="@layout/line_match_drawable"/>
+
+        <RadioGroup
+            android:id="@+id/radiogroup_main_bottom_menu"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:checkedButton="@+id/rbtn_shopping_center"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rbtn_shopping_center"
+                style="@style/main_tab_bottom"
+                android:background="@drawable/rbtn_bg_bottom_menu_shopping_center_selector" />
+
+            <RadioButton
+                android:id="@+id/rbtn_calssify"
+                style="@style/main_tab_bottom"
+                android:background="@drawable/rbtn_bg_bottom_classify_selector" />
+
+            <RadioButton
+                android:id="@+id/rbtn_shopping_cart"
+                style="@style/main_tab_bottom"
+                android:background="@drawable/rbtn_bg_bottom_menu_shopping_cart_selector" />
+
+            <RadioButton
+                android:id="@+id/rbtn_communication"
+                style="@style/main_tab_bottom"
+                android:background="@drawable/rbtn_bg_bottom_menu_communication_selector" />
+
+            <RadioButton
+                android:id="@+id/rbtn_me"
+                style="@style/main_tab_bottom"
+                android:background="@drawable/rbtn_bg_bottom_menu_me_selector" />
+        </RadioGroup>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 交流区板块界面 -->
+
+    <include layout="@layout/include_title_bbs_plate" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <!-- 帖子列表 -->
+
+        <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView
+            android:id="@+id/pullsv_posts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <!-- 网络连接错误 -->
+
+        <include
+            layout="@layout/network_error"
+            android:visibility="invisible" />
+        <!-- 暂无帖子 -->
+
+        <include
+            layout="@layout/include_null_post"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+</LinearLayout>

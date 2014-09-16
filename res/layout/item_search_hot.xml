@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dip" >
+
+    <!-- 最近搜索的子项 -->
+
+    <TextView
+        android:id="@+id/tv_top"
+        android:layout_width="20dip"
+        android:layout_height="20dip"
+        android:gravity="center"
+        android:textSize="@dimen/txt_size_12"
+        android:textColor="@color/color_white"
+        android:layout_margin="10dip" />
+    <!-- 搜索关键字 -->
+
+    <TextView
+        android:id="@+id/tv_search_hot_keyword"
+        android:layout_width="wrap_content"
+        android:layout_height="40dip"
+        android:layout_toRightOf="@id/tv_top"
+        android:gravity="center_vertical"
+        android:text="@string/search_recently"
+        android:textColor="@color/color_black"
+        android:textSize="@dimen/txt_size_15" />
+    <!-- 清除图标 -->
+
+</RelativeLayout>

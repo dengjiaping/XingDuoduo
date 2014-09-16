@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dip"
+    android:background="@color/color_mian"
+    android:gravity="center_vertical" >
+
+    <!-- 个人中心界面的标题栏 -->
+
+    <Button
+        android:id="@+id/btn_sweep_2"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:visibility="invisible"
+        android:layout_margin="5dip"
+        android:background="@drawable/bg_btn_sweep" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="2dip"
+        android:background="@drawable/bg_mid_title"
+        android:contentDescription="@string/app_name"
+        android:scaleType="matrix" />
+
+    <Button
+        android:id="@+id/btn_update_info"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dip"
+        android:background="@drawable/bg_btn_update_info" />
+
+</RelativeLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--  -->
+    <!-- 按下 -->
+    <item android:state_pressed="true"><shape>
+            <corners android:bottomLeftRadius="0dip" android:bottomRightRadius="0dip" android:topLeftRadius="0dip" android:topRightRadius="0dip" />
+
+            <gradient android:endColor="@android:color/darker_gray" android:startColor="@android:color/darker_gray" />
+
+        </shape></item>
+    <!-- 正常 -->
+    <item><shape>
+            <corners android:bottomLeftRadius="0dip" android:bottomRightRadius="0dip" android:topLeftRadius="0dip" android:topRightRadius="0dip" />
+
+            <gradient android:endColor="@color/color_bg" android:startColor="@color/color_bg" />
+
+        </shape></item>
+
+</selector>

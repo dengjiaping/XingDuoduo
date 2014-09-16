@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radiogroup_goods_sort"
+    android:layout_width="match_parent"
+    android:layout_height="50dip"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal" >
+
+    <!-- 商品排序(综合、销量、时间、价格) -->
+
+    <RadioButton
+        android:id="@+id/rbtn_classify_sort_multiple"
+        style="@style/main_tab_bottom"
+        android:text="@string/classify_sort_multiple"
+        android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
+        android:textSize="@dimen/txt_size_15" />
+
+    <RadioButton
+        android:id="@+id/rbtn_classify_sort_sales"
+        style="@style/main_tab_bottom"
+        android:text="@string/classify_sort_sales"
+        android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
+        android:textSize="@dimen/txt_size_15" />
+
+    <RadioButton
+        android:id="@+id/rbtn_classify_sort_time"
+        style="@style/main_tab_bottom"
+        android:text="@string/classify_sort_time"
+        android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
+        android:textSize="@dimen/txt_size_15" />
+
+    <RadioButton
+        android:id="@+id/rbtn_classify_sort_price"
+        style="@style/main_tab_bottom"
+        android:text="@string/classify_sort_price"
+        android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
+        android:textSize="@dimen/txt_size_15" />
+
+</RadioGroup>

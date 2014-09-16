@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 帖子详情 -->
+
+    <include layout="@layout/include_title_postinfo" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+
+        <!-- 帖子（顶部为楼主帖子，下面为用户回帖） -->
+
+        <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView
+            android:id="@+id/pullsv_postinfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="40dip"
+            android:fadingEdge="none" />
+
+        <!-- 网络连接错误 -->
+
+        <include
+            layout="@layout/network_error"
+            android:visibility="invisible" />
+        <!-- 暂无帖子 -->
+
+        <include
+            layout="@layout/include_null_post"
+            android:visibility="invisible" />
+
+        <!-- 回帖 -->
+
+        <LinearLayout
+            android:id="@+id/llyt_reply_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal" >
+
+            <include layout="@layout/include_post_reply" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 收货地址选择 -->
+
+    <TextView
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        android:background="@drawable/vertical_top_bg_selector"
+        android:padding="10dip"
+        android:text="@string/user_receipt_address"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/txt_size_15" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dip"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/color_blue"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <!-- 省 -->
+
+        <com.xiuman.xingduoduo.view.wheel.WheelView
+            android:id="@+id/wheel_dialog_address_pro"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:fadingEdge="vertical"
+            android:gravity="center"
+            android:requiresFadingEdge="none"
+            android:scrollbars="none" />
+        <!-- 市 -->
+
+        <com.xiuman.xingduoduo.view.wheel.WheelView
+            android:id="@+id/wheel_dialog_address_city"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:fadingEdge="none"
+            android:fadingEdgeLength="0dip"
+            android:gravity="center"
+            android:scrollbars="none" />
+        <!-- 区 -->
+
+        <com.xiuman.xingduoduo.view.wheel.WheelView
+            android:id="@+id/wheel_dialog_address_area"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:fadingEdge="none"
+            android:gravity="center"
+            android:scrollbars="none" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/line_solid" />
+    <!-- 确定、取消 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_dialog_address_cancel"
+            android:layout_width="0dip"
+            android:layout_height="40dip"
+            android:layout_weight="1"
+            android:background="@drawable/horizontal_bottom_left_bg_selector"
+            android:text="@string/pop_cancel"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/txt_size_15" />
+
+        <Button
+            android:id="@+id/btn_dialog_address_sure"
+            android:layout_width="0dip"
+            android:layout_height="40dip"
+            android:layout_weight="1"
+            android:background="@drawable/horizontal_bottom_right_bg_selector"
+            android:text="@string/pop_over"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/txt_size_15" />
+    </LinearLayout>
+
+</LinearLayout>

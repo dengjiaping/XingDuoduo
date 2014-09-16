@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dip"
+    android:background="@color/color_mian"
+    android:orientation="vertical" >
+
+    <!-- 交流板块标题栏 -->
+
+    <Button
+        android:id="@+id/btn_bbs_back"
+        android:layout_width="36dip"
+        android:layout_height="36dip"
+        android:layout_margin="7dip"
+        android:background="@drawable/bg_btn_back" />
+
+
+        <TextView
+            android:id="@+id/tv_bbs_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_receipt_address_manager"
+            android:layout_centerInParent="true"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/txt_size_18" />
+        <!-- pop显示与隐藏指示
+
+        <ImageSwitcher
+            android:id="@+id/is_bbs_indicator"
+            android:layout_width="20dip"
+            android:layout_height="20dip" >
+
+            <ImageView
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_arrow_down_purple" />
+
+            <ImageView
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_arrow_up_purple" />
+        </ImageSwitcher>
+    </LinearLayout>
+ -->
+    <Button
+        android:id="@+id/btn_bbs_right"
+        android:layout_width="36dip"
+        android:layout_height="36dip"
+        android:layout_margin="7dip"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_post_host_n" />
+
+</RelativeLayout>

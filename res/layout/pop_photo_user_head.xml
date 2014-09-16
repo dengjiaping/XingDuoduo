@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <!-- 弹出窗（头像改变） -->
+
+    <LinearLayout
+        android:id="@+id/llyt_pop_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8.0dip"
+        android:layout_marginRight="8.0dip"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+		<!-- 相册选择 -->
+        <Button
+            android:id="@+id/btn_pop_photo_album"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/horizontal_mid_bg_selector"
+            android:text="@string/pop_album"
+            android:padding="10dip"
+            android:textColor="@color/color_red"
+            android:textSize="@dimen/txt_size_18" />
+
+        <include layout="@layout/line_match"/>
+		<!-- 拍照 -->
+        <Button
+            android:id="@+id/btn_pop_photo_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:background="@drawable/horizontal_mid_bg_selector"
+            android:text="@string/pop_camera"
+            android:textColor="@color/color_red"
+            android:textSize="@dimen/txt_size_18" />
+		<!-- 取消 -->
+        <Button
+            android:id="@+id/btn_pop_photo_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10.0dip"
+            android:layout_marginTop="10.0dip"
+            android:padding="10dip"
+            android:background="@drawable/horizontal_mid_bg_selector"
+            android:text="@string/pop_cancel"
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/txt_size_18" />
+    </LinearLayout>
+
+</RelativeLayout>

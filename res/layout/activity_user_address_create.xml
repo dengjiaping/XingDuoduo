@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 新建用户收货地址界面 -->
+
+    <include
+        android:id="@+id/title_address"
+        layout="@layout/include_title_user_address" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_address"
+        android:fadingEdge="none"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <!-- 所在地区 -->
+
+            <LinearLayout
+                android:id="@+id/llyt_create_user_receipt_address"
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_receipt_address"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <TextView
+                    android:id="@+id/tv_create_user_receipt_address"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_user_receipt_address"
+                    android:paddingLeft="5dip"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/line_solid" />
+            <!-- 详细地址 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_receipt_address_detail"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <EditText
+                    android:id="@+id/et_create_user_receipt_address_detail"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_input_register_bg"
+                    android:hint="@string/hint_user_receipt_address_detail"
+                    android:maxLines="3"
+                    android:paddingLeft="5dip"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/line_solid" />
+            <!-- 收货人 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="收  货  人:"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <EditText
+                    android:id="@+id/et_create_user_receipt_name"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_input_register_bg"
+                    android:hint="@string/hint_user_receipt_name"
+                    android:paddingLeft="5dip"
+                    android:singleLine="true"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/line_solid" />
+            <!-- 手机号码 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_receipt_phone"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <EditText
+                    android:id="@+id/et_create_user_receipt_phone"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_input_register_bg"
+                    android:hint="@string/hint_user_receipt_phone"
+                    android:inputType="phone"
+                    android:paddingLeft="5dip"
+                    android:singleLine="true"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/line_solid" />
+            <!-- 邮编 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_receipt_ems"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <EditText
+                    android:id="@+id/et_create_user_receipt_ems"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_input_register_bg"
+                    android:hint="@string/hint_user_receipt_ems"
+                    android:inputType="number"
+                    android:paddingLeft="5dip"
+                    android:singleLine="true"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/line_solid" />
+            
+            <Button
+                android:id="@+id/btn_create_user_delete_address"
+                android:layout_width="match_parent"
+                android:layout_margin="20dip"
+                android:layout_height="50dip"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/btn_color_selector"
+                android:gravity="center"
+                android:padding="10dip"
+                android:text="@string/save_address"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/txt_size_18" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

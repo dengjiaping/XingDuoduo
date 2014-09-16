@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 标题栏 -->
+
+    <include layout="@layout/include_title_1" />
+    <!-- 商品分类界面 -->
+
+    <RelativeLayout
+        android:id="@+id/llyt_calssify"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <GridView
+            android:id="@+id/gridview_good_classify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="@android:color/transparent"
+            android:padding="15dip"
+            android:verticalSpacing="20dip"
+            android:horizontalSpacing="20dip"
+            android:fadingEdge="none"
+            android:gravity="center"
+            android:scrollbars="none"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="2">
+        </GridView>
+    </RelativeLayout>
+
+</LinearLayout>

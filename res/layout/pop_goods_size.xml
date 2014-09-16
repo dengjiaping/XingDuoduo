@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/line_match" />
+    <!-- 商品规格 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <!-- 商品图 -->
+
+        <ImageView
+            android:id="@+id/iv_pop_goods_psoter"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dip"
+            android:orientation="vertical" >
+
+            <!-- 商品价格 -->
+
+            <TextView
+                android:id="@+id/tv_pop_goods_price"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_red"
+                android:textSize="@dimen/txt_size_15" />
+            <!-- 商品规格 -->
+
+            <TextView
+                android:id="@+id/tv_pop_goods_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_goods_standard"
+                android:textColor="@color/color_black3"
+                android:textSize="@dimen/txt_size_12" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_pop_cancel"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:background="@drawable/bg_btn_cancel"
+            android:gravity="center" />
+    </LinearLayout>
+    <!-- 规格详细信息 -->
+
+    <include layout="@layout/line_match" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="250dip"
+        android:background="@color/color_bg"
+        android:fadingEdge="none"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:id="@+id/llyt_pop_goods_size_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dip" >
+
+            <!-- 规格列表 -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
+                android:layout_marginTop="10dip"
+                android:text="@string/standard"
+                android:textColor="@color/color_black3"
+                android:textSize="@dimen/txt_size_15" />
+
+            <include layout="@layout/line_match" />
+
+            <com.xiuman.xingduoduo.view.SingleSelectCheckBoxs
+                android:id="@+id/sscb_pop_size"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dip"
+                android:layout_marginTop="20dip" />
+
+            <include layout="@layout/line_match" />
+            <!-- 购买数量 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dip"
+                android:layout_marginTop="20dip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/number"
+                    android:textColor="@color/color_black3"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal" >
+
+                    <!-- 减 -->
+
+                    <ImageView
+                        android:id="@+id/ivbtn_pop_minus"
+                        android:layout_width="35dip"
+                        android:layout_height="35dip"
+                        android:background="@drawable/shopping_cart_edit_choose_min_btn" />
+                    <!-- 商品数 -->
+
+                    <EditText
+                        android:id="@+id/et_pop_goods_number"
+                        android:layout_width="55dip"
+                        android:layout_height="35dip"
+                        android:background="@drawable/shopping_cart_edit_choose_num_bg"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:padding="3dip"
+                        android:singleLine="true" />
+                    <!-- 加 -->
+
+                    <ImageView
+                        android:id="@+id/ivbtn_pop_add"
+                        android:layout_width="35dip"
+                        android:layout_height="35dip"
+                        android:background="@drawable/shopping_cart_edit_choose_sum_btn" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2dip"
+                android:layout_marginBottom="20dip"
+                android:background="@color/color_black_line" >
+            </View>
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/line_match" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="@color/color_white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="25dip"
+        android:paddingRight="25dip" >
+
+        <!-- 加入购物车 -->
+
+        <Button
+            android:id="@+id/btn_pop_goods_add2cart"
+            android:layout_width="100dip"
+            android:layout_height="34dip"
+            android:layout_margin="8dip"
+            android:background="@drawable/btn_color_selector"
+            android:text="@string/goods_sure"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/txt_size_14" />
+    </LinearLayout>
+
+</LinearLayout>

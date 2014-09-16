@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
+    <!-- 交流界面 -->
+    <!-- 标题栏 -->
+
+    <include layout="@layout/include_title_2" />
+
+    <ScrollView
+        android:id="@+id/sv_bbs"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:fadingEdge="none"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:id="@+id/llyt_communication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <!-- 论坛图片 -->
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager_bbs_ad"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dip" />
+
+                <!-- 指示器 -->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dip"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center_vertical" >
+
+                    <TextView
+                        android:id="@+id/tv_bbs_ad_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/txt_size_18"
+                        android:textStyle="bold"
+                        android:visibility="invisible" />
+
+                    <com.xiuman.xingduoduo.view.indicator.CirclePageIndicator
+                        android:id="@+id/indicator_bbs_ad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="10dip" />
+                </RelativeLayout>
+            </RelativeLayout>
+            <!-- 板块 -->
+			 <include layout="@layout/line_match" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:text="@string/communication_plate"
+                android:textColor="@color/color_black3"
+                android:textSize="@dimen/txt_size_18" />
+
+            <include layout="@layout/line_match" />
+            <!-- 板块列表 -->
+
+            <LinearLayout
+                android:id="@+id/llyt_bbs_pate_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_white"
+                android:orientation="vertical" >
+
+                <com.xiuman.xingduoduo.view.MyListView
+                    android:id="@+id/lv_bbs_plates"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:divider="@color/color_black_line"
+                    android:dividerHeight="0.2dip"
+                    android:fadingEdge="none"
+                    android:listSelector="@drawable/horizontal_mid_bg_selector"
+                    android:scrollbars="none" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

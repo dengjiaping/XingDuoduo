@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dip"
+    android:background="@color/color_mian"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <!-- 搜索界面的标题栏 -->
+
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_weight="1" >
+		<!-- 输入框 -->
+        <EditText
+            android:id="@+id/et_search_input_keyword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dip"
+            android:background="@drawable/et_input_search_keyword_bg"
+            android:drawableLeft="@drawable/bg_txt_search_tag"
+            android:hint="@string/search_hint"
+            android:paddingRight="30dip"
+            android:singleLine="true"
+            android:textSize="@dimen/txt_size_15" />
+        <!-- 清除按钮 -->
+        <Button 
+            android:id="@+id/btn_clear_search_input"
+            android:layout_margin="5dip"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:visibility="invisible"
+            android:background="@drawable/bar_search_clear_selector"/>
+    </RelativeLayout>
+	<!-- 搜索、取消按钮 -->
+    <Button
+        android:id="@+id/btn_start_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:background="@android:color/transparent"
+        android:text="@string/search_cancel"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/txt_size_18" />
+
+</LinearLayout>

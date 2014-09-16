@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_single_select_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_bg"
+    android:orientation="horizontal"
+    android:padding="8dip" >
+	<!-- 商品规格选择 -->
+    <CheckBox
+        android:id="@+id/single_select_chk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/goods_size_bg_selector"
+        android:button="@null"
+        android:gravity="center"
+        android:paddingBottom="10dip"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
+        android:paddingTop="10dip"
+        android:textColor="@color/goods_size_color_selector"
+        android:textSize="@dimen/txt_size_15" />
+
+</LinearLayout>

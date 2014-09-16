@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dialog专用 -->
+    <!-- 购物车界面移除商品 -->
+    <string name="dialog_shopping_cart_title">移除商品</string>
+    <string name="dialog_shopping_cart_message">您确定要移除该商品吗？</string>
+    
+    <!-- 订单历史界面删除订单 -->
+    <string name="dialog_order_history_title">删除订单</string>
+    <string name="dialog_order_history_message">确认删除订单？删除后将无法恢复！</string>
+    
+    <!-- 拨打客服热线 -->
+    <string name="dialog_call_kefu_title">拨打客服热线</string>
+    <string name="dialog_call_kefu_message">是否拨打性多多客服热线？</string>
+    
+    <!-- 加载进度框 -->
+    <string name="loading">请稍候...</string>
+</resources>

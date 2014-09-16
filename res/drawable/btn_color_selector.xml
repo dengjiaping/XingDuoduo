@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- 背景颜色为主。。 -->
+	<!-- 按下 -->
+    <item android:state_pressed="true"><shape>
+            <corners android:bottomLeftRadius="5dip" android:bottomRightRadius="5dip" android:topLeftRadius="5dip" android:topRightRadius="5dip" />
+
+
+            <gradient android:endColor="@color/color_mian2" android:startColor="@color/color_mian2" />
+        </shape></item>
+    <!-- 正常 -->
+    <item>
+        <shape>
+             <corners android:bottomLeftRadius="5dip" android:bottomRightRadius="5dip" android:topLeftRadius="5dip" android:topRightRadius="5dip" />
+
+
+            <gradient android:endColor="@color/color_mian" android:startColor="@color/color_mian" />
+        </shape>
+    </item>
+    
+</selector>

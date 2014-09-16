@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 登录按钮 -->
+    <item><shape>
+            <corners android:bottomLeftRadius="17dip" android:bottomRightRadius="17dip" android:topLeftRadius="17dip" android:topRightRadius="17dip" />
+
+            <gradient android:endColor="@color/color_white" android:startColor="@color/color_white" />
+
+            <stroke android:width="1dip" android:color="@color/color_mian" />
+        </shape></item>
+
+</selector>

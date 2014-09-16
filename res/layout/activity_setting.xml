@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 设置界面 -->
+    <!-- 标题栏 -->
+
+    <include layout="@layout/include_title_common" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <!-- 关于 -->
+
+            <LinearLayout
+                android:id="@+id/llyt_setting_about"
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/whole_bg_selector"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="8dip" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg_setting_about" />
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="8dip"
+                    android:text="@string/setting_about"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_18" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_me_menu_right" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match_drawable" />
+            <!-- 清除缓存 -->
+
+            <LinearLayout
+                android:id="@+id/llyt_setting_clear_cache"
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/whole_bg_selector"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="8dip" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg_setting_clear_cache" />
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="8dip"
+                    android:text="@string/setting_clear_cache"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_18" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_me_menu_right" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match_drawable" />
+            
+            
+             <!-- 检查更新 变更为评分-->
+
+            <LinearLayout
+                android:id="@+id/llyt_setting_update"
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/whole_bg_selector"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="8dip" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg_me_menu_update_app" />
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="8dip"
+                    android:text="@string/setting_rate"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_18" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_me_menu_right" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match_drawable" />
+            <!-- 应用推荐 -->
+
+            <LinearLayout
+                android:id="@+id/llyt_setting_app_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/whole_bg_selector"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="8dip" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg_setting_app_recommend" />
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="8dip"
+                    android:text="@string/setting_app_recommend"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_18" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_me_menu_right" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match_drawable" />
+
+            <!-- 使用条例 -->
+
+            <LinearLayout
+                android:id="@+id/llyt_setting_protocol"
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/whole_bg_selector"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="8dip" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg_setting_protocol" />
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="8dip"
+                    android:text="@string/setting_protocol"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_18" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_me_menu_right" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match_drawable" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

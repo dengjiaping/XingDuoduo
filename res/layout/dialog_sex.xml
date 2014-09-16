@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dip"
+    android:layout_height="200dip"
+    android:orientation="vertical" >
+
+    <!-- 用户性别选择 -->
+
+    <TextView
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:background="@drawable/vertical_top_bg_selector"
+        android:padding="10dip"
+        android:text="@string/user_sex"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/txt_size_15" />
+
+    <RadioGroup
+        android:id="@+id/sex_type_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/rbtn_userinfo_user_sex_male"
+            android:layout_width="match_parent"
+            android:layout_height="40dip"
+            android:button="@null"
+            android:drawableRight="@drawable/cb_selector_small"
+            android:padding="10dip"
+            android:text="@string/test_sex"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/line_solid" />
+
+        <RadioButton
+            android:id="@+id/rbtn_userinfo_user_sex_female"
+            android:layout_width="match_parent"
+            android:layout_height="40dip"
+            android:button="@null"
+            android:drawableRight="@drawable/cb_selector_small"
+            android:padding="10dip"
+            android:text="@string/test_sex1"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="14sp" />
+    </RadioGroup>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/line_solid" />
+
+    <Button
+        android:id="@+id/btn_user_info_user_sex_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:background="@drawable/vertical_bottom_bg_selector"
+        android:text="@string/pop_cancel"
+        android:textColor="@color/color_black"
+        android:textSize="@dimen/txt_size_15" />
+
+</LinearLayout>

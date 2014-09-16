@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/include_title_user_info" />
+    <!-- 用户登录之后可打开的用户信息界面 -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fadingEdge="none"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <!-- 头像 -->
+
+            <RelativeLayout
+                android:id="@+id/rlyt_userinfo_user_head"
+                android:layout_width="match_parent"
+                android:layout_height="75dip"
+                android:background="@drawable/horizontal_mid_bg_selector"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dip"
+                android:paddingRight="15dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="@string/user_head"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_14" />
+
+                <com.xiuman.xingduoduo.view.CircleImageView
+                    android:id="@+id/iv_userinfo_user_head"
+                    android:layout_width="70dip"
+                    android:layout_height="70dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dip"
+                    android:background="@drawable/bg_head" />
+
+                <ImageView
+                    android:layout_width="10dip"
+                    android:layout_height="10dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_right_tag" />
+            </RelativeLayout>
+
+            <include layout="@layout/line_match" />
+            <!-- 会员名 -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:background="@drawable/horizontal_mid_bg_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dip"
+                android:paddingRight="15dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_name"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_14" />
+
+                <TextView
+                    android:id="@+id/tv_userinfo_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/test_login_name"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_14" />
+            </RelativeLayout>
+
+            <include layout="@layout/line_match" />
+            <!-- 会员信息 -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:background="@drawable/horizontal_mid_bg_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dip"
+                android:paddingRight="15dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_rank"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_14" />
+
+                <TextView
+                    android:id="@+id/tv_userinfo_user_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/test_user_name"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_14" />
+            </RelativeLayout>
+
+            <include layout="@layout/line_match" />
+
+            <!-- 创建时间 -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:background="@drawable/horizontal_mid_bg_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dip"
+                android:paddingRight="15dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_create"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_14" />
+
+                <TextView
+                    android:id="@+id/tv_userinfo_user_createdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/test_user_name"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_14" />
+            </RelativeLayout>
+
+            <include layout="@layout/line_match" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dip"
+                android:background="@color/color_bg" />
+
+            <include layout="@layout/line_match" />
+            <!-- 性别 -->
+
+            <RelativeLayout
+                android:id="@+id/rlyt_userinfo_user_sex"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:background="@drawable/horizontal_mid_bg_selector"
+                android:clickable="true"
+                android:paddingLeft="15dip"
+                android:paddingRight="15dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_sex"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_14" />
+
+                <TextView
+                    android:id="@+id/tv_userinfo_user_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dip"
+                    android:text="@string/test_sex"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_14" />
+
+                <ImageView
+                    android:layout_width="10dip"
+                    android:layout_height="10dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_right_tag" />
+            </RelativeLayout>
+
+            <include layout="@layout/line_match" />
+            <!-- 邮箱 -->
+
+            <RelativeLayout
+                android:id="@+id/rlyt_userinfo_user_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:background="@drawable/horizontal_mid_bg_selector"
+                android:clickable="true"
+                android:paddingLeft="15dip"
+                android:paddingRight="15dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_email"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_14" />
+
+                <TextView
+                    android:id="@+id/tv_userinfo_user_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dip"
+                    android:text="@string/test_sex"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_14" />
+
+                <ImageView
+                    android:layout_width="10dip"
+                    android:layout_height="10dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_right_tag" />
+            </RelativeLayout>
+
+            <include layout="@layout/line_match" />
+            <!-- 修改用户信息 -->
+
+            <Button
+                android:id="@+id/btn_userinfo_user_update"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:background="@drawable/horizontal_mid_bg_selector"
+                android:drawableRight="@drawable/ic_right_tag"
+                android:gravity="left|center_vertical"
+                android:padding="15dip"
+                android:text="@string/user_update"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/txt_size_14" />
+
+            <include layout="@layout/line_match" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dip"
+                android:background="@color/color_bg" />
+            <!-- 收货地址 -->
+
+            <include layout="@layout/line_match" />
+
+            <Button
+                android:id="@+id/btn_userinfo_user_address"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:background="@drawable/horizontal_mid_bg_selector"
+                android:drawableRight="@drawable/ic_right_tag"
+                android:gravity="left|center_vertical"
+                android:padding="15dip"
+                android:text="@string/user_address"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/txt_size_14" />
+
+            <include layout="@layout/line_match" />
+            
+            <Button
+                android:id="@+id/btn_userinfo_exit"
+                android:layout_width="match_parent"
+                android:layout_margin="20dip"
+                android:layout_height="50dip"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/btn_color_selector"
+                android:gravity="center"
+                android:padding="10dip"
+                android:text="@string/user_exit"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/txt_size_18" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

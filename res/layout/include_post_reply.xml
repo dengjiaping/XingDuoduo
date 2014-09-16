@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_bg"
+    android:minHeight="40dip"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
+    <!-- 底部回帖输入框+回复按钮 -->
+
+    <include layout="@layout/line_match_drawable" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="5dip" >
+
+        <!-- 回复内容 -->
+
+        <EditText
+            android:id="@+id/et_reply"
+            android:layout_width="0dip"
+            android:padding="5dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/et_input_register_bg"
+            android:hint="@string/postinfo_reply_hint"
+            android:textColor="@color/color_black3"
+            android:textSize="@dimen/txt_size_14" />
+
+        <Button
+            android:id="@+id/btn_reply"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:focusable="true"
+            android:background="@null"
+            android:text="@string/postinfo_reply"
+            android:textColor="@color/reply_color_selector" />
+    </LinearLayout>
+
+</LinearLayout>

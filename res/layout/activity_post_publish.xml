@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 发帖界面 -->
+    <!-- 标题栏 -->
+
+    <include layout="@layout/include_title_common2" />
+
+    <EditText
+        android:id="@+id/et_post_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/whole_bg_normal_selector"
+        android:hint="@string/post_hint_title"
+        android:padding="10dip"
+        android:focusable="false"
+        android:singleLine="true"
+        android:textColor="@color/color_black3"
+        android:textSize="@dimen/txt_size_14" />
+
+    <EditText
+        android:id="@+id/et_post_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/whole_bg_normal_selector"
+        android:gravity="top"
+        android:focusable="false"
+        android:hint="@string/post_hint_content"
+        android:minLines="3"
+        android:padding="10dip"
+        android:textColor="@color/color_black3"
+        android:textSize="@dimen/txt_size_14" />
+
+    <!-- 图片 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/whole_bg_normal_selector"
+        android:orientation="vertical"
+        android:padding="10dip" >
+
+        <com.xiuman.xingduoduo.view.MyGridView
+            android:id="@+id/gv_post_imgs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="5dip"
+            android:numColumns="4"
+            android:verticalSpacing="5dip" />
+    </LinearLayout>
+</LinearLayout>

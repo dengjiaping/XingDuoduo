@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 购物车界面 -->
+    <!-- 标题栏 -->
+
+    <LinearLayout
+        android:id="@+id/lv_cart_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <include layout="@layout/include_title_1" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/lv_cart_title" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dip" >
+
+            <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView
+                android:id="@+id/pull_shopping_cart_goods"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fastScrollEnabled="true" />
+
+            <LinearLayout
+                android:id="@+id/llyt_cart_null"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                android:orientation="vertical" >
+
+                <include
+                    android:id="@+id/include3"
+                    layout="@layout/include_null_shopping_cart" />
+            </LinearLayout>
+            <!-- 无网络 -->
+            <include layout="@layout/network_error"
+                android:visibility="invisible"/>
+        </FrameLayout>
+
+        <!-- 结算 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_white"
+            android:orientation="vertical" >
+
+            <include layout="@layout/include_balance" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

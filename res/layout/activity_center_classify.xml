@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 分类商品展示界面 -->
+    <!-- 标题栏 -->
+
+    <include layout="@layout/include_title_common" />
+
+    <!-- 商品列表 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshGridView
+            android:id="@+id/pullgridview_center_classify_goods_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg"
+            android:cacheColorHint="@android:color/transparent"
+            android:fadingEdge="none"
+            android:listSelector="@drawable/whole_bg_selector"
+            android:numColumns="2" />
+
+        <include layout="@layout/network_error"
+            android:visibility="invisible" />
+        <include layout="@layout/include_null_goods"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+</LinearLayout>

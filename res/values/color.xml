@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 应用风格主题颜色(粉红原) -->
+    <color name="color_mian_old">#E9007B</color>
+    <!-- 应用风格主题颜色(粉红现) -->
+    <color name="color_mian">#fd71a3</color>
+    <!-- 稍深 -->
+    <color name="color_mian2">#DB1060</color>
+	 <!-- title背景色 -->
+    <color name="color_title_back">#fd71a3</color>
+    <!-- 风格背景淡灰 -->
+    <color name="color_bg">#F0F0F0</color>
+    <!-- 风格背景稍深 -->
+    <color name="color_bg_p">#E1E1E1</color>
+    
+    <!-- 白色 -->
+    <color name="color_white">@android:color/white</color>
+
+    <!-- 黑色2纯正 -->
+    <color name="color_black2">#595857</color>
+    <!-- 灰色 -->
+    <color name="color_black">#8C8C8C</color>
+    <!-- 暗黑色 -->
+    <color name="color_darkgray">#a9a9a9</color>
+	<!-- 黑色3（介于纯正与暗黑之间） -->
+	<color name="color_black3">#646464</color>
+    <!-- 黑色线条 -->
+    <color name="color_black_line">#CBCAC9</color>
+	
+	
+    <!-- 红色 -->
+    <color name="color_red">#FF3933</color>
+    <!-- 红色按下 -->
+    <color name="color_red2">#CC2E29</color>
+    
+    <!-- 蓝色 -->
+    <color name="color_blue">#ff007aff</color>
+    <!-- 蓝色2（订单页收货地址背景） -->
+    <color name="color_blue_grey">#5C6B85</color>
+    
+    <!-- 二维码扫描 -->
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+
+    
+    <!-- 图案解锁 -->
+    <color name="gesture_background">#ff303237</color>
+    
+    <!-- 客服电话颜色 -->
+    <color name="color_red_tel">#F1337D</color>
+    
+    
+    
+    <!-- 主页文字颜色(底部四大模块) -->
+    <!-- 热卖文字1，2  -->
+    <color name="color_center_1">#FFAEAD</color>
+    <!-- 模块3 -->
+    <color name="color_center_3">#FFA5F5</color>
+    <!-- 模块4 -->
+    <color name="color_center_4">#E86AE9</color>
+</resources>

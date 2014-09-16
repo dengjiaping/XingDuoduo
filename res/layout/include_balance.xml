@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llyt_balance"
+    android:layout_width="match_parent"
+    android:layout_height="50dip"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_balance_bottom"
+    android:layout_gravity="bottom"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip"
+    android:orientation="horizontal" >
+
+    <!-- 购物车结算 -->
+
+    <CheckBox
+        android:id="@+id/cb_balance"
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:background="@drawable/cb_selector"
+        android:button="@null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:textColor="@android:color/darker_gray"
+        android:text="@string/cart_select_all"
+        android:textSize="@dimen/txt_size_15" />
+
+    <TextView
+        android:id="@+id/tv_balance_total_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:text="@string/cart_account_all"
+        android:textColor="@color/color_red"
+        android:textSize="@dimen/txt_size_15" />
+    <!-- 商品总价 -->
+
+    <TextView
+        android:id="@+id/tv_prices"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/cart_test_money"
+        android:textColor="@color/color_red"
+        android:textSize="@dimen/txt_size_15" />
+
+    <!-- 结算按钮 -->
+
+    <Button
+        android:id="@+id/btn_balance"
+        android:layout_width="100dip"
+        android:layout_height="35dip"
+        android:background="@drawable/btn_color_selector"
+        android:text="@string/cart_btn_balance"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/txt_size_12" />
+
+</LinearLayout>
