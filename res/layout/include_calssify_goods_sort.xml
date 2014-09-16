@@ -12,6 +12,7 @@
     <RadioButton
         android:id="@+id/rbtn_classify_sort_multiple"
         style="@style/main_tab_bottom"
+        android:button="@drawable/icon_zonghe"
         android:text="@string/classify_sort_multiple"
         android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
         android:textSize="@dimen/txt_size_15" />
@@ -19,6 +20,7 @@
     <RadioButton
         android:id="@+id/rbtn_classify_sort_sales"
         style="@style/main_tab_bottom"
+        android:button="@drawable/icon_xiaoliang"
         android:text="@string/classify_sort_sales"
         android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
         android:textSize="@dimen/txt_size_15" />
@@ -26,6 +28,7 @@
     <RadioButton
         android:id="@+id/rbtn_classify_sort_time"
         style="@style/main_tab_bottom"
+        android:button="@drawable/icon_shijian"
         android:text="@string/classify_sort_time"
         android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
         android:textSize="@dimen/txt_size_15" />
@@ -33,6 +36,7 @@
     <RadioButton
         android:id="@+id/rbtn_classify_sort_price"
         style="@style/main_tab_bottom"
+        android:button="@drawable/icon_jiage"
         android:text="@string/classify_sort_price"
         android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
         android:textSize="@dimen/txt_size_15" />
