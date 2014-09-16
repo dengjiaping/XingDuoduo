@@ -41,7 +41,7 @@
     <string name="setting_clear_cache">清除缓存</string>
     <string name="setting_app_recommend">应用</string>
     <string name="setting_protocol">使用条例</string>
-    <string name="setting_rate">评分</string>
+    <string name="setting_rate">检查更新</string>
     
     <!-- 用户信息界面 -->
     <string name="user_info">个人资料</string>

@@ -1,8 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_about"
     android:orientation="vertical" >
-    
-
-</LinearLayout>
+    <include layout="@layout/include_title_common"/>
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_gravity="center"
+	    android:layout_marginBottom="150dip"
+	    android:gravity="center"
+	    android:orientation="vertical">
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="@dimen/txt_size_16"
+	        android:textColor="@color/color_black3"
+	        android:text="市场商务合作关系"/>
+	    <TextView 
+	        android:layout_marginTop="10dip"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="@dimen/txt_size_16"
+	        android:textColor="@color/color_black3"
+	        android:text="EMAIL:wl@xingduoduo.com"/>
+	    <TextView
+	        android:layout_marginTop="10dip" 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="@dimen/txt_size_16"
+	        android:textColor="@color/color_black3"
+	        android:text="QQ交流:1366838018"/>
+	    <TextView 
+	        android:layout_marginTop="10dip"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="@dimen/txt_size_16"
+	        android:textColor="@color/color_black3"
+	        android:text="微信公众号:xinduoduo1234@sina.com"/>
+	</LinearLayout>
+</RelativeLayout>

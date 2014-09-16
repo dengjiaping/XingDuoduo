@@ -50,7 +50,7 @@ public class ProtocolActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void initUI() {
 		btn_right.setVisibility(View.INVISIBLE);
-		tv_title.setText("性多多服务协议");
+		tv_title.setText("使用条例");
 	}	
 
 	@Override

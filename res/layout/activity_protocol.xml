@@ -9,17 +9,11 @@
 
     <include layout="@layout/include_title_common" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fadingEdge="none"
-        android:scrollbars="none" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-        </LinearLayout>
-    </ScrollView>
+        android:background="@drawable/bg_protocol"
+        android:orientation="vertical" >
+    </LinearLayout>
 
 </LinearLayout>

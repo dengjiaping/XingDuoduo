@@ -271,7 +271,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
-
+        <!-- 关于 -->
+         <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.AboutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" >
+		</activity>
         <!--支付模块-->
         <!-- 支付宝 -->
         <activity

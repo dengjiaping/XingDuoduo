@@ -1,5 +1,6 @@
 package com.xiuman.xingduoduo.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -97,7 +98,9 @@ public class SettingActivity extends Base2Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.llyt_setting_about://关于
-			
+			Intent intent_about = new Intent(SettingActivity.this,AboutActivity.class);
+			startActivity(intent_about);
+			overridePendingTransition(R.anim.translate_horizontal_start_in, R.anim.translate_horizontal_start_out);
 			break;
 		case R.id.llyt_setting_clear_cache://清除缓存
 			
@@ -106,7 +109,9 @@ public class SettingActivity extends Base2Activity implements OnClickListener {
 			
 			break;
 		case R.id.llyt_setting_protocol://使用条例
-			
+			Intent intent_protocol = new Intent(SettingActivity.this,ProtocolActivity.class);
+			startActivity(intent_protocol);
+			overridePendingTransition(R.anim.translate_horizontal_start_in, R.anim.translate_horizontal_start_out);
 			break;
 		case R.id.llyt_setting_update://检查更新
 			UmengUpdateAgent.update(SettingActivity.this);
