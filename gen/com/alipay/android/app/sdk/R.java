@@ -54,9 +54,9 @@ public final class R {
 		public static final int webView = 0x7f0900b3;
 	}
 	public static final class layout {
-		public static final int alipay = 0x7f030020;
-		public static final int alipay_title = 0x7f030021;
-		public static final int dialog_alert = 0x7f030022;
+		public static final int alipay = 0x7f030021;
+		public static final int alipay_title = 0x7f030022;
+		public static final int dialog_alert = 0x7f030023;
 	}
 	public static final class string {
 		public static final int cancel = 0x7f070002;
