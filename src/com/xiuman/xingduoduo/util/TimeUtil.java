@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshGridView;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView;
 
 /**
  * @名称：TimeUtil.java
@@ -72,6 +73,15 @@ public class TimeUtil {
 	 * @date：2014-6-26
 	 */
 	public static void setLastUpdateTime2(PullToRefreshGridView pull) {
+		String text = formatDateTime(System.currentTimeMillis());
+		pull.setLastUpdatedLabel(text);
+	}
+	/**
+	 * @描述：设置刷新时间
+	 * @param pull
+	 * 2014-9-17
+	 */
+	public static void setLastUpdateTime3(PullToRefreshScrollView pull) {
 		String text = formatDateTime(System.currentTimeMillis());
 		pull.setLastUpdatedLabel(text);
 	}

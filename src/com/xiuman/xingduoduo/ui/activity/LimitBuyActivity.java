@@ -1,6 +1,11 @@
 package com.xiuman.xingduoduo.ui.activity;
 
+import java.util.ArrayList;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -15,7 +20,16 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.adapter.LimitBuyGiftListViewAdapter;
+import com.xiuman.xingduoduo.app.AppConfig;
+import com.xiuman.xingduoduo.app.URLConfig;
+import com.xiuman.xingduoduo.callback.TaskCenterClassifyGoodsBack;
+import com.xiuman.xingduoduo.model.ActionValue;
+import com.xiuman.xingduoduo.model.GoodsOne;
+import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.util.TimeUtil;
+import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
@@ -59,6 +73,72 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 	// 是上拉还是下拉
 	private boolean isUp = true;
 
+	/*----------------------------------数据---------------------------------*/
+	// 接收到的分类名，测试数据
+	private String classify_name;
+	// 接收到的分类地址后缀
+	private String classify_url;
+	// 请求接口得到的商品数据
+	private ActionValue<GoodsOne> value;
+	// （商品列表）
+	private ArrayList<GoodsOne> goods_get = new ArrayList<GoodsOne>();
+	// 当前现实的商品列表
+	private ArrayList<GoodsOne> goods_current = new ArrayList<GoodsOne>();
+	// 当前页
+	private int currentPage = 1;
+	private LimitBuyGiftListViewAdapter adapter;
+
+	// 消息处理Handler
+	@SuppressLint("HandlerLeak")
+	@SuppressWarnings("unchecked")
+	private Handler handler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case AppConfig.NET_SUCCED:// 获取数据成功
+				value = (ActionValue<GoodsOne>) msg.obj;
+
+				goods_get = (ArrayList<GoodsOne>) value.getDatasource();
+				if (!value.isSuccess()) {
+					llyt_null_goods.setVisibility(View.VISIBLE);
+				} else {
+					if (isUp) {// 下拉
+						goods_current = goods_get;
+						adapter = new LimitBuyGiftListViewAdapter(
+								LimitBuyActivity.this, goods_current, options,
+								imageLoader);
+						// 下拉加载完成
+						pullsv_limitbuy.onPullDownRefreshComplete();
+					} else {// 上拉
+						goods_current.addAll(goods_get);
+						adapter.notifyDataSetChanged();
+
+						// 上拉刷新完成
+						pullsv_limitbuy.onPullUpRefreshComplete();
+						// 设置是否有更多的数据
+						if (currentPage < value.getTotalpage()) {
+							// pullsv_limitbuy
+							// .setHasMoreData(true);
+						} else {
+							// pullsv_limitbuy
+							// .setHasMoreData(false);
+						}
+					}
+					TimeUtil.setLastUpdateTime3(pullsv_limitbuy);
+					lv_limitbuy_container.setAdapter(adapter);
+					llyt_null_goods.setVisibility(View.INVISIBLE);
+				}
+				loadingdialog.dismiss();
+				llyt_network_error.setVisibility(View.INVISIBLE);
+				break;
+			case AppConfig.NET_ERROR_NOTNET:// 无网络
+				loadingdialog.dismiss();
+				llyt_network_error.setVisibility(View.VISIBLE);
+				llyt_null_goods.setVisibility(View.INVISIBLE);
+				break;
+			}
+		}
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,6 +161,13 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.imageScaleType(ImageScaleType.NONE).build();
 
+		// 获取Intent传递的数据
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		classify_name = bundle.getString("classify_name");
+		classify_url = bundle.getString("classify_url");
+		currentPage = 1;
+
 	}
 
 	@Override
@@ -91,15 +178,17 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		loadingdialog = new LoadingDialog(this);
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		llyt_null_goods = (LinearLayout) findViewById(R.id.llyt_goods_null);
-		
+
 		pullsv_limitbuy = (PullToRefreshScrollView) findViewById(R.id.pullsv_limtbuy);
 		pullsv_limitbuy.setScrollLoadEnabled(true);
 		pullsv_limitbuy.setPullLoadEnabled(true);
 		sv_limitbuy = pullsv_limitbuy.getRefreshableView();
-		
-		View view = View.inflate(this, R.layout.include_limitbuy_container, null);
-		lv_limitbuy_container = (ListView) view.findViewById(R.id.lv_limitbuy_container);
-		
+
+		View view = View.inflate(this, R.layout.include_limitbuy_container,
+				null);
+		lv_limitbuy_container = (ListView) view
+				.findViewById(R.id.lv_limitbuy_container);
+
 		sv_limitbuy.addView(view);
 	}
 
@@ -107,47 +196,70 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 	protected void initUI() {
 		btn_right.setVisibility(View.INVISIBLE);
 		tv_title.setText("限时抢购");
-		
+
+		// 加载数据，测试数据，添加操作
+		initFirstData(currentPage);
+		// 设置刷新时间
+		TimeUtil.setLastUpdateTime3(pullsv_limitbuy);
 	}
 
 	@Override
 	protected void setListener() {
 		btn_back.setOnClickListener(this);
-		
-		//下拉刷新，上拉加载
-		pullsv_limitbuy.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
 
-			@Override
-			public void onPullDownToRefresh(
-					PullToRefreshBase<ScrollView> refreshView) {
-				
-			}
+		// 下拉刷新，上拉加载
+		pullsv_limitbuy
+				.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
 
-			@Override
-			public void onPullUpToRefresh(
-					PullToRefreshBase<ScrollView> refreshView) {
-				
-			}
-		});
-		
+					@Override
+					public void onPullDownToRefresh(
+							PullToRefreshBase<ScrollView> refreshView) {
+						isUp = true;
+						currentPage = 1;
+						initFirstData(currentPage);
+					}
+
+					@Override
+					public void onPullUpToRefresh(
+							PullToRefreshBase<ScrollView> refreshView) {
+						isUp = false;
+						if (value.getPage() < value.getTotalpage()) {
+							currentPage += 1;
+							initFirstData(currentPage);
+						} else {
+							ToastUtil.ToastView(LimitBuyActivity.this,
+									getResources().getString(R.string.no_more));
+							// 下拉加载完成
+							pullsv_limitbuy.onPullDownRefreshComplete();
+							// 上拉刷新完成
+							pullsv_limitbuy.onPullUpRefreshComplete();
+							// 设置是否有更多的数据
+							// pullsv_limitbuy
+							// .setHasMoreData(false);
+						}
+					}
+				});
+
 		lv_limitbuy_container.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				
+
 			}
 		});
 	}
+
 	/**
 	 * 点击事件
 	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_common_back://返回
+		case R.id.btn_common_back:// 返回
 			finish();
-			overridePendingTransition(R.anim.translate_horizontal_finish_in, R.anim.translate_horizontal_finish_out);
+			overridePendingTransition(R.anim.translate_horizontal_finish_in,
+					R.anim.translate_horizontal_finish_out);
 			break;
 
 		default:
@@ -155,4 +267,15 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		}
 	}
 
+	/**
+	 * @描述：加载数据(首次加载)--测试数据，添加操作
+	 * @date：2014-6-25
+	 */
+	private void initFirstData(int currentPage) {
+		HttpUrlProvider.getIntance().getCenterClassifyGoods(
+				LimitBuyActivity.this,
+				new TaskCenterClassifyGoodsBack(handler),
+				URLConfig.CENTER_HOME_PLATE, currentPage, classify_url);
+		loadingdialog.show();
+	}
 }

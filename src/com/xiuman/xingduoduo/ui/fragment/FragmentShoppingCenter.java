@@ -26,6 +26,7 @@ import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.ShoppingCenterAdViewPagerAdapter;
 import com.xiuman.xingduoduo.testdata.Test;
 import com.xiuman.xingduoduo.ui.activity.CenterClassifyActivity;
+import com.xiuman.xingduoduo.ui.activity.LimitBuyActivity;
 import com.xiuman.xingduoduo.ui.activity.SearchActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
 import com.xiuman.xingduoduo.util.ToastUtil;
@@ -212,8 +213,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	public DisplayImageOptions options;
 
 	/*------------------------------------数据---------------------*/
-	// 商城界面小分类地址后缀
-	private String[] classifies;
 
 	
 	//消息处理
@@ -259,9 +258,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		// 获取屏幕宽度
 		screenHeight = dm.heightPixels;
 		screenWidth = dm.widthPixels;
-		// 获取商城界面小分类地址后缀
-		classifies = getResources().getStringArray(
-				R.array.center_classify_array);
 
 	}
 
@@ -473,11 +469,11 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				});
 		llyt_center_zhangzishi.setOnClickListener(this);
 
-		llyt_center_time_limit_by.setOnClickListener(new OnClickListener1());
+		llyt_center_time_limit_by.setOnClickListener(new OnClickListener2());
 		llyt_center_gaodashang.setOnClickListener(new OnClickListener1());
 		llyt_center_tz.setOnClickListener(new OnClickListener1());
 		llyt_center_new_goods.setOnClickListener(new OnClickListener1());
-		llyt_center_lipin.setOnClickListener(new OnClickListener1());
+		llyt_center_lipin.setOnClickListener(new OnClickListener2());
 		llyt_center_egao.setOnClickListener(new OnClickListener1());
 		iv_center_4_top_sale.setOnClickListener(new OnClickListener1());
 		rlyt_center_4_left_bottom.setOnClickListener(new OnClickListener2());
@@ -576,51 +572,43 @@ public class FragmentShoppingCenter extends BaseFragment implements
 
 		// 要打开的商城界面分类名称
 		String classify_name = "";
-		// 要打开的商城界面分类序号
+		// 要打开的商城界面分类类型
 		String classify_url;
 
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.llyt_center_time_limit_by:// 限时抢购
-				classify_name = "限时抢购";
-				classify_url = classifies[0] + "&pageApp=1&pageSizeApp=10&";
-				break;
 			case R.id.llyt_center_gaodashang:// 高大上
 				classify_name = "高大上";
-				classify_url = classifies[1] + "&pageApp=1&pageSizeApp=10&";
+				classify_url = "isBest";
 				break;
 			case R.id.llyt_center_tz:// 同志
 				classify_name = "同志";
-				classify_url = classifies[2] + "&pageApp=1&pageSizeApp=10&";
+				classify_url = "isWalk";
 				break;
 			case R.id.llyt_center_new_goods:// 新品专区
 				classify_name = "新品专区";
-				classify_url = classifies[3] + "&pageApp=1&pageSizeApp=10&";
-				break;
-			case R.id.llyt_center_lipin:// 礼品专区
-				classify_name = "礼品专区";
-				classify_url = classifies[4] + "&pageApp=1&pageSizeApp=10&";
+				classify_url = "isNew";
 				break;
 			case R.id.llyt_center_egao:// 恶搞专区
 				classify_name = "恶搞专区";
-				classify_url = classifies[5] + "&pageApp=1&pageSizeApp=10&";
+				classify_url = "isSpoof";
 				break;
 			case R.id.iv_center_4_top_sale:// top热卖
 				classify_name = "Top热卖";
-				classify_url = classifies[6] + "&pageApp=1&pageSizeApp=10&";
+				classify_url = "isHot";
 				break;
 			case R.id.iv_center_5_top:// 模块五
-				classify_name = "美在露上·内衣";
-				classify_url = classifies[0] + "&pageApp=1&pageSizeApp=10&";
+				classify_name = "美在露上";
+				classify_url = "isHot";;
 				break;
 			case R.id.iv_center_6_top:// 模块六
-				classify_name = "性爱你得有一套·安全套";
-				classify_url = classifies[0] + "&pageApp=1&pageSizeApp=10&";
+				classify_name = "性爱你得有一套";
+				classify_url = "isHot";;
 				break;
 			case R.id.iv_center_7_top:// 模块七
-				classify_name = "其乐无穷·道具";
-				classify_url = classifies[0] + "&pageApp=1&pageSizeApp=10&";
+				classify_name = "其乐无穷";
+				classify_url = "isHot";;
 				break;
 
 			}
@@ -649,9 +637,43 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 */
 	class OnClickListener2 implements OnClickListener {
 
+		// 要打开的商城界面分类名称
+		String classify_name = "";
+		// 要打开的商城界面分类类型
+		String classify_url;
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
+			case R.id.llyt_center_time_limit_by:// 限时抢购
+				classify_name = "限时抢购";
+				classify_url = "isTime";
+				Intent intent = new Intent(getActivity(),
+						LimitBuyActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putString("classify_name", classify_name);
+				bundle.putString("classify_url", classify_url);
+				intent.putExtras(bundle);
+
+				startActivity(intent);
+				getActivity().overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
+				break;
+			case R.id.llyt_center_lipin:// 礼品专区
+				classify_name = "礼品专区";
+				classify_url = "isGift";
+				Intent intent2 = new Intent(getActivity(),
+						CenterClassifyActivity.class);
+				Bundle bundle2 = new Bundle();
+				bundle2.putString("classify_name", classify_name);
+				bundle2.putString("classify_url", classify_url);
+				intent2.putExtras(bundle2);
+
+				startActivity(intent2);
+				getActivity().overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
+				break;
 			case R.id.rlyt_center_4_left_bottom:// 模块四左下
 
 				break;

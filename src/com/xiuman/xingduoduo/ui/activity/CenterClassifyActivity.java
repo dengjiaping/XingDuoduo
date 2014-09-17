@@ -21,12 +21,14 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.ClassifyGoodsGridViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
+import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.callback.TaskCenterClassifyGoodsBack;
 import com.xiuman.xingduoduo.model.GoodsOne;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.util.TimeUtil;
+import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
@@ -73,9 +75,14 @@ public class CenterClassifyActivity extends Base2Activity implements
 	private String classify_name;
 	// 接收到的分类地址后缀
 	private String classify_url;
-	// 测试数据（商品列表）
-	private ArrayList<GoodsOne> goods = new ArrayList<GoodsOne>();
-
+	// 请求接口得到的商品数据
+	private ActionValue<GoodsOne> value;
+	// （商品列表）
+	private ArrayList<GoodsOne> goods_get = new ArrayList<GoodsOne>();
+	// 当前现实的商品列表
+	private ArrayList<GoodsOne> goods_current = new ArrayList<GoodsOne>();
+	// 当前页
+	private int currentPage = 1;
 	/*----------------------------------标记----------------------------------*/
 	// 是上拉还是下拉
 	private boolean isUp = true;
@@ -90,20 +97,40 @@ public class CenterClassifyActivity extends Base2Activity implements
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 获取数据成功
-				goods = ((ActionValue<GoodsOne>) msg.obj).getDatasource();
-				if (!(goods.size() > 0)) {
+				value = (ActionValue<GoodsOne>) msg.obj;
+
+				goods_get = (ArrayList<GoodsOne>) value.getDatasource();
+				if (!value.isSuccess()) {
 					llyt_null_goods.setVisibility(View.VISIBLE);
 				} else {
-					if (isUp) {
-						pullgridview_classify_goods_list.onPullDownRefreshComplete();
-						llyt_null_goods.setVisibility(View.INVISIBLE);
+					if (isUp) {// 下拉
+						goods_current = goods_get;
 						adapter = new ClassifyGoodsGridViewAdapter(
-								CenterClassifyActivity.this, goods, options,
-								imageLoader);
-						gridview_classify_goods_list.setAdapter(adapter);
-					}
-				}
+								CenterClassifyActivity.this, goods_current,
+								options, imageLoader);
+						// 下拉加载完成
+						pullgridview_classify_goods_list
+								.onPullDownRefreshComplete();
+					} else {// 上拉
+						goods_current.addAll(goods_get);
+						adapter.notifyDataSetChanged();
 
+						// 上拉刷新完成
+						pullgridview_classify_goods_list
+								.onPullUpRefreshComplete();
+						// 设置是否有更多的数据
+						if (currentPage < value.getTotalpage()) {
+							pullgridview_classify_goods_list
+									.setHasMoreData(true);
+						} else {
+							pullgridview_classify_goods_list
+									.setHasMoreData(false);
+						}
+					}
+					TimeUtil.setLastUpdateTime2(pullgridview_classify_goods_list);
+					gridview_classify_goods_list.setAdapter(adapter);
+					llyt_null_goods.setVisibility(View.INVISIBLE);
+				}
 				loadingdialog.dismiss();
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
@@ -143,6 +170,7 @@ public class CenterClassifyActivity extends Base2Activity implements
 		Bundle bundle = intent.getExtras();
 		classify_name = bundle.getString("classify_name");
 		classify_url = bundle.getString("classify_url");
+		currentPage = 1;
 	}
 
 	@Override
@@ -158,9 +186,9 @@ public class CenterClassifyActivity extends Base2Activity implements
 		// 刷新控件
 		pullgridview_classify_goods_list = (PullToRefreshGridView) findViewById(R.id.pullgridview_center_classify_goods_list);
 		// 上拉加载是否可用
-		pullgridview_classify_goods_list.setPullLoadEnabled(false);
+		pullgridview_classify_goods_list.setPullLoadEnabled(true);
 		// 是否滚动到底部自动加载
-		pullgridview_classify_goods_list.setScrollLoadEnabled(false);
+		pullgridview_classify_goods_list.setScrollLoadEnabled(true);
 
 		// 获取可刷新的GridView
 		gridview_classify_goods_list = pullgridview_classify_goods_list
@@ -184,7 +212,7 @@ public class CenterClassifyActivity extends Base2Activity implements
 		tv_title.setText(classify_name);
 
 		// 加载数据，测试数据，添加操作
-		initFirstData();
+		initFirstData(currentPage);
 		// 设置刷新时间
 		TimeUtil.setLastUpdateTime2(pullgridview_classify_goods_list);
 	}
@@ -206,7 +234,8 @@ public class CenterClassifyActivity extends Base2Activity implements
 					public void onPullDownToRefresh(
 							PullToRefreshBase<GridView> refreshView) {
 						isUp = true;
-						initFirstData();
+						currentPage = 1;
+						initFirstData(currentPage);
 					}
 
 					/**
@@ -217,6 +246,23 @@ public class CenterClassifyActivity extends Base2Activity implements
 					@Override
 					public void onPullUpToRefresh(
 							PullToRefreshBase<GridView> refreshView) {
+						isUp = false;
+						if (value.getPage() < value.getTotalpage()) {
+							currentPage += 1;
+							initFirstData(currentPage);
+						} else {
+							ToastUtil.ToastView(CenterClassifyActivity.this,
+									getResources().getString(R.string.no_more));
+							// 下拉加载完成
+							pullgridview_classify_goods_list
+									.onPullDownRefreshComplete();
+							// 上拉刷新完成
+							pullgridview_classify_goods_list
+									.onPullUpRefreshComplete();
+							// 设置是否有更多的数据
+							pullgridview_classify_goods_list
+									.setHasMoreData(false);
+						}
 					}
 				});
 		// GridView item开商品详情界面
@@ -266,7 +312,8 @@ public class CenterClassifyActivity extends Base2Activity implements
 					R.anim.translate_horizontal_finish_out);
 			break;
 		case R.id.llyt_network_error:// 重新加载数据
-			initFirstData();
+			currentPage = 1;
+			initFirstData(currentPage);
 			break;
 		default:
 			break;
@@ -277,10 +324,11 @@ public class CenterClassifyActivity extends Base2Activity implements
 	 * @描述：加载数据(首次加载)--测试数据，添加操作
 	 * @date：2014-6-25
 	 */
-	private void initFirstData() {
+	private void initFirstData(int currentPage) {
 		HttpUrlProvider.getIntance().getCenterClassifyGoods(
 				CenterClassifyActivity.this,
-				new TaskCenterClassifyGoodsBack(handler), classify_url);
+				new TaskCenterClassifyGoodsBack(handler),
+				URLConfig.CENTER_HOME_PLATE, currentPage, classify_url);
 		loadingdialog.show();
 	}
 

@@ -136,6 +136,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
+        <!-- 限时抢购界面 -->
+         <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.LimitBuyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" >
+        </activity>
         <!-- 商品详情界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.GoodsActivity"

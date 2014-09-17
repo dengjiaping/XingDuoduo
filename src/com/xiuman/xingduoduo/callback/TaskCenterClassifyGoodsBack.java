@@ -1,13 +1,12 @@
 package com.xiuman.xingduoduo.callback;
 
-import java.util.ArrayList;
-
 import android.os.Handler;
 import android.os.Message;
-import com.xiuman.xingduoduo.model.ActionValue;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xiuman.xingduoduo.app.AppConfig;
+import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.GoodsOne;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 

@@ -395,6 +395,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("goodId", goodId);
 
 		httpDataTask.execute(url);
+		System.out.println("商品详情"+url);
 	}
 	
 	
@@ -490,14 +491,20 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @date：2014-7-29
 	 * @param mContext
 	 * @param httpTaskListener
+	 * @param singleurl
+	 * @param pageApp当前页
+	 * @param pageSizeApp每页数据
+	 * @param sortType 页面
 	 */
 	public void getCenterClassifyGoods(Context mContext,
-			HttpTaskListener httpTaskListener, String classparams) {
-		String url = URLConfig.BASE_IP + classparams;
+			HttpTaskListener httpTaskListener, String singleurl,int pageApp,String sortType) {
+		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		// 设置请求参数
-
+		url += httpDataTask.jointToUrl("pageApp", pageApp);
+		url += httpDataTask.jointToUrl("pageSizeApp", 20);
+		url += httpDataTask.jointToUrl("sortType", sortType);
 		httpDataTask.execute(url);
 	}
 	/**

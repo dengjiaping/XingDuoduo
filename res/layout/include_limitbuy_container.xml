@@ -17,6 +17,9 @@
     <com.xiuman.xingduoduo.view.MyListView
         android:id="@+id/lv_limitbuy_container"
         android:layout_width="match_parent"
+        android:dividerHeight="15dip"
+        android:listSelector="@drawable/whole_stroke_bg_selector"
+        android:divider="@drawable/drawable_transparent"
         android:layout_height="match_parent" />
 
 </LinearLayout>
