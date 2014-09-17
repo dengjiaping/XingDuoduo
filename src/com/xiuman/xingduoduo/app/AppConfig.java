@@ -48,6 +48,12 @@ public class AppConfig {
 	public final static int NET_ERROR_NODATA = 4;
 	/*** 地址出错 */
 	public final static int NET_ERROR_URL = 5;
+	
+	
+	//商品详情页的相关推荐成功
+	public static final int GOODS_RECOMMEND_SUCCESS = 8001;
+	//失败
+	public static final int GOODS_RECOMMEND_FAILD = 8002;
 
 	/*-----------------搜索界面--------------*/
 	// 添加搜索历史

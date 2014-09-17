@@ -29,7 +29,7 @@
     <string name="me_app_description">私人专业性用品商城</string>
     <string name="me_menu_protect_psw">隐私密码</string>
     <string name="me_menu_user_feedback">客户反馈</string>
-    <string name="me_menu_kefu">4000-975-976</string>
+    <string name="me_menu_kefu">400-000-3879</string>
     <string name="me_menu_kefu_tip">全天24小时服务</string>
     <string name="me_menu_help">帮助中心</string>
     <string name="me_menu_weibo">微博咨询</string>
@@ -147,9 +147,15 @@
     <string name="goods_params">基本参数</string>
     <string name="goods_appraise">商品评价</string>
     <string name="goods_recommend">大家都在看：</string>
-    <string name="goods_buy_at_once">立即购买</string>
+    <string name="goods_buy_at_once">￥立即购买</string>
     <string name="goods_add2cart">加入购物车</string>
+	<string name="goods_call_kefu">联系客服</string>
     <string name="goods_sure">确定</string>
+    <string name="goods_baoyou_tip">支付宝满88包邮，货到付款满218包邮</string>
+    <string name="goods_phone_top">您的私人管家电话，400-000-3879</string>
+    <string name="goods_promise_1">100%正品</string>
+    <string name="goods_promise_2">保密配送</string>
+    <string name="goods_promise_3">7天包换</string>
     
     <!-- 商品评价界面 -->
     <string name="discuss_null">当前没有评价哦~</string>

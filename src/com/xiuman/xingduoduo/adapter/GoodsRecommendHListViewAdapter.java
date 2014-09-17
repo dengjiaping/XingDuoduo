@@ -12,10 +12,10 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.GoodsOne;
 
 /**
- * 
  * @名称：GoodsRecommendHListViewAdapter.java
  * @描述：推荐商品展示
  * @author danding
@@ -76,9 +76,8 @@ public class GoodsRecommendHListViewAdapter extends BaseAdapter {
 		goodsone = goods.get(position);
 
 		// 添加操作，测试数据
-		imageLoader.displayImage("drawable://" + R.drawable.test_goods_pic,
+		imageLoader.displayImage(URLConfig.IMG_IP+goodsone.getSmallGoodsImagePath(),
 				holder.iv_item_goods_poster, options);
-		// holder.iv_item_goods_poster.setBackgroundResource(R.drawable.test_goods_pic);
 		holder.tv_item_goods_name.setText(goodsone.getName());
 		holder.tv_item_goods_price.setText("￥" + goodsone.getGoods_price());
 

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         layout="@layout/include_title_common" />
 
-    <ScrollView
+    <com.xiuman.xingduoduo.view.StretchScrollView
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
@@ -31,7 +31,7 @@
                 android:id="@+id/llyt_submit_order_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_blue_grey"
+                android:background="@drawable/bg_receive_address"
                 android:gravity="center_vertical"
                 android:minHeight="50dip"
                 android:orientation="horizontal"
@@ -64,7 +64,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/order_submit_please_set_address"
-                            android:textColor="@color/color_white"
+                            android:textColor="@color/color_black3"
                             android:textSize="@dimen/txt_size_15" />
                     </LinearLayout>
                     <!-- view2 -->
@@ -88,14 +88,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/order_submit_taker_name"
-                                android:textColor="@color/color_white"
+                                android:textColor="@color/color_black2"
                                 android:textSize="@dimen/txt_size_15" />
 
                             <TextView
                                 android:id="@+id/tv_submit_order_taker_phone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/color_white"
+                                android:textColor="@color/color_black3"
                                 android:textSize="@dimen/txt_size_15" />
                         </LinearLayout>
                         <!-- 详细地址 -->
@@ -106,7 +106,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dip"
                             android:text="@string/order_submit_taker_address"
-                            android:textColor="@color/color_white"
+                            android:textColor="@color/color_black3"
                             android:textSize="@dimen/txt_size_12" />
                     </LinearLayout>
                 </FrameLayout>
@@ -117,14 +117,49 @@
                     android:layout_marginLeft="10dip"
                     android:src="@drawable/ic_right_white" />
             </LinearLayout>
+            <!-- 包邮信息 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_green"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="15dip"
+                    android:paddingRight="15dip"
+                    android:paddingTop="5dip"
+                    android:text="包邮"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:singleLine="true"
+                    android:text="@string/goods_baoyou_tip"
+                    android:textColor="@color/color_black3"
+                    android:textSize="@dimen/txt_size_14" />
+            </LinearLayout>
+            <include layout="@layout/line_match" />
             <!-- 支付方式 -->
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dip"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/icon_pay_way"
+                android:background="@color/color_white"
                 android:text="@string/order_submit_pay_way"
-                android:textColor="@color/color_black"
+                android:textColor="@color/color_mian"
+                android:drawablePadding="10dip"
                 android:textSize="@dimen/txt_size_14" />
 
             <!-- 支付宝 -->
@@ -168,6 +203,7 @@
                     android:clickable="false"
                     android:focusable="false" />
             </LinearLayout>
+
             <include layout="@layout/line_match" />
             <!-- 货到付款 -->
 
@@ -209,13 +245,10 @@
                     android:focusable="false" />
             </LinearLayout>
 
-            
             <!-- 银联跟财付通先不加!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
             <!-- 银联 -->
-				
 
             <LinearLayout
-                android:visibility="invisible"
                 android:id="@+id/llyt_order_pay_way_yinlian"
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
@@ -223,7 +256,8 @@
                 android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:padding="10dip"
+                android:visibility="invisible" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -256,7 +290,6 @@
             <!-- 财付通 -->
 
             <LinearLayout
-                android:visibility="invisible"
                 android:id="@+id/llyt_order_pay_way_caifutong"
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
@@ -264,7 +297,8 @@
                 android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:padding="10dip"
+                android:visibility="invisible" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -384,9 +418,9 @@
                 android:id="@+id/llyt_order_submit_goods_list_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
-                android:paddingLeft="10dip"
                 android:background="@color/color_white"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:paddingLeft="10dip" >
 
                 <com.xiuman.xingduoduo.view.MyListView
                     android:id="@+id/lv_order_submit_goods_list"
@@ -399,6 +433,7 @@
                     android:listSelector="@android:color/transparent"
                     android:scrollbars="none"
                     android:visibility="invisible" />
+
                 <include layout="@layout/line_match" />
             </LinearLayout>
             <!-- 运费 -->
@@ -417,6 +452,7 @@
                     android:text="@string/order_submit_freight"
                     android:textColor="@color/color_black3"
                     android:textSize="@dimen/txt_size_15" />
+
                 <TextView
                     android:id="@+id/tv_order_submit_freight"
                     android:layout_width="match_parent"
@@ -477,7 +513,7 @@
 
             <include layout="@layout/line_match" />
         </LinearLayout>
-    </ScrollView>
+    </com.xiuman.xingduoduo.view.StretchScrollView>
 
     <include layout="@layout/line_match" />
     <!-- 底部提交订单 -->

@@ -27,7 +27,7 @@ public class URLConfig {
 	// 图片地址前缀
 	public static final String IMG_IP = "http://121.199.57.38/shopxx";
 	// 图文详情
-	public static final String IMG_TXT_IP = "http://121.199.57.38";
+	public static final String IMG_TXT_IP = "http://121.199.57.38/shopxx/shop/goods!introduction.action?goodId=";
 	// 注册后缀
 	public static final String REGISTER = "/member!Registara.action?";
 	// 获取个人信息

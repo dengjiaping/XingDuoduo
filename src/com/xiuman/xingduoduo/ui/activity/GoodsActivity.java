@@ -8,11 +8,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.StrikethroughSpan;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -41,6 +45,7 @@ import com.xiuman.xingduoduo.callback.TaskAdd2CartBack;
 import com.xiuman.xingduoduo.callback.TaskAddCollectionBack;
 import com.xiuman.xingduoduo.callback.TaskDeleteCollectionBack;
 import com.xiuman.xingduoduo.callback.TaskGoodsInfoBack;
+import com.xiuman.xingduoduo.callback.TaskGoodsRecommendBack;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.GoodsOne;
 import com.xiuman.xingduoduo.model.GoodsStandard;
@@ -51,6 +56,7 @@ import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.BadgeView;
+import com.xiuman.xingduoduo.view.CustomDialog;
 import com.xiuman.xingduoduo.view.HorizontalListView;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.SingleSelectCheckBoxs;
@@ -69,6 +75,8 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	/*--------------------------------组件-------------------------------*/
 	// 返回
 	private Button btn_back_goods;
+	// 购物车
+	private Button btn_goods_shopping_cart;
 	// 收藏
 	private Button btn_collect;
 	// ViewPager（图片）
@@ -79,6 +87,10 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	private List<ImageView> img_ivs = new ArrayList<ImageView>();
 	// 商品价格
 	private TextView tv_goods_price;
+	// 商品原价
+	private TextView tv_goods_cost_price;
+	// 商品折扣
+	private TextView tv_goods_zhekou;
 	// 商品名
 	private TextView tv_goods_name;
 	// 月销量
@@ -91,6 +103,8 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	private Button btn_goods_appraise;
 	// 查看基本参数
 	private Button btn_goods_params;
+	//相关推荐
+	private LinearLayout llyt_goods_recommend;
 	// 商品推荐
 	private HorizontalListView lv_goods_recommend;
 	// 加入购物车
@@ -98,9 +112,11 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	// 立即购买
 	private Button btn_goods_buy;
 	// 打开购物车
-	private Button btn_goods_shopping_cart;
-	//购物车数量
+	private Button btn_call_kefu;
+	// 购物车数量
 	private BadgeView badge;
+	// 拨打电话Dialog
+	private CustomDialog dialog;
 
 	// ------------------------------PopWindow-------------------------------
 	private PopupWindow pop;
@@ -111,7 +127,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	// 加入购物车
 	private Button btn_pop_goods_add2cart;
 	// 屏幕宽高
-	private int screenHeight,screenWidth;
+	private int screenHeight, screenWidth;
 	// 商品规格列表
 	private SingleSelectCheckBoxs sscb_pop_size;
 	// 数量减
@@ -120,21 +136,21 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	private ImageView ivbtn_pop_add;
 	// 数量EditText
 	private EditText et_pop_goods_number;
-	//商品图
+	// 商品图
 	private ImageView iv_pop_goods_psoter;
-	//商品价格
+	// 商品价格
 	private TextView tv_pop_goods_price;
-	//商品规格
+	// 商品规格
 	private TextView tv_pop_goods_size;
-	
+
 	/*-------------------------------Adapter-----------------------------*/
 	// 图片ViewPager
 	private GoodsImgsViewPagerAdapter adapter_img;
 	// 商品推荐Adapter
 	private GoodsRecommendHListViewAdapter adapter_recommend;
-	
+
 	/*--------------------------------数据-------------------------------*/
-	//当前购物车数量
+	// 当前购物车数量
 	private int cart_goods_number = 0;
 	// 当前界面请求获取的二级商品详情
 	private GoodsTwo goods_two;
@@ -147,8 +163,6 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	// 当前登录的用户信息
 	private User user;
 
-	
-	
 	/*---------------------------------加入购物车选择的商品规格和商品数量------------------------*/
 	// 选择商品规格时选中的产品id
 	private String productId;
@@ -179,6 +193,11 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	private ActionValue<?> value_delete;
 	// 添加商品到购物车
 	private ActionValue<?> value_add2cart;
+	
+	//相关推荐-------------------------------------------------------------
+	private ActionValue<GoodsOne> value_recommend;
+	//相关推荐商品列表
+	private ArrayList<GoodsOne> goods_recommend;
 
 	// 数据处理Hanlder
 	@SuppressLint("HandlerLeak")
@@ -197,6 +216,8 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 					setGoodsData(goods_two);
 					llyt_network_error.setVisibility(View.INVISIBLE);
 					llyt_bottom.setVisibility(View.VISIBLE);
+					//请求获取相关推荐商品
+					getRecommend(value_goodsinfo.getDatasource().get(0).getGoodsCategoryId());
 				}
 				loadingdialog.dismiss();
 				break;
@@ -244,24 +265,40 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 				if (value_add2cart.isSuccess()) {
 					ToastUtil.ToastView(GoodsActivity.this,
 							value_add2cart.getMessage());
-					cart_goods_number += Integer.parseInt(et_pop_goods_number.getText().toString());
-					MyApplication.getInstance().setCartGoodsNumber(cart_goods_number);
-					badge.setText(cart_goods_number+"");
-					if(add_tag==1){
-						
-					}else if(add_tag ==2){//立即购买(进入购物车)
+					cart_goods_number += Integer.parseInt(et_pop_goods_number
+							.getText().toString());
+					MyApplication.getInstance().setCartGoodsNumber(
+							cart_goods_number);
+					badge.setText(cart_goods_number + "");
+					if (add_tag == 1) {
+
+					} else if (add_tag == 2) {// 立即购买(进入购物车)
 						Intent intent_cart = new Intent(GoodsActivity.this,
 								ShoppingCartActivity.class);
 						startActivity(intent_cart);
-						overridePendingTransition(R.anim.translate_horizontal_start_in,
+						overridePendingTransition(
+								R.anim.translate_horizontal_start_in,
 								R.anim.translate_horizontal_start_out);
 					}
-					
+
 				} else {
 					ToastUtil.ToastView(GoodsActivity.this,
 							value_delete.getMessage());
 				}
 
+				break;
+			case AppConfig.GOODS_RECOMMEND_SUCCESS://相关推荐成功
+				//请求成功显示推荐
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				llyt_goods_recommend.setLayoutParams(params);
+				value_recommend = (ActionValue<GoodsOne>) msg.obj;
+				goods_recommend = value_recommend.getDatasource();
+				adapter_recommend = new GoodsRecommendHListViewAdapter(GoodsActivity.this, goods_recommend, options, imageLoader);
+				lv_goods_recommend.setAdapter(adapter_recommend);
+				break;
+			case AppConfig.GOODS_RECOMMEND_FAILD://请求推荐失败
+				LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(0, 0);
+				llyt_goods_recommend.setLayoutParams(params2);
 				break;
 			}
 		}
@@ -306,6 +343,8 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		viewpager_goods_imgs = (ViewPager) findViewById(R.id.viewpager_goods_imgs);
 		indicator_goods_imgs = (CirclePageIndicator) findViewById(R.id.indicator_goods_imgs);
 		tv_goods_price = (TextView) findViewById(R.id.tv_goods_price);
+		tv_goods_cost_price = (TextView) findViewById(R.id.tv_goods_cost_price);
+		tv_goods_zhekou = (TextView) findViewById(R.id.tv_goods_zhekou);
 		tv_goods_name = (TextView) findViewById(R.id.tv_goods_name);
 		tv_goods_sales = (TextView) findViewById(R.id.tv_goods_sales);
 		tv_goods_params = (TextView) findViewById(R.id.tv_goods_params);
@@ -317,14 +356,16 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		btn_goods_params = (Button) findViewById(R.id.btn_goods_params);
 		btn_goods_add2cart = (Button) findViewById(R.id.btn_goods_add2cart);
 		btn_goods_buy = (Button) findViewById(R.id.btn_goods_buy_at_once);
+		btn_call_kefu = (Button) findViewById(R.id.btn_call_kefu);
 		btn_goods_shopping_cart = (Button) findViewById(R.id.btn_goods_shopping_cart);
 		badge = new BadgeView(this, btn_goods_shopping_cart);
 		badge.setLayoutDirection(1);
 		badge.setTextSize(10);
-		
+
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		llyt_bottom = (LinearLayout) findViewById(R.id.llyt_bottom);
 
+		llyt_goods_recommend = (LinearLayout) findViewById(R.id.llyt_goods_recommend);
 		lv_goods_recommend = (HorizontalListView) findViewById(R.id.lv_goods_recommend);
 
 		loadingdialog = new LoadingDialog(GoodsActivity.this);
@@ -332,16 +373,16 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 	@Override
 	protected void initUI() {
-		//设置Viewpager正方形
-		RelativeLayout.LayoutParams params_viewpager = new RelativeLayout.LayoutParams(screenWidth, screenWidth);
+		// 设置Viewpager正方形
+		RelativeLayout.LayoutParams params_viewpager = new RelativeLayout.LayoutParams(
+				screenWidth, screenWidth);
 		viewpager_goods_imgs.setLayoutParams(params_viewpager);
-		
-		
+
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, 0);
 		tv_goods_params.setLayoutParams(params);
 
-		// 设置默认数量
-
+		//设置相关推荐默认不显示
+		llyt_goods_recommend.setLayoutParams(params);
 		// 请求数据
 		getGoodsInfo();
 	}
@@ -355,6 +396,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		btn_goods_params.setOnClickListener(this);
 		btn_goods_add2cart.setOnClickListener(this);
 		btn_goods_buy.setOnClickListener(this);
+		btn_call_kefu.setOnClickListener(this);
 		btn_goods_shopping_cart.setOnClickListener(this);
 
 		// 打开推荐商品
@@ -387,10 +429,10 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		cart_goods_number = MyApplication.getInstance().getCartGoodsNumber();
-		if(MyApplication.getInstance().isUserLogin()){
-			badge.setText(cart_goods_number+"");
-		}else{
-			badge.setText(0+"");
+		if (MyApplication.getInstance().isUserLogin()) {
+			badge.setText(cart_goods_number + "");
+		} else {
+			badge.setText(0 + "");
 		}
 		badge.show();
 		if (MyApplication.getInstance().isUserLogin()) {
@@ -431,6 +473,13 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		}
 
 		tv_goods_price.setText("￥" + goods_two.getGoods_price() + "");
+		String cost_price = "￥"
+				+ (Float.parseFloat(goods_two.getGoods_price()) * 2);
+		tv_goods_zhekou.setText("5折");
+		SpannableString sp = new SpannableString(cost_price);
+		sp.setSpan(new StrikethroughSpan(), 0, cost_price.length(),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		tv_goods_cost_price.setText(sp);
 		tv_goods_name.setText(goods_two.getName());
 		tv_goods_sales.setText("月销量 " + goods_two.getSalesVolume() + "件");
 
@@ -456,7 +505,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 		// 图片viewpager
 		goods_img_urls = goods_two.getImagePath();
-		if (goods_img_urls!=null&&goods_img_urls.size() > 0) {
+		if (goods_img_urls != null && goods_img_urls.size() > 0) {
 			for (int i = 0; i < goods_img_urls.size(); i++) {
 				ImageView iv_ad = new ImageView(GoodsActivity.this);
 				img_ivs.add(iv_ad);
@@ -501,7 +550,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 			Intent intent = new Intent(GoodsActivity.this,
 					GoodsImgsActivity.class);
 			Bundle bundle = new Bundle();
-			bundle.putString("introduction", goods_two.getIntroduction());
+			bundle.putString("introduction", goods_two.getId());
 			intent.putExtras(bundle);
 			startActivity(intent);
 			overridePendingTransition(R.anim.translate_horizontal_start_in,
@@ -539,13 +588,13 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 			add_tag = 2;
 			break;
 		case R.id.btn_goods_shopping_cart:// 进入购物车
-			if(MyApplication.getInstance().isUserLogin()){
-			Intent intent_cart = new Intent(GoodsActivity.this,
-					ShoppingCartActivity.class);
-			startActivity(intent_cart);
-			overridePendingTransition(R.anim.translate_horizontal_start_in,
-					R.anim.translate_horizontal_start_out);
-			}else{
+			if (MyApplication.getInstance().isUserLogin()) {
+				Intent intent_cart = new Intent(GoodsActivity.this,
+						ShoppingCartActivity.class);
+				startActivity(intent_cart);
+				overridePendingTransition(R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
+			} else {
 				Intent intent_login = new Intent(GoodsActivity.this,
 						UserLoginActivity.class);
 				startActivity(intent_login);
@@ -571,15 +620,40 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 			}
 			break;
 		case R.id.btn_pop_goods_add2cart:// pop确定加入购物车或者立即购买
-			if(sscb_pop_size.getPosition()<0){
+			if (sscb_pop_size.getPosition() < 0) {
 				ToastUtil.ToastView(GoodsActivity.this, "请选择商品规格");
-			}else if(add_tag==1){
+			} else if (add_tag == 1) {
 				add2Cart();
 				dismissPop();
-			}else if(add_tag==2){
+			} else if (add_tag == 2) {
 				add2Cart();
 				dismissPop();
 			}
+			break;
+		case R.id.btn_call_kefu:// 拨打客服电话
+			dialog = new CustomDialog(this,
+					getString(R.string.dialog_call_kefu_title),
+					getString(R.string.dialog_call_kefu_message));
+			dialog.btn_custom_dialog_sure
+					.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent intent = new Intent(Intent.ACTION_CALL, Uri
+									.parse("tel:"
+											+ getString(R.string.me_menu_kefu)));
+							startActivity(intent);
+							dialog.dismiss();
+						}
+					});
+			dialog.btn_custom_dialog_cancel
+					.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							dialog.dismiss();
+						}
+					});
+			dialog.show();
 			break;
 		}
 	}
@@ -609,11 +683,13 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 				.findViewById(R.id.ivbtn_pop_minus);
 		et_pop_goods_number = (EditText) popview
 				.findViewById(R.id.et_pop_goods_number);
-		iv_pop_goods_psoter = (ImageView) popview.findViewById(R.id.iv_pop_goods_psoter);
-		tv_pop_goods_price = (TextView) popview.findViewById(R.id.tv_pop_goods_price);
-		tv_pop_goods_size = (TextView) popview.findViewById(R.id.tv_pop_goods_size);
-		
-		
+		iv_pop_goods_psoter = (ImageView) popview
+				.findViewById(R.id.iv_pop_goods_psoter);
+		tv_pop_goods_price = (TextView) popview
+				.findViewById(R.id.tv_pop_goods_price);
+		tv_pop_goods_size = (TextView) popview
+				.findViewById(R.id.tv_pop_goods_size);
+
 		ivbtn_pop_add.setOnClickListener(this);
 		ivbtn_pop_minus.setOnClickListener(this);
 		btn_pop_goods_cancel.setOnClickListener(this);
@@ -643,17 +719,19 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 		// 设置规格
 		ArrayList<GoodsStandard> sizes = goods_two.getProductDetail();
-		if(sizes.size()==1){
+		if (sizes.size() == 1) {
 			sizes.get(0).setSpecifications("标准规格");
 		}
 		sscb_pop_size.setData(sizes);
 		sscb_pop_size.setOnSelectListener(new OnSSChkClickEvent());
 		// 设置默认商品数量
 		et_pop_goods_number.setText(goods_number + "");
-		
-		//商品图
-		imageLoader.displayImage(URLConfig.IMG_IP+goods_two.getThumbnailGoodsImagePath(), iv_pop_goods_psoter, options);
-		tv_pop_goods_price.setText("￥"+goods_two.getGoods_price());
+
+		// 商品图
+		imageLoader.displayImage(
+				URLConfig.IMG_IP + goods_two.getThumbnailGoodsImagePath(),
+				iv_pop_goods_psoter, options);
+		tv_pop_goods_price.setText("￥" + goods_two.getGoods_price());
 
 		// 使其聚焦
 		pop.setFocusable(true);
@@ -717,6 +795,13 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		HttpUrlProvider.getIntance().getGoodsInfo(this,
 				new TaskGoodsInfoBack(handler), URLConfig.GOODS_INFO, goods_id);
 	}
+	/**
+	 * @描述：获取相关商品推荐
+	 * 2014-9-17
+	 */
+	private void getRecommend(String categoryId){
+		HttpUrlProvider.getIntance().getGoodsRecommend(this, new TaskGoodsRecommendBack(handler), categoryId);
+	}
 
 	/**
 	 * @名称：GoodsActivity.java
@@ -727,9 +812,12 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 		@Override
 		public void onSelect(int position) {
-			productId = goods_two.getProductDetail().get(position).getProductId();
-			tv_pop_goods_price.setText("￥"+goods_two.getProductDetail().get(position).getPrice());
-			tv_pop_goods_size.setText(goods_two.getProductDetail().get(position).getSpecifications());
+			productId = goods_two.getProductDetail().get(position)
+					.getProductId();
+			tv_pop_goods_price.setText("￥"
+					+ goods_two.getProductDetail().get(position).getPrice());
+			tv_pop_goods_size.setText(goods_two.getProductDetail()
+					.get(position).getSpecifications());
 		}
 	}
 }

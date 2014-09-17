@@ -39,11 +39,16 @@
     <!-- 蓝色2（订单页收货地址背景） -->
     <color name="color_blue_grey">#5C6B85</color>
     
+    <!-- 折扣（绿色） -->
+    <color name="color_green">#62C32E</color>
+    
+    
     <!-- 二维码扫描 -->
     <color name="result_view">#b0000000</color>
     <color name="viewfinder_mask">#60000000</color>
     <color name="possible_result_points">#c0ffff00</color>
 
+    
     
     <!-- 图案解锁 -->
     <color name="gesture_background">#ff303237</color>

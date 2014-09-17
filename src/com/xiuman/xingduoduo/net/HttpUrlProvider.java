@@ -397,7 +397,29 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.execute(url);
 		System.out.println("商品详情"+url);
 	}
-	
+	/**
+	 * @描述：相关商品推荐
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param singleurl
+	 * @param pageApp
+	 * @param categoryId
+	 * @param sorting
+	 * 2014-9-17
+	 */
+	public void getGoodsRecommend(Context mContext,
+			HttpTaskListener httpTaskListener,
+			String categoryId) {
+		String url = URLConfig.BASE_IP + URLConfig.SORT_ZONGHE;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		// 设置请求参数
+		url += httpDataTask.jointToUrl("pageApp", 1);
+		url += httpDataTask.jointToUrl("pageSizeApp", 9);
+		url += httpDataTask.jointToUrl("categoryId", categoryId);
+		url += httpDataTask.jointToUrl("sorting", "desc");
+		httpDataTask.execute(url);
+	}
 	
 	/**
 	 * @描述：加入购物车
@@ -460,7 +482,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setHttpMethod("get");
 		// 设置请求参数
 		url += httpDataTask.jointToUrl("pageApp", pageApp);
-		url += httpDataTask.jointToUrl("pageSizeApp", 100);
+		url += httpDataTask.jointToUrl("pageSizeApp", 1000);
 		url += httpDataTask.jointToUrl("userId", userId);
 		httpDataTask.execute(url);
 	}

@@ -63,7 +63,7 @@ public class GoodsImgsActivity extends Base2Activity implements OnClickListener 
 	@Override
 	protected void findViewById() {
 		btn_back = (Button) findViewById(R.id.btn_back_goods);
-		btn_collect = (Button) findViewById(R.id.btn_collect);
+		btn_collect = (Button) findViewById(R.id.btn_goods_shopping_cart);
 		webview_img = (WebView) findViewById(R.id.webview_img);
 		pb_progress = (ProgressBar) findViewById(R.id.pb_progress);
 		llyt_null_goods_img = (LinearLayout) findViewById(R.id.llyt_goods_null_img);

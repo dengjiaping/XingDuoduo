@@ -524,9 +524,16 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 		// 加载数据显示加载Dialog
 		loadingdialog.show();
 		// 请求数据
-		HttpUrlProvider.getIntance().getClassifyGoods(this,
-				new TaskGoodsListBack(handler), sort_url, currentPage,
-				classify_id,sort_style);
+		
+		if(sort_url.equals(URLConfig.SORT_JIAGE)){
+			HttpUrlProvider.getIntance().getClassifyGoods(this,
+					new TaskGoodsListBack(handler), sort_url, currentPage,
+					classify_id,sort_style);
+		}else{
+			HttpUrlProvider.getIntance().getClassifyGoods(this,
+					new TaskGoodsListBack(handler), sort_url, currentPage,
+					classify_id,"desc");
+		}
 
 	}
 

@@ -1,9 +1,6 @@
 package com.xiuman.xingduoduo.ui.activity;
 
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,9 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
 
 import com.alipay.android.app.sdk.AliPay;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -42,9 +36,7 @@ import com.xiuman.xingduoduo.model.OrderId;
 import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.model.UserAddress;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
-import com.xiuman.xingduoduo.pay.alipay.Keys;
 import com.xiuman.xingduoduo.pay.alipay.Result;
-import com.xiuman.xingduoduo.pay.alipay.Rsa;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;

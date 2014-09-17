@@ -69,8 +69,8 @@ public class GoodsTwo implements Serializable {
 		this.goodsCategoryId = goodsCategoryId;
 		this.id = id;
 		this.goodtype_id = goodtype_id;
-		SmallGoodsImagePath = smallGoodsImagePath;
-		ThumbnailGoodsImagePath = thumbnailGoodsImagePath;
+		this.SmallGoodsImagePath = smallGoodsImagePath;
+		this.ThumbnailGoodsImagePath = thumbnailGoodsImagePath;
 		this.name = name;
 		this.goodsSn = goodsSn;
 		this.imagePath = imagePath;
@@ -79,9 +79,9 @@ public class GoodsTwo implements Serializable {
 		this.salesVolume = salesVolume;
 		this.goodsParams = goodsParams;
 		this.introduction = introduction;
-		Value0 = value0;
-		Value1 = value1;
-		IsSpecificationEnabled = isSpecificationEnabled;
+		this.Value0 = value0;
+		this.Value1 = value1;
+		this.IsSpecificationEnabled = isSpecificationEnabled;
 	}
 
 	public boolean isIsSpecificationEnabled() {
