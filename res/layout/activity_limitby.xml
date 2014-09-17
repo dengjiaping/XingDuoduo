@@ -3,6 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
+    <!-- 标题栏 -->
+
+    <include layout="@layout/include_title_common" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <!-- 帖子列表 -->
+
+        <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView
+            android:id="@+id/pullsv_limtbuy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <!-- 网络连接错误 -->
+
+        <include
+            layout="@layout/network_error"
+            android:visibility="invisible" />
+        <!-- 暂无商品 -->
+
+        <include
+            layout="@layout/include_null_goods"
+            android:visibility="invisible" />
+    </RelativeLayout>
 
 </LinearLayout>
