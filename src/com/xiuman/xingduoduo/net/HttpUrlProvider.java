@@ -669,4 +669,91 @@ public class HttpUrlProvider extends HttpConnWorker {
 		
 		httpDataTask.execute(url);
 	}
+	/**
+	 * @描述:普通帖列表
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param forumId
+	 */
+	public void getPost(Context mContext,
+			HttpTaskListener httpTaskListener, String forumId ) {
+		String url = URLConfig.PRIVATE_IP+URLConfig.FORUM_LIST_IP+forumId;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		
+		
+		httpDataTask.execute(url);
+	}
+	/**
+	 * @描述:置顶帖列表
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param forumId
+	 * @param pageNo
+	 * @param pageSize
+	 */
+	public void getTopPost(Context mContext,
+			HttpTaskListener httpTaskListener, String forumId ,int pageNo,int pageSize) {
+		String url = URLConfig.PRIVATE_IP+URLConfig.FORUM_TOP_LIST_IP;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		url += httpDataTask.jointToUrl("goodId", forumId);
+		url += httpDataTask.jointToUrl("pageNo", pageNo);
+		url += httpDataTask.jointToUrl("pageSize", pageSize);
+		
+		
+		httpDataTask.execute(url);
+	}
+	
+	
+	/**
+	 * @描述:帖子回复列表
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param forumId
+	 */
+	public void getPostReply(Context mContext,
+			HttpTaskListener httpTaskListener, int postId ) {
+		String url = URLConfig.PRIVATE_IP+URLConfig.FORUM_REPLY_LIST_IP+postId;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		
+		
+		httpDataTask.execute(url);
+	}
+	
+	
+	
+	
+	/**
+	 * @描述:回帖接口
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param forumId
+	 * @param postTypeId
+	 * @param topicId
+	 * @param title
+	 * @param content
+	 * @param userId
+	 */
+	public void getPostReplySend(Context mContext, HttpTaskListener httpTaskListener, String forumId,String postTypeId,String topicId,String title,String content,String userId){
+		String url = URLConfig.PRIVATE_IP + URLConfig.POST_REPLY__IP;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("post");
+//		// 设置请求参数
+		httpDataTask.setParams("forumId", forumId);
+		httpDataTask.setParams("postTypeId", postTypeId);
+		httpDataTask.setParams("topicId", topicId);
+		httpDataTask.setParams("userId", userId);
+		try {
+			httpDataTask.setParams("title",URLEncoder.encode(title, "utf-8") );
+			httpDataTask.setParams("content",URLEncoder.encode(content, "utf-8") );
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+//		httpDataTask.setParams("shopId", shopId);
+		
+		httpDataTask.execute(url);
+	}
+	
 }

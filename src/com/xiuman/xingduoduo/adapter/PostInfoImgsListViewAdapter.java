@@ -1,6 +1,7 @@
 package com.xiuman.xingduoduo.adapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.view.View;
@@ -22,11 +23,11 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 	private Context context;
 	public DisplayImageOptions options;// 配置图片加载及显示选项
 	public ImageLoader imageLoader;
-	private ArrayList<String> imgs;
+	private List<String> imgs;
 
 	public PostInfoImgsListViewAdapter(Context context,
 			DisplayImageOptions options, ImageLoader imageLoader,
-			ArrayList<String> imgs) {
+			List<String> imgs) {
 		super();
 		this.context = context;
 		this.options = options;

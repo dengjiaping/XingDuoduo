@@ -311,7 +311,7 @@ public class Test {
 	 */
 	public static ArrayList<BBSPlate> getBBSPlates() {
 		ArrayList<BBSPlate> plates = new ArrayList<BBSPlate>();
-		String plate_id_1 = "1001";
+		String plate_id_1 = "1";
 		String palte_name_1 = "涨姿势";
 		String plate_description_1 = "性爱姿势，两性健康，相爱只是，性爱误区，性爱心理";
 		String plate_tag_1 = "hot";
@@ -319,7 +319,7 @@ public class Test {
 		BBSPlate palte_1 = new BBSPlate(plate_id_1, palte_name_1,
 				plate_description_1, plate_tag_1, plate_icon_1);
 
-		String plate_id_2 = "1002";
+		String plate_id_2 = "2";
 		String palte_name_2 = "性趣说";
 		String plate_description_2 = "男欢女爱的话题，两性恋爱等话题";
 		String plate_tag_2 = "";
@@ -327,7 +327,7 @@ public class Test {
 		BBSPlate palte_2 = new BBSPlate(plate_id_2, palte_name_2,
 				plate_description_2, plate_tag_2, plate_icon_2);
 
-		String plate_id_3 = "1003";
+		String plate_id_3 = "3";
 		String palte_name_3 = "爆照区";
 		String plate_description_3 = "自拍区，自拍美图，自拍重口味";
 		String plate_tag_3 = "hot";
@@ -335,7 +335,7 @@ public class Test {
 		BBSPlate palte_3 = new BBSPlate(plate_id_3, palte_name_3,
 				plate_description_3, plate_tag_3, plate_icon_3);
 
-		String plate_id_4 = "1004";
+		String plate_id_4 = "4";
 		String palte_name_4 = "内涵段子";
 		String plate_description_4 = "黄色笑话，内涵漫画段子";
 		String plate_tag_4 = "";
@@ -343,7 +343,7 @@ public class Test {
 		BBSPlate palte_4 = new BBSPlate(plate_id_4, palte_name_4,
 				plate_description_4, plate_tag_4, plate_icon_4);
 
-		String plate_id_5 = "1005";
+		String plate_id_5 = "5";
 		String palte_name_5 = "Gay Park";
 		String plate_description_5 = "同性恋的话题";
 		String plate_tag_5 = "";
@@ -351,7 +351,7 @@ public class Test {
 		BBSPlate palte_5 = new BBSPlate(plate_id_5, palte_name_5,
 				plate_description_5, plate_tag_5, plate_icon_5);
 
-		String plate_id_6 = "1006";
+		String plate_id_6 = "6";
 		String palte_name_6 = "晒出自性";
 		String plate_description_6 = "在性多多买了商品的用户，通过晒单，晒出自己的自信，性感，可以在这获得积分";
 		String plate_tag_6 = "hot";
@@ -359,7 +359,7 @@ public class Test {
 		BBSPlate palte_6 = new BBSPlate(plate_id_6, palte_name_6,
 				plate_description_6, plate_tag_6, plate_icon_6);
 
-		String plate_id_7 = "1007";
+		String plate_id_7 = "7";
 		String palte_name_7 = "走走停停，一直在路上";
 		String plate_description_7 = "吃喝玩乐的主题，情侣分享情侣主题酒店，情侣约会等地";
 		String plate_tag_7 = "";
@@ -367,7 +367,7 @@ public class Test {
 		BBSPlate palte_7 = new BBSPlate(plate_id_7, palte_name_7,
 				plate_description_7, plate_tag_7, plate_icon_7);
 
-		String plate_id_8 = "1008";
+		String plate_id_8 = "8";
 		String palte_name_8 = "白富美，高大上";
 		String plate_description_8 = "美空网里的一些美女分享等";
 		String plate_tag_8 = "new";
@@ -375,7 +375,7 @@ public class Test {
 		BBSPlate palte_8 = new BBSPlate(plate_id_8, palte_name_8,
 				plate_description_8, plate_tag_8, plate_icon_8);
 
-		String plate_id_9 = "1009";
+		String plate_id_9 = "9";
 		String palte_name_9 = "美女游戏";
 		String plate_description_9 = "精彩美女游戏专区";
 		String plate_tag_9 = "new";

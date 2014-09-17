@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.model.BBSPostReply;
 import com.xiuman.xingduoduo.model.PostReply;
 import com.xiuman.xingduoduo.ui.activity.FloorReplyInfoActivity;
 import com.xiuman.xingduoduo.util.TimeUtil;
@@ -29,10 +30,10 @@ import com.xiuman.xingduoduo.util.TimeUtil;
 public class ReplyStarterListViewAdapter extends BaseAdapter {
 
 	private Context context;
-	private ArrayList<PostReply> replys;
+	private ArrayList<BBSPostReply> replys;
 
 	public ReplyStarterListViewAdapter(Context context,
-			ArrayList<PostReply> replys) {
+			ArrayList<BBSPostReply> replys) {
 		super();
 		this.context = context;
 		this.replys = replys;
@@ -91,15 +92,14 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final PostReply reply = replys.get(position);
+		final BBSPostReply reply = replys.get(position);
 
 		// holder.iv_item_postinfo_reply_head.setImageResource(R.drawable.bg_head);
-		holder.tv_item_postinfo_reply_name.setText(reply.getReply_user()
-				.getUserName());
+		holder.tv_item_postinfo_reply_name.setText(reply.user);
 		holder.tv_item_postinfo_reply_floor.setText(position+1+ "楼");
 		holder.tv_item_postinfo_reply_time.setText(TimeUtil.getTimeStr(
-				TimeUtil.strToDate(reply.getReply_time()), new Date()));
-		holder.tv_item_postinfo_reply_content.setText(reply.getReply_content());
+				TimeUtil.strToDate(reply.createTime), new Date()));
+		holder.tv_item_postinfo_reply_content.setText(reply.contentHtml);
 
 		holder.btn_item_postinfo_starter_reply
 				.setOnClickListener(new OnClickListener() {
@@ -113,48 +113,50 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 		//插楼回复内容设置------------------------------------
 		// 获取回复楼层的回复数
 		int number_replys = replys.size();
-		if(number_replys<0){
-			holder.llyt_item_postinfo_starter_reply_floor_container.setVisibility(View.INVISIBLE);
-		}else if(number_replys>=1){
-			holder.llyt_item_postinfo_starter_reply_floor_container.setVisibility(View.VISIBLE);
-			holder.llyt_item_postinfo_starter_reply_floor_1.setVisibility(View.VISIBLE);
-			holder.llyt_item_postinfo_starter_reply_floor_2.setVisibility(View.INVISIBLE);
-			PostReply reply_floor = replys.get(0);
-			holder.tv_item_replyinfo_reply_floor_username1.setText(reply_floor.getReply_user().getUserName());
-			if(reply_floor.isStarter()){
-				holder.iv_item_replyinfo_reply_floor_starter1.setVisibility(View.VISIBLE);
-				holder.iv_item_replyinfo_reply_floor_starter1.setImageResource(R.drawable.bg_post_starter);
-			}else{
-				holder.iv_item_replyinfo_reply_floor_starter1.setVisibility(View.INVISIBLE);
-			}
-			holder.tv_item_replyinfo_reply_floor_content1.setText(reply_floor.getReply_content());
-			holder.tv_item_replyinfo_reply_floor_time1.setText(TimeUtil.getTimeStr(
-					TimeUtil.strToDate(reply_floor.getReply_time()), new Date()));
-			//回复数大于=2
-			if(number_replys>=2){
-				holder.llyt_item_postinfo_starter_reply_floor_2.setVisibility(View.VISIBLE);
-				//楼层2
-				PostReply reply_floor2 = replys.get(1);
-				holder.tv_item_replyinfo_reply_floor_username2.setText(reply_floor2.getReply_user().getUserName());
-				if(reply_floor2.isStarter()){
-					holder.iv_item_replyinfo_reply_floor_starter2.setVisibility(View.VISIBLE);
-					holder.iv_item_replyinfo_reply_floor_starter2.setImageResource(R.drawable.bg_post_starter);
-				}else{
-					holder.iv_item_replyinfo_reply_floor_starter2.setVisibility(View.INVISIBLE);
-				}
-				holder.tv_item_replyinfo_reply_floor_content2.setText(reply_floor2.getReply_content());
-				holder.tv_item_replyinfo_reply_floor_time2.setText(TimeUtil.getTimeStr(
-						TimeUtil.strToDate(reply_floor2.getReply_time()), new Date()));
-				//回复数大于2
-				if(number_replys>2){
-					holder.rlyt_item_postinfo_starter_reply_floor_loadmore.setVisibility(View.VISIBLE);
-					holder.tv_load_more_reply_number.setText(""+(number_replys-2));
-				}else{
-					holder.rlyt_item_postinfo_starter_reply_floor_loadmore.setVisibility(View.INVISIBLE);
-				}
-			}
+//		if(number_replys<0){
+			holder.llyt_item_postinfo_starter_reply_floor_container.setVisibility(View.GONE);
+//		}else if(number_replys>=1){
+//			holder.llyt_item_postinfo_starter_reply_floor_container.setVisibility(View.VISIBLE);
+//			holder.llyt_item_postinfo_starter_reply_floor_1.setVisibility(View.VISIBLE);
+//			holder.llyt_item_postinfo_starter_reply_floor_2.setVisibility(View.INVISIBLE);
+//			BBSPostReply reply_floor = replys.get(0);
+//			holder.tv_item_replyinfo_reply_floor_username1.setText(reply_floor.user);
+
+			//回复楼层
+			//			if(reply_floor.isStarter()){
+//				holder.iv_item_replyinfo_reply_floor_starter1.setVisibility(View.VISIBLE);
+//				holder.iv_item_replyinfo_reply_floor_starter1.setImageResource(R.drawable.bg_post_starter);
+//			}else{
+//				holder.iv_item_replyinfo_reply_floor_starter1.setVisibility(View.INVISIBLE);
+//			}
+//			holder.tv_item_replyinfo_reply_floor_content1.setText(reply_floor.contentHtml);
+//			holder.tv_item_replyinfo_reply_floor_time1.setText(TimeUtil.getTimeStr(
+//					TimeUtil.strToDate(reply_floor.createTime), new Date()));
+//			//回复数大于=2
+//			if(number_replys>=2){
+//				holder.llyt_item_postinfo_starter_reply_floor_2.setVisibility(View.VISIBLE);
+//				//楼层2
+//				BBSPostReply reply_floor2 = replys.get(1);
+//				holder.tv_item_replyinfo_reply_floor_username2.setText(reply_floor2.getReply_user().getUserName());
+//				if(reply_floor2.isStarter()){
+//					holder.iv_item_replyinfo_reply_floor_starter2.setVisibility(View.VISIBLE);
+//					holder.iv_item_replyinfo_reply_floor_starter2.setImageResource(R.drawable.bg_post_starter);
+//				}else{
+//					holder.iv_item_replyinfo_reply_floor_starter2.setVisibility(View.INVISIBLE);
+//				}
+//				holder.tv_item_replyinfo_reply_floor_content2.setText(reply_floor2.getReply_content());
+//				holder.tv_item_replyinfo_reply_floor_time2.setText(TimeUtil.getTimeStr(
+//						TimeUtil.strToDate(reply_floor2.getReply_time()), new Date()));
+//				//回复数大于2
+//				if(number_replys>2){
+//					holder.rlyt_item_postinfo_starter_reply_floor_loadmore.setVisibility(View.VISIBLE);
+//					holder.tv_load_more_reply_number.setText(""+(number_replys-2));
+//				}else{
+//					holder.rlyt_item_postinfo_starter_reply_floor_loadmore.setVisibility(View.INVISIBLE);
+//				}
+//			}
 			
-		}
+//		}
 		
 		//加载更多回复
 		holder.rlyt_item_postinfo_starter_reply_floor_loadmore.setOnClickListener(new OnClickListener() {

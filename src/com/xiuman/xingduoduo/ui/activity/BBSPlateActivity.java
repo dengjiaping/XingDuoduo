@@ -24,8 +24,13 @@ import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.PlatePostListViewAdapter;
 import com.xiuman.xingduoduo.adapter.PlateStickPostListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
+import com.xiuman.xingduoduo.callback.TaskPostListBack;
+import com.xiuman.xingduoduo.callback.TaskTopPostBack;
+import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPlate;
+import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.model.PostStarter;
+import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.testdata.Test;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.view.LoadingDialog;
@@ -92,6 +97,14 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	// 置顶帖子
 	private PlateStickPostListViewAdapter adapter_stick;
 
+	private ActionValue<BBSPost> value;
+
+	private ArrayList<BBSPost> bbspost;
+
+	private ActionValue<BBSPost> valueTop;
+
+	private ArrayList<BBSPost> bbspostTop;
+
 	// 消息处理Handler-------------------------------------
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
@@ -103,6 +116,37 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				if (normal_posts.size() == 0) {
 					llyt_null_post.setVisibility(View.VISIBLE);
 				}
+				break;
+
+			case AppConfig.BBS_POST_BACK:
+				
+				value = (ActionValue<BBSPost>) msg.obj;
+				if (value.isSuccess()) {
+					bbspost = value.getDatasource();
+					adapter = new PlatePostListViewAdapter(
+							BBSPlateActivity.this, options, imageLoader,
+							bbspost);
+					lv_posts.setAdapter(adapter);
+					loadingdialog.dismiss();
+				}
+
+				break;
+			case AppConfig.BBS_TOP_POST_BACK:
+				
+				valueTop = (ActionValue<BBSPost>) msg.obj;
+				if (valueTop.isSuccess()) {
+					bbspostTop = value.getDatasource();
+					adapter = new PlatePostListViewAdapter(
+							BBSPlateActivity.this, options, imageLoader,
+							bbspostTop);
+					adapter_stick = new PlateStickPostListViewAdapter(
+							BBSPlateActivity.this, bbspostTop);
+
+					lv_stick_posts.setAdapter(adapter_stick);
+
+					loadingdialog.dismiss();
+				}
+
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
 				loadingdialog.dismiss();
@@ -146,7 +190,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		btn_back = (Button) findViewById(R.id.btn_bbs_back);
 		btn_post = (Button) findViewById(R.id.btn_bbs_right);
 		tv_title = (TextView) findViewById(R.id.tv_bbs_title);
-		
+
 		pullsv_post = (PullToRefreshScrollView) findViewById(R.id.pullsv_posts);
 		pullsv_post.setPullLoadEnabled(true);
 		pullsv_post.setScrollLoadEnabled(true);
@@ -181,21 +225,48 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		btn_back.setOnClickListener(this);
 		btn_post.setOnClickListener(this);
 
-		//查看帖子详情
+		// 查看帖子详情
 		lv_posts.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Object obj = lv_posts.getItemAtPosition(position);
-				if(obj instanceof PostStarter){
-					PostStarter postinfo = (PostStarter)obj;
-					Intent intent = new Intent(BBSPlateActivity.this,PostInfoActivity.class);
+				if (obj instanceof BBSPost) {
+					BBSPost postinfo = (BBSPost) obj;
+					Intent intent = new Intent(BBSPlateActivity.this,
+							PostInfoActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("postinfo_starter", postinfo);
+					bundle.putString("forumId", plate.getPlate_id());
 					intent.putExtras(bundle);
 					startActivity(intent);
-					overridePendingTransition(R.anim.translate_horizontal_start_in, R.anim.translate_horizontal_start_out);
+					overridePendingTransition(
+							R.anim.translate_horizontal_start_in,
+							R.anim.translate_horizontal_start_out);
+				}
+			}
+		});
+		
+		
+		lv_stick_posts.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Object obj = lv_posts.getItemAtPosition(position);
+				if (obj instanceof BBSPost) {
+					BBSPost postinfo = (BBSPost) obj;
+					Intent intent = new Intent(BBSPlateActivity.this,
+							PostInfoActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("postinfo_starter", postinfo);
+					bundle.putString("forumId", plate.getPlate_id());
+					intent.putExtras(bundle);
+					startActivity(intent);
+					overridePendingTransition(
+							R.anim.translate_horizontal_start_in,
+							R.anim.translate_horizontal_start_out);
 				}
 			}
 		});
@@ -209,11 +280,14 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_bbs_right://发表帖子
-			Intent intent_publish = new Intent(BBSPlateActivity.this,PostPublishActivity.class);
+		case R.id.btn_bbs_right:// 发表帖子
+			Intent intent_publish = new Intent(BBSPlateActivity.this,
+					PostPublishActivity.class);
 			startActivity(intent_publish);
 			break;
-
+		case R.id.btn_bbs_back://返回按钮
+			finish();
+			break;
 		default:
 			break;
 		}
@@ -225,26 +299,21 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	 */
 	private void initFirstData() {
 		// 请求数据
-		// HttpUrlProvider.getIntance().getCenterClassifyGoods(
-		// BBSPlateActivity.this,
-		// new TaskCenterClassifyBack(handler), classify_url);
-		// loadingdialog.show();
-		posts = Test.getTestPost();
-
-		// 将获得的帖子列表分为普通贴和置顶贴
-		for (int i = 0; i < posts.size(); i++) {
-			if (posts.get(i).getPost_tag().equals("置顶")) {
-				stick_posts.add(posts.get(i));
-			} else {
-				normal_posts.add(posts.get(i));
-			}
-		}
-
-		adapter = new PlatePostListViewAdapter(this, options, imageLoader,
-				normal_posts);
-		adapter_stick = new PlateStickPostListViewAdapter(this, stick_posts);
-		lv_posts.setAdapter(adapter);
-		lv_stick_posts.setAdapter(adapter_stick);
+		HttpUrlProvider.getIntance().getPost(BBSPlateActivity.this,
+				new TaskPostListBack(handler), plate.getPlate_id());
+		HttpUrlProvider.getIntance().getTopPost(BBSPlateActivity.this,
+				new TaskTopPostBack(handler), plate.getPlate_id(), 1, 10);
+		loadingdialog.show();
+		// posts = Test.getTestPost();
+		//
+		// // 将获得的帖子列表分为普通贴和置顶贴
+		// for (int i = 0; i < posts.size(); i++) {
+		// if (posts.get(i).getPost_tag().equals("置顶")) {
+		// stick_posts.add(posts.get(i));
+		// } else {
+		// normal_posts.add(posts.get(i));
+		// }
+		// }
 
 	}
 }

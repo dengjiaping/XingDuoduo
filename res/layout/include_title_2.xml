@@ -15,14 +15,15 @@
         android:layout_margin="5dip"
         android:background="@drawable/bg_btn_sweep" />
 
-    <ImageView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="2dip"
-        android:background="@drawable/bg_mid_title"
-        android:contentDescription="@string/app_name"
-        android:scaleType="matrix" />
+        android:textColor="@color/color_white"
+        android:textSize="25sp"
+        android:text="@string/title_name"
+         />
 
     <Button
         android:id="@+id/btn_update_info"

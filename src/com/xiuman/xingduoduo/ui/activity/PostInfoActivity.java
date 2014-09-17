@@ -1,8 +1,13 @@
 package com.xiuman.xingduoduo.ui.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,12 +22,23 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.adapter.PlatePostListViewAdapter;
+import com.xiuman.xingduoduo.adapter.PlateStickPostListViewAdapter;
 import com.xiuman.xingduoduo.adapter.PostInfoImgsListViewAdapter;
 import com.xiuman.xingduoduo.adapter.ReplyStarterListViewAdapter;
+import com.xiuman.xingduoduo.app.AppConfig;
+import com.xiuman.xingduoduo.callback.TaskPostReplyBack;
+import com.xiuman.xingduoduo.callback.TaskReplySendBack;
+import com.xiuman.xingduoduo.model.ActionValue;
+import com.xiuman.xingduoduo.model.BBSPost;
+import com.xiuman.xingduoduo.model.BBSPostReply;
 import com.xiuman.xingduoduo.model.PostReply;
 import com.xiuman.xingduoduo.model.PostStarter;
+import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.testdata.Test;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.util.HtmlTag;
+import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView;
 
@@ -96,14 +112,77 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	/*--------------------------------Adapter---------------------------------*/
 	// 回复列表
 	private ReplyStarterListViewAdapter adapter;
-	//帖子图片
+	// 帖子图片
 	private PostInfoImgsListViewAdapter adapter_img;
 
 	/*--------------------------------数据-------------------------------------*/
 	// 从上级界面接收到的帖子信息(主要是楼主)
-	private PostStarter postinfo_starter;
-	//回复列表
+	private BBSPost postinfo_starter;
+	// 回复列表
 	private ArrayList<PostReply> replys;
+
+	private ActionValue<BBSPostReply> value;
+
+	private ArrayList<BBSPostReply> bbsReply;
+
+	private ActionValue<?> valueSend;
+
+	private String forumId;
+
+	// 消息处理Handler-------------------------------------
+	@SuppressLint("HandlerLeak")
+	private Handler handler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+
+			case AppConfig.BBS_REPLY_POST_BACK:
+
+				value = (ActionValue<BBSPostReply>) msg.obj;
+				if (value.isSuccess()) {
+					bbsReply = value.getDatasource();
+					bbsReply.remove(0);
+
+					// 回复楼层
+					adapter = new ReplyStarterListViewAdapter(
+							PostInfoActivity.this, bbsReply);
+					lv_postinfo_replys.setAdapter(adapter);
+
+				}
+				loadingdialog.dismiss();
+
+				break;
+			case AppConfig.BBS_REPLY_SEND_BACK:
+				valueSend = (ActionValue<?>) msg.obj;
+				if (valueSend.isSuccess()) {
+
+					ToastUtil.ToastView(PostInfoActivity.this,
+							valueSend.getMessage());
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date date = new Date();
+					String createTime = format.format(date);
+					BBSPostReply bps = new BBSPostReply(et_reply.getText().toString(),
+							createTime, postinfo_starter.title, "9", postinfo_starter.id, postinfo_starter.postTypeId, 1);
+
+					bbsReply.add(bps);
+					adapter.notifyDataSetChanged();
+
+					// 回复楼层
+//					adapter = new ReplyStarterListViewAdapter(
+//							PostInfoActivity.this, bbsReply);
+//					lv_postinfo_replys.setAdapter(adapter);
+
+				} else {
+					ToastUtil.ToastView(PostInfoActivity.this, "回复失败请重试");
+
+				}
+				break;
+			case AppConfig.NET_ERROR_NOTNET:// 无网络
+				loadingdialog.dismiss();
+				llyt_network_error.setVisibility(View.VISIBLE);
+				break;
+			}
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -127,9 +206,11 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.imageScaleType(ImageScaleType.NONE).build();
 
-		//从上级界面接收到的帖子
-		postinfo_starter = (PostStarter) getIntent().getExtras().getSerializable("postinfo_starter");
-		
+		// 从上级界面接收到的帖子
+		postinfo_starter = (BBSPost) getIntent().getExtras().getSerializable(
+				"postinfo_starter");
+		forumId = getIntent().getExtras().getString("forumId");
+
 	}
 
 	@Override
@@ -137,7 +218,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		btn_postinfo_back = (Button) findViewById(R.id.btn_postinfo_back);
 		btn_postinfo_starter = (Button) findViewById(R.id.btn_postinfo_starter);
 		tv_postinfo_title = (TextView) findViewById(R.id.tv_postinfo_title);
-		
+
 		llyt_reply_container = (LinearLayout) findViewById(R.id.llyt_reply_container);
 		et_reply = (EditText) findViewById(R.id.et_reply);
 		btn_reply = (Button) findViewById(R.id.btn_reply);
@@ -153,16 +234,25 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		sv_postinfo = pullsv_postinfo.getRefreshableView();
 		View view = View.inflate(this, R.layout.include_postinfo_container,
 				null);
-		iv_postinfo_starter_head = (ImageView)view.findViewById(R.id.iv_postinfo_starter_head);
-		iv_postinfo_starter_sex = (ImageView) view.findViewById(R.id.iv_postinfo_starter_sex);
+		iv_postinfo_starter_head = (ImageView) view
+				.findViewById(R.id.iv_postinfo_starter_head);
+		iv_postinfo_starter_sex = (ImageView) view
+				.findViewById(R.id.iv_postinfo_starter_sex);
 		iv_postinfo_tag = (ImageView) view.findViewById(R.id.iv_postinfo_tag);
-		tv_postinfo_starter_name = (TextView) view.findViewById(R.id.tv_postinfo_starter_name);
-		tv_postinfo_starter_time = (TextView) view.findViewById(R.id.tv_postinfo_starter_time);
-		tv_postinfo_starter_content = (TextView) view.findViewById(R.id.tv_postinfo_starter_content);
-		tv_postinfo_starter_title = (TextView) view.findViewById(R.id.tv_postinfo_starter_title);
-		btn_postinfo_starter_reply = (Button) view.findViewById(R.id.btn_postinfo_starter_reply);
-		lv_postinfo_starter_imgs = (ListView) view.findViewById(R.id.lv_postinfo_starter_imgs);
-		lv_postinfo_replys = (ListView) view.findViewById(R.id.lv_postinfo_replys);
+		tv_postinfo_starter_name = (TextView) view
+				.findViewById(R.id.tv_postinfo_starter_name);
+		tv_postinfo_starter_time = (TextView) view
+				.findViewById(R.id.tv_postinfo_starter_time);
+		tv_postinfo_starter_content = (TextView) view
+				.findViewById(R.id.tv_postinfo_starter_content);
+		tv_postinfo_starter_title = (TextView) view
+				.findViewById(R.id.tv_postinfo_starter_title);
+		btn_postinfo_starter_reply = (Button) view
+				.findViewById(R.id.btn_postinfo_starter_reply);
+		lv_postinfo_starter_imgs = (ListView) view
+				.findViewById(R.id.lv_postinfo_starter_imgs);
+		lv_postinfo_replys = (ListView) view
+				.findViewById(R.id.lv_postinfo_replys);
 		sv_postinfo.addView(view);
 	}
 
@@ -179,27 +269,29 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		btn_postinfo_starter_reply.setOnClickListener(this);
 		btn_reply.setOnClickListener(this);
 	}
+
 	/**
-	 * @描述：加载帖子数据
-	 * 2014-8-16
+	 * @描述：加载帖子数据 2014-8-16
 	 */
-	private void initPostInfo(){
-		tv_postinfo_starter_name.setText(postinfo_starter.getPost_user().getUserName());
-		tv_postinfo_starter_title.setText(postinfo_starter.getPost_title());
-		tv_postinfo_starter_content.setText(postinfo_starter.getPost_content());
-		tv_postinfo_starter_time.setText(postinfo_starter.getPost_time());
-		
-		//测试数据
-		replys = Test.getTestRelpy();
-		adapter = new ReplyStarterListViewAdapter(this, replys);
-		adapter_img = new PostInfoImgsListViewAdapter(this, options, imageLoader, postinfo_starter.getPost_imgs());
-		
+	private void initPostInfo() {
+		tv_postinfo_starter_name.setText(postinfo_starter.user);
+		tv_postinfo_starter_title.setText(postinfo_starter.title);
+		tv_postinfo_starter_content.setText(postinfo_starter.content);
+		tv_postinfo_starter_time.setText(postinfo_starter.createTime);
+		List<String> imgList = new ArrayList<String>();
+
+		imgList = HtmlTag.match(postinfo_starter.contentHtml, "img", "src");
+		// 测试数据
+		// replys = Test.getTestRelpy();
+		HttpUrlProvider.getIntance().getPostReply(PostInfoActivity.this,
+				new TaskPostReplyBack(handler), postinfo_starter.id);
+
+		adapter_img = new PostInfoImgsListViewAdapter(this, options,
+				imageLoader, imgList);
 		lv_postinfo_starter_imgs.setAdapter(adapter_img);
-		lv_postinfo_replys.setAdapter(adapter);
-		
+
 	}
-	
-	
+
 	/**
 	 * 点击事件
 	 */
@@ -210,19 +302,28 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.btn_postinfo_starter:// 只看楼主
-			if(btn_postinfo_starter.isClickable()){
-				
-			}else{
-				
+			if (btn_postinfo_starter.isClickable()) {
+
+			} else {
+
 			}
-			
-			
+
 			break;
 		case R.id.btn_postinfo_starter_reply:// 回复楼主
 			et_reply.setFocusable(true);
 			et_reply.requestFocus();
 			break;
 		case R.id.btn_reply:// 发送回复
+			if ((et_reply.getText().toString()).length() < 3) {
+				ToastUtil.ToastView(PostInfoActivity.this, "回复不能少于3个字");
+			} else {
+				HttpUrlProvider.getIntance().getPostReplySend(
+						PostInfoActivity.this, new TaskReplySendBack(handler),
+						forumId, "" + postinfo_starter.postTypeId,
+						"" + postinfo_starter.id, postinfo_starter.title,
+						et_reply.getText().toString(), "9");
+
+			}
 
 			break;
 		}

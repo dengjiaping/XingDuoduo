@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.model.PostStarter;
 /**
  * @名称：PlateStickPostListViewAdapter.java
@@ -20,11 +21,11 @@ import com.xiuman.xingduoduo.model.PostStarter;
 public class PlateStickPostListViewAdapter extends BaseAdapter {
 
 	private Context context;
-	private ArrayList<PostStarter> stick_posts;
+	private ArrayList<BBSPost> stick_posts;
 	
 	
 	public PlateStickPostListViewAdapter(Context context,
-			ArrayList<PostStarter> stick_posts) {
+			ArrayList<BBSPost> stick_posts) {
 		super();
 		this.context = context;
 		this.stick_posts = stick_posts;
@@ -58,10 +59,10 @@ public class PlateStickPostListViewAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		PostStarter stick_post = stick_posts.get(position);
+		BBSPost stick_post = stick_posts.get(position);
 		
 		holder.iv_item_bbs_plate_stick_post_poster.setImageResource(R.drawable.icon_stick_post);
-		holder.tv_item_bbs_plate_stick_post_title.setText(stick_post.getPost_title());
+		holder.tv_item_bbs_plate_stick_post_title.setText(stick_post.title);
 		
 		return convertView;
 	}

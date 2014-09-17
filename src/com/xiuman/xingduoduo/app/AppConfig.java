@@ -9,6 +9,16 @@ package com.xiuman.xingduoduo.app;
  */
 public class AppConfig {
 
+	// bbs参数------------------------------------------
+	// 帖子列表返回
+	public final static int BBS_POST_BACK = 9001;
+	// 帖子列表返回
+	public final static int BBS_TOP_POST_BACK = 9002;
+	// 帖子回复列表返回
+	public final static int BBS_REPLY_POST_BACK = 9003;
+	// 帖子回复返回
+	public final static int BBS_REPLY_SEND_BACK = 9004;
+
 	// 购物车Fragment Activity请求码与返回码-----------------------------
 	public final static int REQUEST_CODE = 1;
 	// 返回码1成功刷新
@@ -76,9 +86,9 @@ public class AppConfig {
 	public static final int UPDATE_SHOPPING_CART_GOODS_NUMBER = 4006;
 
 	/*--------------------------我的订单历史--------------------*/
-	//生成订单
+	// 生成订单
 	public static final int CREATE_ORDER = 5003;
-	//订单支付宝签名
+	// 订单支付宝签名
 	public static final int ALIPAY_BACK = 5005;
 	// 订单历史（adapter）
 	public static final int UPDATE_ORDER_HISTORY = 5001;

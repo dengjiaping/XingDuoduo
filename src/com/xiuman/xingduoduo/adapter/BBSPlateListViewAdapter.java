@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiuman.xingduoduo.R;
@@ -94,6 +96,7 @@ public class BBSPlateListViewAdapter extends BaseAdapter {
 	}
 
 	class ViewHolder {
+
 		// 标题
 		TextView tv_item_bbs_plate_name;
 		// 图标
