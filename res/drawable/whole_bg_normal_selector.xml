@@ -7,7 +7,7 @@
 
             <gradient android:endColor="@color/color_white" android:startColor="@color/color_white" />
 
-            <stroke android:width="0.1dip" android:color="@color/color_black_line" />
+            <stroke android:width="0.2dip" android:color="@color/color_black_line" />
         </shape></item>
 
 </selector>

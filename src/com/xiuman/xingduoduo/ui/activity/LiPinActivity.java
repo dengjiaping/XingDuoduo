@@ -13,7 +13,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -28,34 +27,33 @@ import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.GoodsOne;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
-import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
 
 /**
- * @名称：LimitBuyActivity.java
- * @描述：限时抢购
+ * @名称：LiPinActivity.java
+ * @描述：礼品专区(活动专区)
  * @author danding 2014-9-17
  */
-public class LimitBuyActivity extends Base2Activity implements OnClickListener {
+public class LiPinActivity extends Base2Activity implements OnClickListener {
 
-	/*----------------------------------组件------------------------------------*/
+	/*---------------------------组件------------------------*/
 	// 返回
 	private Button btn_back;
-	// 标题栏
-	private TextView tv_title;
 	// 右侧
 	private Button btn_right;
+	// 标题栏
+	private TextView tv_title;
 
-	// 下拉刷新sv
-	private PullToRefreshScrollView pullsv_limitbuy;
-	// 可刷新的sv
-	private ScrollView sv_limitbuy;
-	// ListView
-	private ListView lv_limitbuy_container;
+	// 可下拉刷新ListView
+	private PullToRefreshListView pulllv_lipin;
+	// 可刷新的listVeiw
+	private ListView lv_lipin;
 	// 网络连接失败显示的布局
 	private LinearLayout llyt_network_error;
 	// 商品为空为空时显示的布局
@@ -104,27 +102,25 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 					if (isUp) {// 下拉
 						goods_current = goods_get;
 						adapter = new LimitBuyGiftListViewAdapter(
-								LimitBuyActivity.this, goods_current, options,
+								LiPinActivity.this, goods_current, options,
 								imageLoader);
 						// 下拉加载完成
-						pullsv_limitbuy.onPullDownRefreshComplete();
+						pulllv_lipin.onPullDownRefreshComplete();
 					} else {// 上拉
 						goods_current.addAll(goods_get);
 						adapter.notifyDataSetChanged();
 
 						// 上拉刷新完成
-						pullsv_limitbuy.onPullUpRefreshComplete();
+						pulllv_lipin.onPullUpRefreshComplete();
 						// 设置是否有更多的数据
 						if (currentPage < value.getTotalpage()) {
-							// pullsv_limitbuy
-							// .setHasMoreData(true);
+							pulllv_lipin.setHasMoreData(true);
 						} else {
-							// pullsv_limitbuy
-							// .setHasMoreData(false);
+							pulllv_lipin.setHasMoreData(false);
 						}
 					}
-					TimeUtil.setLastUpdateTime3(pullsv_limitbuy);
-					lv_limitbuy_container.setAdapter(adapter);
+					TimeUtil.setLastUpdateTime(pulllv_lipin);
+					lv_lipin.setAdapter(adapter);
 					llyt_null_goods.setVisibility(View.INVISIBLE);
 				}
 				loadingdialog.dismiss();
@@ -142,7 +138,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_limitby);
+		setContentView(R.layout.activity_lipin);
 		initData();
 		findViewById();
 		initUI();
@@ -178,18 +174,15 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		loadingdialog = new LoadingDialog(this);
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		llyt_null_goods = (LinearLayout) findViewById(R.id.llyt_goods_null);
-
-		pullsv_limitbuy = (PullToRefreshScrollView) findViewById(R.id.pullsv_limtbuy);
-		pullsv_limitbuy.setScrollLoadEnabled(true);
-		pullsv_limitbuy.setPullLoadEnabled(true);
-		sv_limitbuy = pullsv_limitbuy.getRefreshableView();
-
-		View view = View.inflate(this, R.layout.include_limitbuy_container,
-				null);
-		lv_limitbuy_container = (ListView) view
-				.findViewById(R.id.lv_limitbuy_container);
-
-		sv_limitbuy.addView(view);
+		
+		pulllv_lipin = (PullToRefreshListView) findViewById(R.id.pulllv_lipin);
+		pulllv_lipin.setPullLoadEnabled(true);
+		pulllv_lipin.setPullRefreshEnabled(true);
+		
+		lv_lipin = pulllv_lipin.getRefreshableView();
+		lv_lipin.setDividerHeight(SizeUtil.px2dip(this, 15));
+		lv_lipin.setDivider(getResources().getDrawable(R.drawable.drawable_transparent));
+		lv_lipin.setSelector(R.drawable.whole_bg_normal_selector);
 	}
 
 	@Override
@@ -200,58 +193,56 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		// 加载数据，测试数据，添加操作
 		initFirstData(currentPage);
 		// 设置刷新时间
-		TimeUtil.setLastUpdateTime3(pullsv_limitbuy);
+		TimeUtil.setLastUpdateTime(pulllv_lipin);
 	}
 
 	@Override
 	protected void setListener() {
 		btn_back.setOnClickListener(this);
+		
+		pulllv_lipin.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
-		// 下拉刷新，上拉加载
-		pullsv_limitbuy
-				.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
+			@Override
+			public void onPullDownToRefresh(
+					PullToRefreshBase<ListView> refreshView) {
+				isUp = true;
+				currentPage = 1;
+				initFirstData(currentPage);
+			}
 
-					@Override
-					public void onPullDownToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
-						isUp = true;
-						currentPage = 1;
-						initFirstData(currentPage);
-					}
-
-					@Override
-					public void onPullUpToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
-						isUp = false;
-						if (value.getPage() < value.getTotalpage()) {
-							currentPage += 1;
-							initFirstData(currentPage);
-						} else {
-							ToastUtil.ToastView(LimitBuyActivity.this,
-									getResources().getString(R.string.no_more));
-							// 下拉加载完成
-							pullsv_limitbuy.onPullDownRefreshComplete();
-							// 上拉刷新完成
-							pullsv_limitbuy.onPullUpRefreshComplete();
-							// 设置是否有更多的数据
-							// pullsv_limitbuy
-							// .setHasMoreData(false);
-						}
-					}
-				});
-
-		lv_limitbuy_container.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onPullUpToRefresh(
+					PullToRefreshBase<ListView> refreshView) {
+				isUp = false;
+				if (value.getPage() < value.getTotalpage()) {
+					currentPage += 1;
+					initFirstData(currentPage);
+				} else {
+					ToastUtil.ToastView(LiPinActivity.this,
+							getResources().getString(R.string.no_more));
+					// 下拉加载完成
+					pulllv_lipin.onPullDownRefreshComplete();
+					// 上拉刷新完成
+					pulllv_lipin.onPullUpRefreshComplete();
+					// 设置是否有更多的数据
+					 pulllv_lipin
+					 .setHasMoreData(false);
+				}
+			}
+		});
+		
+		lv_lipin.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Object obj = lv_limitbuy_container
+				Object obj = lv_lipin
 						.getItemAtPosition(position);
 				// 将商品数据传递给
 				if (obj instanceof GoodsOne) {
 					GoodsOne goods_one = (GoodsOne) obj;
 					Intent intent = new Intent(
-							LimitBuyActivity.this,
+							LiPinActivity.this,
 							GoodsActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("goods_one", goods_one);
@@ -266,7 +257,6 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 			}
 		});
 	}
-
 	/**
 	 * 点击事件
 	 */
@@ -279,8 +269,6 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 					R.anim.translate_horizontal_finish_out);
 			break;
 
-		default:
-			break;
 		}
 	}
 
@@ -290,7 +278,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 	 */
 	private void initFirstData(int currentPage) {
 		HttpUrlProvider.getIntance().getCenterClassifyGoods(
-				LimitBuyActivity.this,
+				LiPinActivity.this,
 				new TaskCenterClassifyGoodsBack(handler),
 				URLConfig.CENTER_HOME_PLATE, currentPage, classify_url);
 		loadingdialog.show();

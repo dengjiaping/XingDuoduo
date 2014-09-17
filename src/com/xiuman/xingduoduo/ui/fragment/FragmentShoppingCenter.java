@@ -24,8 +24,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.ShoppingCenterAdViewPagerAdapter;
+import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.testdata.Test;
+import com.xiuman.xingduoduo.ui.activity.BBSPlateActivity;
 import com.xiuman.xingduoduo.ui.activity.CenterClassifyActivity;
+import com.xiuman.xingduoduo.ui.activity.LiPinActivity;
 import com.xiuman.xingduoduo.ui.activity.LimitBuyActivity;
 import com.xiuman.xingduoduo.ui.activity.SearchActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
@@ -467,7 +470,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 						page_id = position;
 					}
 				});
-		llyt_center_zhangzishi.setOnClickListener(this);
+		llyt_center_zhangzishi.setOnClickListener(new OnClickListener2());
 
 		llyt_center_time_limit_by.setOnClickListener(new OnClickListener2());
 		llyt_center_gaodashang.setOnClickListener(new OnClickListener1());
@@ -534,9 +537,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 			intent.setClass(getActivity(), SweepActivty.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivityForResult(intent, 1);
-			break;
-		case R.id.llyt_center_zhangzishi:// 涨姿势
-
 			break;
 		}
 	}
@@ -644,6 +644,15 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
+			case R.id.llyt_center_zhangzishi://涨姿势
+				BBSPlate plate = Test.getBBSPlates().get(0);
+				Intent intent_plate = new Intent(getActivity(),BBSPlateActivity.class);
+				Bundle bundle_plate = new Bundle();
+				bundle_plate.putSerializable("bbs_plate", plate);
+				intent_plate.putExtras(bundle_plate);
+				getActivity().startActivity(intent_plate);
+				getActivity().overridePendingTransition(R.anim.translate_horizontal_start_in, R.anim.translate_horizontal_start_out);
+				break;
 			case R.id.llyt_center_time_limit_by:// 限时抢购
 				classify_name = "限时抢购";
 				classify_url = "isTime";
@@ -663,7 +672,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				classify_name = "礼品专区";
 				classify_url = "isGift";
 				Intent intent2 = new Intent(getActivity(),
-						CenterClassifyActivity.class);
+						LiPinActivity.class);
 				Bundle bundle2 = new Bundle();
 				bundle2.putString("classify_name", classify_name);
 				bundle2.putString("classify_url", classify_url);

@@ -91,5 +91,8 @@ public class URLConfig {
 
 	// 支付宝支付接口
 	public static final String ALIPAY_URL = "/member!getPayMessage.action?";
-
+	
+	//商城首页板块
+	public static final String CENTER_HOME_PLATE = "/goods!getGoodsAppByIt.action?";
+	
 }
