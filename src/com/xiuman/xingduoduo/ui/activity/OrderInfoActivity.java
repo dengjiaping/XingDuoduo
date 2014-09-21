@@ -23,6 +23,7 @@ import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.Mylog;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.callback.TaskAlipayBack;
+import com.xiuman.xingduoduo.callback.TaskCancelOrderBack;
 import com.xiuman.xingduoduo.callback.TaskDeleteOrderBack;
 import com.xiuman.xingduoduo.callback.TaskOrderInfoBack;
 import com.xiuman.xingduoduo.callback.TaskSendAliPayStatusCodeBack;
@@ -116,6 +117,8 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 	private ActionValue<Order> value_order;
 	// 删除结果
 	private ActionValue<?> value_delete;
+	// 取消结果
+	private ActionValue<?> value_cancel;
 
 	/*----------------------------去支付----------------------------*/
 	// 请求支付宝私钥
@@ -158,6 +161,19 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 				} else {// 删除失败
 					ToastUtil.ToastView(OrderInfoActivity.this,
 							value_delete.getMessage());
+				}
+				loadingdialog.dismiss();
+				break;
+			case AppConfig.CANCEL_ORDER:// 取消订单
+				value_cancel = (ActionValue<?>) msg.obj;
+				if(value_cancel.isSuccess()){
+					ToastUtil.ToastView(OrderInfoActivity.this,
+							value_cancel.getMessage());
+					setResult(AppConfig.RESULT_CODE_OK_2);
+					getOrderInfo();
+				} else {// 取消失败
+					ToastUtil.ToastView(OrderInfoActivity.this,
+							value_cancel.getMessage());
 				}
 				loadingdialog.dismiss();
 				break;
@@ -212,9 +228,9 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 				}
 
 				break;
-			case AppConfig.TAKE_ORDER://确认收货
+			case AppConfig.TAKE_ORDER:// 确认收货
 				getOrderInfo();
-				
+
 				break;
 			}
 		}
@@ -339,33 +355,53 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 	/**
 	 * @描述：设置按钮动作
 	 * @param status
-	 * 2014-9-19
+	 *            2014-9-19
 	 */
 	private void setButtonAction() {
-		String pay_way = order.getDeliveryName().trim(); 
+		String pay_way = order.getDeliveryName().trim();
 		String pay_status = order.getOrderStatus().trim();
 		if (pay_way.equals("货到付款")) {
-			if(pay_status.equals("待付款")) {
+			if (pay_status.equals("待付款")) {
+				btn_order_info_delte.setText("取消订单");
+				btn_order_info_delte.setVisibility(View.VISIBLE);
 				btn_order_info_take_order.setVisibility(View.INVISIBLE);
 			} else if (pay_status.equals("待收货")) {
 				btn_order_info_take_order.setVisibility(View.VISIBLE);
 				btn_order_info_take_order.setText("确认收货");
+				btn_order_info_delte.setVisibility(View.INVISIBLE);
 			} else if (pay_status.equals("待评价")) {
 				btn_order_info_take_order.setVisibility(View.VISIBLE);
 				btn_order_info_take_order.setText("去评价");
-			} else if(pay_status.equals("已完成")){
+				btn_order_info_delte.setVisibility(View.INVISIBLE);
+			} else if (pay_status.equals("已完成")) {
 				btn_order_info_take_order.setVisibility(View.INVISIBLE);
+				btn_order_info_delte.setVisibility(View.VISIBLE);
+				btn_order_info_delte.setText("删除订单");
+			} else if (pay_status.equals("已作废")) {
+				btn_order_info_take_order.setVisibility(View.INVISIBLE);
+				btn_order_info_delte.setVisibility(View.VISIBLE);
+				btn_order_info_delte.setText("删除订单");
 			}
 		} else if (pay_way.equals("支付宝")) {
 			btn_order_info_take_order.setVisibility(View.VISIBLE);
 			if (pay_status.equals("待付款")) {
+				btn_order_info_delte.setText("取消订单");
+				btn_order_info_delte.setVisibility(View.VISIBLE);
 				btn_order_info_take_order.setText("去支付");
 			} else if (pay_status.equals("待收货")) {
+				btn_order_info_delte.setVisibility(View.INVISIBLE);
 				btn_order_info_take_order.setText("确认收货");
 			} else if (pay_status.equals("待评价")) {
 				btn_order_info_take_order.setText("去评价");
-			} else if(pay_status.equals("已完成")){
+				btn_order_info_delte.setVisibility(View.INVISIBLE);
+			} else if (pay_status.equals("已完成")) {
 				btn_order_info_take_order.setVisibility(View.INVISIBLE);
+				btn_order_info_delte.setVisibility(View.VISIBLE);
+				btn_order_info_delte.setText("删除订单");
+			} else if (pay_status.equals("已作废")) {
+				btn_order_info_take_order.setVisibility(View.INVISIBLE);
+				btn_order_info_delte.setVisibility(View.VISIBLE);
+				btn_order_info_delte.setText("删除订单");
 			}
 		}
 	}
@@ -383,42 +419,28 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 
 			break;
 		case R.id.btn_order_info_delete_order:// 删除订单
-			dialog_delete = new CustomDialog(this,
-					getString(R.string.dialog_order_history_title),
-					getString(R.string.dialog_order_history_message));
-
-			dialog_delete.show();
-			// 确定删除订单(提交到服务器)
-			dialog_delete.btn_custom_dialog_sure
-					.setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							dialog_delete.dismiss();
-							deleteOrder();
-						}
-					});
-			// 取消移除
-			dialog_delete.btn_custom_dialog_cancel
-					.setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							dialog_delete.dismiss();
-
-						}
-					});
+			if (btn_order_info_delte.getText().equals("删除订单")) {
+				showDeleteDialog();
+			} else if (btn_order_info_delte.getText().equals("取消订单")) {
+				showCancelDialog();
+			}
 			break;
 		case R.id.btn_order_info_take_order:// 确认收货
-			if (btn_order_info_take_order.getText().toString().equals("去支付")) {//去支付
+			if (btn_order_info_take_order.getText().toString().equals("去支付")) {// 去支付
 				getAliPayParams();
-			}else if(btn_order_info_take_order.getText().toString().equals("确认收货")){
+			} else if (btn_order_info_take_order.getText().toString()
+					.equals("确认收货")) {
 				takeOrder();
-			}else if(btn_order_info_take_order.getText().toString().equals("去评价")){
-				Intent intent = new Intent(OrderInfoActivity.this,DisucssOrderActivity.class);
+			} else if (btn_order_info_take_order.getText().toString()
+					.equals("去评价")) {
+				Intent intent = new Intent(OrderInfoActivity.this,
+						DisucssOrderActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("order", order);
 				intent.putExtras(bundle);
 				startActivityForResult(intent, AppConfig.REQUEST_CODE);
-				overridePendingTransition(R.anim.translate_horizontal_start_in, R.anim.translate_horizontal_start_out);
+				overridePendingTransition(R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
 			}
 			break;
 		case R.id.llyt_network_error://
@@ -428,11 +450,79 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 	}
 
 	/**
+	 * @描述：删除订单 2014-9-21
+	 */
+	private void showDeleteDialog() {
+		dialog_delete = new CustomDialog(this,
+				getString(R.string.dialog_order_history_title),
+				getString(R.string.dialog_order_history_message));
+
+		dialog_delete.show();
+		// 确定删除订单(提交到服务器)
+		dialog_delete.btn_custom_dialog_sure
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog_delete.dismiss();
+						deleteOrder();
+					}
+				});
+		// 取消移除
+		dialog_delete.btn_custom_dialog_cancel
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog_delete.dismiss();
+
+					}
+				});
+	}
+
+	/**
+	 * @描述：取消订单 2014-9-21
+	 */
+	private void showCancelDialog() {
+		dialog_delete = new CustomDialog(this,
+				getString(R.string.dialog_order_cancel_title),
+				getString(R.string.dialog_order_cancel_message));
+
+		dialog_delete.show();
+		// 确定取消订单(提交到服务器)
+		dialog_delete.btn_custom_dialog_sure
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog_delete.dismiss();
+						cancelOrder();
+					}
+				});
+		// 取消移除
+		dialog_delete.btn_custom_dialog_cancel
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog_delete.dismiss();
+
+					}
+				});
+	}
+
+	/**
 	 * @描述：请求删除订单 2014-8-14
 	 */
 	private void deleteOrder() {
 		HttpUrlProvider.getIntance().getDeleteOrder(OrderInfoActivity.this,
 				new TaskDeleteOrderBack(handler), URLConfig.DELETE_ORDER,
+				order_id);
+		loadingdialog.show();
+	}
+
+	/**
+	 * @描述：取消订单 2014-9-21
+	 */
+	private void cancelOrder() {
+		HttpUrlProvider.getIntance().getCancelOrder(OrderInfoActivity.this,
+				new TaskCancelOrderBack(handler), URLConfig.CANCEL_ORDR,
 				order_id);
 		loadingdialog.show();
 	}
@@ -487,20 +577,22 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 		}
 
 	}
+
 	/**
-	 * @描述：确认收货
-	 * 2014-9-19
+	 * @描述：确认收货 2014-9-19
 	 */
-	private void takeOrder(){
-		HttpUrlProvider.getIntance().getOrderTaker(this, new TaskTakeOrderBack(handler), URLConfig.ORDER_TAKER, order_id);
+	private void takeOrder() {
+		HttpUrlProvider.getIntance()
+				.getOrderTaker(this, new TaskTakeOrderBack(handler),
+						URLConfig.ORDER_TAKER, order_id);
 		loadingdialog.show();
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode==AppConfig.REQUEST_CODE) {
-			if(resultCode==AppConfig.RESULT_CODE_OK){//评价成功刷新界面
+		if (requestCode == AppConfig.REQUEST_CODE) {
+			if (resultCode == AppConfig.RESULT_CODE_OK) {// 评价成功刷新界面
 				getOrderInfo();
 				setResult(AppConfig.RESULT_CODE_OK_2);
 			}

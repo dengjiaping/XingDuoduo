@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 生日DIalog -->
+
+    <TextView
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        android:background="@drawable/vertical_top_bg_selector"
+        android:gravity="center"
+        android:padding="10dip"
+        android:text="@string/dialog_select_date"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/txt_size_15" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/line_solid" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_bg"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <DatePicker
+            android:id="@+id/date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/color_bg" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/line_solid" />
+    <!-- 确定、取消 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_dialog_birth_cancel"
+            android:layout_width="0dip"
+            android:layout_height="40dip"
+            android:layout_weight="1"
+            android:background="@drawable/horizontal_bottom_left_bg_selector"
+            android:text="@string/pop_cancel"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/txt_size_15" />
+
+        <Button
+            android:id="@+id/btn_dialog_birth_sure"
+            android:layout_width="0dip"
+            android:layout_height="40dip"
+            android:layout_weight="1"
+            android:background="@drawable/horizontal_bottom_right_bg_selector"
+            android:text="@string/pop_over"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/txt_size_15" />
+    </LinearLayout>
+
+</LinearLayout>

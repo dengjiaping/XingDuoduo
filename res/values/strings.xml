@@ -13,7 +13,6 @@
     <string name="null_address">您还没有添加收货人信息！</string>
     <string name="no_more">到底了，去其他页面看看吧^_^</string>
     <string name="null_goods_img">没有找到相关的商品图文，我们会尽快添加！</string>
-    
 
     <!-- 商城界面 -->
     <string name="center_top_sale">Top热卖</string>
@@ -47,12 +46,13 @@
     <!-- 用户信息界面 -->
     <string name="user_info">个人资料</string>
     <string name="user_head">头像</string>
-    <string name="user_rank">会员信息</string>
-    <string name="user_name">会员名</string>
+    <string name="user_rank">会员等级</string>
+    <string name="user_name">昵称</string>
     <string name="user_address">我的收货地址</string>
     <string name="user_sex">性别</string>
     <string name="user_email">我的邮箱</string>
     <string name="user_update">修改密码</string>
+    <string name="user_update_info">编辑个人信息</string>
     <string name="user_create">注册时间</string>
     <string name="user_exit">退出登陆</string>
 
@@ -60,11 +60,12 @@
     <!--  -->
     <string name="add_address">新增收货地址</string>
     <string name="user_receipt_address_manager">收货地址管理</string>
-    <string name="user_receipt_name">收   货   人:</string>
-    <string name="user_receipt_phone">手机号码:</string>
-    <string name="user_receipt_address">所在地区:</string>
-    <string name="user_receipt_address_detail">详细地址:</string>
-    <string name="user_receipt_ems">邮政编码:</string>
+    <string name="user_receipt_name">收   货   人：</string>
+    <string name="user_receipt_phone">手机号码：</string>
+    <string name="user_receipt_address">所在地区：</string>
+    <string name="dialog_recepit_address">所在地区</string>
+    <string name="user_receipt_address_detail">详细地址：</string>
+    <string name="user_receipt_ems">邮政编码：</string>
     <string name="hint_user_receipt_name">请输入收货人姓名</string>
     <string name="hint_user_receipt_phone">请输入收货人联系电话</string>
     <string name="hint_user_receipt_address">请选择收货地址</string>
@@ -93,6 +94,22 @@
     <string name="register_tag_psw1">密码：</string>
     <string name="register_tag_psw2">确认密码：</string>
 
+    <!-- 修改个人信息界面 -->
+    <string name="update_info_phone">联系方式：</string>
+    <string name="update_info_sex">性别：</string>
+    <string name="update_info_ems">邮政编码：</string>
+    <string name="update_info_birth">出生日期：</string>
+    <string name="update_info_name">姓名：</string>
+    <string name="update_info_nickname">昵称：</string>
+    <string name="update_hint_address">请选择您所在的地区</string>
+    <string name="update_hint_address_info">请填写您的详细地址</string>
+    <string name="update_hint_birth">请选择您的出生日期</string>
+    <string name="update_hint_phone">请输入您的联系方式</string>
+    <string name="update_hint_name">请输入您的姓名</string>
+    <string name="update_hint_nickname">请输入您的昵称</string>
+    <string name="update_hint_sex">请选择您的性别</string>
+    <string name="update_submit">提交修改</string>
+    
     <!-- 用户登录界面 -->
     <string name="login_hint_user_name">输入您注册的用户名</string>
     <string name="login_find_psw">找回密码</string>
@@ -153,7 +170,7 @@
 	<string name="goods_call_kefu">联系客服</string>
     <string name="goods_sure">确定</string>
     <string name="goods_baoyou_tip">支付宝满88包邮，货到付款满218包邮</string>
-    <string name="goods_phone_top">您的私人管家电话，400-000-3879</string>
+    <string name="goods_phone_top">您的私人管家：400-000-3879</string>
     <string name="goods_promise_1">100%正品</string>
     <string name="goods_promise_2">保密配送</string>
     <string name="goods_promise_3">7天包换</string>

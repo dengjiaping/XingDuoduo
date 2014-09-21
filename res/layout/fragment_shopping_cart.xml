@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lv_cart_title"
         android:background="@drawable/whole_stroke_bg_selector"
+        android:visibility="invisible"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="5dip" >
@@ -96,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/color_white"
+            android:background="@color/color_bg"
             android:orientation="vertical" >
 
             <include layout="@layout/include_balance" />

@@ -104,7 +104,7 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 						.getDatasource();
 
 				if (!value_order.isSuccess()) {// 获取数据为空
-					llyt_order_null.setVisibility(View.INVISIBLE);
+					llyt_order_null.setVisibility(View.VISIBLE);
 				} else {
 
 					if (isUp) {// 下拉
@@ -187,7 +187,6 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 		lv_order.setDivider(getResources().getDrawable(
 				R.drawable.drawable_transparent));
 		lv_order.setSelector(R.color.color_white);
-		lv_order.setPadding(0, 10, 0, 10);
 		lv_order.setHeaderDividersEnabled(true);
 
 	}

@@ -7,6 +7,7 @@
     android:background="@drawable/bg_balance_bottom"
     android:layout_gravity="bottom"
     android:paddingLeft="5dip"
+    android:visibility="invisible"
     android:paddingRight="5dip"
     android:orientation="horizontal" >
 

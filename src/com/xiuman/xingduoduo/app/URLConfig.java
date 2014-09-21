@@ -36,6 +36,8 @@ public class URLConfig {
 	public static final String USER_LOGION = "/member!LonginVer.action?";
 	// 修改密码
 	public static final String UPDATE_PSW = "/member!updateUser.action?";
+	//修改个人信息
+	public static final String UPDATE_USER_INFO = "/member!updateProfile.action?";
 	// 收货地址列表
 	public static final String USER_ADDRESSES = "/member!MemberRecive.action?";
 	// 添加收货地址
@@ -61,6 +63,8 @@ public class URLConfig {
 	public static final String ORDER_HISTORY = "/member!OrderListApp.action?";
 	//订单详情
 	public static final String ORDER_INFO = "/member!OrderListDetail.action?";
+	//取消订单
+	public static final String CANCEL_ORDR = "/member!CancelOrder.action?";
 	//确认收货
 	public static final String ORDER_TAKER = "/member!ConfirmReceipt.action?";
 	//平价商品
@@ -103,5 +107,7 @@ public class URLConfig {
 	
 	//商城首页板块
 	public static final String CENTER_HOME_PLATE = "/goods!getGoodsAppByIt.action?";
+	//置顶商品
+	public static final String STICK_GOODS = "/goods!getGoodsIsTop.action?";
 	
 }

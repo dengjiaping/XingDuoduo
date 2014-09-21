@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_bg"
     android:orientation="vertical" >
 
     <!-- 修改个人信息 -->
@@ -18,6 +19,267 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+
+            <!-- 姓名 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:gravity="center_vertical"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/update_info_name"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <EditText
+                    android:id="@+id/et_update_user_info_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:background="@drawable/et_input_register_bg"
+                    android:gravity="center_vertical"
+                    android:hint="@string/update_hint_name"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match" />
+            <!-- 昵称 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:gravity="center_vertical"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/register_tag_nick_name"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <EditText
+                    android:id="@+id/et_update_user_info_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:background="@drawable/et_input_register_bg"
+                    android:gravity="center_vertical"
+                    android:hint="@string/register_hint_nick_name"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match" />
+            <!-- 性别 -->
+
+            <LinearLayout
+                android:id="@+id/llyt_update_user_info_sex"
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update_info_sex"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <TextView
+                    android:id="@+id/tv_update_user_info_sex"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/update_hint_sex"
+                    android:paddingLeft="5dip"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match" />
+            <!-- 生日 -->
+
+            <LinearLayout
+                android:id="@+id/llyt_update_user_info_birth"
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update_info_birth"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <TextView
+                    android:id="@+id/tv_update_user_info_birth"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/update_hint_birth"
+                    android:paddingLeft="5dip"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match" />
+            <!-- 地区 -->
+
+            <LinearLayout
+                android:id="@+id/llyt_update_user_info_address"
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_receipt_address"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <TextView
+                    android:id="@+id/tv_update_user_info_address"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/update_hint_address"
+                    android:paddingLeft="5dip"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match" />
+            <!-- 详细地址 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_receipt_address_detail"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <EditText
+                    android:id="@+id/et_update_user_info_address_info"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_input_register_bg"
+                    android:hint="@string/update_hint_address_info"
+                    android:maxLines="3"
+                    android:paddingLeft="5dip"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match" />
+            <!-- 邮编 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:gravity="center_vertical"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/update_info_ems"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <EditText
+                    android:id="@+id/et_update_user_info_ems"
+                    android:layout_width="0dip"
+                    android:layout_height="60dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_input_register_bg"
+                    android:gravity="center_vertical"
+                    android:inputType="textEmailAddress"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match" />
+
+            <!-- 电话 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:gravity="center_vertical"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/update_info_phone"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <EditText
+                    android:id="@+id/et_update_user_info_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:background="@drawable/et_input_register_bg"
+                    android:gravity="center_vertical"
+                    android:hint="@string/update_hint_phone"
+                    android:inputType="phone"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <include layout="@layout/line_match" />
+
+            <Button
+                android:id="@+id/btn_submit_update"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dip"
+                android:background="@drawable/btn_color_selector"
+                android:gravity="center"
+                android:padding="10dip"
+                android:text="@string/update_submit"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/txt_size_18" />
         </LinearLayout>
     </com.xiuman.xingduoduo.view.StretchScrollView>
 

@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/top" >
 
-        <ScrollView
+        <com.xiuman.xingduoduo.view.StretchScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fadingEdge="none"
@@ -343,7 +343,7 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/line_solid" />
             </LinearLayout>
-        </ScrollView>
+        </com.xiuman.xingduoduo.view.StretchScrollView>
 
         <include
             layout="@layout/network_error"

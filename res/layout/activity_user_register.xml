@@ -90,6 +90,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dip"
                 android:background="@drawable/custom_line_2" />
+            <!-- 性别 -->
+
+            <LinearLayout
+                android:id="@+id/llyt_register_sex"
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@drawable/et_input_register_bg"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update_info_sex"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_15" />
+
+                <TextView
+                    android:id="@+id/tv_register_sex"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/update_hint_sex"
+                    android:paddingLeft="5dip"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/txt_size_15" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dip"
+                android:background="@drawable/custom_line_2" />
             <!-- 邮箱 -->
 
             <LinearLayout

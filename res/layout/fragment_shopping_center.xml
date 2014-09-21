@@ -388,7 +388,6 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_4_left_bottom"
-                                android:clickable="true"
                                 android:scaleType="matrix" />
                             <!-- 文字1 -->
 
@@ -440,7 +439,6 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_4_right_top"
-                                    android:clickable="true"
                                     android:scaleType="matrix" />
                                 <!-- 文字1 -->
 
@@ -487,7 +485,6 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_4_right_bottom"
-                                    android:clickable="true"
                                     android:scaleType="matrix" />
                                 <!-- 文字1 -->
 
@@ -622,7 +619,6 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_5_left_bottom"
-                                android:clickable="true"
                                 android:scaleType="matrix" />
                             <!-- 文字1 -->
 
@@ -675,7 +671,6 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_5_right_top"
-                                    android:clickable="true"
                                     android:scaleType="matrix" />
                                 <!-- 文字1 -->
 
@@ -721,7 +716,6 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_5_right_bottom"
-                                    android:clickable="true"
                                     android:scaleType="matrix" />
                                 <!-- 文字1 -->
 
@@ -847,7 +841,6 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_6_left_bottom"
-                                android:clickable="true"
                                 android:scaleType="matrix" />
                             <!-- 文字1 -->
 
@@ -899,7 +892,6 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_6_right_top"
-                                    android:clickable="true"
                                     android:scaleType="matrix" />
                                 <!-- 文字1 -->
 
@@ -945,7 +937,6 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_6_right_bottom"
-                                    android:clickable="true"
                                     android:scaleType="matrix" />
                                 <!-- 文字1 -->
 
@@ -1073,7 +1064,6 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_7_left_bottom"
-                                android:clickable="true"
                                 android:scaleType="matrix" />
                             <!-- 文字1 -->
 
@@ -1126,7 +1116,6 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_7_right_top"
-                                    android:clickable="true"
                                     android:scaleType="matrix" />
                                 <!-- 文字1 -->
 
@@ -1172,7 +1161,6 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_7_right_bottom"
-                                    android:clickable="true"
                                     android:scaleType="matrix" />
                                 <!-- 文字1 -->
 

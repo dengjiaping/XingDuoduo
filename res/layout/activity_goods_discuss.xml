@@ -31,15 +31,7 @@
             android:layout_height="match_parent"
             android:visibility="invisible" >
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="20dip"
-                android:gravity="center"
-                android:text="@string/discuss_null"
-                android:textColor="@color/color_black3"
-                android:textSize="@dimen/txt_size_18" />
+            <include layout="@layout/include_null_discuss"/>
         </RelativeLayout>
     </RelativeLayout>
 

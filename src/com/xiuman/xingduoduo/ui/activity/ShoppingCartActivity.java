@@ -151,6 +151,9 @@ public class ShoppingCartActivity extends Base2Activity implements
 				value_goods = (ActionValue<GoodsCart>) msg.obj;
 				if (!value_goods.isSuccess() && currentPage == 1) {// 列表为空
 					llyt_null_cart.setVisibility(View.VISIBLE);
+					llyt_all.setVisibility(View.INVISIBLE);
+					llyt_balance.setVisibility(View.INVISIBLE);
+					MyApplication.getInstance().setCartGoodsNumber(0);
 					// 下拉加载完成
 					mPullListView.onPullDownRefreshComplete();
 					btn_balance.setClickable(false);
@@ -190,11 +193,11 @@ public class ShoppingCartActivity extends Base2Activity implements
 					TimeUtil.setLastUpdateTime(mPullListView);
 					mListView.setAdapter(adapter);
 					llyt_null_cart.setVisibility(View.INVISIBLE);
+					llyt_all.setVisibility(View.VISIBLE);
+					llyt_balance.setVisibility(View.VISIBLE);
 					setBalanceInfo();
 				}
 				llyt_network_error.setVisibility(View.INVISIBLE);
-				llyt_balance.setVisibility(View.VISIBLE);
-				llyt_all.setVisibility(View.VISIBLE);
 				loadingdialog.dismiss();
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 网络连接失败
@@ -598,8 +601,12 @@ public class ShoppingCartActivity extends Base2Activity implements
 		}
 		if (isShowNull) {
 			llyt_null_cart.setVisibility(View.VISIBLE);
+			llyt_all.setVisibility(View.INVISIBLE);
+			llyt_balance.setVisibility(View.INVISIBLE);
 		} else {
 			llyt_null_cart.setVisibility(View.INVISIBLE);
+			llyt_all.setVisibility(View.VISIBLE);
+			llyt_balance.setVisibility(View.VISIBLE);
 		}
 	}
 

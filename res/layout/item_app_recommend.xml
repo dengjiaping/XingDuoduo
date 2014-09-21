@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dip"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="7.5dip" >
+
+    <!-- 头像 -->
+
+    <ImageView
+        android:id="@+id/iv_expression_head"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:scaleType="fitCenter" />
+    <!-- 表情名字 -->
+
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_expression_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dip"
+            android:textColor="@color/color_black3"
+            android:textSize="16sp" />
+
+        <ProgressBar
+            android:id="@+id/pb_download"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="5dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:progressDrawable="@drawable/bg_progress"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="2dip" >
+
+        <Button
+            android:id="@+id/btn_download_expression"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_color_selector"
+            android:focusable="false"
+            android:padding="5dip"
+            android:text="下载"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/txt_size_15" />
+    </LinearLayout>
+
+</LinearLayout>

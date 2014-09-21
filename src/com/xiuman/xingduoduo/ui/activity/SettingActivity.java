@@ -106,7 +106,9 @@ public class SettingActivity extends Base2Activity implements OnClickListener {
 			
 			break;
 		case R.id.llyt_setting_app_recommend://应用推荐
-			
+			Intent intent_app = new Intent(SettingActivity.this,AppRecommendActivity.class);
+			startActivity(intent_app);
+			overridePendingTransition(R.anim.translate_horizontal_start_in, R.anim.translate_horizontal_start_out);
 			break;
 		case R.id.llyt_setting_protocol://使用条例
 			Intent intent_protocol = new Intent(SettingActivity.this,ProtocolActivity.class);

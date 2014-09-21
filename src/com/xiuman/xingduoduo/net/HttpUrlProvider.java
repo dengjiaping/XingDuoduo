@@ -64,7 +64,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 	public void getRegister(Context mContext,
 			HttpTaskListener httpTaskListener, String singleurl,
 			String registrappusername, String registrapppassw,
-			String registrappemail, String nickname) {
+			String registrappemail, String nickname,String gender) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -79,6 +79,12 @@ public class HttpUrlProvider extends HttpConnWorker {
 		try {
 			url += httpDataTask.jointToUrl("nickname",
 					URLEncoder.encode(nickname, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		try {
+			url += httpDataTask.jointToUrl("gender",
+					URLEncoder.encode(gender, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -621,6 +627,20 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("sortType", sortType);
 		httpDataTask.execute(url);
 	}
+	/**
+	 * @描述：获取置顶商品
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param singleurl
+	 * 2014-9-21
+	 */
+	public void getStickGoods(Context mContext,
+			HttpTaskListener httpTaskListener, String singleurl){
+		String url = URLConfig.BASE_IP + singleurl;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		httpDataTask.execute(url);
+	}
 
 	/**
 	 * @描述：生成订单
@@ -677,6 +697,23 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("OrderId", OrderId);
 		httpDataTask.execute(url);
+	}
+	/**
+	 * @描述：取消订单
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param singleurl
+	 * @param OrderId
+	 *            订单id 2014-8-12
+	 */
+	public void getCancelOrder(Context mContext,
+			HttpTaskListener httpTaskListener, String singleurl, String orderId) {
+		String url = URLConfig.BASE_IP + singleurl;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		url += httpDataTask.jointToUrl("orderId", orderId);
+		httpDataTask.execute(url);
+		System.out.println("取消订单"+url);
 	}
 
 	/**

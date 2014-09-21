@@ -25,7 +25,7 @@ public class AppConfig {
 	public final static int RESULT_CODE_OK = 2;
 	// 返回码2不刷新
 	public final static int RESULT_CODE_CANCEL = 3;
-	//返回码3
+	// 返回码3
 	public final static int RESULT_CODE_OK_2 = 4;
 
 	// 收货地址请求码与返回码----------------------------------------------------
@@ -50,13 +50,18 @@ public class AppConfig {
 	public final static int NET_ERROR_NODATA = 4;
 	/*** 地址出错 */
 	public final static int NET_ERROR_URL = 5;
-	/***结果出错*/
+	/*** 结果出错 */
 	public final static int NET_ERROR_COMMON = 6;
-	
-	
-	//商品详情页的相关推荐成功
+
+	/*----------------------------置顶商品-----------------------*/
+	// 获取首页置顶成功
+	public static final int STICK_SUCCED = 11;
+	// 失败
+	public static final int STICK_FAILD = 12;
+
+	// 商品详情页的相关推荐成功
 	public static final int GOODS_RECOMMEND_SUCCESS = 8001;
-	//失败
+	// 失败
 	public static final int GOODS_RECOMMEND_FAILD = 8002;
 
 	/*-----------------搜索界面--------------*/
@@ -104,11 +109,12 @@ public class AppConfig {
 	public static final int UPDATE_ORDER_HISTORY = 5001;
 	// 删除订单(请求)
 	public static final int UPDATE_ORDER = 5002;
-	//传递支付宝支付结果到服务
+	// 传递支付宝支付结果到服务
 	public static final int SEND_STATUS_CODE = 5006;
-	//确认收货
+	// 确认收货
 	public static final int TAKE_ORDER = 5007;
-	
+	// 取消订单
+	public static final int CANCEL_ORDER = 5008;
 
 	/*--------------------------我的收藏列表--------------------*/
 	// 删除收藏(接口)
@@ -168,12 +174,17 @@ public class AppConfig {
 	public static final String FILE_IS_FRESH_CART = "file_is_fresh_cart";
 	// key
 	public static final String KEY_IS_FRESH_CART = "key_is_fresh_cart";
-	
-	
-	//保存广告------------------------------------------------------------
-	//file
+
+	// 保存广告------------------------------------------------------------
+	// file
 	public static final String FILE_SAVE_ADS = "file_ads";
-	//key
+	// key
 	public static final String KEY_SAVE_ADS = "key_ads";
-	
+
+	// 保存首页置顶商品------------------------------------------------------------
+	// file
+	public static final String FILE_SAVE_STCIK = "file_stick";
+	// key
+	public static final String KEY_SAVE_STICK = "key_stick";
+
 }

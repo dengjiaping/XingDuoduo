@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/vertical_top_bg_selector"
         android:padding="10dip"
-        android:text="@string/user_receipt_address"
+        android:gravity="center"
+        android:text="@string/dialog_recepit_address"
         android:textColor="@color/color_white"
         android:textSize="@dimen/txt_size_15" />
 

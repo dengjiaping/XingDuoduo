@@ -156,6 +156,9 @@ public class FragmentShoppingCart extends BaseFragment implements
 				value_goods = (ActionValue<GoodsCart>) msg.obj;
 				if (!value_goods.isSuccess() && currentPage == 1) {// 列表为空
 					llyt_null_cart.setVisibility(View.VISIBLE);
+					llyt_balance.setVisibility(View.INVISIBLE);
+					MyApplication.getInstance().setCartGoodsNumber(0);
+					llyt_all.setVisibility(View.INVISIBLE);
 					tv_prices.setText(0 + "");
 					btn_balance.setText("结算(" + 0 + ")");
 					// 下拉加载完成
@@ -189,10 +192,10 @@ public class FragmentShoppingCart extends BaseFragment implements
 					mListView.setAdapter(adapter);
 					llyt_null_cart.setVisibility(View.INVISIBLE);
 					llyt_balance.setVisibility(View.VISIBLE);
+					llyt_all.setVisibility(View.VISIBLE);
 					setBalanceInfo();
 				}
 				llyt_network_error.setVisibility(View.INVISIBLE);
-				llyt_all.setVisibility(View.VISIBLE);
 				loadingdialog.dismiss();
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 网络连接失败
@@ -541,11 +544,14 @@ public class FragmentShoppingCart extends BaseFragment implements
 			} else {
 				isReFresh = false;
 				llyt_null_cart.setVisibility(View.VISIBLE);
+				llyt_all.setVisibility(View.INVISIBLE);
+				llyt_balance.setVisibility(View.INVISIBLE);
 			}
 		}
 		if (isReFresh) {
 			mPullListView.doPullRefreshing(true, 500);
 		}
+		isShowNull();
 	}
 
 	/**
@@ -608,8 +614,12 @@ public class FragmentShoppingCart extends BaseFragment implements
 		}
 		if (isShowNull) {
 			llyt_null_cart.setVisibility(View.VISIBLE);
+			llyt_all.setVisibility(View.INVISIBLE);
+			llyt_balance.setVisibility(View.INVISIBLE);
 		} else {
 			llyt_null_cart.setVisibility(View.INVISIBLE);
+			llyt_all.setVisibility(View.VISIBLE);
+			llyt_balance.setVisibility(View.VISIBLE);
 		}
 	}
 

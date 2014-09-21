@@ -31,6 +31,20 @@ public class User implements Serializable {
 	private String rankNmae;
 	// 昵称
 	private String nickname;
+	// 生日
+	private String birth;
+	// 电话
+	private String phone;
+	// 地址
+	private String address;
+	// 地区
+	private String areaStore;
+	// 邮编
+	private String zipCode;
+	// 性别
+	private String gender;
+	// 姓名
+	private String name;
 
 	public User() {
 		super();
@@ -38,7 +52,8 @@ public class User implements Serializable {
 
 	public User(String userName, String userId, String email,
 			String createDate, double preferntial, String rankNmae,
-			String nickname) {
+			String nickname, String birth, String phone, String address,
+			String areaStore, String zipCode, String gender, String name) {
 		super();
 		this.userName = userName;
 		this.userId = userId;
@@ -47,6 +62,69 @@ public class User implements Serializable {
 		this.preferntial = preferntial;
 		this.rankNmae = rankNmae;
 		this.nickname = nickname;
+		this.birth = birth;
+		this.phone = phone;
+		this.address = address;
+		this.areaStore = areaStore;
+		this.zipCode = zipCode;
+		this.gender = gender;
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getAreaStore() {
+		return areaStore;
+	}
+
+	public void setAreaStore(String areaStore) {
+		this.areaStore = areaStore;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public String getNickname() {

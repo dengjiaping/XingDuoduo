@@ -3,6 +3,7 @@ package com.xiuman.xingduoduo.ui.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.callback.TaskCenterClassifyGoodsBack;
+import com.xiuman.xingduoduo.callback.TaskStickGoodsListBack;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.model.GoodsOne;
@@ -36,6 +38,8 @@ import com.xiuman.xingduoduo.testdata.Test;
 import com.xiuman.xingduoduo.ui.activity.ActivityActivity;
 import com.xiuman.xingduoduo.ui.activity.BBSPlateActivity;
 import com.xiuman.xingduoduo.ui.activity.CenterClassifyActivity;
+import com.xiuman.xingduoduo.ui.activity.ClassifyActivity;
+import com.xiuman.xingduoduo.ui.activity.GoodsActivity;
 import com.xiuman.xingduoduo.ui.activity.LimitBuyActivity;
 import com.xiuman.xingduoduo.ui.activity.SearchActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
@@ -214,7 +218,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 			if (cunhuan) {
 				viewpager_shoppingcenter_ad.setCurrentItem(page_id);
 				page_id++;
-				if (page_id >= 6) {
+				if (page_id >= ads.size()) {
 					page_id = 0;
 				}
 			}
@@ -230,14 +234,23 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	// 配置图片加载及显示选项
 	public DisplayImageOptions options;
 
+	// 无网络时读取配置文件里的分类Id
+	private String[] classifyes_ids;
+
 	/*------------------------------------请求数据---------------------*/
 
 	// 请求广告返回
 	private ActionValue<GoodsOne> value_ads;
 	// 广告商品
-	private ArrayList<GoodsOne> ads = new ArrayList<GoodsOne>();;
+	private ArrayList<GoodsOne> ads = new ArrayList<GoodsOne>();
+
+	// 请求置顶商品
+	private ActionValue<GoodsOne> value_stick;
+	// 置顶商品
+	private ArrayList<GoodsOne> stick = new ArrayList<GoodsOne>();;
 
 	// 消息处理
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
@@ -257,13 +270,54 @@ public class FragmentShoppingCenter extends BaseFragment implements
 					ads = value_ads.getDatasource();
 					// 设置广告数据
 					setAdData(ads);
-				}else{
-					viewpager_shoppingcenter_ad.setBackgroundResource(R.drawable.onloading_goods_poster);
+				} else {
+					viewpager_shoppingcenter_ad
+							.setBackgroundResource(R.drawable.onloading_goods_poster);
+				}
+				break;
+			case AppConfig.STICK_SUCCED:// 获取置顶商品
+				value_stick = (ActionValue<GoodsOne>) msg.obj;
+				if (value_stick.isSuccess()) {
+					stick = value_stick.getDatasource();
+					setStick(stick);
+					MyApplication.getInstance().saveStick(value_stick);
+				}
+				break;
+			case AppConfig.STICK_FAILD:// 置顶商品获取失败（无网络）
+				value_stick = MyApplication.getInstance().getStcik();
+				if (value_stick != null) {
+					stick = value_stick.getDatasource();
+					setStick(stick);
+				} else {
+
 				}
 				break;
 			}
 		}
 	};
+
+	/**
+	 * @描述：设置首页商品数据刚打开时为上次请求的数据 2014-9-21
+	 */
+	private void setLastData() {
+		value_ads = MyApplication.getInstance().getAds();
+		if (value_ads != null) {
+			ads = value_ads.getDatasource();
+			// 设置广告数据
+			setAdData(ads);
+		} else {
+			viewpager_shoppingcenter_ad
+					.setBackgroundResource(R.drawable.onloading_goods_poster);
+		}
+		value_stick = MyApplication.getInstance().getStcik();
+		if (value_stick != null) {
+			stick = value_stick.getDatasource();
+			// 设置置顶商品
+			setStick(stick);
+		} else {
+
+		}
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -300,6 +354,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		// 获取屏幕宽度
 		screenHeight = dm.heightPixels;
 		screenWidth = dm.widthPixels;
+
+		classifyes_ids = getResources().getStringArray(R.array.classify_id);
 
 	}
 
@@ -461,8 +517,12 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 */
 	@Override
 	protected void initUI() {
+		// 设置数据为上次请求的数据
+		setLastData();
 		// 获取广告
 		getAds();
+		// 获取置顶商品
+		getStick();
 
 		sv_shopping_center.setHeader(iv_center_bg_img);
 		sv_shopping_center.setOnTurnListener(this);
@@ -562,24 +622,24 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		llyt_center_egao.setOnClickListener(new OnClickListener1());
 		iv_center_4_top_sale.setOnClickListener(new OnClickListener1());
 		btn_center_4_top_sale.setOnClickListener(new OnClickListener1());
-		rlyt_center_4_left_bottom.setOnClickListener(new OnClickListener2());
-		rlyt_center_4_right_top.setOnClickListener(new OnClickListener2());
-		rlyt_center_4_right_bottom.setOnClickListener(new OnClickListener2());
-		iv_center_5_top.setOnClickListener(new OnClickListener1());
-		btn_center_5_top.setOnClickListener(new OnClickListener1());
-		rlyt_center_5_left_bottom.setOnClickListener(new OnClickListener2());
-		rlyt_center_5_right_top.setOnClickListener(new OnClickListener2());
-		rlyt_center_5_right_bottom.setOnClickListener(new OnClickListener2());
-		iv_center_6_top.setOnClickListener(new OnClickListener1());
-		btn_center_6_top.setOnClickListener(new OnClickListener1());
-		rlyt_center_6_left_bottom.setOnClickListener(new OnClickListener2());
-		rlyt_center_6_right_top.setOnClickListener(new OnClickListener2());
-		rlyt_center_6_right_bottom.setOnClickListener(new OnClickListener2());
-		iv_center_7_top.setOnClickListener(new OnClickListener1());
-		btn_center_7_top.setOnClickListener(new OnClickListener1());
-		rlyt_center_7_left_bottom.setOnClickListener(new OnClickListener2());
-		rlyt_center_7_right_top.setOnClickListener(new OnClickListener2());
-		rlyt_center_7_right_bottom.setOnClickListener(new OnClickListener2());
+		rlyt_center_4_left_bottom.setOnClickListener(new OnClickListener3());
+		rlyt_center_4_right_top.setOnClickListener(new OnClickListener3());
+		rlyt_center_4_right_bottom.setOnClickListener(new OnClickListener3());
+		iv_center_5_top.setOnClickListener(new OnClickListener2());
+		btn_center_5_top.setOnClickListener(new OnClickListener2());
+		rlyt_center_5_left_bottom.setOnClickListener(new OnClickListener3());
+		rlyt_center_5_right_top.setOnClickListener(new OnClickListener3());
+		rlyt_center_5_right_bottom.setOnClickListener(new OnClickListener3());
+		iv_center_6_top.setOnClickListener(new OnClickListener2());
+		btn_center_6_top.setOnClickListener(new OnClickListener2());
+		rlyt_center_6_left_bottom.setOnClickListener(new OnClickListener3());
+		rlyt_center_6_right_top.setOnClickListener(new OnClickListener3());
+		rlyt_center_6_right_bottom.setOnClickListener(new OnClickListener3());
+		iv_center_7_top.setOnClickListener(new OnClickListener2());
+		btn_center_7_top.setOnClickListener(new OnClickListener2());
+		rlyt_center_7_left_bottom.setOnClickListener(new OnClickListener3());
+		rlyt_center_7_right_top.setOnClickListener(new OnClickListener3());
+		rlyt_center_7_right_bottom.setOnClickListener(new OnClickListener3());
 	}
 
 	@Override
@@ -602,6 +662,52 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		viewpager_shoppingcenter_ad.setAdapter(ad_adapter);
 		mIndicator.setViewPager(viewpager_shoppingcenter_ad);
 		switchTask.run();
+	}
+
+	/**
+	 * @描述：设置置顶商品
+	 * @param stick
+	 *            2014-9-21
+	 */
+	private void setStick(ArrayList<GoodsOne> stick) {
+		if (stick.size() == 10) {
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(0).getSourceImagePath(),
+					iv_center_4_left_bottom, options);
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(1).getSourceImagePath(), iv_center_4_right_top,
+					options);
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(2).getSourceImagePath(),
+					iv_center_4_right_bottom, options);
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(3).getSourceImagePath(),
+					iv_center_5_left_bottom, options);
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(4).getSourceImagePath(), iv_center_5_right_top,
+					options);
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(5).getSourceImagePath(),
+					iv_center_5_right_bottom, options);
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(6).getSourceImagePath(),
+					iv_center_6_left_bottom, options);
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(7).getSourceImagePath(), iv_center_6_right_top,
+					options);
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(8).getSourceImagePath(),
+					iv_center_6_right_bottom, options);
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(9).getSourceImagePath(),
+					iv_center_7_left_bottom, options);
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(10).getSourceImagePath(),
+					iv_center_7_right_top, options);
+			imageLoader.displayImage(URLConfig.IMG_IP
+					+ stick.get(11).getSourceImagePath(),
+					iv_center_7_right_bottom, options);
+		}
 	}
 
 	/**
@@ -686,25 +792,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				classify_name = "Top热卖";
 				classify_url = "isHot";
 				break;
-			case R.id.btn_center_5_top:// 5More
-
-			case R.id.iv_center_5_top:// 模块五
-				classify_name = "美在露上";
-				classify_url = "isHot";
-				break;
-			case R.id.btn_center_6_top:// 6More
-
-			case R.id.iv_center_6_top:// 模块六
-				classify_name = "性爱你得有一套";
-				classify_url = "isHot";
-				break;
-			case R.id.btn_center_7_top:// 7More
-
-			case R.id.iv_center_7_top:// 模块七
-				classify_name = "其乐无穷";
-				classify_url = "isHot";
-				break;
-
 			}
 
 			Intent intent = new Intent(getActivity(),
@@ -781,44 +868,111 @@ public class FragmentShoppingCenter extends BaseFragment implements
 						R.anim.translate_horizontal_start_in,
 						R.anim.translate_horizontal_start_out);
 				break;
-			case R.id.rlyt_center_4_left_bottom:// 模块四左下
+			case R.id.btn_center_5_top:// 5More
 
+			case R.id.iv_center_5_top:// 模块五
+				Intent intent_5 = new Intent(getActivity(),
+						ClassifyActivity.class);
+				Bundle bundle_5 = new Bundle();
+				bundle_5.putString("classify_id", classifyes_ids[1]);
+				bundle_5.putString("classify_name", "性随衣动");
+				intent_5.putExtras(bundle_5);
+				getActivity().startActivity(intent_5);
+				getActivity().overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
 				break;
-			case R.id.rlyt_center_4_right_top:// 模块四右上
+			case R.id.btn_center_6_top:// 6More
 
+			case R.id.iv_center_6_top:// 模块六
+				Intent intent_6 = new Intent(getActivity(),
+						ClassifyActivity.class);
+				Bundle bundle_6 = new Bundle();
+				bundle_6.putString("classify_id", classifyes_ids[0]);
+				bundle_6.putString("classify_name", "放纵一夏");
+				intent_6.putExtras(bundle_6);
+				getActivity().startActivity(intent_6);
+				getActivity().overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
 				break;
-			case R.id.rlyt_center_4_right_bottom:// 模块四右下
+			case R.id.btn_center_7_top:// 7More
 
-				break;
-			case R.id.rlyt_center_5_left_bottom:// 模块五左下
-
-				break;
-			case R.id.rlyt_center_5_right_top:// 模块五上
-
-				break;
-			case R.id.rlyt_center_5_right_bottom:// 模块五右下
-
-				break;
-			case R.id.rlyt_center_6_left_bottom:// 模块六左下
-
-				break;
-			case R.id.rlyt_center_6_right_top:// 模块六右上
-
-				break;
-			case R.id.llyt_center_6_right_bottom:// 模块六右下
-
-				break;
-			case R.id.rlyt_center_7_left_bottom:// 模块七左下
-
-				break;
-			case R.id.rlyt_center_7_right_top:// 模块七右上
-
-				break;
-			case R.id.rlyt_center_7_right_bottom:// 模块七右下
-
+			case R.id.iv_center_7_top:// 模块七
+				Intent intent_7 = new Intent(getActivity(),
+						ClassifyActivity.class);
+				Bundle bundle_7 = new Bundle();
+				bundle_7.putString("classify_id", classifyes_ids[3]);
+				bundle_7.putString("classify_name", "爱不释手");
+				intent_7.putExtras(bundle_7);
+				getActivity().startActivity(intent_7);
+				getActivity().overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
 				break;
 
 			}
+		}
+
+	}
+
+	/**
+	 * @名称：FragmentShoppingCenter.java
+	 * @描述：首页置顶商品
+	 * @author danding 2014-9-21
+	 */
+	class OnClickListener3 implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			String goods_id = null;
+			switch (v.getId()) {
+			case R.id.rlyt_center_4_left_bottom:// 模块四左下
+				goods_id = stick.get(0).getId();
+				break;
+			case R.id.rlyt_center_4_right_top:// 模块四右上
+				goods_id = stick.get(1).getId();
+				break;
+			case R.id.rlyt_center_4_right_bottom:// 模块四右下
+				goods_id = stick.get(2).getId();
+				break;
+			case R.id.rlyt_center_5_left_bottom:// 模块五左下
+				goods_id = stick.get(3).getId();
+				break;
+			case R.id.rlyt_center_5_right_top:// 模块五上
+				goods_id = stick.get(4).getId();
+				break;
+			case R.id.rlyt_center_5_right_bottom:// 模块五右下
+				goods_id = stick.get(5).getId();
+				break;
+			case R.id.rlyt_center_6_left_bottom:// 模块六左下
+				goods_id = stick.get(6).getId();
+				break;
+			case R.id.rlyt_center_6_right_top:// 模块六右上
+				goods_id = stick.get(7).getId();
+				break;
+			case R.id.llyt_center_6_right_bottom:// 模块六右下
+				goods_id = stick.get(8).getId();
+				break;
+			case R.id.rlyt_center_7_left_bottom:// 模块七左下
+				goods_id = stick.get(9).getId();
+				break;
+			case R.id.rlyt_center_7_right_top:// 模块七右上
+				goods_id = stick.get(10).getId();
+				break;
+			case R.id.rlyt_center_7_right_bottom:// 模块七右下
+				goods_id = stick.get(11).getId();
+				break;
+			}
+			Intent intent = new Intent(getActivity(), GoodsActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("goods_id", goods_id);
+			bundle.putInt("pic_tag", 1);
+			intent.putExtras(bundle);
+			getActivity().startActivity(intent);
+			getActivity().overridePendingTransition(
+					R.anim.translate_horizontal_start_in,
+					R.anim.translate_horizontal_start_out);
 		}
 
 	}
@@ -830,6 +984,14 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		HttpUrlProvider.getIntance().getCenterClassifyGoods(getActivity(),
 				new TaskCenterClassifyGoodsBack(handler),
 				URLConfig.CENTER_HOME_PLATE, 1, "isGadver");
+	}
+
+	/**
+	 * @描述：获取置顶商品 2014-9-21
+	 */
+	private void getStick() {
+		HttpUrlProvider.getIntance().getStickGoods(getActivity(),
+				new TaskStickGoodsListBack(handler), URLConfig.STICK_GOODS);
 	}
 
 	@Override

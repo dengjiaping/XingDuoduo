@@ -83,7 +83,7 @@
         </activity>
         <!-- 用户密码修改界面 -->
         <activity
-            android:name="com.xiuman.xingduoduo.ui.activity.UserPswUpdateActivity"
+            android:name="com.xiuman.xingduoduo.ui.activity.UpdateUserPswActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
@@ -286,6 +286,7 @@
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.ProtocolActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 邀请码介绍 -->
@@ -298,12 +299,21 @@
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.SettingActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 关于 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.AboutActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Transparent" >
+        </activity>
+        <!-- 应用推荐 -->
+        <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.AppRecommendActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 支付模块 -->

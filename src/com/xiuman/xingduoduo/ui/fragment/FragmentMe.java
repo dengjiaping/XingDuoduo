@@ -33,6 +33,7 @@ import com.xiuman.xingduoduo.ui.activity.UserLoginActivity;
 import com.xiuman.xingduoduo.ui.activity.UserRegisterActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
+import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 import com.xiuman.xingduoduo.view.CustomDialog;
 import com.xiuman.xingduoduo.view.PullScrollView;
@@ -334,7 +335,7 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 			
 			break;
 		case R.id.btn_me_my_app_msg:// 系统消息
-
+			ToastUtil.ToastView(getActivity(), "功能暂未开放哦^_^");
 			break;
 		case R.id.llyt_me_menu_protect:// 隐私保护
 			if (mSlideButton.isChecked()) {

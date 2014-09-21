@@ -483,6 +483,9 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		String cost_price = "￥"
 				+ goods_two.getMarketPrice();
 		tv_goods_zhekou.setText(((Float.parseFloat(goods_two.getGoods_price())/goods_two.getMarketPrice())*10+"").substring(0, 3)+"折");
+		if(Float.parseFloat(goods_two.getGoods_price())==0){
+			tv_goods_zhekou.setText("活动");
+		}
 		SpannableString sp = new SpannableString(cost_price);
 		sp.setSpan(new StrikethroughSpan(), 0, cost_price.length(),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

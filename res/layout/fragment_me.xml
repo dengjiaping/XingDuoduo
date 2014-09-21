@@ -76,7 +76,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dip"
-                        android:text="@string/me_app_description"
                         android:textColor="@color/color_bg"
                         android:textSize="@dimen/txt_size_18" />
                 </LinearLayout>

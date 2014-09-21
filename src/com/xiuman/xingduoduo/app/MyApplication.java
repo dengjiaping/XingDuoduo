@@ -377,7 +377,11 @@ public class MyApplication extends Application {
 		SharedPreUtils.setString(this, json_ads, AppConfig.FILE_SAVE_ADS,
 				AppConfig.KEY_SAVE_ADS);
 	}
-
+	/**
+	 * @描述：获取广告
+	 * @return
+	 * 2014-9-21
+	 */
 	public ActionValue<GoodsOne> getAds() {
 		ActionValue<GoodsOne> ads = null;
 		String json = SharedPreUtils.getString(this, AppConfig.FILE_SAVE_ADS,
@@ -389,4 +393,33 @@ public class MyApplication extends Application {
 		}
 		return ads;
 	}
+	
+	/*----------------------------------------------保存首页置顶商品--------------------------------------------------------*/
+	/**
+	 * @描述：保存首页置顶商品
+	 * @param ads
+	 *            2014-9-20
+	 */
+	public void saveStick(ActionValue<GoodsOne> stcik) {
+		String json_stcik = new Gson().toJson(stcik).toString();
+		SharedPreUtils.setString(this, json_stcik, AppConfig.FILE_SAVE_STCIK,
+				AppConfig.KEY_SAVE_STICK);
+	}
+	/**
+	 * @描述：获取首页置顶商品
+	 * @return
+	 * 2014-9-21
+	 */
+	public ActionValue<GoodsOne> getStcik() {
+		ActionValue<GoodsOne> stcik = null;
+		String json = SharedPreUtils.getString(this, AppConfig.FILE_SAVE_STCIK,
+				AppConfig.KEY_SAVE_STICK);
+		if (!json.equals("")) {
+			stcik = new Gson().fromJson(json,
+					new TypeToken<ActionValue<GoodsOne>>() {
+					}.getType());
+		}
+		return stcik;
+	}
+	
 }

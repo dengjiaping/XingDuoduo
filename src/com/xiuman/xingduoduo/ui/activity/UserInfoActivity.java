@@ -3,7 +3,6 @@ package com.xiuman.xingduoduo.ui.activity;
 import java.io.File;
 import java.io.IOException;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,15 +12,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,8 +38,7 @@ import com.xiuman.xingduoduo.view.CustomDialog;
  * @version
  * @date：2014-6-19
  */
-public class UserInfoActivity extends Base2Activity implements OnClickListener,
-		OnCheckedChangeListener {
+public class UserInfoActivity extends Base2Activity implements OnClickListener {
 
 	/*---------------------------------组件----------------------------*/
 	// 提交用户资料
@@ -65,12 +59,10 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 	private RelativeLayout rlyt_userinfo_user_sex;
 	// 性别
 	private TextView tv_userinfo_user_sex;
-	// 邮箱
-	private RelativeLayout rlyt_userinfo_user_email;
-	// 邮箱地址
-	private TextView tv_userinfo_user_email;
 	// 修改密码
-	private Button btn_userinfo_user_update;
+	private Button btn_userinfo_user_update_psw;
+	// 修改个人信息
+	private Button btn_userinfo_user_update_info;
 	// 收货地址
 	private Button btn_userinfo_user_address;
 	// 推出登陆
@@ -90,14 +82,6 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 	// 取消
 	private Button btn_pop_photo_cancel;
 
-	/*--------------------------性别--------------------------*/
-	// 组
-	private RadioGroup sex_type_group;
-	// 男女
-	private RadioButton rbtn_userinfo_user_sex_male,
-			rbtn_userinfo_user_sex_female;
-	// 取消按钮
-	private Button btn_userinfo_user_sex_cancel;
 
 	/*---------------------------------数据变量-----------------------------------*/
 	// 屏幕宽高
@@ -106,10 +90,6 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 	private ImageCropUtils cropUtils;
 	// 用户头像(Bitmap)
 	private Bitmap user_head_bitmap;
-	// 性别选择Dialog
-	private Dialog dialog;
-	// 当前性别
-	private String sex;
 
 	// ----------------当前登录用户-----------------------
 	private User user;
@@ -148,11 +128,10 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 		tv_userinfo_user_name = (TextView) findViewById(R.id.tv_userinfo_user_name);
 		tv_userinfo_user_sex = (TextView) findViewById(R.id.tv_userinfo_user_sex);
 		rlyt_userinfo_user_sex = (RelativeLayout) findViewById(R.id.rlyt_userinfo_user_sex);
-		rlyt_userinfo_user_email = (RelativeLayout) findViewById(R.id.rlyt_userinfo_user_email);
-		tv_userinfo_user_email = (TextView) findViewById(R.id.tv_userinfo_user_email);
-		btn_userinfo_user_update = (Button) findViewById(R.id.btn_userinfo_user_update);
+		btn_userinfo_user_update_psw = (Button) findViewById(R.id.btn_userinfo_user_update_psw);
 		btn_userinfo_user_address = (Button) findViewById(R.id.btn_userinfo_user_address);
 		tv_userinfo_user_createdate = (TextView) findViewById(R.id.tv_userinfo_user_createdate);
+		btn_userinfo_user_update_info = (Button) findViewById(R.id.btn_userinfo_user_update_info);
 		btn_userinfo_exit = (Button) findViewById(R.id.btn_userinfo_exit);
 	}
 
@@ -168,9 +147,9 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 		rlyt_userinfo_user_head.setOnClickListener(this);
 		rlyt_userinfo_user_sex.setOnClickListener(this);
 		btn_userinfo_user_address.setOnClickListener(this);
-		rlyt_userinfo_user_email.setOnClickListener(this);
-		btn_userinfo_user_update.setOnClickListener(this);
+		btn_userinfo_user_update_psw.setOnClickListener(this);
 		btn_userinfo_exit.setOnClickListener(this);
+		btn_userinfo_user_update_info.setOnClickListener(this);
 	}
 
 	/**
@@ -203,9 +182,12 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 
 		// 测试数据
 		tv_userinfo_user_rank.setText(user.getRankNmae());
-		tv_userinfo_user_name.setText(user.getUserName());
-		tv_userinfo_user_sex.setText("保密");
-		tv_userinfo_user_email.setText(user.getEmail());
+		tv_userinfo_user_name.setText(user.getNickname());
+		String user_sex = user.getGender();
+		tv_userinfo_user_sex.setText(user_sex);
+		if (user_sex == null) {
+			tv_userinfo_user_sex.setText("保密");
+		}
 		tv_userinfo_user_createdate.setText(user.getCreateDate());
 	}
 
@@ -225,9 +207,6 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 			break;
 		case R.id.rlyt_userinfo_user_head:// 用户头像
 			showPop(rlyt_userinfo_user_head);
-			break;
-		case R.id.rlyt_userinfo_user_sex:// 性别
-			showDialog();
 			break;
 		case R.id.btn_userinfo_user_address:// 收货地址
 			Intent intent = new Intent(UserInfoActivity.this,
@@ -252,32 +231,19 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 		case R.id.btn_pop_photo_cancel:// 取消
 			dismissPop();
 			break;
-		case R.id.btn_user_info_user_sex_cancel:// 取消Dialog
-			dialog.dismiss();
-			break;
 		case R.id.btn_userinfo_submit:// 提交用户信息
 			Toast.makeText(UserInfoActivity.this, "修改成功", Toast.LENGTH_SHORT)
 					.show();
 			Intent intent_submit = new Intent();
 			Bundle bundle_submit = new Bundle();
 
-			// user.setUser_address(user_address);
-			// //测试数据
-			// user.setUser_head_url("");
-			// user.setUser_login_name(tv_userinfo_user_login_name.getText()+"");
-			// user.setUser_name(tv_userinfo_user_name.getText()+"");
-			// user.setUser_sex(tv_userinfo_user_sex.getText()+"");
-
 			bundle_submit.putSerializable("user", user);
 			intent_submit.putExtras(bundle_submit);
 			setResult(AppConfig.UPDATE_USER_INFO, intent_submit);
 			finish();
 			break;
-		case R.id.rlyt_userinfo_user_email:// 修改邮箱
-
-			break;
-		case R.id.btn_userinfo_user_update:// 修改密码
-			Intent intent_psw = new Intent(this, UserPswUpdateActivity.class);
+		case R.id.btn_userinfo_user_update_psw:// 修改密码
+			Intent intent_psw = new Intent(this, UpdateUserPswActivity.class);
 			Bundle bundle_psw = new Bundle();
 			bundle_psw.putSerializable("user", user);
 			intent_psw.putExtras(bundle_psw);
@@ -287,6 +253,16 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 			break;
 		case R.id.btn_userinfo_exit:// 退出登陆(删除用户信息)
 			showExitDialog();
+			break;
+		case R.id.btn_userinfo_user_update_info:// 修改个人信息
+			Intent intent_info = new Intent(UserInfoActivity.this,
+					UpdateUserInfoActivity.class);
+			Bundle bundle_info = new Bundle();
+			bundle_info.putSerializable("user", user);
+			intent_info.putExtras(bundle_info);
+			startActivityForResult(intent_info, AppConfig.REQUEST_CODE);
+			overridePendingTransition(R.anim.translate_horizontal_start_in,
+					R.anim.translate_horizontal_start_out);
 			break;
 		}
 	}
@@ -333,8 +309,12 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 			break;
 		case AppConfig.UPDATE_USER_ADDRESS:// 更新用户收货地址信息
 			break;
+			
+		case AppConfig.RESULT_CODE_OK:
+			user = (User) data.getExtras().getSerializable("user");
+			initUserInfo(user);
+			break;
 		}
-
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
@@ -386,60 +366,6 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 	}
 
 	/**
-	 * 
-	 * @描述：性别选择Dialog
-	 * @date：2014-6-19
-	 */
-	private void showDialog() {
-		dialog = new Dialog(this, R.style.MyDialog);// 使用自定义主题的Dialog
-		// 设置Dialog的内部布局
-		LayoutInflater factory = LayoutInflater.from(this);
-		final View view = factory.inflate(R.layout.dialog_sex, null);
-		// find
-		sex_type_group = (RadioGroup) view.findViewById(R.id.sex_type_group);
-		btn_userinfo_user_sex_cancel = (Button) view
-				.findViewById(R.id.btn_user_info_user_sex_cancel);
-		rbtn_userinfo_user_sex_male = (RadioButton) view
-				.findViewById(R.id.rbtn_userinfo_user_sex_male);
-		rbtn_userinfo_user_sex_female = (RadioButton) view
-				.findViewById(R.id.rbtn_userinfo_user_sex_female);
-
-		// 设置监听
-		sex_type_group.setOnCheckedChangeListener(this);
-		btn_userinfo_user_sex_cancel.setOnClickListener(this);
-
-		sex = (String) tv_userinfo_user_sex.getText();
-		if (sex.equals("男")) {
-			rbtn_userinfo_user_sex_male.setChecked(true);
-			rbtn_userinfo_user_sex_female.setChecked(false);
-		} else if (sex.equals("女")) {
-			rbtn_userinfo_user_sex_male.setChecked(false);
-			rbtn_userinfo_user_sex_female.setChecked(true);
-		}
-
-		dialog.setContentView(view);
-		dialog.show();
-	}
-
-	/**
-	 * 男女选择
-	 */
-	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		switch (checkedId) {
-		case R.id.rbtn_userinfo_user_sex_male:// 男
-			tv_userinfo_user_sex.setText("男");
-			dialog.dismiss();
-			break;
-		case R.id.rbtn_userinfo_user_sex_female:// 女
-			tv_userinfo_user_sex.setText("女");
-			dialog.dismiss();
-			break;
-
-		}
-	}
-
-	/**
 	 * @描述：显示退出登录对话框 2014-8-12
 	 */
 	private void showExitDialog() {
@@ -465,4 +391,5 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener,
 					}
 				});
 	}
+
 }
