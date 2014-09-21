@@ -11,10 +11,8 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.xiuman.xingduoduo.app.AppConfig;
-import com.xiuman.xingduoduo.model.ActionValue;
-import com.xiuman.xingduoduo.model.OrderId;
+import com.xiuman.xingduoduo.model.ActionValuePay;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 
 
@@ -37,9 +35,7 @@ public class TaskAlipayBack implements HttpTaskListener {
 	@Override
 	public void dataSucced(String result) {
 		System.out.println("签名字串返回"+result);
-		ActionValue<String> value = new Gson().fromJson(result,
-				new TypeToken<ActionValue<String>>() {
-				}.getType());
+		ActionValuePay value = new Gson().fromJson(result,ActionValuePay.class);
 
 		Message msg = Message.obtain();
 		msg.what = AppConfig.ALIPAY_BACK;

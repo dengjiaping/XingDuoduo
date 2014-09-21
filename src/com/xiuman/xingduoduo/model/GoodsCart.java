@@ -37,6 +37,8 @@ public class GoodsCart implements Serializable {
 	private int quanity;
 	// 总价
 	private String totalPrice;
+	// 是否是活动商品
+	private boolean isActivities;
 
 	public GoodsCart() {
 		super();
@@ -45,7 +47,8 @@ public class GoodsCart implements Serializable {
 	public GoodsCart(String cartItemId, String productId, String goodId,
 			String productName, String productPrice,
 			String thumbnailGoodsImagePath, String smallGoodsImagePath,
-			String specifications, int quanity, String totalPrice) {
+			String specifications, int quanity, String totalPrice,
+			boolean isActivities) {
 		super();
 		this.cartItemId = cartItemId;
 		this.productId = productId;
@@ -57,6 +60,15 @@ public class GoodsCart implements Serializable {
 		Specifications = specifications;
 		this.quanity = quanity;
 		this.totalPrice = totalPrice;
+		this.isActivities = isActivities;
+	}
+
+	public boolean isActivities() {
+		return isActivities;
+	}
+
+	public void setActivities(boolean isActivities) {
+		this.isActivities = isActivities;
 	}
 
 	public String getCartItemId() {

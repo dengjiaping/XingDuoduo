@@ -1,8 +1,12 @@
 package com.xiuman.xingduoduo.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,18 +16,20 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiuman.xingduoduo.R;
-import com.xiuman.xingduoduo.model.Ad;
+import com.xiuman.xingduoduo.app.URLConfig;
+import com.xiuman.xingduoduo.model.GoodsOne;
+import com.xiuman.xingduoduo.ui.activity.GoodsActivity;
 
 /**
  * 
- * @名称：ShoppingCenterAdViewPagerAdapter.java 
+ * @名称：ShoppingCenterAdViewPagerAdapter.java
  * @描述：商城界面广告Adapter
  * @author danding
  * @version 2014-6-9
  */
 public class ShoppingCenterAdViewPagerAdapter extends PagerAdapter {
 
-	private List<Ad> ads;
+	private ArrayList<GoodsOne> ads;
 	private List<ImageView> ad_ivs;
 	private ImageView iv_ad;
 	private Context context;
@@ -39,7 +45,7 @@ public class ShoppingCenterAdViewPagerAdapter extends PagerAdapter {
 	 * @param options
 	 * @param imageLoader
 	 */
-	public ShoppingCenterAdViewPagerAdapter(List<Ad> ads,
+	public ShoppingCenterAdViewPagerAdapter(ArrayList<GoodsOne> ads,
 			List<ImageView> ad_ivs, Context context,
 			DisplayImageOptions options, ImageLoader imageLoader) {
 		super();
@@ -67,16 +73,28 @@ public class ShoppingCenterAdViewPagerAdapter extends PagerAdapter {
 		iv_ad.setScaleType(ImageView.ScaleType.FIT_XY);
 		iv_ad.setTag(position);
 		// 切换
-		// imageLoader.displayImage(ads.get(position).getAd_poster_url(), iv_ad,
-		// options);
-		iv_ad.setImageResource(R.drawable.bg_center_ad_loading);
+		imageLoader.displayImage(URLConfig.IMG_IP
+				+ ads.get(position).getSourceImagePath(), iv_ad, options);
 		container.addView(iv_ad);
 
 		iv_ad.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
+				GoodsOne goods_one = ads.get(position);
+				Intent intent = new Intent(
+						context,
+						GoodsActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("goods_one", goods_one);
+				bundle.putSerializable("goods_id",
+						goods_one.getId());
+				bundle.putInt("pic_tag", 1);
+				intent.putExtras(bundle);
+				context.startActivity(intent);
+				((Activity) context).overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
 			}
 		});
 

@@ -111,6 +111,7 @@ public class SearchGoodsListActivity extends Base2Activity implements
 						// 下拉加载完成
 						pullgridview_classify_goods_list
 								.onPullDownRefreshComplete();
+						gridview_classify_goods_list.setAdapter(adapter);
 					} else {// 上拉
 						goods_current.addAll(goods_get);
 						adapter.notifyDataSetChanged();
@@ -128,7 +129,7 @@ public class SearchGoodsListActivity extends Base2Activity implements
 						}
 					}
 					TimeUtil.setLastUpdateTime2(pullgridview_classify_goods_list);
-					gridview_classify_goods_list.setAdapter(adapter);
+					
 					llyt_goods_null.setVisibility(View.INVISIBLE);
 				}
 				loadingdialog.dismiss();
@@ -280,6 +281,7 @@ public class SearchGoodsListActivity extends Base2Activity implements
 							bundle.putSerializable("goods_one", goods_one);
 							bundle.putSerializable("goods_id",
 									goods_one.getId());
+							bundle.putInt("pic_tag", 0);
 							intent.putExtras(bundle);
 							startActivity(intent);
 							overridePendingTransition(

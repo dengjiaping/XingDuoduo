@@ -8,7 +8,7 @@ import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 /**
- * @名称：TaskUserInfoBack.java
+ * @名称：TaskAdd2CartBack.java
  * @描述：添加商品到购物车
  * @author danding
  * 2014-8-12

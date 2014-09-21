@@ -30,7 +30,10 @@ import com.xiuman.xingduoduo.app.Mylog;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.callback.TaskAddOrderBack;
 import com.xiuman.xingduoduo.callback.TaskAlipayBack;
+import com.xiuman.xingduoduo.callback.TaskSendAliPayStatusCodeBack;
 import com.xiuman.xingduoduo.model.ActionValue;
+import com.xiuman.xingduoduo.model.ActionValuePay;
+import com.xiuman.xingduoduo.model.AliPayStatus;
 import com.xiuman.xingduoduo.model.GoodsCart;
 import com.xiuman.xingduoduo.model.OrderId;
 import com.xiuman.xingduoduo.model.User;
@@ -62,9 +65,9 @@ public class OrderSubmitActivity extends Base2Activity implements
 
 	// 收货地址------------------------------------------------------
 	private LinearLayout llyt_submit_order_address;
-	//无收货地址
+	// 无收货地址
 	private LinearLayout llyt_submit_order_null;
-	//有收货地址
+	// 有收货地址
 	private LinearLayout llyt_submit_order_not_null;
 	// 收货人
 	private TextView tv_submit_order_taker_name;
@@ -109,7 +112,7 @@ public class OrderSubmitActivity extends Base2Activity implements
 	private ImageView iv_order_list_right;
 	// 商品列表ListView
 	private ListView lv_order_submit_goods_list;
-	//商品列表包裹
+	// 商品列表包裹
 	private LinearLayout llyt_order_submit_goods_list_container;
 
 	// 运费
@@ -122,9 +125,11 @@ public class OrderSubmitActivity extends Base2Activity implements
 	// 提交订单----------------------------------------------
 	// 订单合计(包含运费)
 	private TextView tv_order_submit_total;
+	//含活动商品的提示
+	private TextView tv_order_submit_total_tip;
 	// 确认提交
 	private Button btn_order_submit_sure;
-	//提交订单加载进度框
+	// 提交订单加载进度框
 	private LoadingDialog loadingdialog;
 	/*-----------------------ImageLoader-----------------------------*/
 	// ImageLoader
@@ -133,18 +138,18 @@ public class OrderSubmitActivity extends Base2Activity implements
 	public DisplayImageOptions options;
 
 	/*------------------------------------------数据-------------------------------------*/
-	//当前登录的用户
+	// 当前登录的用户
 	private User user;
-	//付款方式
+	// 付款方式
 	private String[] pay_ways;
 	// 付款方式
 	private String current_pay;
-	//运费(4种方式)
+	// 运费(4种方式)
 	private String[] trans_ways;
-	//当前选择的运费方式
+	// 当前选择的运费方式
 	private String current_trans;
-	//全局shopid
-	private String shopId;
+	// 全局shopid
+	// private String shopId = "";
 	// (用户地址)
 	private UserAddress userAddress;
 	// 从上级界面传递而来的购物车数据
@@ -156,81 +161,138 @@ public class OrderSubmitActivity extends Base2Activity implements
 	private double goods_total = 0;
 	// 订单总价(运费)
 	private double order_total = 0;
-	
-	
+
 	/*----------------------------------------Adapter--------------------------------------*/
-	//商品列表Adapter
+	// 商品列表Adapter
 	private OrderSubmitListViewAdapter adapter;
-	
-	
+
 	/*------------------------------------请求提交订单的返回结果-----------------------------*/
-	//结果返回
+	// 创建订单结果返回
 	private ActionValue<OrderId> value_create;
-	
-	private ActionValue<String> value_alipay;
-	
+	// 请求支付宝私钥
+	private ActionValuePay value_alipay;
+	// 传递支付结果
+	private ActionValue<AliPayStatus> value_pay_status;
+
 	// 支付宝线程返回 值类型
 	private static final int RQF_PAY = 1;
-	//订单id
+	// 订单id
 	private String orderId;
-	//支付宝签名字串
+	// 支付宝签名字串
 	private String alipaySign;
-	
-	//消息处理
+
+	// ***传递到订单生成完成界面的付款方式标记---------------------------------------------------
+	private int pay_tag;// (0-->代表支付宝，1--->代表货到付款)
+
+	// 消息处理
 	@SuppressLint("HandlerLeak")
-	private Handler handler = new Handler(){
+	private Handler handler = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
-			case AppConfig.CREATE_ORDER://创建订单返回
+			case AppConfig.CREATE_ORDER:// 创建订单返回
 				value_create = (ActionValue<OrderId>) msg.obj;
-				if(value_create.isSuccess()){
-					if(cb_order_pay_zhifubao.isChecked()){
-						//获取订单号，并提交支付宝支付
-						orderId=value_create.getDatasource().get(0).getOrderId();
-						Mylog.i("订单号",orderId);
-						
-					}else if(cb_order_pay_daofu.isChecked()){
-						ToastUtil.ToastView(OrderSubmitActivity.this, value_create.getMessage());
-						}
-				}else{
-					ToastUtil.ToastView(OrderSubmitActivity.this, value_create.getMessage());
+				if (value_create.isSuccess()) {
+					// 支付宝
+					if (cb_order_pay_zhifubao.isChecked()) {
+						// 获取订单号，并提交支付宝支付
+						orderId = value_create.getDatasource().get(0)
+								.getOrderId();
+						// 请求获取支付参数
+						HttpUrlProvider.getIntance().getAlipay(
+								OrderSubmitActivity.this,
+								new TaskAlipayBack(handler),
+								URLConfig.ALIPAY_URL, orderId);
+						// 货到付款
+					} else if (cb_order_pay_daofu.isChecked()) {
+						ToastUtil.ToastView(OrderSubmitActivity.this,
+								value_create.getMessage());
+						orderId = value_create.getDatasource().get(0)
+								.getOrderId();
+						pay_tag = 1;
+						Intent intent_daofu = new Intent(
+								OrderSubmitActivity.this,
+								OrderCompleteActivity.class);
+						Bundle bundle_daofu = new Bundle();
+
+						bundle_daofu.putInt("pay_tag", pay_tag);
+						bundle_daofu.putString("orderId", orderId);
+						bundle_daofu.putString("order_poster", cart_goods
+								.get(0).getSmallGoodsImagePath());
+						bundle_daofu.putString("goods_total", goods_total + "");
+						bundle_daofu.putString("goods_number", goods_number
+								+ "");
+						intent_daofu.putExtras(bundle_daofu);
+						startActivity(intent_daofu);
+						overridePendingTransition(
+								R.anim.translate_horizontal_start_in,
+								R.anim.translate_horizontal_start_out);
+						finish();
+					}
+					// 重新设置购物车商品数量
+					MyApplication.getInstance().setCartGoodsNumber(
+							MyApplication.getInstance().getCartGoodsNumber()
+									- goods_number);
+				} else {
+					ToastUtil.ToastView(OrderSubmitActivity.this,
+							value_create.getMessage());
 				}
 				loadingdialog.dismiss();
 				break;
-			case AppConfig.NET_ERROR_NOTNET://网络连接失败
-				
+			case AppConfig.NET_ERROR_NOTNET:// 网络连接失败
+
 				loadingdialog.dismiss();
 				break;
 			case AppConfig.ALIPAY_BACK:
-				value_alipay=(ActionValue<String>) msg.obj;
-				if(value_alipay.isSuccess()){
-					
-					alipaySign=value_alipay.getDatasource().get(0);
+				value_alipay = (ActionValuePay) msg.obj;
+				if (value_alipay.isSuccess()) {
+
+					alipaySign = value_alipay.getDatasource();
 					submitAlipayOrder();
-					
-				}else{
-					ToastUtil.ToastView(OrderSubmitActivity.this, value_alipay.getMessage());
+
+				} else {
+					ToastUtil.ToastView(OrderSubmitActivity.this,
+							value_alipay.getMessage());
 				}
 				loadingdialog.dismiss();
-				
+
 				break;
-			
-			//支付宝返回值提取
-			case RQF_PAY://支付宝返回操作
-				
-				
+			case RQF_PAY:// 支付结果返回
+
 				Result result = new Result((String) msg.obj);
 				result.parseResult();
-				if(result.rs.equals("9000")&&result.isSignOk){
-					//支付成功进行相关操作
-//					HttpUrlProvider.getIntance().getCreateOrder(OrderSubmitActivity.this, new TaskAddOrderBack(handler), 
-//							URLConfig.CREATE_ORDER,user.getUserId(), current_pay,current_trans,
-//							userAddress.getReceiveId(), et_order_submit_message.getText().toString().trim(), shopId);
-//					loadingdialog.show();
-//					ToastUtil.ToastView(OrderSubmitActivity.this, value_create.getMessage());
-//					MyApplication.getInstance().setCartGoodsNumber(MyApplication.getInstance().getCartGoodsNumber()-goods_number);
+				if (result.rs.equals("9000") && result.isSignOk) {
+					ToastUtil.ToastView(OrderSubmitActivity.this, "支付成功");
+				} else {
+					ToastUtil.ToastView(OrderSubmitActivity.this,
+							result.getResult());
 				}
+				// 将支付结果传递到后台
+				HttpUrlProvider.getIntance().sendPayStatusCode(
+						OrderSubmitActivity.this,
+						new TaskSendAliPayStatusCodeBack(handler),
+						URLConfig.PAY_STATUS_CODE, orderId, result.rs);
+				break;
+			case AppConfig.SEND_STATUS_CODE:// 获取传递支付结果到后台的返回值，传递到下一界面
+				value_pay_status = (ActionValue<AliPayStatus>) msg.obj;
+				ToastUtil.ToastView(OrderSubmitActivity.this,
+						value_pay_status.getMessage());
+				pay_tag = 0;
+
+				Intent intent_ali = new Intent(OrderSubmitActivity.this,
+						OrderCompleteActivity.class);
+				Bundle bundle_ali = new Bundle();
+				bundle_ali.putInt("pay_tag", pay_tag);
+				bundle_ali.putSerializable("AliPayStatus", value_pay_status);
+				bundle_ali.putString("order_poster", cart_goods.get(0)
+						.getSmallGoodsImagePath());
+				bundle_ali.putString("goods_total", goods_total + "");
+				bundle_ali.putString("goods_number", goods_number + "");
+				intent_ali.putExtras(bundle_ali);
+				startActivity(intent_ali);
+				overridePendingTransition(R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
+				finish();
 				break;
 			}
 		}
@@ -259,14 +321,14 @@ public class OrderSubmitActivity extends Base2Activity implements
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.imageScaleType(ImageScaleType.NONE).build();
 
-		//获取配置文件中的4种运费方式
+		// 获取配置文件中的4种运费方式
 		trans_ways = getResources().getStringArray(R.array.trans_pay);
-		//获取配置文件中的2种支付方式
+		// 获取配置文件中的2种支付方式
 		pay_ways = getResources().getStringArray(R.array.pay_ways);
-		
+
 		// 读取本地默认用户地址(如果存在)
 		userAddress = MyApplication.getInstance().getDefaultAddress();
-		
+
 		// 上级界面传来的数据
 		cart_goods = (ArrayList<GoodsCart>) getIntent().getExtras()
 				.getSerializable("balance_goods");
@@ -316,6 +378,7 @@ public class OrderSubmitActivity extends Base2Activity implements
 
 		// 合计
 		tv_order_submit_total = (TextView) findViewById(R.id.tv_order_submit_total);
+		tv_order_submit_total_tip = (TextView) findViewById(R.id.tv_order_submit_total_tip);
 		btn_order_submit_sure = (Button) findViewById(R.id.btn_order_submit_sure);
 	}
 
@@ -332,11 +395,9 @@ public class OrderSubmitActivity extends Base2Activity implements
 		} else {
 			tv_submit_order_taker_name.setTextKeepState("收货人："
 					+ userAddress.getReceiveName());
-			tv_submit_order_taker_phone.setText(userAddress
-					.getTelephone());
+			tv_submit_order_taker_phone.setText(userAddress.getTelephone());
 			tv_submit_order_address_detail.setTextKeepState("收货地址："
-					+ userAddress.getAreaId()
-					+ userAddress.getAddress());
+					+ userAddress.getAreaId() + userAddress.getAddress());
 			llyt_submit_order_null.setVisibility(View.INVISIBLE);
 			llyt_submit_order_not_null.setVisibility(View.VISIBLE);
 		}
@@ -346,21 +407,22 @@ public class OrderSubmitActivity extends Base2Activity implements
 
 			for (int i = 0; i < cart_goods.size(); i++) {
 				goods_number += cart_goods.get(i).getQuanity();
-				goods_total += Double.valueOf(cart_goods.get(i)
-						.getTotalPrice());
+				goods_total += Double
+						.valueOf(cart_goods.get(i).getTotalPrice());
 			}
 			tv_order_submit_goods_number.setText(goods_number + "");
 			tv_order_submit_goods_total.setText(goods_total + "");
 		}
 
-		//设置Adapter
-		adapter = new OrderSubmitListViewAdapter(this, cart_goods, options, imageLoader);
+		// 设置Adapter
+		adapter = new OrderSubmitListViewAdapter(this, cart_goods, options,
+				imageLoader);
 		lv_order_submit_goods_list.setAdapter(adapter);
-		
-		//设置默认付款方式支付宝
+
+		// 设置默认付款方式支付宝
 		cb_order_pay_zhifubao.setChecked(true);
 		setTrans();
-		
+
 	}
 
 	/**
@@ -372,50 +434,68 @@ public class OrderSubmitActivity extends Base2Activity implements
 		if (!tv_order_submit_freight.getText().equals("包邮")) {
 			order_total = goods_total
 					+ Double.valueOf(tv_order_submit_freight.getText() + "");
-		}else{
+		} else {
 			order_total = goods_total;
 		}
-		tv_order_submit_total.setText(order_total+"");
+		// 如果有活动商品，则根据付款方式加上相应的费用
+		int goods_activity_total = 0;
+		int goods_activity_nmber = 0;
+		for (int i = 0; i < cart_goods.size(); i++) {
+			if(cart_goods.get(i).isActivities()){
+				tv_order_submit_total_tip.setVisibility(View.VISIBLE);
+				goods_activity_nmber += cart_goods.get(i).getQuanity();
+			}
+		}
+		//货到付款12块
+		if (cb_order_pay_daofu.isChecked()) {
+			goods_activity_total = 12*goods_activity_nmber;
+		} else if (cb_order_pay_zhifubao.isChecked()) {//支付宝10块
+			goods_activity_total = 10*goods_activity_nmber;
+		}
+
+		order_total += goods_activity_total;
+		tv_order_submit_total.setText(order_total + "");
 	}
+
 	/**
-	 * @描述：根据支付方式以及商品总价来确定运费
-	 * 2014-8-26
+	 * @描述：根据支付方式以及商品总价来确定运费 2014-8-26
 	 */
-	private void setTrans(){
-		if(cb_order_pay_zhifubao.isChecked()){
+	private void setTrans() {
+		if (cb_order_pay_zhifubao.isChecked()) {
 			current_pay = pay_ways[0];
-			if(goods_total>=88){
-				//包邮
+			if (goods_total >= 88) {
+				// 包邮
 				current_trans = trans_ways[1];
 				tv_order_submit_freight.setText("包邮");
 				tv_order_submit_preferential.setText(tv_order_pay_zhifubao_tag
 						.getText());
-			}else{
-				//10元
+			} else {
+				// 10元
 				current_trans = trans_ways[0];
 				tv_order_submit_freight.setText("10.00");
 				tv_order_submit_preferential.setText("无");
 			}
-			
-		}else if(cb_order_pay_daofu.isChecked()){
+
+		} else if (cb_order_pay_daofu.isChecked()) {
 			current_pay = pay_ways[1];
-			if(goods_total>=218){
-				//包邮
+			if (goods_total >= 218) {
+				// 包邮
 				current_trans = trans_ways[3];
 				tv_order_submit_freight.setText("包邮");
 				tv_order_submit_preferential.setText(tv_order_pay_daofu_tag
 						.getText());
-			}else{
-				//12元
+			} else {
+				// 12元
 				current_trans = trans_ways[2];
 				tv_order_submit_freight.setText("12.00");
 				tv_order_submit_preferential.setText("无");
 			}
 		}
-		//设置订单总价
+		// 设置订单总价
 		setOrderTotal();
-		
+
 	}
+
 	@Override
 	protected void setListener() {
 		btn_back.setOnClickListener(this);
@@ -426,16 +506,18 @@ public class OrderSubmitActivity extends Base2Activity implements
 		llyt_order_pay_way_caifutong.setOnClickListener(this);
 		llyt_order_submit_goods_list.setOnClickListener(this);
 		btn_order_submit_sure.setOnClickListener(this);
-		
+
 	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		user = MyApplication.getInstance().getUserInfo();
-		if(user==null){
-			Intent intent = new Intent(this,UserLoginActivity.class);
+		if (user == null) {
+			Intent intent = new Intent(this, UserLoginActivity.class);
 			startActivity(intent);
-			overridePendingTransition(R.anim.translate_vertical_start_in, R.anim.translate_vertical_start_out);
+			overridePendingTransition(R.anim.translate_vertical_start_in,
+					R.anim.translate_vertical_start_out);
 		}
 	}
 
@@ -450,10 +532,12 @@ public class OrderSubmitActivity extends Base2Activity implements
 		switch (v.getId()) {
 		case R.id.btn_common_back:// 返回
 			finish();
-			overridePendingTransition(R.anim.translate_horizontal_finish_in, R.anim.translate_horizontal_finish_out);
+			overridePendingTransition(R.anim.translate_horizontal_finish_in,
+					R.anim.translate_horizontal_finish_out);
 			break;
 		case R.id.llyt_submit_order_address:// 收货地址(返回信息的收货地址)
-			Intent intent = new Intent(OrderSubmitActivity.this,UserAddressManagerActivity.class);
+			Intent intent = new Intent(OrderSubmitActivity.this,
+					UserAddressManagerActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putBoolean("inFlag", true);
 			intent.putExtras(bundle);
@@ -463,14 +547,14 @@ public class OrderSubmitActivity extends Base2Activity implements
 			clearCheck();
 			current_pay = pay_ways[1];
 			cb_order_pay_daofu.setChecked(true);
-			//设置订单总价以及邮费
+			// 设置订单总价以及邮费
 			setTrans();
 			break;
 		case R.id.llyt_order_pay_way_zhifubao:// 支付宝
 			clearCheck();
 			current_pay = pay_ways[0];
 			cb_order_pay_zhifubao.setChecked(true);
-			//设置订单总价以及邮费
+			// 设置订单总价以及邮费
 			setTrans();
 			break;
 		case R.id.llyt_order_pay_way_yinlian:// 银联
@@ -488,96 +572,81 @@ public class OrderSubmitActivity extends Base2Activity implements
 					.getText());
 			break;
 		case R.id.llyt_order_submit_goods_list:// 查看商品列表
-			if(lv_order_submit_goods_list.getVisibility()==View.INVISIBLE){//如果不可见则变为可见
-				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+			if (lv_order_submit_goods_list.getVisibility() == View.INVISIBLE) {// 如果不可见则变为可见
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+						LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 				llyt_order_submit_goods_list_container.setLayoutParams(params);
 				lv_order_submit_goods_list.setLayoutParams(params);
 				lv_order_submit_goods_list.setVisibility(View.VISIBLE);
-				iv_order_list_right.setImageResource(R.drawable.ic_bottom_black);
-				
-			}else{
-				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0);
+				iv_order_list_right
+						.setImageResource(R.drawable.ic_bottom_black);
+
+			} else {
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+						LayoutParams.MATCH_PARENT, 0);
 				lv_order_submit_goods_list.setLayoutParams(params);
 				lv_order_submit_goods_list.setVisibility(View.INVISIBLE);
 				iv_order_list_right.setImageResource(R.drawable.ic_right_black);
 				llyt_order_submit_goods_list_container.setLayoutParams(params);
 			}
-			
+
 			break;
 		case R.id.btn_order_submit_sure:// 确认提交订单
 			submitOrder();
-			
-			if(cb_order_pay_zhifubao.isChecked()){//提交订单并调用支付宝
-				HttpUrlProvider.getIntance().getCreateOrder(this, new TaskAddOrderBack(handler), 
-						URLConfig.CREATE_ORDER,user.getUserId(), current_pay,current_trans,
-						userAddress.getReceiveId(), et_order_submit_message.getText().toString().trim(), shopId);
-				
-				//调用支付宝支付接口
-				HttpUrlProvider.getIntance().getAlipay(this, new TaskAlipayBack(handler), 
-						URLConfig.ALIPAY_URL,orderId);
-				loadingdialog.show();
-//				submitAlipayOrder();
-			}else if(cb_order_pay_daofu.isChecked()){//只提交订单
-				HttpUrlProvider.getIntance().getCreateOrder(this, new TaskAddOrderBack(handler), 
-						URLConfig.CREATE_ORDER,user.getUserId(), current_pay,current_trans,
-						userAddress.getReceiveId(), et_order_submit_message.getText().toString().trim(), shopId);
-				loadingdialog.show();
-				
-			}
+
 			break;
 		}
 	}
-	
+
 	/**
-	 * @描述：提交订单（先进行判断）
-	 * 2014-8-22
+	 * @描述：提交订单（先进行判断） 2014-8-22
 	 */
-	private void submitOrder(){
-		if(userAddress==null){
+	private void submitOrder() {
+		if (userAddress == null) {
 			ToastUtil.ToastView(this, "您还没有添加收货地址哦！");
 			return;
 		}
-		if(current_pay==null){
+		if (current_pay == null) {
 			ToastUtil.ToastView(this, "请选择支付方式");
 			return;
 		}
 		String shopId = "";
-		
-		for(int i=0;i<cart_goods.size();i++){
-			if(i==cart_goods.size()-1){
+
+		for (int i = 0; i < cart_goods.size(); i++) {
+			if (i == cart_goods.size() - 1) {
 				shopId += cart_goods.get(i).getCartItemId();
-			}else{
-				shopId += cart_goods.get(i).getCartItemId()+",";
+			} else {
+				shopId += cart_goods.get(i).getCartItemId() + ",";
 			}
 		}
-		
-//		HttpUrlProvider.getIntance().getCreateOrder(this, new TaskAddOrderBack(handler), 
-//				URLConfig.CREATE_ORDER,user.getUserId(), current_pay,current_trans,
-//				userAddress.getReceiveId(), et_order_submit_message.getText().toString().trim(), shopId);
-//		loadingdialog.show();
+
+		HttpUrlProvider.getIntance().getCreateOrder(this,
+				new TaskAddOrderBack(handler), URLConfig.CREATE_ORDER,
+				user.getUserId(), current_pay, current_trans,
+				userAddress.getReceiveId(),
+				et_order_submit_message.getText().toString().trim(), shopId);
+		loadingdialog.show();
 	}
 
 	/**
-	 * @描述：提交到支付宝
-	 * 2014-8-26
+	 * @描述：提交到支付宝 2014-8-26
 	 */
-	private void submitAlipayOrder(){
-		
+	private void submitAlipayOrder() {
 
 		try {
-			
+
 			final String orderInfo = alipaySign;
 			Mylog.i("支付宝发送签名", "test = " + orderInfo);
 			new Thread() {
 				public void run() {
-					AliPay alipay = new AliPay(OrderSubmitActivity.this, handler);
-					
-					//设置为沙箱模式，不设置默认为线上环境
-					//alipay.setSandBox(true);
+					AliPay alipay = new AliPay(OrderSubmitActivity.this,
+							handler);
+
+					// 设置为沙箱模式，不设置默认为线上环境
+					// alipay.setSandBox(true);
 
 					String result = alipay.pay(orderInfo);
 
-					Mylog.i("支付宝返回", "result = " + result);
 					Message msg = new Message();
 					msg.what = RQF_PAY;
 					msg.obj = result;
@@ -587,15 +656,11 @@ public class OrderSubmitActivity extends Base2Activity implements
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			ToastUtil.ToastView(OrderSubmitActivity.this,"支付宝调用失败");
+			ToastUtil.ToastView(OrderSubmitActivity.this, "支付宝调用失败");
 		}
-		
-		
+
 	}
-	
 
-
-	
 	/**
 	 * 
 	 * @描述：清除以选择的付款方式
@@ -607,15 +672,16 @@ public class OrderSubmitActivity extends Base2Activity implements
 		cb_order_pay_yinlian.setChecked(false);
 		cb_order_pay_caifutong.setChecked(false);
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(requestCode==AppConfig.REQUEST_CODE){
+		if (requestCode == AppConfig.REQUEST_CODE) {
 			switch (resultCode) {
-			case AppConfig.ORDER_SUBMIT_ADDRESS://从地址管理界面获取返回的收货地址
-				if(data!=null){
-					userAddress = (UserAddress) data.getExtras().getSerializable("address");
+			case AppConfig.ORDER_SUBMIT_ADDRESS:// 从地址管理界面获取返回的收货地址
+				if (data != null) {
+					userAddress = (UserAddress) data.getExtras()
+							.getSerializable("address");
 					tv_submit_order_taker_name.setTextKeepState("收货人："
 							+ userAddress.getReceiveName());
 					tv_submit_order_taker_phone.setText(userAddress
@@ -629,6 +695,6 @@ public class OrderSubmitActivity extends Base2Activity implements
 				break;
 			}
 		}
-		
+
 	}
 }

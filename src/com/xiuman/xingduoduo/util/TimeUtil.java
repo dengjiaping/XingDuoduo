@@ -2,6 +2,7 @@ package com.xiuman.xingduoduo.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshGridView;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
@@ -57,7 +58,23 @@ public class TimeUtil {
 		return result;
 
 	}
-
+	/**
+	 * @描述：将毫秒值转为时间
+	 * @param ld
+	 * @return
+	 * 2014-9-19
+	 */
+	public static String second2Time(long ld){
+		Date date = new Date(ld);  
+		//标准日历系统类  
+		GregorianCalendar gc = new GregorianCalendar();  
+		gc.setTime(date);  
+		//java.text.SimpleDateFormat，设置时间格式  
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");  
+		//得到毫秒值转化的时间  
+		String time = format.format(gc.getTime());
+		return time;
+	}
 	/**
 	 * 
 	 * @描述：设置刷新时间

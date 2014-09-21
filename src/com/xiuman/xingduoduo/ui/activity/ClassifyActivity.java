@@ -374,6 +374,7 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 							Bundle bundle = new Bundle();
 							bundle.putSerializable("goods_one", goods_one);
 							bundle.putString("goods_id", goods_one.getId());
+							bundle.putInt("pic_tag", 0);
 							intent.putExtras(bundle);
 							startActivity(intent);
 							overridePendingTransition(

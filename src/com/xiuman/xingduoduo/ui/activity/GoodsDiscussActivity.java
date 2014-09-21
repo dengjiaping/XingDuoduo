@@ -103,6 +103,7 @@ public class GoodsDiscussActivity extends Base2Activity implements
 								GoodsDiscussActivity.this, discusses_current);
 						// 下拉加载完成
 						pulllistview_discuss.onPullDownRefreshComplete();
+						lv_discuss.setAdapter(adapter);
 					} else {// 上拉
 						discusses_current.addAll(discusses_get);
 						adapter.notifyDataSetChanged();
@@ -117,7 +118,7 @@ public class GoodsDiscussActivity extends Base2Activity implements
 						}
 					}
 					TimeUtil.setLastUpdateTime(pulllistview_discuss);
-					lv_discuss.setAdapter(adapter);
+					
 					rlyt_discuss_null.setVisibility(View.INVISIBLE);
 				}
 

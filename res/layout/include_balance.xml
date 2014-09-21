@@ -12,20 +12,11 @@
 
     <!-- 购物车结算 -->
 
-    <CheckBox
-        android:id="@+id/cb_balance"
-        android:layout_width="30dip"
-        android:layout_height="30dip"
-        android:background="@drawable/cb_selector"
-        android:button="@null" />
-
-    <TextView
+    <ImageView 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dip"
-        android:textColor="@android:color/darker_gray"
-        android:text="@string/cart_select_all"
-        android:textSize="@dimen/txt_size_15" />
+        android:adjustViewBounds="true"
+        android:src="@drawable/icon_cart_total"/>
 
     <TextView
         android:id="@+id/tv_balance_total_title"
@@ -33,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:text="@string/cart_account_all"
-        android:textColor="@color/color_red"
+        android:textColor="@color/color_yellow"
         android:textSize="@dimen/txt_size_15" />
     <!-- 商品总价 -->
 
@@ -43,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/cart_test_money"
-        android:textColor="@color/color_red"
+        android:textColor="@color/color_yellow"
         android:textSize="@dimen/txt_size_15" />
 
     <!-- 结算按钮 -->

@@ -21,6 +21,7 @@
     <string name="center_taoato">性爱你得有一套·安全套</string>
     <string name="center_daoju">其乐无穷·道具</string>
     <string name="title_name"><b>性多多</b></string>
+    <string name="center_more">MORE></string>
 
     <!-- 个人中心界面 -->
     <string name="me_please_login">欢迎您使用性多多</string>
@@ -131,7 +132,7 @@
     <string name="cart_tip1">您的购物车还是空的</string>
     <string name="cart_tip2">赶紧去挑选几件吧！</string>
     <string name="cart_select_all">全选</string>
-    <string name="cart_account_all">合计：￥</string>
+    <string name="cart_account_all">总价：￥</string>
     <string name="cart_btn_balance">结算(0)</string>
     <string name="cart_update">修改</string>
     <string name="cart_ok">完成</string>
@@ -181,8 +182,10 @@
     <string name="order_submit_message">给我们留言</string>
     <string name="order_submit_taker_name">收货人：</string>
     <string name="order_submit_taker_address">收货地址：</string>
+    <string name="order_submit_activity_tip">(含活动商品)</string>
         
-  
+  	<!-- 订单提交完成界面 -->
+  	<string name="order_complete_tip">性多多订单</string>
     
     <!-- 我的收藏列表 -->
     <string name="collection_title">我的收藏</string>
@@ -200,15 +203,21 @@
     
     <!-- 订单详情界面 -->
     <string name="order_info">订单详情</string>
-    <string name="order_info_state">订单状态：</string>
+    <string name="order_info_state">订单信息：</string>
     <string name="order_info_words">买家留言</string>
     <string name="order_info_id">订单编号：</string>
-    <string name="order_info_time">创建时间：</string>
+    <string name="order_info_time">下单时间：</string>
+   	<string name="order_info_pay_way">付款方式：</string>
     <string name="order_info_trans_pay">运费：</string>
     <string name="order_info_preferential">享受优惠：</string>
-    <string name="order_info_total">实付款(含运费)：</string>
+    <string name="order_info_total">订单总金额：</string>
+    <string name="order_info_pay">实付款(含运费)：</string>
     
-      
+     
+    <!-- 订单评价界面-->
+    <string name="discuss_order">提交评论</string>
+    <string name="hint_discuss">亲，您的评价对其他卖家有很大帮助</string>
+    
     <!-- 论坛界面 -->
     <string name="communication_plate">板块</string>
     

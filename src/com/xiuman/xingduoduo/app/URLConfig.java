@@ -59,7 +59,13 @@ public class URLConfig {
 	public static final String DELETE_ORDER = "/member!DeleteOrderAppList.action?";
 	// 订单列表
 	public static final String ORDER_HISTORY = "/member!OrderListApp.action?";
-
+	//订单详情
+	public static final String ORDER_INFO = "/member!OrderListDetail.action?";
+	//确认收货
+	public static final String ORDER_TAKER = "/member!ConfirmReceipt.action?";
+	//平价商品
+	public static final String DISCUSS_GOODS = "/comment!SaveReview.action?";
+	
 	// 获取分类
 	public static final String CLASSIFY = "/goods!getGoodsCategoryApp.action";
 	// 搜索
@@ -89,8 +95,11 @@ public class URLConfig {
 	// 商品评价列表
 	public static final String GOODS_DISCUSS_LIST = "/comment!ListCommentApp.action?";
 
+	/*----------------------------------支付宝相关---------------------------------------*/
 	// 支付宝支付接口
-	public static final String ALIPAY_URL = "/member!getPayMessage.action?";
+	public static final String ALIPAY_URL = "/member!payOrderStatus.action?";
+	//传递支付结果到服务端
+	public static final String PAY_STATUS_CODE = "/member!payorderApp.action?";
 	
 	//商城首页板块
 	public static final String CENTER_HOME_PLATE = "/goods!getGoodsAppByIt.action?";

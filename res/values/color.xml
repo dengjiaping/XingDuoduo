@@ -7,6 +7,8 @@
     <color name="color_mian">#fd71a3</color>
     <!-- 稍深 -->
     <color name="color_mian2">#DB1060</color>
+    <!-- 次深 -->
+    <color name="color_mian3">#E73C7F</color>
 	 <!-- title背景色 -->
     <color name="color_title_back">#fd71a3</color>
     <!-- 风格背景淡灰 -->
@@ -28,7 +30,9 @@
     <!-- 黑色线条 -->
     <color name="color_black_line">#CBCAC9</color>
 	
-	
+	<!-- 订单状态(黄色) -->
+	<color name="color_yellow">#FF962C</color>
+    
     <!-- 红色 -->
     <color name="color_red">#FF3933</color>
     <!-- 红色按下 -->

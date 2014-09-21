@@ -8,7 +8,7 @@ import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 /**
- * @名称：TaskUserInfoBack.java
+ * @名称：TaskUserLoginBack.java
  * @描述：用户登录
  * @author danding
  * 2014-8-12

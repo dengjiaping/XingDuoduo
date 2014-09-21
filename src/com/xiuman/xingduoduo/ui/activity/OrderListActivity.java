@@ -22,10 +22,9 @@ import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.OrderHistoryListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.URLConfig;
-import com.xiuman.xingduoduo.callback.TaskDeleteOrderBack;
 import com.xiuman.xingduoduo.callback.TaskOrderHistoryBack;
 import com.xiuman.xingduoduo.model.ActionValue;
-import com.xiuman.xingduoduo.model.Order;
+import com.xiuman.xingduoduo.model.OrderSimple;
 import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
@@ -81,27 +80,28 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 	private OrderHistoryListViewAdapter adapter;
 
 	/*-----------------------------------请求接口-------------------------------*/
-	// 消息返回(删除订单)
-	private ActionValue<?> value_delete;
 	// 消息返回（订单列表）
-	private ActionValue<Order> value_order;
+	private ActionValue<OrderSimple> value_order;
 	// 当前显示的订单列表
-	private ArrayList<Order> orders_current = new ArrayList<Order>();
+	private ArrayList<OrderSimple> orders_current = new ArrayList<OrderSimple>();
 	// 请求得到的订单列表
-	private ArrayList<Order> orders_get = new ArrayList<Order>();
+	private ArrayList<OrderSimple> orders_get = new ArrayList<OrderSimple>();
 	// 当前请求页码
 	private int currentPage = 1;
+
+	// 查看详情的位置
+	private int check_position;
 
 	// 消息处理Handler
 	@SuppressLint("HandlerLeak")
 	@SuppressWarnings("unchecked")
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			Order order = null;
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 获取数据成功
-				value_order = (ActionValue<Order>) msg.obj;
-				orders_get = (ArrayList<Order>) value_order.getDatasource();
+				value_order = (ActionValue<OrderSimple>) msg.obj;
+				orders_get = (ArrayList<OrderSimple>) value_order
+						.getDatasource();
 
 				if (!value_order.isSuccess()) {// 获取数据为空
 					llyt_order_null.setVisibility(View.INVISIBLE);
@@ -111,9 +111,10 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 						orders_current = orders_get;
 						adapter = new OrderHistoryListViewAdapter(
 								OrderListActivity.this, orders_current,
-								options, imageLoader, handler);
+								options, imageLoader);
 						// 下拉加载完成
 						pulllistview.onPullDownRefreshComplete();
+						lv_order.setAdapter(adapter);
 					} else {// 上拉
 						orders_current.addAll(orders_get);
 						adapter.notifyDataSetChanged();
@@ -128,7 +129,6 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 						}
 					}
 
-					lv_order.setAdapter(adapter);
 					llyt_order_null.setVisibility(View.INVISIBLE);
 				}
 
@@ -138,27 +138,6 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
 				loadingdialog.dismiss();
 				llyt_network_error.setVisibility(View.VISIBLE);
-				break;
-			case AppConfig.UPDATE_ORDER_HISTORY:// 更新订单历史（请求接口）
-				order = (Order) msg.obj;
-				HttpUrlProvider.getIntance().getDeleteOrder(
-						OrderListActivity.this,
-						new TaskDeleteOrderBack(handler),
-						URLConfig.DELETE_ORDER, order.getOrder_id());
-				loadingdialog.show();
-				break;
-			case AppConfig.UPDATE_ORDER:// 请求删除订单结果返回
-				value_delete = (ActionValue<?>) msg.obj;
-				if (value_delete.isSuccess()) {// 成功
-					ToastUtil.ToastView(OrderListActivity.this,
-							value_delete.getMessage());
-					orders_current.remove(order);
-					adapter.notifyDataSetChanged();
-				} else {
-					ToastUtil.ToastView(OrderListActivity.this,
-							value_delete.getMessage());
-				}
-				loadingdialog.dismiss();
 				break;
 			}
 		}
@@ -222,8 +201,9 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 		loadingdialog = new LoadingDialog(OrderListActivity.this);
 
 		// 初次加载数据
-		//放在onresume方法中进行
 		// 设置刷新时间
+		pulllistview.doPullRefreshing(true, 500);
+		TimeUtil.setLastUpdateTime(pulllistview);
 	}
 
 	@Override
@@ -238,15 +218,16 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Object obj = lv_order.getItemAtPosition(position);
-				if (obj instanceof Order) {
-					Order order = (Order) obj;
+				if (obj instanceof OrderSimple) {
+					check_position = position;
+					OrderSimple order = (OrderSimple) obj;
 
 					Intent intent = new Intent(OrderListActivity.this,
 							OrderInfoActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putSerializable("order_info", order);
+					bundle.putString("order_id", order.getId());
 					intent.putExtras(bundle);
-					startActivity(intent);
+					startActivityForResult(intent, AppConfig.REQUEST_CODE);
 					overridePendingTransition(
 							R.anim.translate_horizontal_start_in,
 							R.anim.translate_horizontal_start_out);
@@ -286,32 +267,31 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 			}
 		});
 	}
-	
+
 	/**
-	 * @描述：初次加载或者恢复使用时刷新界面
-	 * 2014-8-14
+	 * @描述：初次加载或者恢复使用时刷新界面 2014-8-14
 	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
-		pulllistview.doPullRefreshing(true, 500);
-		TimeUtil.setLastUpdateTime(pulllistview);
+
 	}
+
 	/**
 	 * 点击事件
 	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_common_back://返回
+		case R.id.btn_common_back:// 返回
 			finish();
 			overridePendingTransition(R.anim.translate_horizontal_finish_in,
 					R.anim.translate_horizontal_finish_out);
 			break;
-		case R.id.llyt_network_error://设置网络后重新请求数据
+		case R.id.llyt_network_error:// 设置网络后重新请求数据
 			isUp = true;
 			currentPage = 1;
-			initFirstData(currentPage);//请求首页数据
+			initFirstData(currentPage);// 请求首页数据
 			break;
 		}
 	}
@@ -327,4 +307,18 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 				page, user.getUserId());
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		System.out.println("删除返回码" + resultCode);
+		if (requestCode == AppConfig.REQUEST_CODE) {
+			if (resultCode == AppConfig.RESULT_CODE_OK) {// 删除刷新
+				orders_current.remove(check_position);
+				adapter.notifyDataSetChanged();
+			} else if (resultCode == AppConfig.RESULT_CODE_OK_2) {//评价成功
+				pulllistview.doPullRefreshing(true, 500);
+				TimeUtil.setLastUpdateTime(pulllistview);
+			}
+		}
+	}
 }

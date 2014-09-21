@@ -120,6 +120,7 @@ public class ShoppingCartListViewAdapter extends BaseAdapter {
 				.findViewById(R.id.tv_item_shopping_cart_goods_size);
 		// holder.tv_item_shopping_cart_goods_number = (TextView) convertView
 		// .findViewById(R.id.tv_item_shopping_cart_goods_number);
+		holder.iv_item_shopping_cart_goods_isActivity = (ImageView) convertView.findViewById(R.id.iv_item_shopping_cart_goods_isActivity);
 		holder.tv_item_shopping_cart_goods_number2 = (TextView) convertView
 				.findViewById(R.id.tv_item_shopping_cart_goods_number2);
 		holder.tv_item_shopping_cart_price = (TextView) convertView
@@ -146,12 +147,17 @@ public class ShoppingCartListViewAdapter extends BaseAdapter {
 
 		final GoodsCart goods = cart_goods.get(position);
 		number = goods.getQuanity();
-		System.out.println("购物车商品图"+URLConfig.IMG_IP + goods.getSmallGoodsImagePath());
 		
 		// 图片
 		imageloader.displayImage(
 				URLConfig.IMG_IP + goods.getSmallGoodsImagePath(),
 				holder.iv_item_shopping_cart_goods_poster, options);
+		//活动商品标记
+		if(goods.isActivities()){
+			holder.iv_item_shopping_cart_goods_isActivity.setVisibility(View.VISIBLE);
+		}else{
+			holder.iv_item_shopping_cart_goods_isActivity.setVisibility(View.INVISIBLE);
+		}
 		// 名称
 		holder.tv_item_shopping_cart_goods_name.setText(goods.getProductName());
 		// 已选择的型号
@@ -401,6 +407,8 @@ public class ShoppingCartListViewAdapter extends BaseAdapter {
 		CheckBox cb_item_shopping_cart_goods;
 		// 商品图标
 		ImageView iv_item_shopping_cart_goods_poster;
+		//赠品标记
+		ImageView iv_item_shopping_cart_goods_isActivity;
 		// 商品名称
 		TextView tv_item_shopping_cart_goods_name;
 		// 商品规格

@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.model.ActionValue;
-import com.xiuman.xingduoduo.model.Order;
+import com.xiuman.xingduoduo.model.OrderSimple;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 
 /**
@@ -26,8 +26,8 @@ public class TaskOrderHistoryBack implements HttpTaskListener {
 
 	@Override
 	public void dataSucced(String result) {
-		ActionValue<Order> value = new Gson().fromJson(result,
-				new TypeToken<ActionValue<Order>>() {
+		ActionValue<OrderSimple> value = new Gson().fromJson(result,
+				new TypeToken<ActionValue<OrderSimple>>() {
 				}.getType());
 
 		Message msg = Message.obtain();

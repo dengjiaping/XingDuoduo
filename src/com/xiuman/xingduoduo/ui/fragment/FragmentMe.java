@@ -242,7 +242,7 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 						.createDirectory() + cropUtils.createNewPhotoName());
 				iv_me_head.setImageBitmap(user_head_bitmap);
 			}
-			tv_me_user_name.setText(user.getUserName());
+			tv_me_user_name.setText(user.getNickname());
 			btn_me_register.setVisibility(View.INVISIBLE);
 		}else{
 			iv_me_head.setImageResource(R.drawable.bg_head);

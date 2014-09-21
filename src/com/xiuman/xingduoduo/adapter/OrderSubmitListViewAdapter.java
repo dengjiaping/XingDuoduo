@@ -81,6 +81,7 @@ public class OrderSubmitListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.tv_item_order_submit_goods_price);
 			holder.tv_item_order_submit_cart_total = (TextView) convertView
 					.findViewById(R.id.tv_item_order_submit_cart_total);
+			holder.iv_item_order_submit_goods_isActivity = (ImageView) convertView.findViewById(R.id.iv_item_order_submit_goods_isActivity);
 
 			convertView.setTag(holder);
 		} else {
@@ -89,12 +90,19 @@ public class OrderSubmitListViewAdapter extends BaseAdapter {
 
 		// 设置数据
 		GoodsCart goods = cart_goods.get(position);
-		System.out.println("提交订单"+URLConfig.IMG_IP + goods.getSmallGoodsImagePath());
 		//测试数据，添加操作
 		imageLoader.displayImage(URLConfig.IMG_IP + goods.getSmallGoodsImagePath(), holder.iv_item_order_submit_goods_poster, options);
+		if(goods.isActivities()){
+			holder.iv_item_order_submit_goods_isActivity.setVisibility(View.VISIBLE);
+		}else{
+			holder.iv_item_order_submit_goods_isActivity.setVisibility(View.INVISIBLE);
+		}
 		holder.tv_item_order_submit_goods_name.setText(goods.getProductName());
 		holder.tv_item_order_submit_goods_number.setText(goods.getQuanity()+"");
 		holder.tv_item_order_submit_goods_size.setText(goods.getSpecifications());
+		if(goods.getSpecifications()==null){
+			holder.tv_item_order_submit_goods_size.setText("标准规格");
+		}
 		holder.tv_item_order_submit_goods_price.setText(goods.getProductPrice()+"");
 		holder.tv_item_order_submit_cart_total.setText(goods.getTotalPrice());
 		
@@ -107,6 +115,8 @@ public class OrderSubmitListViewAdapter extends BaseAdapter {
 		ImageView iv_item_order_submit_goods_poster;
 		// 商品名称
 		TextView tv_item_order_submit_goods_name;
+		//活动商品标记
+		ImageView iv_item_order_submit_goods_isActivity;
 		// 商品规格
 		TextView tv_item_order_submit_goods_size;
 		// 商品单价

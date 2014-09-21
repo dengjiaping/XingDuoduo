@@ -58,26 +58,27 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 *            密码
 	 * @param registrappemail
 	 *            邮箱 2014-8-12
-	 * @param nickname 昵称
+	 * @param nickname
+	 *            昵称
 	 */
 	public void getRegister(Context mContext,
 			HttpTaskListener httpTaskListener, String singleurl,
 			String registrappusername, String registrapppassw,
-			String registrappemail,String nickname) {
+			String registrappemail, String nickname) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		try {
-			url += httpDataTask
-					.jointToUrl("registrappusername", URLEncoder.encode(registrappusername, "utf-8"));
+			url += httpDataTask.jointToUrl("registrappusername",
+					URLEncoder.encode(registrappusername, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		url += httpDataTask.jointToUrl("registrapppassw", registrapppassw);
 		url += httpDataTask.jointToUrl("registrappemail", registrappemail);
 		try {
-			url += httpDataTask
-					.jointToUrl("nickname", URLEncoder.encode(nickname, "utf-8"));
+			url += httpDataTask.jointToUrl("nickname",
+					URLEncoder.encode(nickname, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -99,7 +100,8 @@ public class HttpUrlProvider extends HttpConnWorker {
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		try {
-			url += httpDataTask.jointToUrl("usernameapp", URLEncoder.encode(usernameapp, "utf-8"));
+			url += httpDataTask.jointToUrl("usernameapp",
+					URLEncoder.encode(usernameapp, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -123,12 +125,13 @@ public class HttpUrlProvider extends HttpConnWorker {
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		try {
-			url += httpDataTask.jointToUrl("verappusername", URLEncoder.encode(verappusername, "utf-8"));
+			url += httpDataTask.jointToUrl("verappusername",
+					URLEncoder.encode(verappusername, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		url += httpDataTask.jointToUrl("verapppawss", verapppawss);
-		
+
 		httpDataTask.execute(url);
 	}
 
@@ -151,7 +154,8 @@ public class HttpUrlProvider extends HttpConnWorker {
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		try {
-			url += httpDataTask.jointToUrl("updateusernameapp", URLEncoder.encode(updateusernameapp, "utf-8"));
+			url += httpDataTask.jointToUrl("updateusernameapp",
+					URLEncoder.encode(updateusernameapp, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -159,32 +163,104 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("newpassw", newpassw);
 		httpDataTask.execute(url);
 	}
-	
+
+	/**
+	 * @描述：修改个人信息
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param singleurl
+	 * @param usernameId
+	 * @param gender
+	 * @param birth
+	 * @param name
+	 * @param areaStore
+	 * @param address
+	 * @param zipCode
+	 * @param mobile
+	 * @param nickname
+	 *            2014-9-20
+	 */
+	public void getUpdateUserInfo(Context mContext,
+			HttpTaskListener httpTaskListener, String singleurl,
+			String usernameId, String gender, String birth, String name,
+			String areaStore, String address, String zipCode, String mobile,
+			String nickname) {
+		String url = URLConfig.BASE_IP + singleurl;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		url += httpDataTask.jointToUrl("usernameId", usernameId);
+		try {
+			url += httpDataTask.jointToUrl("gender",
+					URLEncoder.encode(gender, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		url += httpDataTask.jointToUrl("birth", birth);
+		try {
+			url += httpDataTask.jointToUrl("name",
+					URLEncoder.encode(name, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		try {
+			url += httpDataTask.jointToUrl("areaStore",
+					URLEncoder.encode(areaStore, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		try {
+			url += httpDataTask.jointToUrl("address",
+					URLEncoder.encode(address, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		url += httpDataTask.jointToUrl("zipCode", zipCode);
+		url += httpDataTask.jointToUrl("mobile", mobile);
+		try {
+			url += httpDataTask.jointToUrl("nickname",
+					URLEncoder.encode(nickname, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		httpDataTask.execute(url);
+	}
+
 	/**
 	 * @描述：添加收货地址
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param singleurl
-	 * @param OrderusernameId 用户id
-	 * @param receiveApprName 收货人
-	 * @param receiverMobile 手机
-	 * @param receiverPhone 电话
-	 * @param areaId 省市区
-	 * @param receiverAderss 详细地址
-	 * @param receiverZipCode 邮编
-	 * 2014-8-21
+	 * @param OrderusernameId
+	 *            用户id
+	 * @param receiveApprName
+	 *            收货人
+	 * @param receiverMobile
+	 *            手机
+	 * @param receiverPhone
+	 *            电话
+	 * @param areaId
+	 *            省市区
+	 * @param receiverAderss
+	 *            详细地址
+	 * @param receiverZipCode
+	 *            邮编 2014-8-21
 	 */
 	public void getAddAddresses(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl,String OrderusernameId,String receiveApprName,
-			String receiverMobile,String receiverPhone,String areaId,String receiverAderss,String receiverZipCode) {
+			HttpTaskListener httpTaskListener, String singleurl,
+			String OrderusernameId, String receiveApprName,
+			String receiverMobile, String receiverPhone, String areaId,
+			String receiverAderss, String receiverZipCode) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("OrderusernameId", OrderusernameId);
 		try {
-			url += httpDataTask.jointToUrl("receiveApprName",  URLEncoder.encode(receiveApprName, "utf-8"));
-			url += httpDataTask.jointToUrl("areaId",  URLEncoder.encode(areaId, "utf-8"));
-			url += httpDataTask.jointToUrl("receiverAderss",  URLEncoder.encode(receiverAderss, "utf-8"));
+			url += httpDataTask.jointToUrl("receiveApprName",
+					URLEncoder.encode(receiveApprName, "utf-8"));
+			url += httpDataTask.jointToUrl("areaId",
+					URLEncoder.encode(areaId, "utf-8"));
+			url += httpDataTask.jointToUrl("receiverAderss",
+					URLEncoder.encode(receiverAderss, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -193,12 +269,14 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("receiverZipCode", receiverZipCode);
 		httpDataTask.execute(url);
 	}
+
 	/**
 	 * @描述：修改收货地址
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param singleurl
-	 * @param receiverId 已生成的收货地址Id
+	 * @param receiverId
+	 *            已生成的收货地址Id
 	 * @param OrderusernameId
 	 * @param receiveApprName
 	 * @param receiverMobile
@@ -206,20 +284,25 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param areaId
 	 * @param receiverAderss
 	 * @param receiverZipCode
-	 * 2014-8-21
+	 *            2014-8-21
 	 */
 	public void getUpdateAddresses(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl,String receiverId,String OrderusernameId,String receiveApprName,
-			String receiverMobile,String receiverPhone,String areaId,String receiverAderss,String receiverZipCode) {
+			HttpTaskListener httpTaskListener, String singleurl,
+			String receiverId, String OrderusernameId, String receiveApprName,
+			String receiverMobile, String receiverPhone, String areaId,
+			String receiverAderss, String receiverZipCode) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("receiverId", receiverId);
 		url += httpDataTask.jointToUrl("OrderusernameId", OrderusernameId);
 		try {
-			url += httpDataTask.jointToUrl("receiveApprName",  URLEncoder.encode(receiveApprName, "utf-8"));
-			url += httpDataTask.jointToUrl("areaId",  URLEncoder.encode(areaId, "utf-8"));
-			url += httpDataTask.jointToUrl("receiverAderss",  URLEncoder.encode(receiverAderss, "utf-8"));
+			url += httpDataTask.jointToUrl("receiveApprName",
+					URLEncoder.encode(receiveApprName, "utf-8"));
+			url += httpDataTask.jointToUrl("areaId",
+					URLEncoder.encode(areaId, "utf-8"));
+			url += httpDataTask.jointToUrl("receiverAderss",
+					URLEncoder.encode(receiverAderss, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -228,35 +311,39 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("receiverZipCode", receiverZipCode);
 		httpDataTask.execute(url);
 	}
+
 	/**
 	 * @描述：删除收货地址
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param singleurl
 	 * @param receiverId
-	 * 2014-8-21
+	 *            2014-8-21
 	 */
 	public void getDeleteAddresses(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl,String receiverId) {
+			HttpTaskListener httpTaskListener, String singleurl,
+			String receiverId) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("receiverId", receiverId);
 		httpDataTask.execute(url);
 	}
-	
+
 	/**
 	 * @描述：获取用户收货地址
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param singleurl
-	 * @param pageApp 第一页
-	 * @param pageSizeApp 默认值1000(获取所有，差不多了吧)
+	 * @param pageApp
+	 *            第一页
+	 * @param pageSizeApp
+	 *            默认值1000(获取所有，差不多了吧)
 	 * @param userId
-	 * 2014-8-19
+	 *            2014-8-19
 	 */
 	public void getUserAddresses(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl,String userId) {
+			HttpTaskListener httpTaskListener, String singleurl, String userId) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -266,8 +353,6 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.execute(url);
 	}
 
-	
-	
 	/**
 	 * @描述：添加收藏
 	 * @param mContext
@@ -310,29 +395,33 @@ public class HttpUrlProvider extends HttpConnWorker {
 
 		httpDataTask.execute(url);
 	}
+
 	/**
 	 * @描述：获取用户收藏列表
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param singleurl
-	 * @param pageApp 请求页
-	 * @param pageSizeApp 单页数据量
-	 * @param UID 用户Id
-	 * 2014-8-14
+	 * @param pageApp
+	 *            请求页
+	 * @param pageSizeApp
+	 *            单页数据量
+	 * @param UID
+	 *            用户Id 2014-8-14
 	 */
 	public void getCollections(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl,
-			int pageApp,String UID) {
+			HttpTaskListener httpTaskListener, String singleurl, int pageApp,
+			String UID) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("pageApp", pageApp);
 		url += httpDataTask.jointToUrl("pageSizeApp", 40);
 		url += httpDataTask.jointToUrl("UID", UID);
-		
-		System.out.println("收藏接口"+url);
+
+		System.out.println("收藏接口" + url);
 		httpDataTask.execute(url);
 	}
+
 	/**
 	 * @描述：获取分类
 	 * @param mContext
@@ -360,13 +449,13 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param categoryId
 	 *            分类id
 	 * @param pageSizeApp每页数据条数
-	 *            (默认20) 
-	 * @param sorting排序方式(desc降序，asc升序)           
-	 * 2014-8-13
+	 *            (默认20)
+	 * @param sorting排序方式
+	 *            (desc降序，asc升序) 2014-8-13
 	 */
 	public void getClassifyGoods(Context mContext,
 			HttpTaskListener httpTaskListener, String singleurl, int pageApp,
-			String categoryId,String sorting) {
+			String categoryId, String sorting) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -383,8 +472,8 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param singleurl
-	 * @param goodId 商品Id
-	 *            2014-8-13
+	 * @param goodId
+	 *            商品Id 2014-8-13
 	 */
 	public void getGoodsInfo(Context mContext,
 			HttpTaskListener httpTaskListener, String singleurl, String goodId) {
@@ -395,8 +484,9 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("goodId", goodId);
 
 		httpDataTask.execute(url);
-		System.out.println("商品详情"+url);
+		System.out.println("商品详情" + url);
 	}
+
 	/**
 	 * @描述：相关商品推荐
 	 * @param mContext
@@ -405,11 +495,10 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param pageApp
 	 * @param categoryId
 	 * @param sorting
-	 * 2014-9-17
+	 *            2014-9-17
 	 */
 	public void getGoodsRecommend(Context mContext,
-			HttpTaskListener httpTaskListener,
-			String categoryId) {
+			HttpTaskListener httpTaskListener, String categoryId) {
 		String url = URLConfig.BASE_IP + URLConfig.SORT_ZONGHE;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -420,7 +509,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("sorting", "desc");
 		httpDataTask.execute(url);
 	}
-	
+
 	/**
 	 * @描述：加入购物车
 	 * @param mContext
@@ -445,17 +534,18 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("quantity", quantity);
 		httpDataTask.execute(url);
 	}
+
 	/**
 	 * @描述：移除购物车商品
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param singleurl
-	 * @param cartItemId 购物车id
-	 * 2014-8-19
+	 * @param cartItemId
+	 *            购物车id 2014-8-19
 	 */
 	public void getDeleteCartGoods(Context mContext,
 			HttpTaskListener httpTaskListener, String singleurl,
-			String cartItemId){
+			String cartItemId) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -463,7 +553,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("cartItemId", cartItemId);
 		httpDataTask.execute(url);
 	}
-	
+
 	/**
 	 * @描述：获取购物车
 	 * @param mContext
@@ -472,11 +562,11 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param pageApp
 	 * @param pageSizeApp
 	 * @param userId
-	 * 2014-8-18
+	 *            2014-8-18
 	 */
 	public void getShoppingCart(Context mContext,
 			HttpTaskListener httpTaskListener, String singleurl, int pageApp,
-			 String userId){
+			String userId) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -486,7 +576,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("userId", userId);
 		httpDataTask.execute(url);
 	}
-	
+
 	/**
 	 * @描述：修改购物车数量
 	 * @param mContext
@@ -494,11 +584,11 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param singleurl
 	 * @param cartItemId
 	 * @param quantity
-	 * 2014-8-21
+	 *            2014-8-21
 	 */
 	public void getUpdateShoppingCart(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl, String cartItemId,
-			 int quantity){
+			HttpTaskListener httpTaskListener, String singleurl,
+			String cartItemId, int quantity) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -507,7 +597,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("quantity", quantity);
 		httpDataTask.execute(url);
 	}
-	
+
 	/**
 	 * @描述：获取首页分类商品(各个模块的第一块)
 	 * @date：2014-7-29
@@ -516,10 +606,12 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param singleurl
 	 * @param pageApp当前页
 	 * @param pageSizeApp每页数据
-	 * @param sortType 页面
+	 * @param sortType
+	 *            页面
 	 */
 	public void getCenterClassifyGoods(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl,int pageApp,String sortType) {
+			HttpTaskListener httpTaskListener, String singleurl, int pageApp,
+			String sortType) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -529,40 +621,47 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("sortType", sortType);
 		httpDataTask.execute(url);
 	}
+
 	/**
 	 * @描述：生成订单
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param singleurl
-	 * @param OrderusernameId 用户id
-	 * @param paymentConfigID 支付方式id
-	 * @param deliveryID 运费id
-	 * @param receiverAppID 收货地址id
-	 * @param memo 留言
-	 * @param shopId 商品ids
-	 * 2014-8-26
+	 * @param OrderusernameId
+	 *            用户id
+	 * @param paymentConfigID
+	 *            支付方式id
+	 * @param deliveryID
+	 *            运费id
+	 * @param receiverAppID
+	 *            收货地址id
+	 * @param memo
+	 *            留言
+	 * @param shopId
+	 *            商品ids 2014-8-26
 	 */
 	public void getCreateOrder(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl, String OrderusernameId,String paymentConfigID,String deliveryID,String receiverAppID,String memo,String shopId){
+			HttpTaskListener httpTaskListener, String singleurl,
+			String OrderusernameId, String paymentConfigID, String deliveryID,
+			String receiverAppID, String memo, String shopId) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("post");
-//		// 设置请求参数
+		// // 设置请求参数
 		httpDataTask.setParams("OrderusernameId", OrderusernameId);
 		httpDataTask.setParams("paymentConfigID", paymentConfigID);
 		httpDataTask.setParams("deliveryID", deliveryID);
 		httpDataTask.setParams("receiverAppID", receiverAppID);
 		try {
-			httpDataTask.setParams("memo",URLEncoder.encode(memo, "utf-8") );
+			httpDataTask.setParams("memo", URLEncoder.encode(memo, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-//		httpDataTask.setParams("shopId", shopId);
-		
+		httpDataTask.setParams("shopId", shopId);
+
 		httpDataTask.execute(url);
 	}
-	
-	
+
 	/**
 	 * @描述：删除订单
 	 * @param mContext
@@ -585,20 +684,59 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param singleurl
-	 * @param i 当前页
-	 * @param pageSizeApp 每页数据
-	 * @param userId 用户id
-	 *            2014-8-13
+	 * @param i
+	 *            当前页
+	 * @param pageSizeApp
+	 *            每页数据
+	 * @param userId
+	 *            用户id 2014-8-13
 	 */
 	public void getOrderHistory(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl, int i, String userId) {
+			HttpTaskListener httpTaskListener, String singleurl, int pageApp,
+			String userId) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		// 设置请求参数
-		url += httpDataTask.jointToUrl("ageApp", i);
-		url += httpDataTask.jointToUrl("pageSizeApp", 10);
+		url += httpDataTask.jointToUrl("pageApp", pageApp);
+		url += httpDataTask.jointToUrl("pageSizeApp", 20);
 		url += httpDataTask.jointToUrl("userId", userId);
+		httpDataTask.execute(url);
+	}
+
+	/**
+	 * @描述：获取订单详情
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param singleurl
+	 * @param orderId
+	 *            2014-9-18
+	 */
+	public void getOrderInfo(Context mContext,
+			HttpTaskListener httpTaskListener, String singleurl, String orderId) {
+		String url = URLConfig.BASE_IP + singleurl;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		// 设置请求参数
+		url += httpDataTask.jointToUrl("orderId", orderId);
+		httpDataTask.execute(url);
+	}
+
+	/**
+	 * @描述：确认收货
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param singleurl
+	 * @param orderId
+	 *            2014-9-19
+	 */
+	public void getOrderTaker(Context mContext,
+			HttpTaskListener httpTaskListener, String singleurl, String orderId) {
+		String url = URLConfig.BASE_IP + singleurl;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		// 设置请求参数
+		url += httpDataTask.jointToUrl("orderId", orderId);
 		httpDataTask.execute(url);
 	}
 
@@ -622,31 +760,39 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("reviesUID", reviesUID);
 		url += httpDataTask.jointToUrl("reviesgoodsId", reviesgoodsId);
-		url += httpDataTask.jointToUrl("contendApp", contendApp);
+		try {
+			url += httpDataTask.jointToUrl("contendApp",
+					URLEncoder.encode(contendApp, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 
 		httpDataTask.execute(url);
+		System.out.println("商品评价" + url);
 	}
-	
+
 	/**
 	 * @描述：获取商品评价列表
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param singleurl
 	 * @param pageApp
-	 * @param pageSizeApp 默认加载20条评论
+	 * @param pageSizeApp
+	 *            默认加载20条评论
 	 * @param commentGoodId
-	 * 2014-8-14
+	 *            2014-8-14
 	 */
 	public void getGoodsDiscuss(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl,int pageApp,String commentGoodId) {
-		String url = URLConfig.BASE_IP+singleurl;
+			HttpTaskListener httpTaskListener, String singleurl, int pageApp,
+			String commentGoodId) {
+		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		// 设置请求参数
 		url += httpDataTask.jointToUrl("pageApp", pageApp);
 		url += httpDataTask.jointToUrl("pageSizeApp", 20);
 		url += httpDataTask.jointToUrl("commentGoodId", commentGoodId);
-		
+
 		httpDataTask.execute(url);
 	}
 
@@ -678,8 +824,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		}
 		httpDataTask.execute(url);
 	}
-	
-	
+
 	/**
 	 * @描述:获取支付宝签名字串
 	 * @param mContext
@@ -687,32 +832,53 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param singleurl
 	 * @param orderId
 	 */
-	public void getAlipay(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl,String orderId) {
-		String url = URLConfig.BASE_IP+singleurl;
+	public void getAlipay(Context mContext, HttpTaskListener httpTaskListener,
+			String singleurl, String orderId) {
+		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		// 设置请求参数
-		url += httpDataTask.jointToUrl("goodId", orderId);
-		
-		
+		url += httpDataTask.jointToUrl("orderId", orderId);
+
 		httpDataTask.execute(url);
 	}
+
+	/**
+	 * @描述：将支付结果返回码传递到后台
+	 * @param httpTaskListener
+	 * @param singleurl
+	 * @param orderId
+	 * @param statusCode
+	 *            2014-9-19
+	 */
+	public void sendPayStatusCode(Context mContext,
+			HttpTaskListener httpTaskListener, String singleurl,
+			String orderId, String statusCode) {
+		String url = URLConfig.BASE_IP + singleurl;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		// 设置请求参数
+		url += httpDataTask.jointToUrl("orderId", orderId);
+		url += httpDataTask.jointToUrl("statusCode", statusCode);
+
+		httpDataTask.execute(url);
+	}
+
 	/**
 	 * @描述:普通帖列表
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param forumId
 	 */
-	public void getPost(Context mContext,
-			HttpTaskListener httpTaskListener, String forumId ) {
-		String url = URLConfig.PRIVATE_IP+URLConfig.FORUM_LIST_IP+forumId;
+	public void getPost(Context mContext, HttpTaskListener httpTaskListener,
+			String forumId) {
+		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_LIST_IP + forumId;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
-		
-		
+
 		httpDataTask.execute(url);
 	}
+
 	/**
 	 * @描述:置顶帖列表
 	 * @param mContext
@@ -721,20 +887,18 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param pageNo
 	 * @param pageSize
 	 */
-	public void getTopPost(Context mContext,
-			HttpTaskListener httpTaskListener, String forumId ,int pageNo,int pageSize) {
-		String url = URLConfig.PRIVATE_IP+URLConfig.FORUM_TOP_LIST_IP;
+	public void getTopPost(Context mContext, HttpTaskListener httpTaskListener,
+			String forumId, int pageNo, int pageSize) {
+		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_TOP_LIST_IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("goodId", forumId);
 		url += httpDataTask.jointToUrl("pageNo", pageNo);
 		url += httpDataTask.jointToUrl("pageSize", pageSize);
-		
-		
+
 		httpDataTask.execute(url);
 	}
-	
-	
+
 	/**
 	 * @描述:帖子回复列表
 	 * @param mContext
@@ -742,18 +906,15 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param forumId
 	 */
 	public void getPostReply(Context mContext,
-			HttpTaskListener httpTaskListener, int postId ) {
-		String url = URLConfig.PRIVATE_IP+URLConfig.FORUM_REPLY_LIST_IP+postId;
+			HttpTaskListener httpTaskListener, int postId) {
+		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_REPLY_LIST_IP
+				+ postId;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
-		
-		
+
 		httpDataTask.execute(url);
 	}
-	
-	
-	
-	
+
 	/**
 	 * @描述:回帖接口
 	 * @param mContext
@@ -765,24 +926,28 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param content
 	 * @param userId
 	 */
-	public void getPostReplySend(Context mContext, HttpTaskListener httpTaskListener, String forumId,String postTypeId,String topicId,String title,String content,String userId){
+	public void getPostReplySend(Context mContext,
+			HttpTaskListener httpTaskListener, String forumId,
+			String postTypeId, String topicId, String title, String content,
+			String userId) {
 		String url = URLConfig.PRIVATE_IP + URLConfig.POST_REPLY__IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("post");
-//		// 设置请求参数
+		// // 设置请求参数
 		httpDataTask.setParams("forumId", forumId);
 		httpDataTask.setParams("postTypeId", postTypeId);
 		httpDataTask.setParams("topicId", topicId);
 		httpDataTask.setParams("userId", userId);
 		try {
-			httpDataTask.setParams("title",URLEncoder.encode(title, "utf-8") );
-			httpDataTask.setParams("content",URLEncoder.encode(content, "utf-8") );
+			httpDataTask.setParams("title", URLEncoder.encode(title, "utf-8"));
+			httpDataTask.setParams("content",
+					URLEncoder.encode(content, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-//		httpDataTask.setParams("shopId", shopId);
-		
+		// httpDataTask.setParams("shopId", shopId);
+
 		httpDataTask.execute(url);
 	}
-	
+
 }

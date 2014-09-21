@@ -18,18 +18,32 @@
 
         <!-- 商品图 -->
 
-        <ImageView
-            android:id="@+id/iv_item_order_submit_goods_poster"
+        <RelativeLayout
             android:layout_width="60dip"
-            android:layout_height="60dip"
-            android:scaleType="centerCrop" />
+            android:layout_height="60dip" >
+
+            <ImageView
+                android:id="@+id/iv_item_order_submit_goods_poster"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_item_order_submit_goods_isActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/icon_gift"
+                android:visibility="invisible" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dip"
-            android:layout_weight="1"
             android:layout_marginRight="10dip"
+            android:layout_weight="1"
             android:orientation="vertical" >
 
             <!-- 商品名称 -->

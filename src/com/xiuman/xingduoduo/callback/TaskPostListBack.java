@@ -15,7 +15,6 @@ import com.google.gson.reflect.TypeToken;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPost;
-import com.xiuman.xingduoduo.model.OrderId;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 
 /**

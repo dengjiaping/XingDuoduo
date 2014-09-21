@@ -82,6 +82,10 @@ public class FragmentShoppingCart extends BaseFragment implements
 	private LinearLayout llyt_null_cart;
 	// 去商城挑选
 	private Button btn_go2center;
+	// 全选LinearLayout
+	private LinearLayout llyt_all;
+	// 选择数量
+	private TextView tv_cart_numer;
 
 	// ---------------- 结算-------------------------
 	// 结算布局
@@ -188,12 +192,14 @@ public class FragmentShoppingCart extends BaseFragment implements
 					setBalanceInfo();
 				}
 				llyt_network_error.setVisibility(View.INVISIBLE);
+				llyt_all.setVisibility(View.VISIBLE);
 				loadingdialog.dismiss();
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 网络连接失败
 				llyt_network_error.setVisibility(View.VISIBLE);
 				llyt_null_cart.setVisibility(View.INVISIBLE);
 				llyt_balance.setVisibility(View.INVISIBLE);
+				llyt_all.setVisibility(View.INVISIBLE);
 				loadingdialog.dismiss();
 				break;
 			case AppConfig.UPDATE_SHOPPING_CART:// 请求更新购物车数据(更新总价，数量)
@@ -309,6 +315,9 @@ public class FragmentShoppingCart extends BaseFragment implements
 		cb_balance = (CheckBox) view.findViewById(R.id.cb_balance);
 		tv_prices = (TextView) view.findViewById(R.id.tv_prices);
 		btn_balance = (Button) view.findViewById(R.id.btn_balance);
+		
+		llyt_all = (LinearLayout) view.findViewById(R.id.llyt_all);
+		tv_cart_numer = (TextView) view.findViewById(R.id.tv_cart_numer);
 		llyt_network_error = (LinearLayout) view
 				.findViewById(R.id.llyt_network_error);
 		llyt_balance = (LinearLayout) view.findViewById(R.id.llyt_balance);
@@ -502,7 +511,6 @@ public class FragmentShoppingCart extends BaseFragment implements
 		if (MyApplication.getInstance().isUserLogin()) {
 			if (cart_goods_current.size() == 0) {
 				isReFresh = true;
-				System.out.println("我刷新ide" + cart_goods_current.size());
 			} else {
 				// 保存购物车数量到本地
 				int total_number = 0;
@@ -569,6 +577,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 		}
 		tv_prices.setText(total + "");
 		btn_balance.setText("结算(" + number + ")");
+		tv_cart_numer.setText("共" + number + "件");
 		if (number > 0) {
 			btn_balance.setClickable(true);
 			btn_balance.setBackgroundResource(R.drawable.btn_color_selector);

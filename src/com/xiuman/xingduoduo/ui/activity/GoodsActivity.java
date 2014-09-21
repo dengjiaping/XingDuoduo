@@ -199,6 +199,10 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	//相关推荐商品列表
 	private ArrayList<GoodsOne> goods_recommend;
 
+	//商品第一张图标记(横图+方图)0：不移除第一张(放图)1：移除第一张(横图)
+	private int pic_tag = 0;
+	
+	
 	// 数据处理Hanlder
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
@@ -335,6 +339,9 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		screenWidth = dm.widthPixels;
 		// 上级界面传递过来的商品id
 		goods_id = getIntent().getExtras().getString("goods_id");
+		
+		//图片标记
+		pic_tag = getIntent().getExtras().getInt("pic_tag");
 
 	}
 
@@ -474,8 +481,8 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 		tv_goods_price.setText("￥" + goods_two.getGoods_price() + "");
 		String cost_price = "￥"
-				+ (Float.parseFloat(goods_two.getGoods_price()) * 2);
-		tv_goods_zhekou.setText("5折");
+				+ goods_two.getMarketPrice();
+		tv_goods_zhekou.setText(((Float.parseFloat(goods_two.getGoods_price())/goods_two.getMarketPrice())*10+"").substring(0, 3)+"折");
 		SpannableString sp = new SpannableString(cost_price);
 		sp.setSpan(new StrikethroughSpan(), 0, cost_price.length(),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -505,6 +512,12 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 		// 图片viewpager
 		goods_img_urls = goods_two.getImagePath();
+		
+		if(pic_tag==1){
+			if(goods_img_urls.size()>=2)
+			goods_img_urls.remove(0);
+		}
+		
 		if (goods_img_urls != null && goods_img_urls.size() > 0) {
 			for (int i = 0; i < goods_img_urls.size(); i++) {
 				ImageView iv_ad = new ImageView(GoodsActivity.this);

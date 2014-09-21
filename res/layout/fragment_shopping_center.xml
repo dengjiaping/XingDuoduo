@@ -49,6 +49,7 @@
                     <android.support.v4.view.ViewPager
                         android:id="@+id/viewpager_shoppingcenter_ad"
                         android:layout_width="match_parent"
+                        android:background="@drawable/onloading_goods_poster"
                         android:layout_height="150dip" />
 
                     <!-- 指示器 -->
@@ -129,7 +130,7 @@
                             android:layout_gravity="bottom"
                             android:layout_marginBottom="5dip"
                             android:gravity="center"
-                            android:text="礼品专区"
+                            android:text="活动专区"
                             android:textColor="@color/color_black2"
                             android:textSize="@dimen/txt_size_14" />
                     </LinearLayout>
@@ -308,28 +309,48 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dip"
-                        android:gravity="center"
-                        android:orientation="horizontal" >
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dip" >
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Top"
+                            android:text="Top "
                             android:textColor="@color/color_center_1"
                             android:textSize="@dimen/txt_size_18"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="热卖"
                             android:textColor="@color/color_black"
-                            android:textSize="@dimen/txt_size_18"/>
+                            android:textSize="@dimen/txt_size_18" />
+
+                        <View
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Button
+                            android:id="@+id/btn_center_4_top_sale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center_vertical"
+                            android:background="@android:color/transparent"
+                            android:text="@string/center_more"
+                            android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
+                            android:textSize="@dimen/txt_size_12"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- 热销产品专区 -->
+
+                    <include layout="@layout/line_match" />
 
                     <ImageView
                         android:id="@+id/iv_center_4_top_sale"
@@ -340,6 +361,8 @@
                         android:clickable="true"
                         android:scaleType="matrix" />
                     <!-- 具体产品 -->
+
+                    <include layout="@layout/line_match" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -510,36 +533,58 @@
                     android:layout_height="wrap_content"
                     android:background="@color/color_white"
                     android:orientation="vertical" >
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dip"
-                        android:gravity="center"
-                        android:orientation="horizontal" >
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dip" >
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="美在"
+                            android:text="性"
                             android:textColor="@color/color_black"
-                            android:textSize="@dimen/txt_size_18"/>
+                            android:textSize="@dimen/txt_size_18" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="露"
+                            android:text="随"
                             android:textColor="@color/color_center_1"
                             android:textSize="@dimen/txt_size_18"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="上"
+                            android:text="衣动"
                             android:textColor="@color/color_black"
-                            android:textSize="@dimen/txt_size_18"/>
+                            android:textSize="@dimen/txt_size_18" />
+
+                        <View
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Button
+                            android:id="@+id/btn_center_5_top"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center_vertical"
+                            android:background="@android:color/transparent"
+                            android:text="@string/center_more"
+                            android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
+                            android:textSize="@dimen/txt_size_12"
+                            android:textStyle="bold" />
                     </LinearLayout>
                     <!-- 热销产品专区 -->
+
+                    <include layout="@layout/line_match" />
 
                     <ImageView
                         android:id="@+id/iv_center_5_top"
@@ -549,6 +594,8 @@
                         android:background="@drawable/bg_center_5_shirt"
                         android:clickable="true"
                         android:scaleType="matrix" />
+
+                    <include layout="@layout/line_match" />
                     <!-- 具体产品 -->
 
                     <LinearLayout
@@ -720,30 +767,49 @@
                     android:background="@color/color_white"
                     android:orientation="vertical" >
 
-                     <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dip"
-                        android:gravity="center"
-                        android:orientation="horizontal" >
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dip" >
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="性爱你得有"
+                            android:text="放纵"
                             android:textColor="@color/color_black"
                             android:textSize="@dimen/txt_size_18" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="一套"
+                            android:text="一夏"
                             android:textColor="@color/color_center_3"
                             android:textSize="@dimen/txt_size_18"
                             android:textStyle="bold" />
-                        
+
+                        <View
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Button
+                            android:id="@+id/btn_center_6_top"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center_vertical"
+                            android:background="@android:color/transparent"
+                            android:text="@string/center_more"
+                            android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
+                            android:textSize="@dimen/txt_size_12"
+                            android:textStyle="bold" />
                     </LinearLayout>
                     <!-- 热销产品专区 -->
+
+                    <include layout="@layout/line_match" />
 
                     <ImageView
                         android:id="@+id/iv_center_6_top"
@@ -753,6 +819,8 @@
                         android:background="@drawable/bg_center_6_top"
                         android:clickable="true"
                         android:scaleType="matrix" />
+
+                    <include layout="@layout/line_match" />
                     <!-- 具体产品 -->
 
                     <LinearLayout
@@ -923,37 +991,50 @@
                     android:background="@color/color_white"
                     android:orientation="vertical" >
 
-                     <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dip"
-                        android:gravity="center"
-                        android:orientation="horizontal" >
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dip" >
+
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="其"
-                            android:textColor="@color/color_black"
-                            android:textSize="@dimen/txt_size_18" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="乐"
+                            android:text="爱"
                             android:textColor="@color/color_center_4"
                             android:textSize="@dimen/txt_size_18"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="无穷"
+                            android:text="不释手"
                             android:textColor="@color/color_black"
                             android:textSize="@dimen/txt_size_18" />
-                        
+
+                        <View
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Button
+                            android:id="@+id/btn_center_7_top"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center_vertical"
+                            android:background="@android:color/transparent"
+                            android:text="@string/center_more"
+                            android:textColor="@color/rbtn_classify_goods_sort_txt_selector"
+                            android:textSize="@dimen/txt_size_12"
+                            android:textStyle="bold" />
                     </LinearLayout>
                     <!-- 热销产品专区 -->
+
+                    <include layout="@layout/line_match" />
 
                     <ImageView
                         android:id="@+id/iv_center_7_top"
@@ -964,6 +1045,8 @@
                         android:clickable="true"
                         android:scaleType="matrix" />
                     <!-- 具体产品 -->
+
+                    <include layout="@layout/line_match" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

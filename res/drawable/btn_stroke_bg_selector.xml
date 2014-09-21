@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 按下 -->
+    <item android:state_pressed="true"><shape>
+            <corners android:bottomLeftRadius="3dip" android:bottomRightRadius="3dip" android:topLeftRadius="3dip" android:topRightRadius="3dip" />
+
+            <gradient android:endColor="@android:color/darker_gray" android:startColor="@android:color/darker_gray" />
+
+            <stroke android:width="0.5dip" android:color="@color/color_black3" />
+        </shape></item>
+    <!-- 正常 -->
+    <item><shape>
+            <corners android:bottomLeftRadius="3dip" android:bottomRightRadius="3dip" android:topLeftRadius="3dip" android:topRightRadius="3dip" />
+
+            <gradient android:endColor="@color/color_white" android:startColor="@color/color_white" />
+
+            <stroke android:width="0.5dip" android:color="@color/color_black3" />
+        </shape></item>
+
+</selector>

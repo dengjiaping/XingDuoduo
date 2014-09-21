@@ -35,7 +35,7 @@ public class TaskDeleteOrderBack implements HttpTaskListener {
 	@Override
 	public void dataError(String result) {
 		Message msg = Message.obtain();
-		msg.what = AppConfig.NET_ERROR_NOTNET;
+		msg.what = AppConfig.NET_ERROR_COMMON;// 无网络
 		handler.sendMessage(msg);
 	}
 

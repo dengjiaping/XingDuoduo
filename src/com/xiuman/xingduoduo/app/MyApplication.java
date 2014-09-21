@@ -29,6 +29,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.xiuman.xingduoduo.lock.util.LockPatternUtils;
+import com.xiuman.xingduoduo.model.ActionValue;
+import com.xiuman.xingduoduo.model.GoodsOne;
 import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.model.UserAddress;
 import com.xiuman.xingduoduo.util.SharedPreUtils;
@@ -235,7 +237,7 @@ public class MyApplication extends Application {
 	 * @return 2014-8-12
 	 */
 	public synchronized boolean isUserLogin() {
-		boolean result = SharedPreUtils.getBoolean(this,false,
+		boolean result = SharedPreUtils.getBoolean(this, false,
 				AppConfig.FILE_USER_INFO, AppConfig.KEY_USER_LOGIN);
 		return result;
 	}
@@ -362,5 +364,29 @@ public class MyApplication extends Application {
 			address = new Gson().fromJson(json, UserAddress.class);
 		}
 		return address;
+	}
+
+	/*----------------------------------------------保存广告--------------------------------------------------------*/
+	/**
+	 * @描述：保存广告
+	 * @param ads
+	 *            2014-9-20
+	 */
+	public void saveAds(ActionValue<GoodsOne> ads) {
+		String json_ads = new Gson().toJson(ads).toString();
+		SharedPreUtils.setString(this, json_ads, AppConfig.FILE_SAVE_ADS,
+				AppConfig.KEY_SAVE_ADS);
+	}
+
+	public ActionValue<GoodsOne> getAds() {
+		ActionValue<GoodsOne> ads = null;
+		String json = SharedPreUtils.getString(this, AppConfig.FILE_SAVE_ADS,
+				AppConfig.KEY_SAVE_ADS);
+		if (!json.equals("")) {
+			ads = new Gson().fromJson(json,
+					new TypeToken<ActionValue<GoodsOne>>() {
+					}.getType());
+		}
+		return ads;
 	}
 }

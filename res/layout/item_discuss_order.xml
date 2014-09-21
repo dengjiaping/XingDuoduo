@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 评价订单 -->
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <!-- 商品图 -->
+
+        <RelativeLayout
+            android:layout_width="60dip"
+            android:layout_height="60dip" >
+
+            <ImageView
+                android:id="@+id/iv_item_order_submit_goods_poster"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_item_order_submit_goods_isActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/icon_gift"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <!-- 商品名称 -->
+
+            <TextView
+                android:id="@+id/tv_item_order_submit_goods_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/color_black2"
+                android:textSize="@dimen/txt_size_14" />
+
+            <!-- 商品规格 -->
+
+            <TextView
+                android:id="@+id/tv_item_order_submit_goods_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/txt_size_14" />
+        </LinearLayout>
+        <!-- 商品单价、数量 -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="vertical" >
+
+            <!-- 单价 -->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_14" />
+
+                <TextView
+                    android:id="@+id/tv_item_order_submit_goods_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_14" />
+            </LinearLayout>
+
+            <!-- 数量 -->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="×"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_18" />
+
+                <TextView
+                    android:id="@+id/tv_item_order_submit_goods_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_black2"
+                    android:textSize="@dimen/txt_size_14" />
+            </LinearLayout>
+            <!-- 总价 -->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal" >
+
+                <!-- 商品总价 -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textColor="@color/color_red"
+                    android:textSize="@dimen/txt_size_14" />
+
+                <TextView
+                    android:id="@+id/tv_item_order_submit_cart_total"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/color_red"
+                    android:textSize="@dimen/txt_size_14"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 评价内容 -->
+    <EditText 
+        android:layout_margin="10dip"
+        android:id="@+id/et_item_discuss_goods_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_grey"
+        android:padding="5dip"
+        android:minLines="2"
+        android:gravity="top"
+        android:hint="@string/hint_discuss"
+        android:textColor="@color/color_black3"
+        android:textSize="@dimen/txt_size_14"/>
+    
+</LinearLayout>

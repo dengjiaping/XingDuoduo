@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xiuman.xingduoduo"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0.0.1" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -87,6 +87,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
+         <!-- 用户信息编辑修改界面 -->
+        <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.UpdateUserInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" >
+        </activity>
         <!-- 用户收货地址管理界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.UserAddressManagerActivity"
@@ -137,14 +143,14 @@
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 限时抢购界面 -->
-         <activity
+        <activity
             android:name="com.xiuman.xingduoduo.ui.activity.LimitBuyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
-         <!-- 礼品专区界面 -->
-         <activity
-            android:name="com.xiuman.xingduoduo.ui.activity.LiPinActivity"
+        <!-- 礼品专区界面 -->
+        <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.ActivityActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
@@ -179,6 +185,12 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
+        <!-- 订单提交完成界面 -->
+        <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.OrderCompleteActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Transparent" >
+        </activity>
         <!-- 我的订单历史 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.OrderListActivity"
@@ -188,7 +200,12 @@
         <!-- 订单详情界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.OrderInfoActivity"
-            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Transparent" >
+        </activity>
+        <!-- 评价订单 -->
+        <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.DisucssOrderActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 我的收藏界面 -->
@@ -284,12 +301,12 @@
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 关于 -->
-         <activity
+        <activity
             android:name="com.xiuman.xingduoduo.ui.activity.AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
-		</activity>
-        <!--支付模块-->
+        </activity>
+        <!-- 支付模块 -->
         <!-- 支付宝 -->
         <activity
             android:name="com.alipay.android.app.sdk.WapPayActivity"

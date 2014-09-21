@@ -1,14 +1,11 @@
 package com.xiuman.xingduoduo.callback;
 
-import java.util.ArrayList;
-
 import android.os.Handler;
 import android.os.Message;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.xiuman.xingduoduo.app.AppConfig;
-import com.xiuman.xingduoduo.model.TaskResult;
+import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 
 /**
@@ -27,12 +24,10 @@ public class TaskDiscussGoodsBack implements HttpTaskListener {
 
 	@Override
 	public void dataSucced(String result) {
-		ArrayList<TaskResult> task_results = new Gson().fromJson(result,
-				new TypeToken<ArrayList<TaskResult>>() {
-				}.getType());
+		ActionValue<?> value = new Gson().fromJson(result, ActionValue.class);
 		Message msg = Message.obtain();
-		msg.what = AppConfig.UPDATE_ORDER;
-		msg.obj = task_results.get(0);
+		msg.what = AppConfig.NET_SUCCED;
+		msg.obj = value;
 		handler.sendMessage(msg);
 	}
 

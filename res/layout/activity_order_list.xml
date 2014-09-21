@@ -20,7 +20,6 @@
             android:id="@+id/pulllistview_order_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="10dip"
             android:background="@color/color_bg"
             android:cacheColorHint="@android:color/transparent"
             android:fadingEdge="none"

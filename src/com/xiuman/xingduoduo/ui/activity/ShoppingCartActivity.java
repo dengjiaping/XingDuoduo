@@ -77,6 +77,10 @@ public class ShoppingCartActivity extends Base2Activity implements
 	private LinearLayout llyt_null_cart;
 	// 去挑选
 	private Button btn_go2center;
+	//全选LinearLayout
+	private LinearLayout llyt_all;
+	//选择数量
+	private TextView tv_cart_numer;
 
 	// ---------------- 结算-------------------------
 	// 结算布局
@@ -190,12 +194,14 @@ public class ShoppingCartActivity extends Base2Activity implements
 				}
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				llyt_balance.setVisibility(View.VISIBLE);
+				llyt_all.setVisibility(View.VISIBLE);
 				loadingdialog.dismiss();
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 网络连接失败
 				llyt_network_error.setVisibility(View.VISIBLE);
 				llyt_null_cart.setVisibility(View.INVISIBLE);
 				llyt_balance.setVisibility(View.INVISIBLE);
+				llyt_all.setVisibility(View.INVISIBLE);
 				loadingdialog.dismiss();
 				break;
 			case AppConfig.UPDATE_SHOPPING_CART:// 请求更新购物车数据(更新总价，数量)
@@ -301,6 +307,8 @@ public class ShoppingCartActivity extends Base2Activity implements
 		loadingdialog = new LoadingDialog(this);
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		llyt_balance = (LinearLayout) findViewById(R.id.llyt_balance);
+		llyt_all = (LinearLayout) findViewById(R.id.llyt_all);
+		tv_cart_numer = (TextView) findViewById(R.id.tv_cart_numer);
 
 		// 下拉刷新
 		mPullListView = (PullToRefreshListView) findViewById(R.id.pull_shopping_cart_goods);
@@ -420,6 +428,7 @@ public class ShoppingCartActivity extends Base2Activity implements
 							GoodsActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("goods_id", goods_id);
+					bundle.putInt("pic_tag", 0);
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(
@@ -558,6 +567,7 @@ public class ShoppingCartActivity extends Base2Activity implements
 			total += Double.valueOf(balance_goods.get(i).getTotalPrice());
 			number += balance_goods.get(i).getQuanity();
 		}
+		tv_cart_numer.setText("共"+number+"件");
 		tv_prices.setText(total + "");
 		btn_balance.setText("结算(" + number + ")");
 		if (number > 0) {

@@ -121,6 +121,7 @@ public class CollectionActivity extends Base2Activity implements
 								options, imageLoader, false, handler);
 						// 下拉加载完成
 						pullgridview.onPullDownRefreshComplete();
+						collection_list.setAdapter(adapter);
 					} else {// 上拉
 						collection_current.addAll(collection_get);
 						adapter.notifyDataSetChanged();
@@ -135,7 +136,7 @@ public class CollectionActivity extends Base2Activity implements
 						}
 					}
 
-					collection_list.setAdapter(adapter);
+					
 					llyt_collection_null_collection
 							.setVisibility(View.INVISIBLE);
 				}
@@ -265,6 +266,8 @@ public class CollectionActivity extends Base2Activity implements
 							GoodsActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("goods_id", goods_one.getId());
+					bundle.putSerializable("goods_one", goods_one);
+					bundle.putInt("pic_tag", 0);
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(

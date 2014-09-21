@@ -24,11 +24,18 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.ShoppingCenterAdViewPagerAdapter;
+import com.xiuman.xingduoduo.app.AppConfig;
+import com.xiuman.xingduoduo.app.MyApplication;
+import com.xiuman.xingduoduo.app.URLConfig;
+import com.xiuman.xingduoduo.callback.TaskCenterClassifyGoodsBack;
+import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPlate;
+import com.xiuman.xingduoduo.model.GoodsOne;
+import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.testdata.Test;
+import com.xiuman.xingduoduo.ui.activity.ActivityActivity;
 import com.xiuman.xingduoduo.ui.activity.BBSPlateActivity;
 import com.xiuman.xingduoduo.ui.activity.CenterClassifyActivity;
-import com.xiuman.xingduoduo.ui.activity.LiPinActivity;
 import com.xiuman.xingduoduo.ui.activity.LimitBuyActivity;
 import com.xiuman.xingduoduo.ui.activity.SearchActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
@@ -64,7 +71,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	/*------------------------------------商城主界面-----------------------*/
 	// 限时抢购
 	private LinearLayout llyt_center_time_limit_by;
-	//倒计时
+	// 倒计时
 	private TextView tv_center_daojishi;
 	// 高大上
 	private LinearLayout llyt_center_gaodashang;
@@ -80,6 +87,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private LinearLayout llyt_center_egao;
 	// 模块四Top热卖
 	private ImageView iv_center_4_top_sale;
+	// More
+	private Button btn_center_4_top_sale;
 	// 模块四商品左------------------------------------------------
 	private RelativeLayout rlyt_center_4_left_bottom;
 	// 图片
@@ -106,6 +115,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private TextView tv_center_4_right_bottom_txt2;
 	// 模块五内衣
 	private ImageView iv_center_5_top;
+	// More
+	private Button btn_center_5_top;
 	// 模块五商品左-----------------------------------------------
 	private RelativeLayout rlyt_center_5_left_bottom;
 	// 图片
@@ -132,6 +143,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private TextView tv_center_5_right_bottom_txt2;
 	// 模块六内衣
 	private ImageView iv_center_6_top;
+	// More
+	private Button btn_center_6_top;
 	// 模块六商品左-----------------------------------------------
 	private RelativeLayout rlyt_center_6_left_bottom;
 	// 图片
@@ -158,6 +171,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private TextView tv_center_6_right_bottom_txt2;
 	// 模块七内衣
 	private ImageView iv_center_7_top;
+	// More
+	private Button btn_center_7_top;
 	// 模块七商品左---------------------------------------------
 	private RelativeLayout rlyt_center_7_left_bottom;
 	// 图片
@@ -215,17 +230,41 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	// 配置图片加载及显示选项
 	public DisplayImageOptions options;
 
-	/*------------------------------------数据---------------------*/
+	/*------------------------------------请求数据---------------------*/
 
-	
-	//消息处理
-	private Handler handler = new Handler(){
+	// 请求广告返回
+	private ActionValue<GoodsOne> value_ads;
+	// 广告商品
+	private ArrayList<GoodsOne> ads = new ArrayList<GoodsOne>();;
+
+	// 消息处理
+	private Handler handler = new Handler() {
+		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
-			
+			switch (msg.what) {
+			case AppConfig.NET_SUCCED:
+				value_ads = (ActionValue<GoodsOne>) msg.obj;
+				if (value_ads.isSuccess()) {
+					ads = value_ads.getDatasource();
+					// 设置广告数据
+					setAdData(ads);
+					MyApplication.getInstance().saveAds(value_ads);
+				}
+				break;
+			case AppConfig.NET_ERROR_NOTNET:// 广告获取失败（无网络）
+				value_ads = MyApplication.getInstance().getAds();
+				if (value_ads != null) {
+					ads = value_ads.getDatasource();
+					// 设置广告数据
+					setAdData(ads);
+				}else{
+					viewpager_shoppingcenter_ad.setBackgroundResource(R.drawable.onloading_goods_poster);
+				}
+				break;
+			}
 		}
 	};
-	
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -281,7 +320,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 
 		llyt_center_time_limit_by = (LinearLayout) view
 				.findViewById(R.id.llyt_center_time_limit_by);
-		tv_center_daojishi = (TextView) view.findViewById(R.id.tv_center_daojishi);
+		tv_center_daojishi = (TextView) view
+				.findViewById(R.id.tv_center_daojishi);
 		llyt_center_gaodashang = (LinearLayout) view
 				.findViewById(R.id.llyt_center_gaodashang);
 		llyt_center_tz = (LinearLayout) view.findViewById(R.id.llyt_center_tz);
@@ -295,84 +335,125 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				.findViewById(R.id.llyt_center_egao);
 		iv_center_4_top_sale = (ImageView) view
 				.findViewById(R.id.iv_center_4_top_sale);
-		//---
+		btn_center_4_top_sale = (Button) view
+				.findViewById(R.id.btn_center_4_top_sale);
+		// ---
 		rlyt_center_4_left_bottom = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_4_left_bottom);
-		iv_center_4_left_bottom = (ImageView) view.findViewById(R.id.iv_center_4_left_bottom);
-		tv_center_4_left_bottom_txt1 = (TextView) view.findViewById(R.id.tv_center_4_left_bottom_txt1);
-		tv_center_4_left_bottom_txt2 = (TextView) view.findViewById(R.id.tv_center_4_left_bottom_txt2);
-		//---
+		iv_center_4_left_bottom = (ImageView) view
+				.findViewById(R.id.iv_center_4_left_bottom);
+		tv_center_4_left_bottom_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_4_left_bottom_txt1);
+		tv_center_4_left_bottom_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_4_left_bottom_txt2);
+		// ---
 		rlyt_center_4_right_top = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_4_right_top);
-		iv_center_4_right_top = (ImageView) view.findViewById(R.id.iv_center_4_right_top);
-		tv_center_4_right_top_txt1 = (TextView) view.findViewById(R.id.tv_center_4_right_top_txt1);
-		tv_center_4_right_top_txt2 = (TextView) view.findViewById(R.id.tv_center_4_right_top_txt2);
-		//--
+		iv_center_4_right_top = (ImageView) view
+				.findViewById(R.id.iv_center_4_right_top);
+		tv_center_4_right_top_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_4_right_top_txt1);
+		tv_center_4_right_top_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_4_right_top_txt2);
+		// --
 		rlyt_center_4_right_bottom = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_4_right_bottom);
-		iv_center_4_right_bottom = (ImageView) view.findViewById(R.id.iv_center_4_right_bottom);
-		tv_center_4_right_bottom_txt1 = (TextView) view.findViewById(R.id.tv_center_4_right_bottom_txt1);
-		tv_center_4_right_bottom_txt2 = (TextView) view.findViewById(R.id.tv_center_4_right_bottom_txt2);
-		
+		iv_center_4_right_bottom = (ImageView) view
+				.findViewById(R.id.iv_center_4_right_bottom);
+		tv_center_4_right_bottom_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_4_right_bottom_txt1);
+		tv_center_4_right_bottom_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_4_right_bottom_txt2);
+
 		iv_center_5_top = (ImageView) view.findViewById(R.id.iv_center_5_top);
-		//---
+		btn_center_5_top = (Button) view.findViewById(R.id.btn_center_5_top);
+		// ---
 		rlyt_center_5_left_bottom = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_5_left_bottom);
-		iv_center_5_left_bottom = (ImageView) view.findViewById(R.id.iv_center_5_left_bottom);
-		tv_center_5_left_bottom_txt1 = (TextView) view.findViewById(R.id.tv_center_5_left_bottom_txt1);
-		tv_center_5_left_bottom_txt2 = (TextView) view.findViewById(R.id.tv_center_5_left_bottom_txt2);
-		//---
+		iv_center_5_left_bottom = (ImageView) view
+				.findViewById(R.id.iv_center_5_left_bottom);
+		tv_center_5_left_bottom_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_5_left_bottom_txt1);
+		tv_center_5_left_bottom_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_5_left_bottom_txt2);
+		// ---
 		rlyt_center_5_right_top = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_5_right_top);
-		iv_center_5_right_top = (ImageView) view.findViewById(R.id.iv_center_5_right_top);
-		tv_center_5_right_top_txt1 = (TextView) view.findViewById(R.id.tv_center_5_right_top_txt1);
-		tv_center_5_right_top_txt2 = (TextView) view.findViewById(R.id.tv_center_5_right_top_txt2);
-		//---
+		iv_center_5_right_top = (ImageView) view
+				.findViewById(R.id.iv_center_5_right_top);
+		tv_center_5_right_top_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_5_right_top_txt1);
+		tv_center_5_right_top_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_5_right_top_txt2);
+		// ---
 		rlyt_center_5_right_bottom = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_5_right_bottom);
-		iv_center_5_right_bottom = (ImageView) view.findViewById(R.id.iv_center_5_right_bottom);
-		tv_center_5_right_bottom_txt1 = (TextView) view.findViewById(R.id.tv_center_5_right_bottom_txt1);
-		tv_center_5_right_bottom_txt2 = (TextView) view.findViewById(R.id.tv_center_5_right_bottom_txt2);
-		
+		iv_center_5_right_bottom = (ImageView) view
+				.findViewById(R.id.iv_center_5_right_bottom);
+		tv_center_5_right_bottom_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_5_right_bottom_txt1);
+		tv_center_5_right_bottom_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_5_right_bottom_txt2);
+
 		iv_center_6_top = (ImageView) view.findViewById(R.id.iv_center_6_top);
-		//---
+		btn_center_6_top = (Button) view.findViewById(R.id.btn_center_6_top);
+		// ---
 		rlyt_center_6_left_bottom = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_6_left_bottom);
-		iv_center_6_left_bottom = (ImageView) view.findViewById(R.id.iv_center_6_left_bottom);
-		tv_center_6_left_bottom_txt1 = (TextView) view.findViewById(R.id.tv_center_6_left_bottom_txt1);
-		tv_center_6_left_bottom_txt2 = (TextView) view.findViewById(R.id.tv_center_6_left_bottom_txt2);
-		//---
+		iv_center_6_left_bottom = (ImageView) view
+				.findViewById(R.id.iv_center_6_left_bottom);
+		tv_center_6_left_bottom_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_6_left_bottom_txt1);
+		tv_center_6_left_bottom_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_6_left_bottom_txt2);
+		// ---
 		rlyt_center_6_right_top = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_6_right_top);
-		iv_center_6_right_top = (ImageView) view.findViewById(R.id.iv_center_6_right_top);
-		tv_center_6_right_top_txt1 = (TextView) view.findViewById(R.id.tv_center_6_right_top_txt1);
-		tv_center_6_right_top_txt2 = (TextView) view.findViewById(R.id.tv_center_6_right_top_txt2);
-		//--
+		iv_center_6_right_top = (ImageView) view
+				.findViewById(R.id.iv_center_6_right_top);
+		tv_center_6_right_top_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_6_right_top_txt1);
+		tv_center_6_right_top_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_6_right_top_txt2);
+		// --
 		rlyt_center_6_right_bottom = (RelativeLayout) view
 				.findViewById(R.id.llyt_center_6_right_bottom);
-		iv_center_6_right_bottom = (ImageView) view.findViewById(R.id.iv_center_6_right_bottom);
-		tv_center_6_right_bottom_txt1 = (TextView) view.findViewById(R.id.tv_center_6_right_bottom_txt1);
-		tv_center_6_right_bottom_txt2 = (TextView) view.findViewById(R.id.tv_center_6_right_bottom_txt2);
-		
+		iv_center_6_right_bottom = (ImageView) view
+				.findViewById(R.id.iv_center_6_right_bottom);
+		tv_center_6_right_bottom_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_6_right_bottom_txt1);
+		tv_center_6_right_bottom_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_6_right_bottom_txt2);
+
 		iv_center_7_top = (ImageView) view.findViewById(R.id.iv_center_7_top);
-		//---
+		btn_center_7_top = (Button) view.findViewById(R.id.btn_center_7_top);
+		// ---
 		rlyt_center_7_left_bottom = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_7_left_bottom);
-		iv_center_7_left_bottom = (ImageView) view.findViewById(R.id.iv_center_7_left_bottom);
-		tv_center_7_left_bottom_txt1 = (TextView) view.findViewById(R.id.tv_center_7_left_bottom_txt1);
-		tv_center_7_left_bottom_txt2 = (TextView) view.findViewById(R.id.tv_center_7_left_bottom_txt2);
-		//---
+		iv_center_7_left_bottom = (ImageView) view
+				.findViewById(R.id.iv_center_7_left_bottom);
+		tv_center_7_left_bottom_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_7_left_bottom_txt1);
+		tv_center_7_left_bottom_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_7_left_bottom_txt2);
+		// ---
 		rlyt_center_7_right_top = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_7_right_top);
-		iv_center_7_right_top = (ImageView) view.findViewById(R.id.iv_center_7_right_top);
-		tv_center_7_right_top_txt1 = (TextView) view.findViewById(R.id.tv_center_7_right_top_txt1);
-		tv_center_7_right_top_txt2 = (TextView) view.findViewById(R.id.tv_center_7_right_top_txt2);
-		//---
+		iv_center_7_right_top = (ImageView) view
+				.findViewById(R.id.iv_center_7_right_top);
+		tv_center_7_right_top_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_7_right_top_txt1);
+		tv_center_7_right_top_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_7_right_top_txt2);
+		// ---
 		rlyt_center_7_right_bottom = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_7_right_bottom);
-		iv_center_7_right_bottom = (ImageView) view.findViewById(R.id.iv_center_5_right_bottom);
-		tv_center_7_right_bottom_txt1 = (TextView) view.findViewById(R.id.tv_center_7_right_bottom_txt1);
-		tv_center_7_right_bottom_txt2 = (TextView) view.findViewById(R.id.tv_center_7_right_bottom_txt2);
+		iv_center_7_right_bottom = (ImageView) view
+				.findViewById(R.id.iv_center_5_right_bottom);
+		tv_center_7_right_bottom_txt1 = (TextView) view
+				.findViewById(R.id.tv_center_7_right_bottom_txt1);
+		tv_center_7_right_bottom_txt2 = (TextView) view
+				.findViewById(R.id.tv_center_7_right_bottom_txt2);
 	}
 
 	/**
@@ -380,12 +461,12 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 */
 	@Override
 	protected void initUI() {
+		// 获取广告
+		getAds();
+
 		sv_shopping_center.setHeader(iv_center_bg_img);
 		sv_shopping_center.setOnTurnListener(this);
-		// 设置广告数据
-		setAdData();
-		
-		
+
 		// 动态设置控件大小
 		// (params1)
 		LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(
@@ -401,15 +482,17 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		iv_center_5_top.setLayoutParams(params2);
 		iv_center_6_top.setLayoutParams(params2);
 		iv_center_7_top.setLayoutParams(params2);
-		//params3
-		LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(screenWidth/2, (int) (screenWidth/2*(344.0/320)));
+		// params3
+		LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(
+				screenWidth / 2, (int) (screenWidth / 2 * (344.0 / 320)));
 		llyt_center_time_limit_by.setLayoutParams(params3);
 		rlyt_center_4_left_bottom.setLayoutParams(params3);
 		rlyt_center_5_left_bottom.setLayoutParams(params3);
 		rlyt_center_6_left_bottom.setLayoutParams(params3);
 		rlyt_center_7_left_bottom.setLayoutParams(params3);
-		//params4
-		LinearLayout.LayoutParams params4 = new LinearLayout.LayoutParams(screenWidth/2, (int) (screenWidth/2*(172.0/320)));
+		// params4
+		LinearLayout.LayoutParams params4 = new LinearLayout.LayoutParams(
+				screenWidth / 2, (int) (screenWidth / 2 * (172.0 / 320)));
 		llyt_center_new_goods.setLayoutParams(params4);
 		llyt_center_egao.setLayoutParams(params4);
 		rlyt_center_4_right_bottom.setLayoutParams(params4);
@@ -420,9 +503,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		rlyt_center_6_right_top.setLayoutParams(params4);
 		rlyt_center_7_right_bottom.setLayoutParams(params4);
 		rlyt_center_7_right_top.setLayoutParams(params4);
-		
-		
-		//设置测试文字
+
+		// 设置测试文字
 		tv_center_4_left_bottom_txt1.setText("格林宝贝AV转珠棒");
 		tv_center_4_left_bottom_txt2.setText("伸缩之王，招蜂引蝶");
 		tv_center_4_right_top_txt1.setText("配耐力延迟喷剂");
@@ -435,21 +517,21 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		tv_center_5_right_top_txt2.setText("让你更从容自信");
 		tv_center_5_right_bottom_txt1.setText("午夜魅力");
 		tv_center_5_right_bottom_txt2.setText("精美丝袜");
-		
+
 		tv_center_6_left_bottom_txt1.setText("杜蕾斯");
 		tv_center_6_left_bottom_txt2.setText("加大24只装");
 		tv_center_6_right_top_txt1.setText("杜蕾斯");
 		tv_center_6_right_top_txt2.setText("活力12只装");
 		tv_center_6_right_bottom_txt1.setText("杜蕾斯");
 		tv_center_6_right_bottom_txt2.setText("持久8只装");
-		
+
 		tv_center_7_left_bottom_txt1.setText("扣扣爱手指遥控跳蛋");
 		tv_center_7_left_bottom_txt2.setText("让你们在同一频道心跳不已");
 		tv_center_7_right_top_txt1.setText("多功能振动棒");
 		tv_center_7_right_top_txt2.setText("震震嘴多功能振动棒");
 		tv_center_7_right_bottom_txt1.setText("智能露娜缩阴球");
 		tv_center_7_right_bottom_txt2.setText("智能阴道紧致大师");
-		
+
 	}
 
 	/**
@@ -479,18 +561,22 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		llyt_center_lipin.setOnClickListener(new OnClickListener2());
 		llyt_center_egao.setOnClickListener(new OnClickListener1());
 		iv_center_4_top_sale.setOnClickListener(new OnClickListener1());
+		btn_center_4_top_sale.setOnClickListener(new OnClickListener1());
 		rlyt_center_4_left_bottom.setOnClickListener(new OnClickListener2());
 		rlyt_center_4_right_top.setOnClickListener(new OnClickListener2());
 		rlyt_center_4_right_bottom.setOnClickListener(new OnClickListener2());
 		iv_center_5_top.setOnClickListener(new OnClickListener1());
+		btn_center_5_top.setOnClickListener(new OnClickListener1());
 		rlyt_center_5_left_bottom.setOnClickListener(new OnClickListener2());
 		rlyt_center_5_right_top.setOnClickListener(new OnClickListener2());
 		rlyt_center_5_right_bottom.setOnClickListener(new OnClickListener2());
 		iv_center_6_top.setOnClickListener(new OnClickListener1());
+		btn_center_6_top.setOnClickListener(new OnClickListener1());
 		rlyt_center_6_left_bottom.setOnClickListener(new OnClickListener2());
 		rlyt_center_6_right_top.setOnClickListener(new OnClickListener2());
 		rlyt_center_6_right_bottom.setOnClickListener(new OnClickListener2());
 		iv_center_7_top.setOnClickListener(new OnClickListener1());
+		btn_center_7_top.setOnClickListener(new OnClickListener1());
 		rlyt_center_7_left_bottom.setOnClickListener(new OnClickListener2());
 		rlyt_center_7_right_top.setOnClickListener(new OnClickListener2());
 		rlyt_center_7_right_bottom.setOnClickListener(new OnClickListener2());
@@ -505,14 +591,14 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 * 
 	 * 描述：设置广告数据
 	 */
-	private void setAdData() {
+	private void setAdData(ArrayList<GoodsOne> ads) {
 		// 添加广告,测试数据，添加操作
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < ads.size(); i++) {
 			ImageView iv_ad = new ImageView(getActivity());
 			ad_ivs.add(iv_ad);
 		}
-		ad_adapter = new ShoppingCenterAdViewPagerAdapter(Test.addTestAd(),
-				ad_ivs, getActivity(), options, imageLoader);
+		ad_adapter = new ShoppingCenterAdViewPagerAdapter(ads, ad_ivs,
+				getActivity(), options, imageLoader);
 		viewpager_shoppingcenter_ad.setAdapter(ad_adapter);
 		mIndicator.setViewPager(viewpager_shoppingcenter_ad);
 		switchTask.run();
@@ -594,21 +680,29 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				classify_name = "恶搞专区";
 				classify_url = "isSpoof";
 				break;
+			case R.id.btn_center_4_top_sale:// TopMore
+
 			case R.id.iv_center_4_top_sale:// top热卖
 				classify_name = "Top热卖";
 				classify_url = "isHot";
 				break;
+			case R.id.btn_center_5_top:// 5More
+
 			case R.id.iv_center_5_top:// 模块五
 				classify_name = "美在露上";
-				classify_url = "isHot";;
+				classify_url = "isHot";
 				break;
+			case R.id.btn_center_6_top:// 6More
+
 			case R.id.iv_center_6_top:// 模块六
 				classify_name = "性爱你得有一套";
-				classify_url = "isHot";;
+				classify_url = "isHot";
 				break;
+			case R.id.btn_center_7_top:// 7More
+
 			case R.id.iv_center_7_top:// 模块七
 				classify_name = "其乐无穷";
-				classify_url = "isHot";;
+				classify_url = "isHot";
 				break;
 
 			}
@@ -641,17 +735,21 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		String classify_name = "";
 		// 要打开的商城界面分类类型
 		String classify_url;
+
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.llyt_center_zhangzishi://涨姿势
+			case R.id.llyt_center_zhangzishi:// 涨姿势
 				BBSPlate plate = Test.getBBSPlates().get(0);
-				Intent intent_plate = new Intent(getActivity(),BBSPlateActivity.class);
+				Intent intent_plate = new Intent(getActivity(),
+						BBSPlateActivity.class);
 				Bundle bundle_plate = new Bundle();
 				bundle_plate.putSerializable("bbs_plate", plate);
 				intent_plate.putExtras(bundle_plate);
 				getActivity().startActivity(intent_plate);
-				getActivity().overridePendingTransition(R.anim.translate_horizontal_start_in, R.anim.translate_horizontal_start_out);
+				getActivity().overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
 				break;
 			case R.id.llyt_center_time_limit_by:// 限时抢购
 				classify_name = "限时抢购";
@@ -669,10 +767,10 @@ public class FragmentShoppingCenter extends BaseFragment implements
 						R.anim.translate_horizontal_start_out);
 				break;
 			case R.id.llyt_center_lipin:// 礼品专区
-				classify_name = "礼品专区";
-				classify_url = "isGift";
+				classify_name = "活动专区";
+				classify_url = "isActivities";
 				Intent intent2 = new Intent(getActivity(),
-						LiPinActivity.class);
+						ActivityActivity.class);
 				Bundle bundle2 = new Bundle();
 				bundle2.putString("classify_name", classify_name);
 				bundle2.putString("classify_url", classify_url);
@@ -723,6 +821,15 @@ public class FragmentShoppingCenter extends BaseFragment implements
 			}
 		}
 
+	}
+
+	/**
+	 * @描述：获取广告 2014-9-20
+	 */
+	private void getAds() {
+		HttpUrlProvider.getIntance().getCenterClassifyGoods(getActivity(),
+				new TaskCenterClassifyGoodsBack(handler),
+				URLConfig.CENTER_HOME_PLATE, 1, "isGadver");
 	}
 
 	@Override

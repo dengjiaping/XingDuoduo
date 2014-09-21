@@ -15,137 +15,217 @@ public class Order implements Serializable {
 	 */
 	private static final long serialVersionUID = -6817822517541493663L;
 	// 订单状态
-	private String order_state;
+	private String OrderStatus;
+	// 支付状态
+	private String paymentStatus;
+	// 订单id
+	private String id;
 	// 订单号
-	private String order_id;
+	private String orderSn;
 	// 订单生成时间
-	private String order_time;
-	// 用户id
-	private String order_user_id;
-	// 用户地址
-	private UserAddress order_user_address;
-	// 支付方式
-	private String order_pay_way;
+	private String create_date;
+	// 付款方式
+	private String deliveryName;
+	// 付款方式2
+	private String payment_comnfig_name;
+	// 收货人
+	private String shipName;
+	// 收货人电话
+	private String ship_mobile;
+	// 收货人地址1
+	private String ship_area_store;
+	// 收货人地址2
+	private String ship_address;
+	// 收货人邮编
+	private String ship_zip_code;
 	// 商品列表
-	private ArrayList<GoodsCart> goods_list;
+	private ArrayList<GoodsOrderInfo> productDetail;
+	// 已支付费用
+	private String payment_fee;
 	// 邮费
-	private String order_trans_pay;
-	// 优惠
-	private String order_preferential;
+	private String delivery;
 	// 订单总价
-	private double order_total;
+	private String totalAmount;
+	// 已支付
+	private String paidAmount;
 	// 卖家留言
-	private String order_user_words;
+	private String memo;
 
 	public Order() {
 		super();
 	}
 
-	public Order(String order_state, String order_id, String order_time,
-			String order_user_id, UserAddress order_user_address,
-			String order_pay_way, ArrayList<GoodsCart> goods_list,
-			String order_trans_pay, String order_preferential,
-			double order_total, String order_user_words) {
+	public Order(String orderStatus, String paymentStatus, String id,
+			String orderSn, String create_date, String deliveryName,
+			String payment_comnfig_name, String shipName, String ship_mobile,
+			String ship_area_store, String ship_address, String ship_zip_code,
+			ArrayList<GoodsOrderInfo> productDetail, String payment_fee,
+			String delivery, String totalAmount, String paidAmount, String memo) {
 		super();
-		this.order_state = order_state;
-		this.order_id = order_id;
-		this.order_time = order_time;
-		this.order_user_id = order_user_id;
-		this.order_user_address = order_user_address;
-		this.order_pay_way = order_pay_way;
-		this.goods_list = goods_list;
-		this.order_trans_pay = order_trans_pay;
-		this.order_preferential = order_preferential;
-		this.order_total = order_total;
-		this.order_user_words = order_user_words;
+		OrderStatus = orderStatus;
+		this.paymentStatus = paymentStatus;
+		this.id = id;
+		this.orderSn = orderSn;
+		this.create_date = create_date;
+		this.deliveryName = deliveryName;
+		this.payment_comnfig_name = payment_comnfig_name;
+		this.shipName = shipName;
+		this.ship_mobile = ship_mobile;
+		this.ship_area_store = ship_area_store;
+		this.ship_address = ship_address;
+		this.ship_zip_code = ship_zip_code;
+		this.productDetail = productDetail;
+		this.payment_fee = payment_fee;
+		this.delivery = delivery;
+		this.totalAmount = totalAmount;
+		this.paidAmount = paidAmount;
+		this.memo = memo;
 	}
 
-	public String getOrder_user_words() {
-		return order_user_words;
+	public String getOrderStatus() {
+		return OrderStatus;
 	}
 
-	public void setOrder_user_words(String order_user_words) {
-		this.order_user_words = order_user_words;
+	public void setOrderStatus(String orderStatus) {
+		OrderStatus = orderStatus;
 	}
 
-	public String getOrder_state() {
-		return order_state;
+	public String getPaymentStatus() {
+		return paymentStatus;
 	}
 
-	public void setOrder_state(String order_state) {
-		this.order_state = order_state;
+	public void setPaymentStatus(String paymentStatus) {
+		this.paymentStatus = paymentStatus;
 	}
 
-	public String getOrder_id() {
-		return order_id;
+	public String getId() {
+		return id;
 	}
 
-	public void setOrder_id(String order_id) {
-		this.order_id = order_id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getOrder_time() {
-		return order_time;
+	public String getOrderSn() {
+		return orderSn;
 	}
 
-	public void setOrder_time(String order_time) {
-		this.order_time = order_time;
+	public void setOrderSn(String orderSn) {
+		this.orderSn = orderSn;
 	}
 
-	public String getOrder_user_id() {
-		return order_user_id;
+	public String getCreate_date() {
+		return create_date;
 	}
 
-	public void setOrder_user_id(String order_user_id) {
-		this.order_user_id = order_user_id;
+	public void setCreate_date(String create_date) {
+		this.create_date = create_date;
 	}
 
-	public UserAddress getOrder_user_address() {
-		return order_user_address;
+	public String getDeliveryName() {
+		return deliveryName;
 	}
 
-	public void setOrder_user_address(UserAddress order_user_address) {
-		this.order_user_address = order_user_address;
+	public void setDeliveryName(String deliveryName) {
+		this.deliveryName = deliveryName;
 	}
 
-	public String getOrder_pay_way() {
-		return order_pay_way;
+	public String getPayment_comnfig_name() {
+		return payment_comnfig_name;
 	}
 
-	public void setOrder_pay_way(String order_pay_way) {
-		this.order_pay_way = order_pay_way;
+	public void setPayment_comnfig_name(String payment_comnfig_name) {
+		this.payment_comnfig_name = payment_comnfig_name;
 	}
 
-	public ArrayList<GoodsCart> getGoods_list() {
-		return goods_list;
+	public String getShipName() {
+		return shipName;
 	}
 
-	public void setGoods_list(ArrayList<GoodsCart> goods_list) {
-		this.goods_list = goods_list;
+	public void setShipName(String shipName) {
+		this.shipName = shipName;
 	}
 
-	public String getOrder_trans_pay() {
-		return order_trans_pay;
+	public String getShip_mobile() {
+		return ship_mobile;
 	}
 
-	public void setOrder_trans_pay(String order_trans_pay) {
-		this.order_trans_pay = order_trans_pay;
+	public void setShip_mobile(String ship_mobile) {
+		this.ship_mobile = ship_mobile;
 	}
 
-	public String getOrder_preferential() {
-		return order_preferential;
+	public String getShip_area_store() {
+		return ship_area_store;
 	}
 
-	public void setOrder_preferential(String order_preferential) {
-		this.order_preferential = order_preferential;
+	public void setShip_area_store(String ship_area_store) {
+		this.ship_area_store = ship_area_store;
 	}
 
-	public double getOrder_total() {
-		return order_total;
+	public String getShip_address() {
+		return ship_address;
 	}
 
-	public void setOrder_total(double order_total) {
-		this.order_total = order_total;
+	public void setShip_address(String ship_address) {
+		this.ship_address = ship_address;
 	}
+
+	public String getShip_zip_code() {
+		return ship_zip_code;
+	}
+
+	public void setShip_zip_code(String ship_zip_code) {
+		this.ship_zip_code = ship_zip_code;
+	}
+
+	public ArrayList<GoodsOrderInfo> getProductDetail() {
+		return productDetail;
+	}
+
+	public void setProductDetail(ArrayList<GoodsOrderInfo> productDetail) {
+		this.productDetail = productDetail;
+	}
+
+	public String getPayment_fee() {
+		return payment_fee;
+	}
+
+	public void setPayment_fee(String payment_fee) {
+		this.payment_fee = payment_fee;
+	}
+
+	public String getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(String delivery) {
+		this.delivery = delivery;
+	}
+
+	public String getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(String totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public String getPaidAmount() {
+		return paidAmount;
+	}
+
+	public void setPaidAmount(String paidAmount) {
+		this.paidAmount = paidAmount;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+	
+	
 
 }

@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
-                    android:src="@drawable/ic_right_white" />
+                    android:src="@drawable/ic_right_red" />
             </LinearLayout>
             <!-- 包邮信息 -->
 
@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:padding="15dip" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -147,19 +147,20 @@
                     android:textColor="@color/color_black3"
                     android:textSize="@dimen/txt_size_14" />
             </LinearLayout>
+
             <include layout="@layout/line_match" />
             <!-- 支付方式 -->
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
-                android:gravity="center_vertical"
-                android:drawableLeft="@drawable/icon_pay_way"
                 android:background="@color/color_white"
+                android:drawableLeft="@drawable/icon_pay_way"
+                android:drawablePadding="10dip"
+                android:gravity="center_vertical"
+                android:padding="10dip"
                 android:text="@string/order_submit_pay_way"
                 android:textColor="@color/color_mian"
-                android:drawablePadding="10dip"
                 android:textSize="@dimen/txt_size_14" />
 
             <!-- 支付宝 -->
@@ -176,22 +177,38 @@
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="100dip"
-                    android:text="@string/order_pay_way_zhifubao"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/txt_size_15" />
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/icon_pay_zhifubao" />
 
-                <TextView
-                    android:id="@+id/tv_order_pay_zhifubao_tag"
+                <LinearLayout
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/order_pay_way_zhifubao_preferential"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/txt_size_12" />
+                    android:orientation="vertical"
+                    android:paddingLeft="15dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="100dip"
+                        android:text="@string/order_pay_way_zhifubao"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/txt_size_15" />
+
+                    <TextView
+                        android:id="@+id/tv_order_pay_zhifubao_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:text="@string/order_pay_way_zhifubao_preferential"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/txt_size_12" />
+                </LinearLayout>
+
                 <!-- 选择框 -->
 
                 <CheckBox
@@ -217,22 +234,37 @@
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="100dip"
-                    android:text="@string/order_pay_way_daofu"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/txt_size_15" />
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/icon_pay_daofu" />
 
-                <TextView
-                    android:id="@+id/tv_order_pay_daofu_tag"
+                <LinearLayout
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/order_pay_way_daofu_preferential"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/txt_size_12" />
+                    android:orientation="vertical"
+                    android:paddingLeft="15dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="100dip"
+                        android:text="@string/order_pay_way_daofu"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/txt_size_15" />
+
+                    <TextView
+                        android:id="@+id/tv_order_pay_daofu_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:text="@string/order_pay_way_daofu_preferential"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/txt_size_12" />
+                </LinearLayout>
                 <!-- 选择框 -->
 
                 <CheckBox
@@ -408,7 +440,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
-                    android:src="@drawable/ic_right_black" />
+                    android:src="@drawable/ic_right_red" />
             </LinearLayout>
 
             <include layout="@layout/line_left10" />
@@ -445,12 +477,14 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="10dip" >
-
+				
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/icon_order_trans"
                     android:text="@string/order_submit_freight"
                     android:textColor="@color/color_black3"
+                    android:gravity="center_vertical"
                     android:textSize="@dimen/txt_size_15" />
 
                 <TextView
@@ -478,6 +512,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/order_submit_preferential"
+                    android:drawableLeft="@drawable/icon_order_trans"
+                    android:gravity="center_vertical"
                     android:textColor="@color/color_black3"
                     android:textSize="@dimen/txt_size_15" />
 
@@ -556,6 +592,15 @@
                 android:textColor="@color/color_red"
                 android:textSize="@dimen/txt_size_15"
                 android:textStyle="bold" />
+            <!-- 有活动商品时的提示 -->
+            <TextView 
+                android:id="@+id/tv_order_submit_total_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_black3"
+                android:visibility="invisible"
+                android:text="@string/order_submit_activity_tip"
+                android:textSize="@dimen/txt_size_12"/>
         </LinearLayout>
         <!-- 确认 -->
 

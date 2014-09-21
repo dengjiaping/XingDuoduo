@@ -23,6 +23,8 @@ public class GoodsOne implements Serializable {
 	private String ThumbnailGoodsImagePath;
 	// 商品海报图片地址3
 	private String SmallGoodsImagePath;
+	// 源图片
+	private String SourceImagePath;
 	// 所属分类id
 	private String goodsCategoryId;
 	// 商品名
@@ -36,27 +38,32 @@ public class GoodsOne implements Serializable {
 	// Value0
 	private String bigGoodsImagePath;
 	// Value1
-	private String introduction;
+	private String goodtype_id;
+	// 介绍
+	private String metaDescription;
 
 	public GoodsOne() {
 		super();
 	}
 
 	public GoodsOne(String id, String thumbnailGoodsImagePath,
-			String smallGoodsImagePath, String goodsCategoryId, String name,
-			double goods_price, int salesVolume, String goodsSn, String bigGoodsImagePath,
-			String introduction) {
+			String smallGoodsImagePath, String sourceImagePath,
+			String goodsCategoryId, String name, double goods_price,
+			int salesVolume, String goodsSn, String bigGoodsImagePath,
+			String goodtype_id, String metaDescription) {
 		super();
 		this.id = id;
 		ThumbnailGoodsImagePath = thumbnailGoodsImagePath;
 		SmallGoodsImagePath = smallGoodsImagePath;
+		SourceImagePath = sourceImagePath;
 		this.goodsCategoryId = goodsCategoryId;
 		this.name = name;
 		this.goods_price = goods_price;
 		this.salesVolume = salesVolume;
 		this.goodsSn = goodsSn;
 		this.bigGoodsImagePath = bigGoodsImagePath;
-		this.introduction = introduction;
+		this.goodtype_id = goodtype_id;
+		this.metaDescription = metaDescription;
 	}
 
 	public String getId() {
@@ -81,6 +88,14 @@ public class GoodsOne implements Serializable {
 
 	public void setSmallGoodsImagePath(String smallGoodsImagePath) {
 		SmallGoodsImagePath = smallGoodsImagePath;
+	}
+
+	public String getSourceImagePath() {
+		return SourceImagePath;
+	}
+
+	public void setSourceImagePath(String sourceImagePath) {
+		SourceImagePath = sourceImagePath;
 	}
 
 	public String getGoodsCategoryId() {
@@ -123,20 +138,28 @@ public class GoodsOne implements Serializable {
 		this.goodsSn = goodsSn;
 	}
 
-	public String getValue0() {
+	public String getBigGoodsImagePath() {
 		return bigGoodsImagePath;
 	}
 
-	public void setValue0(String value0) {
-		this.bigGoodsImagePath = value0;
+	public void setBigGoodsImagePath(String bigGoodsImagePath) {
+		this.bigGoodsImagePath = bigGoodsImagePath;
 	}
 
-	public String getValue1() {
-		return introduction;
+	public String getGoodtype_id() {
+		return goodtype_id;
 	}
 
-	public void setValue1(String value1) {
-		introduction = value1;
+	public void setGoodtype_id(String goodtype_id) {
+		this.goodtype_id = goodtype_id;
+	}
+
+	public String getMetaDescription() {
+		return metaDescription;
+	}
+
+	public void setMetaDescription(String metaDescription) {
+		this.metaDescription = metaDescription;
 	}
 
 	/**

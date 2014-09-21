@@ -108,6 +108,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 								imageLoader);
 						// 下拉加载完成
 						pullsv_limitbuy.onPullDownRefreshComplete();
+						lv_limitbuy_container.setAdapter(adapter);
 					} else {// 上拉
 						goods_current.addAll(goods_get);
 						adapter.notifyDataSetChanged();
@@ -124,7 +125,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 						}
 					}
 					TimeUtil.setLastUpdateTime3(pullsv_limitbuy);
-					lv_limitbuy_container.setAdapter(adapter);
+					
 					llyt_null_goods.setVisibility(View.INVISIBLE);
 				}
 				loadingdialog.dismiss();
@@ -257,6 +258,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 					bundle.putSerializable("goods_one", goods_one);
 					bundle.putSerializable("goods_id",
 							goods_one.getId());
+					bundle.putInt("pic_tag", 1);
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(

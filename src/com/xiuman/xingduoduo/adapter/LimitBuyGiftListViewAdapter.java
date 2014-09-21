@@ -63,8 +63,6 @@ public class LimitBuyGiftListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.iv_lg_goods_poster);
 			holder.tv_lg_goods_name = (TextView) convertView
 					.findViewById(R.id.tv_lg_goods_name);
-			holder.tv_lg_goods_description = (TextView) convertView
-					.findViewById(R.id.tv_lg_goods_description);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -73,10 +71,9 @@ public class LimitBuyGiftListViewAdapter extends BaseAdapter {
 
 		// 添加操作，测试数据
 		imageLoader.displayImage(
-				URLConfig.IMG_IP + goodsone.getSmallGoodsImagePath(),
+				URLConfig.IMG_IP + goodsone.getSourceImagePath(),
 				holder.iv_lg_goods_poster, options);
 		holder.tv_lg_goods_name.setText(goodsone.getName());
-		holder.tv_lg_goods_description.setText(goodsone.getName());
 
 		return convertView;
 	}
@@ -91,7 +88,5 @@ public class LimitBuyGiftListViewAdapter extends BaseAdapter {
 		ImageView iv_lg_goods_poster;
 		// 名字
 		TextView tv_lg_goods_name;
-		// 介绍
-		TextView tv_lg_goods_description;
 	}
 }

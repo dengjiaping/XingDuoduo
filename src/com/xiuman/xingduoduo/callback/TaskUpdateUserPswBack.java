@@ -9,7 +9,7 @@ import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 
 /**
- * @名称：TaskUserInfoBack.java
+ * @名称：TaskUpdateUserPswBack.java
  * @描述：修改密码
  * @author danding 2014-8-12
  */

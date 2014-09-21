@@ -53,6 +53,8 @@ public class GoodsTwo implements Serializable {
 	private String Value1;
 	// 规格可用
 	private boolean IsSpecificationEnabled;
+	// 市场价
+	private float marketPrice;
 
 	public GoodsTwo() {
 		super();
@@ -64,13 +66,13 @@ public class GoodsTwo implements Serializable {
 			String goods_price, ArrayList<GoodsStandard> productDetail,
 			String salesVolume, ArrayList<GoodsParams> goodsParams,
 			String introduction, String value0, String value1,
-			boolean isSpecificationEnabled) {
+			boolean isSpecificationEnabled, float marketPrice) {
 		super();
 		this.goodsCategoryId = goodsCategoryId;
 		this.id = id;
 		this.goodtype_id = goodtype_id;
-		this.SmallGoodsImagePath = smallGoodsImagePath;
-		this.ThumbnailGoodsImagePath = thumbnailGoodsImagePath;
+		SmallGoodsImagePath = smallGoodsImagePath;
+		ThumbnailGoodsImagePath = thumbnailGoodsImagePath;
 		this.name = name;
 		this.goodsSn = goodsSn;
 		this.imagePath = imagePath;
@@ -79,9 +81,18 @@ public class GoodsTwo implements Serializable {
 		this.salesVolume = salesVolume;
 		this.goodsParams = goodsParams;
 		this.introduction = introduction;
-		this.Value0 = value0;
-		this.Value1 = value1;
-		this.IsSpecificationEnabled = isSpecificationEnabled;
+		Value0 = value0;
+		Value1 = value1;
+		IsSpecificationEnabled = isSpecificationEnabled;
+		this.marketPrice = marketPrice;
+	}
+
+	public float getMarketPrice() {
+		return marketPrice;
+	}
+
+	public void setMarketPrice(float marketPrice) {
+		this.marketPrice = marketPrice;
 	}
 
 	public boolean isIsSpecificationEnabled() {
@@ -193,7 +204,7 @@ public class GoodsTwo implements Serializable {
 	 * @return 2014-8-15
 	 */
 	public String getIntroduction() {
-		if(introduction==null){
+		if (introduction == null) {
 			return "";
 		}
 		Document doc = Jsoup.parse(introduction);

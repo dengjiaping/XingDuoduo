@@ -29,13 +29,16 @@ public class User implements Serializable {
 	private double preferntial;
 	// 会员信息
 	private String rankNmae;
+	// 昵称
+	private String nickname;
 
 	public User() {
 		super();
 	}
 
 	public User(String userName, String userId, String email,
-			String createDate, double preferntial, String rankNmae) {
+			String createDate, double preferntial, String rankNmae,
+			String nickname) {
 		super();
 		this.userName = userName;
 		this.userId = userId;
@@ -43,6 +46,15 @@ public class User implements Serializable {
 		this.createDate = createDate;
 		this.preferntial = preferntial;
 		this.rankNmae = rankNmae;
+		this.nickname = nickname;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getUserName() {

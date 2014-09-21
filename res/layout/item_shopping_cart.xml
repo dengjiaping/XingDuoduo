@@ -58,12 +58,26 @@
 
                             <!-- 商品图 -->
 
-                            <ImageView
-                                android:id="@+id/iv_item_shopping_cart_goods_poster"
+                            <RelativeLayout
                                 android:layout_width="60dip"
-                                android:layout_height="60dip"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/bg_cart_good_poster" />
+                                android:layout_height="60dip" >
+
+                                <ImageView
+                                    android:id="@+id/iv_item_shopping_cart_goods_poster"
+                                    android:layout_width="60dip"
+                                    android:layout_height="60dip"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/bg_cart_good_poster" />
+
+                                <ImageView
+                                    android:id="@+id/iv_item_shopping_cart_goods_isActivity"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentTop="true"
+                                    android:src="@drawable/icon_gift"
+                                    android:visibility="invisible" />
+                            </RelativeLayout>
 
                             <LinearLayout
                                 android:layout_width="0dip"
@@ -89,7 +103,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal" >
-									
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -200,8 +214,10 @@
                                 android:layout_marginRight="10dip"
                                 android:text="件商品"
                                 android:textColor="@color/color_black"
-                                android:textSize="@dimen/txt_size_14" />-->
-                            
+                                android:textSize="@dimen/txt_size_14" />
+                            -->
+
+
                             <!-- 商品总价 -->
 
                             <TextView

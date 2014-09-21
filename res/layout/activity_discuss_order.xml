@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true" >
+
+    <!-- 评价订单 -->
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/include_title_common" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:layout_marginBottom="50dip"
+        android:fadingEdge="none"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dip" >
+
+            <!-- 订单生成时间 -->
+
+            <TextView
+                android:id="@+id/tv_discuss_order_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dip"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/bg_grey"
+                android:paddingBottom="5dip"
+                android:paddingLeft="30dip"
+                android:paddingRight="30dip"
+                android:paddingTop="5dip"
+                android:text="@string/test_login_name"
+                android:textColor="@color/color_black3"
+                android:textSize="@dimen/txt_size_14" />
+
+            <com.xiuman.xingduoduo.view.MyListView
+                android:id="@+id/lv_discuss_order_goods_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="@android:color/transparent"
+                android:divider="@color/color_black_line"
+                android:dividerHeight="0.2dip"
+                android:fadingEdge="none"
+                android:focusable="false"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none" />
+        </LinearLayout>
+    </ScrollView>
+    <!-- 提交评价 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_bg"
+        android:orientation="vertical" >
+
+        <include layout="@layout/line_match" />
+
+        <Button
+            android:id="@+id/btn_submit_discuss"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_gravity="center"
+            android:layout_margin="5dip"
+            android:background="@drawable/btn_color_selector"
+            android:minWidth="150dip"
+            android:paddingBottom="5dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="5dip"
+            android:text="@string/discuss_order"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/txt_size_15" />
+    </LinearLayout>
+
+</RelativeLayout>

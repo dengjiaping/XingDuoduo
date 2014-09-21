@@ -9,9 +9,7 @@ import com.xiuman.xingduoduo.model.AdBBS;
 import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.model.GoodsCart;
 import com.xiuman.xingduoduo.model.GoodsOne;
-import com.xiuman.xingduoduo.model.GoodsStandard;
 import com.xiuman.xingduoduo.model.GoodsTwo;
-import com.xiuman.xingduoduo.model.Order;
 import com.xiuman.xingduoduo.model.PostReply;
 import com.xiuman.xingduoduo.model.PostStarter;
 import com.xiuman.xingduoduo.model.User;
@@ -117,26 +115,6 @@ public class Test {
 		return hot_keywords;
 	}
 
-	/**
-	 * 
-	 * @描述：获取测试用户信息
-	 * @date：2014-6-20
-	 * @return
-	 */
-	public static User getTestUser() {
-		User user;
-		String userId = "5454634631321185";
-		String rankNmae = "普通会员";
-		String userName = "hqucsx";
-		String email = "598281865@qq.com";
-		String createDate = "2014-08-12 11:30:28";
-		double preferntial = 7.0d;
-
-		user = new User(userName, userId, email, createDate, preferntial,
-				rankNmae);
-
-		return user;
-	}
 
 	/**
 	 * 收货地址
@@ -157,84 +135,6 @@ public class Test {
 		return user_address;
 	}
 
-	/**
-	 * 
-	 * @描述：获取测试商品数据
-	 * @date：2014-6-25
-	 * @return
-	 */
-	public static ArrayList<GoodsOne> getGoods() {
-		ArrayList<GoodsOne> goods = new ArrayList<GoodsOne>();
-		String goods_id = "123456789";
-		String goods_name = "霏慕性感薄纱露乳睡裙【新品尝鲜】";
-		String ThumbnailGoodsImagePath = "";
-		String imagePath = "";
-		String SmallGoodsImagePath = "";
-		double goods_price = 25.00d;
-		int goods_sales = 1532;
-		String Value0 = "";
-		String Value1 = "";
-		String goodsSn = "";
-
-		GoodsOne goodsone = new GoodsOne(goods_id, ThumbnailGoodsImagePath,
-				imagePath, SmallGoodsImagePath, goods_name, goods_price,
-				goods_sales, goodsSn, Value0, Value1);
-
-		goods.add(goodsone);
-		goods.add(goodsone);
-		goods.add(goodsone);
-		goods.add(goodsone);
-		goods.add(goodsone);
-		goods.add(goodsone);
-		goods.add(goodsone);
-		goods.add(goodsone);
-		goods.add(goodsone);
-		goods.add(goodsone);
-
-		return goods;
-	}
-
-	/**
-	 * 
-	 * @描述：获取测试商品详情
-	 * @date：2014-6-26
-	 * @return
-	 */
-	public static GoodsTwo getGoodsTwo() {
-		String class_id = "13131313";
-		String goods_id = "123456789";
-		String goods_name = "霏慕性感薄纱露乳睡裙【新品尝鲜】";
-		String goods_description = "霏慕性感薄纱露乳睡裙【新品尝鲜】";
-		String goods_time = "2014-07-31";
-
-		List<String> goods_img_urls = new ArrayList<String>();
-		goods_img_urls.add((R.drawable.test_1) + "");
-		goods_img_urls.add((R.drawable.test_2) + "");
-		goods_img_urls.add((R.drawable.test_3) + "");
-		goods_img_urls.add((R.drawable.test_4) + "");
-
-		double goods_cost_price = 35.00d;
-		double goods_price = 25.00d;
-
-		// ArrayList<GoodsStandard> goods_standard_params = new
-		// ArrayList<GoodsStandard>();
-		// goods_standard_params.add(new GoodsStandard("黑色挑逗的精灵(L)", 25.00d));
-		// goods_standard_params.add(new GoodsStandard("黑色(XL)", 28.00d));
-		// goods_standard_params.add(new GoodsStandard("黑色性爱你得有一套(XXL)",
-		// 30.00d));
-		// goods_standard_params.add(new GoodsStandard("粉蓝色(XXL)", 35.00d));
-		// goods_standard_params.add(new GoodsStandard("QQ锁灵环粉色(色色猫)", 40.00d));
-		//
-		// int goods_sale = 1500;
-		// String goods_params = "品牌:其他品牌\n面料分类:蕾丝\n款式:肚兜\n货号:NY8572003";
-		//
-		// GoodsTwo goods_two = new GoodsTwo(class_id, goods_id, goods_time,
-		// goods_name, goods_description, goods_img_urls,
-		// goods_cost_price, goods_price, goods_standard_params,
-		// goods_sale, goods_params);
-
-		return null;
-	}
 
 	/**
 	 * 
@@ -254,54 +154,6 @@ public class Test {
 		return img_urls;
 	}
 
-	/**
-	 * 
-	 * @描述：获取测试的购物车产品
-	 * @date：2014-7-22
-	 * @return
-	 */
-	public static ArrayList<GoodsCart> getTestGoodsCart() {
-		ArrayList<GoodsCart> cart_goods = new ArrayList<GoodsCart>();
-
-//		String goods_id = "123456789";
-//		String goods_name = "霏慕性感薄纱露乳睡裙发送到凤凰酒店开设分行开立jfdkj";
-//		String goods_price = "156.00";
-//		int goods_number = 1;
-//		String goods_size = "颜色:蓝色;尺码:XL";
-//		String goods_poster = "";
-//		String goods_total = "156.00";
-//		GoodsCart goods_1 = new GoodsCart(goods_id, goods_name, goods_price,
-//				goods_poster, goods_size, goods_number, goods_total);
-//
-//		String goods_id_2 = "987654321";
-//		String goods_name_2 = "杉姿2014夏装新款";
-//		String goods_price_2 = "96.05";
-//		int goods_number_2 = 2;
-//		String goods_size_2 = "颜色:粉红色;尺码:XXL";
-//		String goods_poster_2 = "";
-//		String goods_total_2 = "192.10";
-//		GoodsCart goods_2 = new GoodsCart(goods_id_2, goods_name_2,
-//				goods_price_2, goods_poster_2, goods_size_2, goods_number_2,
-//				goods_total_2);
-//
-//		String goods_id_3 = "123654789";
-//		String goods_name_3 = "串珠蕾丝镶钻黑色连衣裙心霓儿同款菁菁秀韩国名媛礼服裙夏07046";
-//		String goods_price_3 = "488.00";
-//		int goods_number_3 = 1;
-//		String goods_size_3 = "颜色:黑色;尺码:XXL";
-//		String goods_poster_3 = "";
-//		String goods_total_3 = "488.00";
-//		GoodsCart goods_3 = new GoodsCart(goods_id_3, goods_name_3,
-//				goods_price_3, goods_poster_3, goods_size_3, goods_number_3,
-//				goods_total_3);
-//
-//		cart_goods.add(goods_1);
-//		cart_goods.add(goods_2);
-//		cart_goods.add(goods_3);
-
-		return cart_goods;
-
-	}
 
 	/**
 	 * 
@@ -397,133 +249,7 @@ public class Test {
 
 	}
 
-	/**
-	 * 测试用的订单数据
-	 * 
-	 * @return
-	 */
-	public static ArrayList<Order> getTestOrders() {
-		ArrayList<Order> orders = new ArrayList<Order>();
-		String order_state = "未付款";
-		String order_id = "123145467467631";
-		String order_time = "2014-08-06 10:22:56";
-		String order_user_id = "123456789";
-		UserAddress order_user_address = getTestUserAddress();
-		String order_pay_way = "支付宝";
-		ArrayList<GoodsCart> goods_list = getTestGoodsCart();
-		String order_trans_pay = "12.00";// 包邮
-		String order_preferential = "满100包邮";
-		double order_total = 1;
-		String order_user_words = "请尽快安排发货";
 
-		Order order = new Order(order_state, order_id, order_time,
-				order_user_id, order_user_address, order_pay_way, goods_list,
-				order_trans_pay, order_preferential, order_total,
-				order_user_words);
-		orders.add(order);
-
-		String order_state1 = "已取消";
-		String order_id1 = "123145467123456";
-		String order_time1 = "2014-08-06 10:22:56";
-		String order_user_id1 = "123456789";
-		UserAddress order_user_address1 = getTestUserAddress();
-		String order_pay_way1 = "财付通";
-		ArrayList<GoodsCart> goods_list1 = getTestGoodsCart();
-		String order_trans_pay1 = "12.00";// 包邮
-		String order_preferential1 = "满120包邮";
-		double order_total1 = 1;
-		String order_user_words1 = "请尽快安排发货，快点哦！";
-
-		Order order1 = new Order(order_state1, order_id1, order_time1,
-				order_user_id1, order_user_address1, order_pay_way1,
-				goods_list1, order_trans_pay1, order_preferential1,
-				order_total1, order_user_words1);
-
-		orders.add(order1);
-
-		return orders;
-	}
-
-	/**
-	 * 测试帖子
-	 * 
-	 * @return
-	 */
-	public static ArrayList<PostStarter> getTestPost() {
-		ArrayList<PostStarter> posts = new ArrayList<PostStarter>();
-		String post_id = "123213213";
-		String post_title = "天涯海角三日游";
-		String post_content = "求过哦，";
-		String post_time = "2014-08-11 10:28";
-		String post_style = "匿名";
-		String post_tag = "精华";
-		User post_user = getTestUser();
-		int post_reply = 128;
-		ArrayList<String> post_imgs = getGoodsImgUrls();
-
-		PostStarter post = new PostStarter(post_id, post_time, post_title,
-				post_content, post_style, post_tag, post_user, post_reply,
-				post_imgs);
-		// 置顶帖子
-		String post_id1 = "123213213";
-		String post_title1 = "天涯海角三日游";
-		String post_content1 = "求过哦，";
-		String post_time1 = "2014-08-11 10:28";
-		String post_style1 = "匿名";
-		String post_tag1 = "置顶";
-		User post_user1 = getTestUser();
-		int post_reply1 = 128;
-		ArrayList<String> post_imgs1 = getGoodsImgUrls();
-
-		PostStarter post1 = new PostStarter(post_id1, post_time1, post_title1,
-				post_content1, post_style1, post_tag1, post_user1, post_reply1,
-				post_imgs1);
-
-		posts.add(post);
-		posts.add(post);
-		posts.add(post);
-		posts.add(post);
-		posts.add(post);
-		posts.add(post);
-		posts.add(post);
-
-		posts.add(post1);
-		posts.add(post1);
-		posts.add(post1);
-		posts.add(post1);
-		posts.add(post1);
-		return posts;
-	}
-
-	/**
-	 * @描述：测试回复帖
-	 * @return 2014-8-16
-	 */
-	public static ArrayList<PostReply> getTestRelpy() {
-		ArrayList<PostReply> replys = new ArrayList<PostReply>();
-		String reply_id = "123213213";
-		String reply_content = "哎呦不错哦";
-		String reply_time = "2014-08-16 10:28";
-		User reply_user = getTestUser();
-		boolean isStarter = true;
-		PostReply reply = new PostReply(reply_id, reply_content, reply_time,
-				reply_user,isStarter);
-
-		replys.add(reply);
-		replys.add(reply);
-		replys.add(reply);
-		replys.add(reply);
-		replys.add(reply);
-		replys.add(reply);
-		replys.add(reply);
-		replys.add(reply);
-		replys.add(reply);
-		replys.add(reply);
-		replys.add(reply);
-		replys.add(reply);
-
-		return replys;
-	}
 	/**
 	 * @描述：测试收货地址列表
 	 * @return
