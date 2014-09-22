@@ -1,19 +1,27 @@
 package com.xiuman.xingduoduo.ui.fragment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -23,10 +31,17 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.BBSAdViewPagerAdapter;
 import com.xiuman.xingduoduo.adapter.BBSPlateListViewAdapter;
+import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.testdata.Test;
 import com.xiuman.xingduoduo.ui.activity.BBSPlateActivity;
+import com.xiuman.xingduoduo.ui.activity.MyPostActivity;
+import com.xiuman.xingduoduo.ui.activity.MyReplyActivity;
+import com.xiuman.xingduoduo.ui.activity.UserInfoActivity;
+import com.xiuman.xingduoduo.ui.activity.UserLoginActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
+import com.xiuman.xingduoduo.util.ImageCropUtils;
+import com.xiuman.xingduoduo.view.CircleImageView;
 import com.xiuman.xingduoduo.view.indicator.CirclePageIndicator;
 
 /**
@@ -35,7 +50,7 @@ import com.xiuman.xingduoduo.view.indicator.CirclePageIndicator;
  * @author danding
  * @version 2014-6-3
  */
-public class FragmentBBS extends BaseFragment {
+public class FragmentBBS extends BaseFragment implements OnClickListener {
 
 	/*----------------------------------组件--------------------------------*/
 	// ScrollView
@@ -48,6 +63,25 @@ public class FragmentBBS extends BaseFragment {
 	private ListView lv_bbs_plates;
 	// 广告名
 	private TextView tv_bbs_ad_name;
+	
+	// 头像工具类
+	private ImageCropUtils cropUtils;
+	// 头像(Bitmap)
+	private Bitmap user_head_bitmap;
+
+	// 屏幕宽高
+	private int screenHeight, screenWidth;
+	private Button btn_update_info;
+	private LinearLayout mypost_ll;
+	private TextView mypost_send;
+	private TextView mypost_back;
+	private Boolean visibility = false;
+	private LinearLayout mypost_ll0;
+	private LinearLayout mypost_ll1;
+	private LinearLayout mypost_ll2;
+	private TextView mypost_login;
+	private CircleImageView bbs_post_cicle_image;
+	
 
 	/*-------------------------------Adapter--------------------------------*/
 
@@ -89,8 +123,7 @@ public class FragmentBBS extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_bbs,
-				container, false);
+		View view = inflater.inflate(R.layout.fragment_bbs, container, false);
 		initData();
 		findViewById(view);
 		initUI();
@@ -117,6 +150,15 @@ public class FragmentBBS extends BaseFragment {
 
 		// 测试数据，板块
 		plates = Test.getBBSPlates();
+		// 获取屏幕宽高
+		DisplayMetrics dm = new DisplayMetrics();
+		getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+		// 获取屏幕宽度
+		screenHeight = dm.heightPixels;
+		screenWidth = dm.widthPixels;
+		
+		cropUtils = new ImageCropUtils(getActivity());
+		
 	}
 
 	/**
@@ -130,6 +172,20 @@ public class FragmentBBS extends BaseFragment {
 				.findViewById(R.id.indicator_bbs_ad);
 		lv_bbs_plates = (ListView) view.findViewById(R.id.lv_bbs_plates);
 		sv_bbs = (ScrollView) view.findViewById(R.id.sv_bbs);
+		btn_update_info = (Button) view.findViewById(R.id.btn_update_info);
+		mypost_ll = (LinearLayout) view.findViewById(R.id.mypost_ll);
+		mypost_send = (TextView) view.findViewById(R.id.mypost_send);
+		mypost_back = (TextView) view.findViewById(R.id.mypost_back);
+		mypost_ll1=(LinearLayout)view.findViewById(R.id.mypost_ll1);
+		mypost_ll2=(LinearLayout)view.findViewById(R.id.mypost_ll2);
+		mypost_ll0=(LinearLayout)view.findViewById(R.id.mypost_ll0);
+		mypost_login=(TextView)view.findViewById(R.id.mypost_login);
+		bbs_post_cicle_image=(CircleImageView)view.findViewById(R.id.bbs_post_cicle_image);
+		btn_update_info.setOnClickListener(this);
+		mypost_ll1.setOnClickListener(this);
+		mypost_ll2.setOnClickListener(this);
+		mypost_ll0.setOnClickListener(this);
+
 	}
 
 	/**
@@ -140,9 +196,27 @@ public class FragmentBBS extends BaseFragment {
 		// 设置广告数据
 		setAdData();
 
+		//以父布局为准
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+				screenWidth, (int) (screenWidth *150/720));
+		mypost_ll.setLayoutParams(params);
 		// 设置板块
 		plate_adapter = new BBSPlateListViewAdapter(getActivity(), plates);
 		lv_bbs_plates.setAdapter(plate_adapter);
+		
+		
+		if(MyApplication.getInstance().isUserLogin()){
+			mypost_login.setText(MyApplication.getInstance().getUserInfo().getUserName());
+			File head = new File(cropUtils.createDirectory()
+					+ cropUtils.createNewPhotoName());
+			if (head.exists()) {
+				
+				user_head_bitmap = BitmapFactory.decodeFile(cropUtils
+						.createDirectory() + cropUtils.createNewPhotoName());
+				bbs_post_cicle_image.setImageBitmap(user_head_bitmap);
+			}
+		
+		}
 	}
 
 	/**
@@ -169,14 +243,17 @@ public class FragmentBBS extends BaseFragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Object obj = lv_bbs_plates.getItemAtPosition(position);
-				if(obj instanceof BBSPlate){
-					BBSPlate plate = (BBSPlate)obj;
-					Intent intent = new Intent(getActivity(),BBSPlateActivity.class);
+				if (obj instanceof BBSPlate) {
+					BBSPlate plate = (BBSPlate) obj;
+					Intent intent = new Intent(getActivity(),
+							BBSPlateActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("bbs_plate", plate);
 					intent.putExtras(bundle);
 					getActivity().startActivity(intent);
-					getActivity().overridePendingTransition(R.anim.translate_horizontal_start_in, R.anim.translate_horizontal_start_out);
+					getActivity().overridePendingTransition(
+							R.anim.translate_horizontal_start_in,
+							R.anim.translate_horizontal_start_out);
 				}
 			}
 		});
@@ -205,5 +282,83 @@ public class FragmentBBS extends BaseFragment {
 		switchTask.run();
 		tv_bbs_ad_name.setText(Test.addTestCommunicationAd().get(0)
 				.getAd_content());
+	}
+	
+	protected void toLogin(){
+		Intent intent = new Intent(getActivity(),
+				UserLoginActivity.class);
+		getActivity().startActivity(intent);
+		getActivity().overridePendingTransition(
+				R.anim.translate_horizontal_start_in,
+				R.anim.translate_horizontal_start_out);
+		
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		switch (arg0.getId()) {
+		case R.id.btn_update_info:// 顶部按钮
+			if (!visibility) {
+				
+				mypost_ll.setVisibility(View.VISIBLE);
+				
+				visibility = true;
+			} else {
+				mypost_ll.setVisibility(View.GONE);
+				visibility = false;
+
+			}
+
+			break;
+
+		case R.id.mypost_ll1:// 我的发帖
+			if(MyApplication.getInstance().isUserLogin()){
+			Intent intent = new Intent(getActivity(),
+					MyPostActivity.class);
+			getActivity().startActivity(intent);
+			getActivity().overridePendingTransition(
+					R.anim.translate_horizontal_start_in,
+					R.anim.translate_horizontal_start_out);
+			}else{
+				toLogin();
+			}
+			break;
+		case R.id.mypost_ll2:// 我的回复
+			if(MyApplication.getInstance().isUserLogin()){
+				Intent intent = new Intent(getActivity(),
+						MyReplyActivity.class);
+				getActivity().startActivity(intent);
+				getActivity().overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
+				}else{
+					toLogin();
+				}
+
+			break;
+			
+		case R.id.mypost_ll0:// 登陆
+			if(MyApplication.getInstance().isUserLogin()){
+				Intent intent = new Intent(getActivity(),
+						UserInfoActivity.class);
+				getActivity().startActivity(intent);
+				getActivity().overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
+				
+			}else{
+				toLogin();
+				
+			}
+
+			break;
+		}
+
 	}
 }

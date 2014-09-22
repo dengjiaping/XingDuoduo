@@ -18,7 +18,6 @@
         android:background="@drawable/whole_bg_normal_selector"
         android:hint="@string/post_hint_title"
         android:padding="10dip"
-        android:focusable="false"
         android:singleLine="true"
         android:textColor="@color/color_black3"
         android:textSize="@dimen/txt_size_14" />
@@ -30,7 +29,6 @@
         android:layout_marginTop="10dip"
         android:background="@drawable/whole_bg_normal_selector"
         android:gravity="top"
-        android:focusable="false"
         android:hint="@string/post_hint_content"
         android:minLines="3"
         android:padding="10dip"

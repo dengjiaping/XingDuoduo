@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llyt_posts_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+
+
+    <include layout="@layout/line_match_drawable" />
+    <!-- 帖子列表 -->
+
+    <com.xiuman.xingduoduo.view.MyListView
+        android:id="@+id/my_post_reply"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dip"
+        android:divider="@drawable/drawable_transparent"
+        android:dividerHeight="10dip"
+        android:listSelector="@drawable/whole_bg_normal_selector" />
+
+</LinearLayout>

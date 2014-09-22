@@ -29,6 +29,11 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
+                
+                
+                    
+                    
+               
 
                 <!-- 论坛图片 -->
 
@@ -62,6 +67,82 @@
                         android:layout_centerInParent="true"
                         android:padding="10dip" />
                 </RelativeLayout>
+                <!-- 我的发帖回帖 -->
+                <LinearLayout
+                    android:id="@+id/mypost_ll" 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:background="@color/bbs_title_back"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                    android:id="@+id/mypost_ll0" 
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <com.xiuman.xingduoduo.view.CircleImageView
+                    android:id="@+id/bbs_post_cicle_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/login_image" />
+                    <TextView 
+                        android:id="@+id/mypost_login"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center_horizontal"
+                        android:textSize="18sp"
+                        android:text="@string/bbs_mypost_login"
+                        android:textColor="@color/color_white"
+                        />
+                    </LinearLayout>
+                    <LinearLayout
+                    android:id="@+id/mypost_ll1" 
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                     <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/mypost_image"/>
+                    <TextView 
+                        android:id="@+id/mypost_send"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center_horizontal"
+                        android:textSize="18sp"
+                        android:text="@string/bbs_mypost_send"
+                        android:textColor="@color/color_white"
+                        />
+                    </LinearLayout>
+                    <LinearLayout
+                    android:id="@+id/mypost_ll2" 
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/mypost_reply"/>
+                     <TextView 
+                        android:id="@+id/mypost_back"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center_horizontal"
+                        android:textSize="18sp"
+                        android:text="@string/bbs_mypost_back"
+                        android:textColor="@color/color_white"
+                        />
+                     </LinearLayout>
+                     </LinearLayout>
             </RelativeLayout>
             <!-- 板块 -->
 			 <include layout="@layout/line_match" />

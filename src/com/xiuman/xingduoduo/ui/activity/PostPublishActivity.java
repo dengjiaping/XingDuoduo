@@ -1,10 +1,20 @@
 package com.xiuman.xingduoduo.ui.activity;
 
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
@@ -37,10 +47,21 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.app.AppConfig;
+import com.xiuman.xingduoduo.app.MyApplication;
+import com.xiuman.xingduoduo.app.Mylog;
+import com.xiuman.xingduoduo.app.URLConfig;
+import com.xiuman.xingduoduo.model.ActionValue;
+import com.xiuman.xingduoduo.model.BBSPost;
+import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.util.PostSimulation;
+import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.util.pic.Bimp;
 import com.xiuman.xingduoduo.util.pic.FileUtils;
+import com.xiuman.xingduoduo.view.LoadingDialog;
 
 /**
  * @名称：PostPublicActivity.java
@@ -78,6 +99,9 @@ public class PostPublishActivity extends Base2Activity implements
 	// 屏幕宽高
 	private int screenWidth, screenHeight;
 
+	// 夹在数据时显示的Dialog
+	private LoadingDialog loadingdialog;
+
 	/*----------------------------------------数据--------------------------------------*/
 	// 从上级界面接收到的板块id(要将帖子发布在哪个板块)
 	private String plate_id;
@@ -91,9 +115,110 @@ public class PostPublishActivity extends Base2Activity implements
 	// 图片名
 	public String name;
 
+	// 版块id
+	private String forumId;
+
+	private ActionValue<?> value;
+
+	private String title;
+
+	private String content;
+	private String userId;
+
 	// 存储路径
 	private static final String PATH = Environment
 			.getExternalStorageDirectory() + "/DCIM/xingduoduo";
+
+	private Handler handlerMain = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+
+			case AppConfig.BBS_PUBLISH_RUN:
+				String result = (String) msg.obj;
+				Mylog.i("result", "123" + result);
+				if (result != null) {
+					ActionValue<?> value = new Gson().fromJson(result,
+							ActionValue.class);
+
+					if (value.isSuccess()) {
+						ToastUtil.ToastView(PostPublishActivity.this,
+								value.getMessage());
+						Intent intent3 = new Intent(PostPublishActivity.this,
+								PostInfoActivity.class);
+						Bundle bundle = new Bundle();
+						SimpleDateFormat format = new SimpleDateFormat(
+								"yyyy-MM-dd HH:mm:ss");
+						Date date = new Date();
+						String createTime = format.format(date);
+						BBSPost post = new BBSPost(et_post_content.getText()
+								.toString(), et_post_content.getText()
+								.toString(), createTime, et_post_title
+								.getText().toString(), "" + 9, 0, 2, 0);
+						bundle.putSerializable("postinfo_starter", post);
+						// 版块id
+						bundle.putString("forumId", forumId);
+						intent3.putExtras(bundle);
+						Bimp.drr.clear();
+						Bimp.bmp.clear();
+						Bimp.max = 0;
+						loadingdialog.dismiss();
+						startActivity(intent3);
+						overridePendingTransition(
+								R.anim.translate_horizontal_start_in,
+								R.anim.translate_horizontal_start_out);
+						finish();
+
+					} else {
+						Bimp.drr.clear();
+						Bimp.bmp.clear();
+						Bimp.max = 0;
+						loadingdialog.dismiss();
+						ToastUtil.ToastView(PostPublishActivity.this, "帖子发表失败");
+					}
+
+				} else {
+					Bimp.drr.clear();
+					Bimp.bmp.clear();
+					Bimp.max = 0;
+					loadingdialog.dismiss();
+					ToastUtil.ToastView(PostPublishActivity.this, "帖子发表失败");
+				}
+				break;
+
+			case AppConfig.BBS_PUBLISH_BACK:
+				value = (ActionValue<?>) msg.obj;
+				if (value.isSuccess()) {
+					ToastUtil.ToastView(PostPublishActivity.this,
+							value.getMessage());
+					Intent intent = new Intent(PostPublishActivity.this,
+							PostInfoActivity.class);
+					Bundle bundle = new Bundle();
+					SimpleDateFormat format = new SimpleDateFormat(
+							"yyyy-MM-dd HH:mm:ss");
+					Date date = new Date();
+					String createTime = format.format(date);
+					BBSPost post = new BBSPost(et_post_content.getText()
+							.toString(), et_post_content.getText().toString(),
+							createTime, et_post_title.getText().toString(),
+							"" + 9, 0, 2, 0);
+					bundle.putSerializable("postinfo_starter", post);
+					// 版块id
+					bundle.putString("forumId", forumId);
+					intent.putExtras(bundle);
+					startActivity(intent);
+					overridePendingTransition(
+							R.anim.translate_horizontal_start_in,
+							R.anim.translate_horizontal_start_out);
+					finish();
+				}
+				break;
+
+			case AppConfig.NET_ERROR_NOTNET:// 无网络
+				ToastUtil.ToastView(PostPublishActivity.this, "网络错误，请检查网络");
+				break;
+			}
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,10 +238,13 @@ public class PostPublishActivity extends Base2Activity implements
 		// 获取屏幕宽度
 		screenWidth = dm.widthPixels;
 		screenHeight = dm.heightPixels;
+
+		forumId = getIntent().getExtras().getString("forumId");
 	}
 
 	@Override
 	protected void findViewById() {
+		loadingdialog = new LoadingDialog(this);
 		btn_back = (Button) findViewById(R.id.btn_common_back2);
 		btn_publish = (Button) findViewById(R.id.btn_common_right2);
 		tv_title = (TextView) findViewById(R.id.tv_common_title2);
@@ -128,6 +256,7 @@ public class PostPublishActivity extends Base2Activity implements
 	@Override
 	protected void initUI() {
 		tv_title.setText("发表帖子");
+		btn_publish.setText("发布");
 	}
 
 	@Override
@@ -183,7 +312,7 @@ public class PostPublishActivity extends Base2Activity implements
 		// 设置pop动画
 		pop.setAnimationStyle(R.style.PopupAnimation);
 		// 设置pop 的位置
-		pop.showAtLocation(view, Gravity.TOP, 0, screenHeight);
+		pop.showAtLocation(view, Gravity.TOP, 0, (int) (screenHeight * 3 / 4));
 	}
 
 	/**
@@ -213,6 +342,57 @@ public class PostPublishActivity extends Base2Activity implements
 		case R.id.btn_pop_photo_cancel:// 取消
 			dismissPop();
 			break;
+
+		case R.id.btn_common_back2:// 返回键
+			finish();
+			break;
+		case R.id.btn_common_right2:// 发布帖子
+			if (MyApplication.getInstance().isUserLogin()) {// 用户登录
+				if ((et_post_title.getText().toString()).length() < 4
+						|| (et_post_content.getText().toString()).length() < 4) {// 标题内容
+																					// 不为空
+					ToastUtil.ToastView(PostPublishActivity.this,
+							"标题或内容不能少于四个字");
+
+				} else {
+					// HttpUrlProvider.getIntance().getPostPublish(
+					// PostPublishActivity.this,
+					// new TaskPostPublishBack(handlerMain), forumId,
+					// "" + 2, "" + 2, et_post_title.getText().toString(),
+					// et_post_content.getText().toString(), "" + 9, null,
+					// null);
+					loadingdialog.show();
+					User user = MyApplication.getInstance().getUserInfo();
+					userId = user.getUserId();
+					title = et_post_title.getText().toString();
+					content = et_post_content.getText().toString();
+
+					new Thread() {
+						public void run() {
+							Message msg = new Message();
+							msg.what = AppConfig.BBS_PUBLISH_RUN;
+							msg.obj = uploadFile();
+							handlerMain.sendMessage(msg);
+						}
+					}.start();
+
+					// Bimp.drr.clear();
+					// Bimp.bmp.clear();
+					// loadingdialog.dismiss();
+					// ToastUtil.ToastView(PostPublishActivity.this, "帖子发表失败");
+
+				}
+
+			} else {// 没有登录
+				Intent intentLogin = new Intent(PostPublishActivity.this,
+						UserLoginActivity.class);
+				startActivity(intentLogin);
+				overridePendingTransition(R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
+			}
+
+			break;
+
 		}
 
 	}
@@ -371,8 +551,8 @@ public class PostPublishActivity extends Base2Activity implements
 
 	@Override
 	protected void onRestart() {
-//		adapter.update();
-//		adapter.notifyDataSetChanged();
+		// adapter.update();
+		// adapter.notifyDataSetChanged();
 		super.onRestart();
 	}
 
@@ -383,16 +563,17 @@ public class PostPublishActivity extends Base2Activity implements
 	 * @描述：选择照片 2014-8-14
 	 */
 	public void selectPhoto() {
-//		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//		File file = new File(Environment.getExternalStorageDirectory()
-//				+ "/myimage/", String.valueOf(System.currentTimeMillis())
-//				+ ".jpg");
-//		path = file.getPath();
-//		Uri imageUri = Uri.fromFile(new File(Environment
-//				.getExternalStorageDirectory() + "/myimage/", String
-//				.valueOf(System.currentTimeMillis()) + ".jpg"));
-//		openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//		startActivityForResult(openCameraIntent, TAKE_PICTURE);
+		// Intent openCameraIntent = new
+		// Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		// File file = new File(Environment.getExternalStorageDirectory()
+		// + "/myimage/", String.valueOf(System.currentTimeMillis())
+		// + ".jpg");
+		// path = file.getPath();
+		// Uri imageUri = Uri.fromFile(new File(Environment
+		// .getExternalStorageDirectory() + "/myimage/", String
+		// .valueOf(System.currentTimeMillis()) + ".jpg"));
+		// openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+		// startActivityForResult(openCameraIntent, TAKE_PICTURE);
 
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);// 调用系统相机
 		new DateFormat();
@@ -400,10 +581,48 @@ public class PostPublishActivity extends Base2Activity implements
 				Calendar.getInstance(Locale.CHINA))
 				+ ".jpg";
 		Uri imageUri = Uri.fromFile(new File(PATH, name));
-		path = new File(PATH,name).getPath();
+		path = new File(PATH, name).getPath();
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 
 		startActivityForResult(intent, TAKE_PICTURE);
+	}
+
+	protected String uploadFile() {
+		// addFormField("scode", "", output);
+		// addFormField("userId", "215", output);
+		// addFormField("category", "1", output);
+		// addFormField("forumId", "1", output);
+		// addFormField("postTypeId", "1", output);
+		// addFormField("title", "title", output);
+		// addFormField("content", "content", output);
+		List<String> keys = new ArrayList<String>();
+		keys.add("scode");
+		keys.add("userId");
+		keys.add("category");
+		keys.add("forumId");
+		keys.add("postTypeId");
+		keys.add("title");
+		keys.add("content");
+		Map<String, String> map = new HashMap<String, String>();
+		String scode = "";
+		for (int i = 0; i < Bimp.drr.size(); i++) {
+			scode += ((i + 1) + ",");
+		}
+		if (scode.length() > 0) {
+
+			scode = scode.substring(0, scode.length() - 1);
+		} else {
+			scode = "";
+		}
+		map.put("scode", scode);
+		map.put("userId", "215");
+		map.put("category", "1");
+		map.put("forumId", forumId);
+		map.put("postTypeId", "1");
+		map.put("title", title);
+		map.put("content", content);
+		return PostSimulation.getInstance().post(URLConfig.PRIVATE_IP + URLConfig.POST_PUBLISH__IP, Bimp.drr, keys, map);
+
 	}
 
 	@Override

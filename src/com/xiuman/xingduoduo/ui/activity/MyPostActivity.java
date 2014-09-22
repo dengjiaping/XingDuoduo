@@ -1,3 +1,10 @@
+/**
+ * @ClassName: MyPostActivity
+ * @Description: TODO
+ * @author Andrew Lee
+ * @date 2014-9-19 下午2:52:54
+ */
+
 package com.xiuman.xingduoduo.ui.activity;
 
 import java.util.ArrayList;
@@ -9,13 +16,13 @@ import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,6 +31,7 @@ import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.PlatePostListViewAdapter;
 import com.xiuman.xingduoduo.adapter.PlateStickPostListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
+import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.callback.TaskPostListBack;
 import com.xiuman.xingduoduo.callback.TaskTopPostBack;
 import com.xiuman.xingduoduo.model.ActionValue;
@@ -36,11 +44,12 @@ import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView;
 
 /**
- * @名称：BBSPlateActivity.java
- * @描述：交流板块帖子列表
- * @author danding 2014-8-8
+ * @名称：MyPostActivity.java
+ * @描述：
+ * @author Andrew Lee
+ * 2014-9-19下午2:52:54
  */
-public class BBSPlateActivity extends Base2Activity implements OnClickListener {
+public class MyPostActivity extends Base2Activity implements OnClickListener {
 
 	/*---------------------------------组件-----------------------------------*/
 	// 返回
@@ -55,14 +64,14 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	private ScrollView sv_posts;
 	// ListView(帖子)
 	private ListView lv_posts;
-	// ListView(置顶帖子)
-	private ListView lv_stick_posts;
-	// 板块图标
-	private ImageView iv_plate_icon;
-	// 板块标题
-	private TextView tv_plate_name;
-	// 板块描述
-	private TextView tv_plate_description;
+//	// ListView(置顶帖子)
+//	private ListView lv_stick_posts;
+//	// 板块图标
+//	private ImageView iv_plate_icon;
+//	// 板块标题
+//	private TextView tv_plate_name;
+//	// 板块描述
+//	private TextView tv_plate_description;
 	// 网络连接失败显示的布局
 	private LinearLayout llyt_network_error;
 	// 帖子为空时显示的布局
@@ -82,7 +91,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 
 	/*--------------------------------------数据--------------------------------*/
 	// 从上级界面接收到的板块信息
-	private BBSPlate plate;
+//	private BBSPlate plate;
 	// 所有的帖子列表
 	private ArrayList<PostStarter> posts = new ArrayList<PostStarter>();
 	// 帖子列表(普通)
@@ -103,6 +112,10 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	private ActionValue<BBSPost> valueTop;
 
 	private ArrayList<BBSPost> bbspostTop;
+	
+	private LinearLayout bbs_sort_title;
+	
+	private String userId;
 
 	// 消息处理Handler-------------------------------------
 	@SuppressLint("HandlerLeak")
@@ -123,26 +136,9 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				if (value.isSuccess()) {
 					bbspost = value.getDatasource();
 					adapter = new PlatePostListViewAdapter(
-							BBSPlateActivity.this, options, imageLoader,
+							MyPostActivity.this, options, imageLoader,
 							bbspost);
 					lv_posts.setAdapter(adapter);
-					loadingdialog.dismiss();
-				}
-
-				break;
-			case AppConfig.BBS_TOP_POST_BACK:
-				
-				valueTop = (ActionValue<BBSPost>) msg.obj;
-				if (valueTop.isSuccess()) {
-					bbspostTop = valueTop.getDatasource();
-					adapter = new PlatePostListViewAdapter(
-							BBSPlateActivity.this, options, imageLoader,
-							bbspostTop);
-					adapter_stick = new PlateStickPostListViewAdapter(
-							BBSPlateActivity.this, bbspostTop);
-
-					lv_stick_posts.setAdapter(adapter_stick);
-
 					loadingdialog.dismiss();
 				}
 
@@ -176,9 +172,9 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.imageScaleType(ImageScaleType.NONE).build();
-
+		userId=MyApplication.getInstance().getUserInfo().getUserId();
 		// 从上级界面接收到的板块信息
-		plate = (BBSPlate) getIntent().getExtras().getSerializable("bbs_plate");
+//		plate = (BBSPlate) getIntent().getExtras().getSerializable("bbs_plate");
 	}
 
 	@Override
@@ -196,25 +192,27 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		sv_posts = pullsv_post.getRefreshableView();
 
 		// container
-		View view = View.inflate(this, R.layout.include_bbs_posts_container,
+		View view = View.inflate(this, R.layout.activity_post_reply,
 				null);
-		lv_posts = (ListView) view.findViewById(R.id.lv_posts);
-		lv_stick_posts = (ListView) view.findViewById(R.id.lv_stick_posts);
-		tv_plate_name = (TextView) view.findViewById(R.id.tv_bbs_plate_name);
-		tv_plate_description = (TextView) view
-				.findViewById(R.id.tv_bbs_plate_description);
-		iv_plate_icon = (ImageView) view.findViewById(R.id.iv_bbs_plate_icon);
-
+		lv_posts = (ListView) view.findViewById(R.id.my_post_reply);
+//		lv_stick_posts = (ListView) view.findViewById(R.id.lv_stick_posts);
+//		tv_plate_name = (TextView) view.findViewById(R.id.tv_bbs_plate_name);
+//		tv_plate_description = (TextView) view
+//				.findViewById(R.id.tv_bbs_plate_description);
+//		iv_plate_icon = (ImageView) view.findViewById(R.id.iv_bbs_plate_icon);
+//		bbs_sort_title=(LinearLayout) findViewById(R.id.bbs_sort_title_ll);
 		sv_posts.addView(view);
 
 	}
 
 	@Override
 	protected void initUI() {
-		tv_title.setText("最新帖子");
-		iv_plate_icon.setImageResource(plate.getPlate_icon());
-		tv_plate_name.setText(plate.getPlate_name());
-		tv_plate_description.setText(plate.getPlate_description());
+		tv_title.setText("我的发帖");
+//		iv_plate_icon.setImageResource(plate.getPlate_icon());
+//		tv_plate_name.setText(plate.getPlate_name());
+//		tv_plate_description.setText(plate.getPlate_description());
+//		bbs_sort_title.setVisibility(View.GONE);
+//		lv_stick_posts.setVisibility(View.GONE);
 
 		initFirstData();
 	}
@@ -233,11 +231,11 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				Object obj = lv_posts.getItemAtPosition(position);
 				if (obj instanceof BBSPost) {
 					BBSPost postinfo = (BBSPost) obj;
-					Intent intent = new Intent(BBSPlateActivity.this,
+					Intent intent = new Intent(MyPostActivity.this,
 							PostInfoActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("postinfo_starter", postinfo);
-					bundle.putString("forumId", plate.getPlate_id());
+					bundle.putString("forumId", "1");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(
@@ -247,29 +245,6 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 			}
 		});
 		
-		
-		lv_stick_posts.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Object obj = lv_posts.getItemAtPosition(position);
-				if (obj instanceof BBSPost) {
-					BBSPost postinfo = (BBSPost) obj;
-					Intent intent = new Intent(BBSPlateActivity.this,
-							PostInfoActivity.class);
-					Bundle bundle = new Bundle();
-					bundle.putSerializable("postinfo_starter", postinfo);
-					//版块id
-					bundle.putString("forumId", plate.getPlate_id());
-					intent.putExtras(bundle);
-					startActivity(intent);
-					overridePendingTransition(
-							R.anim.translate_horizontal_start_in,
-							R.anim.translate_horizontal_start_out);
-				}
-			}
-		});
 	}
 
 	/**
@@ -281,11 +256,11 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_bbs_right:// 发表帖子
-			Intent intent_publish = new Intent(BBSPlateActivity.this,
+			Intent intent_publish = new Intent(MyPostActivity.this,
 					PostPublishActivity.class);
 			Bundle bundle = new Bundle();
 			//版块id
-			bundle.putString("forumId", plate.getPlate_id());
+			bundle.putString("forumId", "1");
 			intent_publish.putExtras(bundle);
 			startActivity(intent_publish);
 			break;
@@ -303,21 +278,9 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	 */
 	private void initFirstData() {
 		// 请求数据
-		HttpUrlProvider.getIntance().getPost(BBSPlateActivity.this,
-				new TaskPostListBack(handler), plate.getPlate_id());
-		HttpUrlProvider.getIntance().getTopPost(BBSPlateActivity.this,
-				new TaskTopPostBack(handler), plate.getPlate_id(), 1, 10);
+		HttpUrlProvider.getIntance().getMyPost(MyPostActivity.this,
+				new TaskPostListBack(handler), userId, 1, 10);
 		loadingdialog.show();
-		// posts = Test.getTestPost();
-		//
-		// // 将获得的帖子列表分为普通贴和置顶贴
-		// for (int i = 0; i < posts.size(); i++) {
-		// if (posts.get(i).getPost_tag().equals("置顶")) {
-		// stick_posts.add(posts.get(i));
-		// } else {
-		// normal_posts.add(posts.get(i));
-		// }
-		// }
 
 	}
 }

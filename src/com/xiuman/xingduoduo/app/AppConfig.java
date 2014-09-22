@@ -18,6 +18,11 @@ public class AppConfig {
 	public final static int BBS_REPLY_POST_BACK = 9003;
 	// 帖子回复返回
 	public final static int BBS_REPLY_SEND_BACK = 9004;
+	// 帖子发表返回
+	public final static int BBS_PUBLISH_BACK = 9005;
+	// 帖子图片线程
+	public final static int BBS_PUBLISH_RUN = 9006;
+	
 
 	// 购物车Fragment Activity请求码与返回码-----------------------------
 	public final static int REQUEST_CODE = 1;

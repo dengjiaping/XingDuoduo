@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.xiuman.xingduoduo.adapter.PlateStickPostListViewAdapter;
 import com.xiuman.xingduoduo.adapter.PostInfoImgsListViewAdapter;
 import com.xiuman.xingduoduo.adapter.ReplyStarterListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
+import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.callback.TaskPostReplyBack;
 import com.xiuman.xingduoduo.callback.TaskReplySendBack;
 import com.xiuman.xingduoduo.model.ActionValue;
@@ -34,6 +36,7 @@ import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.model.BBSPostReply;
 import com.xiuman.xingduoduo.model.PostReply;
 import com.xiuman.xingduoduo.model.PostStarter;
+import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.testdata.Test;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
@@ -128,6 +131,8 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	private ActionValue<?> valueSend;
 
 	private String forumId;
+	
+	private String userId;
 
 	// 消息处理Handler-------------------------------------
 	@SuppressLint("HandlerLeak")
@@ -161,7 +166,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					Date date = new Date();
 					String createTime = format.format(date);
 					BBSPostReply bps = new BBSPostReply(et_reply.getText().toString(),
-							createTime, postinfo_starter.title, "9", postinfo_starter.id, postinfo_starter.postTypeId, 1);
+							createTime, postinfo_starter.title, userId, postinfo_starter.id, postinfo_starter.postTypeId, 1);
 
 					bbsReply.add(bps);
 					adapter.notifyDataSetChanged();
@@ -210,6 +215,8 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		postinfo_starter = (BBSPost) getIntent().getExtras().getSerializable(
 				"postinfo_starter");
 		forumId = getIntent().getExtras().getString("forumId");
+		User user=MyApplication.getInstance().getUserInfo();
+		userId=user.getUserId();
 
 	}
 
@@ -314,15 +321,25 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			et_reply.requestFocus();
 			break;
 		case R.id.btn_reply:// 发送回复
+			if(MyApplication.getInstance().isUserLogin()){
 			if ((et_reply.getText().toString()).length() < 3) {
 				ToastUtil.ToastView(PostInfoActivity.this, "回复不能少于3个字");
 			} else {
+				
 				HttpUrlProvider.getIntance().getPostReplySend(
 						PostInfoActivity.this, new TaskReplySendBack(handler),
 						forumId, "" + postinfo_starter.postTypeId,
 						"" + postinfo_starter.id, postinfo_starter.title,
-						et_reply.getText().toString(), "9");
+						et_reply.getText().toString(), userId);
 
+			}}else{
+				Intent intentLogin = new Intent(PostInfoActivity.this,
+						UserLoginActivity.class);
+				startActivity(intentLogin);
+				overridePendingTransition(R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
+				
+				
 			}
 
 			break;

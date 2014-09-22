@@ -237,6 +237,10 @@
     
     <!-- 论坛界面 -->
     <string name="communication_plate">板块</string>
+    <string name="bbs_mypost_send">我的帖子</string>
+    <string name="bbs_mypost_back">回复</string>
+    <string name="bbs_mypost_login">登陆</string>
+    
     
     <!-- 交流板块 -->
     <string name="bbs_plate_null_post">骚年，本板块还没有帖子哦，赶紧来一发^_^</string>

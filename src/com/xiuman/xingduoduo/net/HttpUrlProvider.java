@@ -929,7 +929,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_TOP_LIST_IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
-		url += httpDataTask.jointToUrl("goodId", forumId);
+		url += httpDataTask.jointToUrl("forumId", forumId);
 		url += httpDataTask.jointToUrl("pageNo", pageNo);
 		url += httpDataTask.jointToUrl("pageSize", pageSize);
 
@@ -975,14 +975,80 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setParams("postTypeId", postTypeId);
 		httpDataTask.setParams("topicId", topicId);
 		httpDataTask.setParams("userId", userId);
-		try {
-			httpDataTask.setParams("title", URLEncoder.encode(title, "utf-8"));
-			httpDataTask.setParams("content",
-					URLEncoder.encode(content, "utf-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		httpDataTask.setParams("title", title);
+		httpDataTask.setParams("content", content);
 		// httpDataTask.setParams("shopId", shopId);
+
+		httpDataTask.execute(url);
+	}
+
+	/**
+	 * @描述:发表帖子
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param forumId
+	 * @param postTypeId
+	 * @param category
+	 * @param title
+	 * @param content
+	 * @param userId
+	 */
+	public void getPostPublish(Context mContext,
+			HttpTaskListener httpTaskListener, String forumId,
+			String postTypeId, String category, String title, String content,
+			String userId, String attachment, String scode) {
+		String url = URLConfig.PRIVATE_IP + URLConfig.POST_PUBLISH__IP;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("post");
+		// // 设置请求参数
+		httpDataTask.setParams("forumId", forumId);
+		httpDataTask.setParams("postTypeId", postTypeId);
+		httpDataTask.setParams("category", category);
+		httpDataTask.setParams("attachment", attachment);
+		httpDataTask.setParams("userId", userId);
+		httpDataTask.setParams("scode", scode);
+		httpDataTask.setParams("title", content);
+		httpDataTask.setParams("content", content);
+		// httpDataTask.setParams("shopId", shopId);
+
+		httpDataTask.execute(url);
+	}
+	
+	/**
+	 * @描述:我的发帖
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param forumId
+	 * @param pageNo
+	 * @param pageSize
+	 */
+	public void getMyPost(Context mContext, HttpTaskListener httpTaskListener, String userId, int pageNo, int pageSize) {
+		String url = URLConfig.PRIVATE_IP + URLConfig.MY_POST__IP;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		url += httpDataTask.jointToUrl("userId", userId);
+		url += httpDataTask.jointToUrl("pageNo", pageNo);
+		url += httpDataTask.jointToUrl("pageSize", pageSize);
+
+		httpDataTask.execute(url);
+	}
+	
+	/**
+	 * @描述:我的回帖
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param forumId
+	 * @param pageNo
+	 * @param pageSize
+	 */
+	public void getMyReplyPost(Context mContext, HttpTaskListener httpTaskListener,
+			String userId, int pageNo, int pageSize) {
+		String url = URLConfig.PRIVATE_IP + URLConfig.MY_REPLY_POST_IP;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		url += httpDataTask.jointToUrl("userId", userId);
+		url += httpDataTask.jointToUrl("pageNo", pageNo);
+		url += httpDataTask.jointToUrl("pageSize", pageSize);
 
 		httpDataTask.execute(url);
 	}

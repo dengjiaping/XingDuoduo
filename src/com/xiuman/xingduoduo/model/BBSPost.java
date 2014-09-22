@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 /**
  * @名称：BBSnormalPost.java
- * @描述：
+ * @描述：主贴内容
  * @author Andrew Lee
  * 2014-9-15下午3:00:36
  */

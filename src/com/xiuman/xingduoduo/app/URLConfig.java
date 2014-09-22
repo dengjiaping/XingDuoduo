@@ -10,9 +10,13 @@ package com.xiuman.xingduoduo.app;
  */
 public class URLConfig {
 	// 内网图片ip
-	public static final String PRIVATE_IMG_IP = "http://192.168.16.57:8080";
+	public static final String PRIVATE_IMG_IP = "http://110.81.238.163:8080";
 	// bbs内网测试地址
-	public static final String PRIVATE_IP = "http://192.168.16.57:8080/bbs/app/";
+	public static final String PRIVATE_IP = "http://110.81.238.163:8080/bbs3/app/";
+	// 内网图片ip
+//	public static final String PRIVATE_IMG_IP = "http://192.168.16.50:8080";
+	// bbs内网测试地址
+//	public static final String PRIVATE_IP = "http://192.168.16.50:8080/bbs/app/";
 	// bbs板块帖子列表
 	public static final String FORUM_LIST_IP = "appTopForumList.jhtml?forumId=";
 	// bbs 置顶帖
@@ -21,6 +25,12 @@ public class URLConfig {
 	public static final String FORUM_REPLY_LIST_IP = "appPostInfo.jhtml?topicId=";
 	// 帖子回复
 	public static final String POST_REPLY__IP = "appPostReply.jhtml?";
+	// 帖子发表
+	public static final String POST_PUBLISH__IP = "appPostNote.jhtml?";
+	// 我的发帖
+	public static final String MY_POST__IP = "appMyTopicList.jhtml?";
+	// 我的回帖
+	public static final String MY_REPLY_POST_IP = "appMyPostReply.jhtml?";
 
 	// 接口地址前缀 121.199.57.38
 	public static final String BASE_IP = "http://121.199.57.38/shopxx/shop";
