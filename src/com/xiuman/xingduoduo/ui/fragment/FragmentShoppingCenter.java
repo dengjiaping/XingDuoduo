@@ -228,7 +228,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				}
 			}
 			cunhuan = true;
-			mHandler.postDelayed(switchTask, 3000);
+			mHandler.postDelayed(switchTask, 5000);
 		}
 	};
 	Handler mHandler = new Handler();

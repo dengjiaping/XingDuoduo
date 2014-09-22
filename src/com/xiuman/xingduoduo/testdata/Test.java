@@ -81,15 +81,13 @@ public class Test {
 		List<String> recently_keywords = new ArrayList<String>();
 
 		recently_keywords.add("避孕套");
-		recently_keywords.add("女性用具");
-		recently_keywords.add("男性用具");
-		recently_keywords.add("情趣内衣");
+		recently_keywords.add("延时");
 		recently_keywords.add("振动棒");
-		recently_keywords.add("性玩偶");
-		recently_keywords.add("润滑剂");
-		recently_keywords.add("阴臀倒模");
-		recently_keywords.add("G点后庭");
-		recently_keywords.add("阴蒂刺激");
+		recently_keywords.add("制服诱惑");
+		recently_keywords.add("比基尼");
+		recently_keywords.add("杜蕾斯");
+		recently_keywords.add("飞机杯");
+		recently_keywords.add("蕾丝");
 		return recently_keywords;
 	}
 
@@ -103,55 +101,14 @@ public class Test {
 		List<String> hot_keywords = new ArrayList<String>();
 
 		hot_keywords.add("避孕套");
-		hot_keywords.add("女性用具");
-		hot_keywords.add("男性用具");
-		hot_keywords.add("情趣内衣");
+		hot_keywords.add("延时");
 		hot_keywords.add("振动棒");
-		hot_keywords.add("性玩偶");
-		hot_keywords.add("润滑剂");
-		hot_keywords.add("阴臀倒模");
-		hot_keywords.add("G点后庭");
-		hot_keywords.add("阴蒂刺激");
+		hot_keywords.add("制服诱惑");
+		hot_keywords.add("比基尼");
+		hot_keywords.add("杜蕾斯");
+		hot_keywords.add("飞机杯");
+		hot_keywords.add("蕾丝");
 		return hot_keywords;
-	}
-
-
-	/**
-	 * 收货地址
-	 * 
-	 * @描述：
-	 * @return 2014-8-12
-	 */
-	public static UserAddress getTestUserAddress() {
-		String id = "1213121";
-		String user_receipt_address = "福建厦门思明区";
-		String user_receipt_address_detail = "软件园二期观日路28号之三403";
-		String user_receipt_name = "种生祥";
-		String user_receipt_phone = "12345678866";
-		String user_receipt_ems = "361021";
-		UserAddress user_address = new UserAddress(id,user_receipt_address,
-				user_receipt_address_detail, user_receipt_name,
-				user_receipt_phone, user_receipt_ems);
-		return user_address;
-	}
-
-
-	/**
-	 * 
-	 * @描述：获取测试商品详情图
-	 * @date：2014-6-27
-	 * @return
-	 */
-	public static ArrayList<String> getGoodsImgUrls() {
-		ArrayList<String> img_urls = new ArrayList<String>();
-		img_urls.add("http://h.hiphotos.baidu.com/image/pic/item/0ff41bd5ad6eddc48ecc77e63bdbb6fd52663380.jpg");
-		img_urls.add("http://f.hiphotos.baidu.com/image/pic/item/b8389b504fc2d562e8a4f2eee51190ef76c66c00.jpg");
-		img_urls.add("http://e.hiphotos.baidu.com/image/pic/item/6d81800a19d8bc3efd3a6c39808ba61ea8d34516.jpg");
-		img_urls.add("http://e.hiphotos.baidu.com/image/pic/item/a5c27d1ed21b0ef46f78f3addfc451da80cb3eb4.jpg");
-		img_urls.add("http://f.hiphotos.baidu.com/image/pic/item/7acb0a46f21fbe098eb2a8e769600c338644ad51.jpg");
-		img_urls.add("http://a.hiphotos.baidu.com/image/pic/item/e7cd7b899e510fb34790de93db33c895d1430c2c.jpg");
-		img_urls.add("http://g.hiphotos.baidu.com/image/pic/item/d62a6059252dd42aa60af6aa013b5bb5c9eab8b4.jpg");
-		return img_urls;
 	}
 
 
@@ -250,20 +207,4 @@ public class Test {
 	}
 
 
-	/**
-	 * @描述：测试收货地址列表
-	 * @return
-	 * 2014-8-20
-	 */
-	public static ArrayList<UserAddress> getTestAddresses(){
-		ArrayList<UserAddress> addresses = new ArrayList<UserAddress>();
-		
-		addresses.add(Test.getTestUserAddress());
-		addresses.add(Test.getTestUserAddress());
-		addresses.add(Test.getTestUserAddress());
-		addresses.add(Test.getTestUserAddress());
-		addresses.add(Test.getTestUserAddress());
-		addresses.add(Test.getTestUserAddress());
-		return addresses;
-	}
 }

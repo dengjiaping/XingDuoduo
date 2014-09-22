@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
+import com.umeng.update.UmengUpdateAgent;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.ui.base.BaseActivity;
 import com.xiuman.xingduoduo.ui.fragment.FragmentBBS;
@@ -62,6 +63,7 @@ public class MainActivity extends BaseActivity implements
 		findViewById();
 		initUI();
 		setListener();
+		UmengUpdateAgent.update(this);
 	}
 
 	/**

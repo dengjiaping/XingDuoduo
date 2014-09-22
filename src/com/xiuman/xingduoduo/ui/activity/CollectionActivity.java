@@ -97,8 +97,8 @@ public class CollectionActivity extends Base2Activity implements
 	// 要删除收藏的商品信息
 	private GoodsOne goodsone;
 
-	int i =1;
-	
+	int i = 1;
+
 	// 消息处理Handler
 	@SuppressLint("HandlerLeak")
 	@SuppressWarnings("unchecked")
@@ -109,7 +109,7 @@ public class CollectionActivity extends Base2Activity implements
 				value_collections = (ActionValue<GoodsOne>) msg.obj;
 				collection_get = (ArrayList<GoodsOne>) value_collections
 						.getDatasource();
-				
+
 				if (!value_collections.isSuccess()) {// 收藏列表为空
 					llyt_collection_null_collection.setVisibility(View.VISIBLE);
 				} else {
@@ -136,7 +136,6 @@ public class CollectionActivity extends Base2Activity implements
 						}
 					}
 
-					
 					llyt_collection_null_collection
 							.setVisibility(View.INVISIBLE);
 				}
@@ -174,7 +173,8 @@ public class CollectionActivity extends Base2Activity implements
 								.setVisibility(View.VISIBLE);
 					}
 					// 删除本地数据库
-					MyApplication.getInstance().deleteCollection(goodsone.getId());
+					MyApplication.getInstance().deleteCollection(
+							goodsone.getId());
 				} else {
 					ToastUtil.ToastView(CollectionActivity.this,
 							value_delete.getMessage());
@@ -244,6 +244,10 @@ public class CollectionActivity extends Base2Activity implements
 	protected void initUI() {
 		tv_title.setText(R.string.collection_title);
 		loadingdialog = new LoadingDialog(CollectionActivity.this);
+		// 加载数据，测试数据，添加操作
+		pullgridview.doPullRefreshing(true, 500);
+		// 设置刷新时间
+		TimeUtil.setLastUpdateTime2(pullgridview);
 	}
 
 	@Override
@@ -312,10 +316,6 @@ public class CollectionActivity extends Base2Activity implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		// 加载数据，测试数据，添加操作
-		pullgridview.doPullRefreshing(true, 500);
-		// 设置刷新时间
-		TimeUtil.setLastUpdateTime2(pullgridview);
 	}
 
 	/**

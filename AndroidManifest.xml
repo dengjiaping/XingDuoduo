@@ -61,7 +61,7 @@
             android:name="com.xiuman.xingduoduo.ui.activity.WelcomeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <!-- 主界面 -->
         <activity
@@ -323,6 +323,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
+        <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.MyPostActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" >
+        </activity>
+        <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.MyReplyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" >
+        </activity>
         <!-- 支付模块 -->
         <!-- 支付宝 -->
         <activity
@@ -350,16 +360,7 @@
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-        <activity
-            android:name="com.xiuman.xingduoduo.ui.activity.MyPostActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Transparent" >
-        </activity>
-        <activity
-            android:name="com.xiuman.xingduoduo.ui.activity.MyReplyActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Transparent" >
-        </activity>
+
         <!-- key -->
         <meta-data
             android:name="UMENG_APPKEY"

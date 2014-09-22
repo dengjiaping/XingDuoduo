@@ -184,7 +184,7 @@ public class SearchActivity extends BaseActivity implements
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				if (count > 0) {
+				if (et_search_input_keyword.getText().toString().trim().length() > 0) {
 					btn_clear_search_input.setVisibility(View.VISIBLE);
 					btn_start_search.setText("搜索");
 				} else {

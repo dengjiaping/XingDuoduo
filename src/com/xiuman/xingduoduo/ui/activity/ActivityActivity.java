@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -181,8 +182,8 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 		pulllv_lipin.setPullRefreshEnabled(false);
 		
 		lv_lipin = pulllv_lipin.getRefreshableView();
-		lv_lipin.setDividerHeight(SizeUtil.px2dip(this, 15));
-		lv_lipin.setDivider(getResources().getDrawable(R.drawable.drawable_transparent));
+		lv_lipin.setDividerHeight(1);
+		lv_lipin.setDivider(new ColorDrawable(android.R.color.transparent));
 		lv_lipin.setSelector(R.drawable.whole_bg_normal_selector);
 	}
 
