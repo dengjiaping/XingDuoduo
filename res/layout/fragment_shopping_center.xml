@@ -385,10 +385,10 @@
                             <ImageView
                                 android:id="@+id/iv_center_4_left_bottom"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_4_left_bottom"
-                                android:scaleType="centerCrop" />
+                                android:scaleType="fitXY" />
                             <!-- 文字1 -->
 
                             <TextView
@@ -436,10 +436,10 @@
                                 <ImageView
                                     android:id="@+id/iv_center_4_right_top"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_4_right_top"
-                                    android:scaleType="centerCrop" />
+                                    android:scaleType="fitXY" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -482,10 +482,10 @@
                                 <ImageView
                                     android:id="@+id/iv_center_4_right_bottom"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_4_right_bottom"
-                                    android:scaleType="centerCrop" />
+                                    android:scaleType="fitXY" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -616,10 +616,10 @@
                             <ImageView
                                 android:id="@+id/iv_center_5_left_bottom"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_5_left_bottom"
-                                android:scaleType="centerCrop" />
+                                android:scaleType="fitXY" />
                             <!-- 文字1 -->
 
                             <TextView
@@ -668,10 +668,10 @@
                                 <ImageView
                                     android:id="@+id/iv_center_5_right_top"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_5_right_top"
-                                    android:scaleType="centerCrop" />
+                                    android:scaleType="fitXY" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -713,10 +713,10 @@
                                 <ImageView
                                     android:id="@+id/iv_center_5_right_bottom"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_5_right_bottom"
-                                    android:scaleType="centerCrop" />
+                                    android:scaleType="fitXY" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -838,10 +838,10 @@
                             <ImageView
                                 android:id="@+id/iv_center_6_left_bottom"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_6_left_bottom"
-                                android:scaleType="centerCrop" />
+                                android:scaleType="fitXY" />
                             <!-- 文字1 -->
 
                             <TextView
@@ -889,10 +889,10 @@
                                 <ImageView
                                     android:id="@+id/iv_center_6_right_top"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_6_right_top"
-                                    android:scaleType="centerCrop" />
+                                    android:scaleType="fitXY" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -934,10 +934,10 @@
                                 <ImageView
                                     android:id="@+id/iv_center_6_right_bottom"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_6_right_bottom"
-                                    android:scaleType="centerCrop" />
+                                    android:scaleType="fitXY" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -1061,10 +1061,10 @@
                             <ImageView
                                 android:id="@+id/iv_center_7_left_bottom"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_7_left_bottom"
-                                android:scaleType="centerCrop" />
+                                android:scaleType="fitXY" />
                             <!-- 文字1 -->
 
                             <TextView
@@ -1113,10 +1113,10 @@
                                 <ImageView
                                     android:id="@+id/iv_center_7_right_top"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_7_right_top"
-                                    android:scaleType="centerCrop" />
+                                    android:scaleType="fitXY" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -1158,10 +1158,10 @@
                                 <ImageView
                                     android:id="@+id/iv_center_7_right_bottom"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_7_right_bottom"
-                                    android:scaleType="centerCrop" />
+                                    android:scaleType="fitXY" />
                                 <!-- 文字1 -->
 
                                 <TextView

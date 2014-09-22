@@ -1,6 +1,10 @@
 package com.xiuman.xingduoduo.ui.activity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -62,6 +66,8 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 	private LinearLayout llyt_null_goods;
 	// 夹在数据时显示的Dialog
 	private LoadingDialog loadingdialog;
+	//倒计时
+	private TextView tv_center_daojishi;
 
 	/*-------------------------------------ImageLoader-------------------------*/
 	// ImageLoader
@@ -179,6 +185,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		loadingdialog = new LoadingDialog(this);
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		llyt_null_goods = (LinearLayout) findViewById(R.id.llyt_goods_null);
+		
 
 		pullsv_limitbuy = (PullToRefreshScrollView) findViewById(R.id.pullsv_limtbuy);
 		pullsv_limitbuy.setScrollLoadEnabled(true);
@@ -189,6 +196,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 				null);
 		lv_limitbuy_container = (ListView) view
 				.findViewById(R.id.lv_limitbuy_container);
+		tv_center_daojishi = (TextView) view.findViewById(R.id.tv_center_daojishi);
 
 		sv_limitbuy.addView(view);
 	}
@@ -202,6 +210,8 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		initFirstData(currentPage);
 		// 设置刷新时间
 		TimeUtil.setLastUpdateTime3(pullsv_limitbuy);
+		//设置倒计时
+		startDaojishi();
 	}
 
 	@Override
@@ -296,5 +306,117 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 				new TaskCenterClassifyGoodsBack(handler),
 				URLConfig.CENTER_HOME_PLATE, currentPage, classify_url);
 		loadingdialog.show();
+	}
+	
+	/*------------------------------------倒计时-------------------------------*/
+	private Calendar mDate2;
+	private int mYear, mMonth, mDay;
+	private int mHour, mMinute;
+	private String date;
+	private Handler mHandler = new Handler();// 全局handler
+	int time = 0;// 时间差
+	private void updateDateTime() {
+		mDate2 = Calendar.getInstance();
+		mYear = mDate2.get(Calendar.YEAR);
+		mMonth = mDate2.get(Calendar.MONTH);
+		mDay = mDate2.get(Calendar.DAY_OF_MONTH);
+		mHour = mDate2.get(Calendar.HOUR_OF_DAY);
+		mMinute = mDate2.get(Calendar.MINUTE);
+
+		date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
+				+ getDateFormat(mDay) + " " + 17 + ":"
+				+ "00" + ":00";
+		if(mHour>=17){
+			date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
+					+ getDateFormat(mDay+1) + " " + 17 + ":"
+					+ "00" + ":00";
+		}
+
+	}
+
+	public String getDateFormat(int time) {
+		String date = time + "";
+		if (time < 10) {
+			date = "0" + date;
+		}
+		return date;
+	}
+	class TimeCount implements Runnable
+	{
+		@Override
+		public void run()
+		{
+			while (time > 0)// 整个倒计时执行的循环
+			{
+				time--;
+				mHandler.post(new Runnable() // 通过它在UI主线程中修改显示的剩余时间
+				{
+					public void run()
+					{
+						tv_center_daojishi.setText(getInterval(time));// 显示剩余时间
+					}
+				});
+				try
+				{
+					Thread.sleep(1000);// 线程休眠一秒钟 这个就是倒计时的间隔时间
+				} catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			// 下面是倒计时结束逻辑
+			mHandler.post(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					tv_center_daojishi.setText("设定的时间到。");
+				}
+			});
+		}
+	}
+	/**
+	 * 设定显示文字
+	 */
+	public static String getInterval(int time)
+	{
+		String txt = null;
+		if (time >= 0)
+		{
+			long hour = time % (24 * 3600) / 3600;// 小时
+			long minute = time % 3600 / 60;// 分钟
+			long second = time % 60;// 秒
+			
+			txt = hour + "小时" + minute + "分" + second + "秒";
+		} 
+		else
+		{
+			txt="已过期";
+		}
+		return txt;
+	}
+	
+	private void startDaojishi(){
+		updateDateTime();
+		time = getTimeInterval(date);
+		new Thread(new TimeCount()).start();// 开启线程
+	}
+	/**
+	 * 获取两个日期的时间差
+	 */
+	public static int getTimeInterval(String data)
+	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		int interval = 0;
+		try
+		{
+			Date currentTime = new Date();// 获取现在的时间
+			Date beginTime = dateFormat.parse(data);
+			interval = (int) ((beginTime.getTime() - currentTime.getTime()) / (1000));// 时间差 单位秒
+		} catch (ParseException e)
+		{
+			e.printStackTrace();
+		}
+		return interval;
 	}
 }

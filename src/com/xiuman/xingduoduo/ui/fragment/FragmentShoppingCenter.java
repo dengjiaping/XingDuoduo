@@ -1,6 +1,10 @@
 package com.xiuman.xingduoduo.ui.fragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -505,7 +509,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		rlyt_center_7_right_bottom = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_7_right_bottom);
 		iv_center_7_right_bottom = (ImageView) view
-				.findViewById(R.id.iv_center_5_right_bottom);
+				.findViewById(R.id.iv_center_7_right_bottom);
 		tv_center_7_right_bottom_txt1 = (TextView) view
 				.findViewById(R.id.tv_center_7_right_bottom_txt1);
 		tv_center_7_right_bottom_txt2 = (TextView) view
@@ -523,6 +527,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		getAds();
 		// 获取置顶商品
 		getStick();
+		//倒计时
+		startDaojishi();
 
 		sv_shopping_center.setHeader(iv_center_bg_img);
 		sv_shopping_center.setOnTurnListener(this);
@@ -552,7 +558,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		rlyt_center_7_left_bottom.setLayoutParams(params3);
 		// params4
 		LinearLayout.LayoutParams params4 = new LinearLayout.LayoutParams(
-				screenWidth / 2, (int) (screenWidth / 2 * (172.0 / 320)));
+				screenWidth / 2, (int) (screenWidth / 2 * (171.0 / 319)));
 		llyt_center_new_goods.setLayoutParams(params4);
 		llyt_center_egao.setLayoutParams(params4);
 		rlyt_center_4_right_bottom.setLayoutParams(params4);
@@ -564,33 +570,33 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		rlyt_center_7_right_bottom.setLayoutParams(params4);
 		rlyt_center_7_right_top.setLayoutParams(params4);
 
-//		// 设置测试文字
-//		tv_center_4_left_bottom_txt1.setText("格林宝贝AV转珠棒");
-//		tv_center_4_left_bottom_txt2.setText("伸缩之王，招蜂引蝶");
-//		tv_center_4_right_top_txt1.setText("配耐力延迟喷剂");
-//		tv_center_4_right_top_txt2.setText("让你更从容自信");
-//		tv_center_4_right_bottom_txt1.setText("杜蕾斯");
-//		tv_center_4_right_bottom_txt2.setText("活力装12只装");
-//		tv_center_5_left_bottom_txt1.setText("午夜魅力");
-//		tv_center_5_left_bottom_txt2.setText("加大码吊带裙");
-//		tv_center_5_right_top_txt1.setText("午夜魅力");
-//		tv_center_5_right_top_txt2.setText("让你更从容自信");
-//		tv_center_5_right_bottom_txt1.setText("午夜魅力");
-//		tv_center_5_right_bottom_txt2.setText("精美丝袜");
-//
-//		tv_center_6_left_bottom_txt1.setText("杜蕾斯");
-//		tv_center_6_left_bottom_txt2.setText("加大24只装");
-//		tv_center_6_right_top_txt1.setText("杜蕾斯");
-//		tv_center_6_right_top_txt2.setText("活力12只装");
-//		tv_center_6_right_bottom_txt1.setText("杜蕾斯");
-//		tv_center_6_right_bottom_txt2.setText("持久8只装");
-//
-//		tv_center_7_left_bottom_txt1.setText("扣扣爱手指遥控跳蛋");
-//		tv_center_7_left_bottom_txt2.setText("让你们在同一频道心跳不已");
-//		tv_center_7_right_top_txt1.setText("多功能振动棒");
-//		tv_center_7_right_top_txt2.setText("震震嘴多功能振动棒");
-//		tv_center_7_right_bottom_txt1.setText("智能露娜缩阴球");
-//		tv_center_7_right_bottom_txt2.setText("智能阴道紧致大师");
+		// // 设置测试文字
+		// tv_center_4_left_bottom_txt1.setText("格林宝贝AV转珠棒");
+		// tv_center_4_left_bottom_txt2.setText("伸缩之王，招蜂引蝶");
+		// tv_center_4_right_top_txt1.setText("配耐力延迟喷剂");
+		// tv_center_4_right_top_txt2.setText("让你更从容自信");
+		// tv_center_4_right_bottom_txt1.setText("杜蕾斯");
+		// tv_center_4_right_bottom_txt2.setText("活力装12只装");
+		// tv_center_5_left_bottom_txt1.setText("午夜魅力");
+		// tv_center_5_left_bottom_txt2.setText("加大码吊带裙");
+		// tv_center_5_right_top_txt1.setText("午夜魅力");
+		// tv_center_5_right_top_txt2.setText("让你更从容自信");
+		// tv_center_5_right_bottom_txt1.setText("午夜魅力");
+		// tv_center_5_right_bottom_txt2.setText("精美丝袜");
+		//
+		// tv_center_6_left_bottom_txt1.setText("杜蕾斯");
+		// tv_center_6_left_bottom_txt2.setText("加大24只装");
+		// tv_center_6_right_top_txt1.setText("杜蕾斯");
+		// tv_center_6_right_top_txt2.setText("活力12只装");
+		// tv_center_6_right_bottom_txt1.setText("杜蕾斯");
+		// tv_center_6_right_bottom_txt2.setText("持久8只装");
+		//
+		// tv_center_7_left_bottom_txt1.setText("扣扣爱手指遥控跳蛋");
+		// tv_center_7_left_bottom_txt2.setText("让你们在同一频道心跳不已");
+		// tv_center_7_right_top_txt1.setText("多功能振动棒");
+		// tv_center_7_right_top_txt2.setText("震震嘴多功能振动棒");
+		// tv_center_7_right_bottom_txt1.setText("智能露娜缩阴球");
+		// tv_center_7_right_bottom_txt2.setText("智能阴道紧致大师");
 
 	}
 
@@ -997,5 +1003,117 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	@Override
 	public void onTurn() {
 
+	}
+
+	/*------------------------------------倒计时-------------------------------*/
+	private Calendar mDate2;
+	private int mYear, mMonth, mDay;
+	private int mHour, mMinute;
+	private String date;
+//	private Handler mHandler2 = new Handler();// 全局handler
+	int time = 0;// 时间差
+	private void updateDateTime() {
+		mDate2 = Calendar.getInstance();
+		mYear = mDate2.get(Calendar.YEAR);
+		mMonth = mDate2.get(Calendar.MONTH);
+		mDay = mDate2.get(Calendar.DAY_OF_MONTH);
+		mHour = mDate2.get(Calendar.HOUR_OF_DAY);
+		mMinute = mDate2.get(Calendar.MINUTE);
+
+		date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
+				+ getDateFormat(mDay) + " " + 17 + ":"
+				+ "00" + ":00";
+		if(mHour>=17){
+			date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
+					+ getDateFormat(mDay+1) + " " + 17 + ":"
+					+ "00" + ":00";
+		}
+
+	}
+
+	public String getDateFormat(int time) {
+		String date = time + "";
+		if (time < 10) {
+			date = "0" + date;
+		}
+		return date;
+	}
+	class TimeCount implements Runnable
+	{
+		@Override
+		public void run()
+		{
+			while (time > 0)// 整个倒计时执行的循环
+			{
+				time--;
+				mHandler.post(new Runnable() // 通过它在UI主线程中修改显示的剩余时间
+				{
+					public void run()
+					{
+						tv_center_daojishi.setText(getInterval(time));// 显示剩余时间
+					}
+				});
+				try
+				{
+					Thread.sleep(1000);// 线程休眠一秒钟 这个就是倒计时的间隔时间
+				} catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			// 下面是倒计时结束逻辑
+			mHandler.post(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					tv_center_daojishi.setText("设定的时间到。");
+				}
+			});
+		}
+	}
+	/**
+	 * 设定显示文字
+	 */
+	public static String getInterval(int time)
+	{
+		String txt = null;
+		if (time >= 0)
+		{
+			long hour = time % (24 * 3600) / 3600;// 小时
+			long minute = time % 3600 / 60;// 分钟
+			long second = time % 60;// 秒
+			
+			txt = hour + "小时" + minute + "分" + second + "秒";
+		} 
+		else
+		{
+			txt="已过期";
+		}
+		return txt;
+	}
+	
+	private void startDaojishi(){
+		updateDateTime();
+		time = getTimeInterval(date);
+		new Thread(new TimeCount()).start();// 开启线程
+	}
+	/**
+	 * 获取两个日期的时间差
+	 */
+	public static int getTimeInterval(String data)
+	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		int interval = 0;
+		try
+		{
+			Date currentTime = new Date();// 获取现在的时间
+			Date beginTime = dateFormat.parse(data);
+			interval = (int) ((beginTime.getTime() - currentTime.getTime()) / (1000));// 时间差 单位秒
+		} catch (ParseException e)
+		{
+			e.printStackTrace();
+		}
+		return interval;
 	}
 }
