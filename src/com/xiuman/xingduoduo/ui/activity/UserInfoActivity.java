@@ -183,12 +183,17 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		// 测试数据
 		tv_userinfo_user_rank.setText(user.getRankNmae());
 		tv_userinfo_user_name.setText(user.getNickname());
-		String user_sex = user.getGender();
+		String user_sex = ""; 
+		user_sex = user.getGender();
 		tv_userinfo_user_sex.setText(user_sex);
 		if (user_sex == null) {
 			tv_userinfo_user_sex.setText("保密");
+		}else if(user_sex.equals("male")){
+			tv_userinfo_user_sex.setText("男");
+		}else if(user_sex.equals("female")){
+			tv_userinfo_user_sex.setText("女");
 		}
-		tv_userinfo_user_createdate.setText(user.getCreateDate());
+		tv_userinfo_user_createdate.setText(user.getCreateDate().subSequence(0, 10));
 	}
 
 	/**

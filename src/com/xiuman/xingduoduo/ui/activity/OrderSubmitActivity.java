@@ -125,7 +125,7 @@ public class OrderSubmitActivity extends Base2Activity implements
 	// 提交订单----------------------------------------------
 	// 订单合计(包含运费)
 	private TextView tv_order_submit_total;
-	//含活动商品的提示
+	// 含活动商品的提示
 	private TextView tv_order_submit_total_tip;
 	// 确认提交
 	private Button btn_order_submit_sure;
@@ -219,7 +219,8 @@ public class OrderSubmitActivity extends Base2Activity implements
 						bundle_daofu.putString("orderId", orderId);
 						bundle_daofu.putString("order_poster", cart_goods
 								.get(0).getSmallGoodsImagePath());
-						bundle_daofu.putString("goods_total", goods_total + "");
+						bundle_daofu.putString("goods_total",
+								tv_order_submit_total.getText().toString());
 						bundle_daofu.putString("goods_number", goods_number
 								+ "");
 						intent_daofu.putExtras(bundle_daofu);
@@ -286,7 +287,8 @@ public class OrderSubmitActivity extends Base2Activity implements
 				bundle_ali.putSerializable("AliPayStatus", value_pay_status);
 				bundle_ali.putString("order_poster", cart_goods.get(0)
 						.getSmallGoodsImagePath());
-				bundle_ali.putString("goods_total", goods_total + "");
+				bundle_ali.putString("goods_total", tv_order_submit_total
+						.getText().toString());
 				bundle_ali.putString("goods_number", goods_number + "");
 				intent_ali.putExtras(bundle_ali);
 				startActivity(intent_ali);
@@ -440,20 +442,24 @@ public class OrderSubmitActivity extends Base2Activity implements
 		// 如果有活动商品，则根据付款方式加上相应的费用
 		int goods_activity_total = 0;
 		int goods_activity_nmber = 0;
+		int activity_count = 0;
 		for (int i = 0; i < cart_goods.size(); i++) {
-			if(cart_goods.get(i).isActivities()){
+			if (cart_goods.get(i).isActivities()) {
 				tv_order_submit_total_tip.setVisibility(View.VISIBLE);
 				goods_activity_nmber += cart_goods.get(i).getQuanity();
+				activity_count++;
 			}
 		}
-		//货到付款12块
-		if (cb_order_pay_daofu.isChecked()) {
-			goods_activity_total = 12*goods_activity_nmber;
-		} else if (cb_order_pay_zhifubao.isChecked()) {//支付宝10块
-			goods_activity_total = 10*goods_activity_nmber;
+		// 所有商品均是活动商品
+		if (activity_count == cart_goods.size()) {
+			tv_order_submit_freight.setText("22");
+			order_total = goods_activity_total = 22 * goods_activity_nmber;
+		} else {
+			goods_activity_total = 22 * goods_activity_nmber;
+			order_total += goods_activity_total;
 		}
 
-		order_total += goods_activity_total;
+		
 		tv_order_submit_total.setText(order_total + "");
 	}
 

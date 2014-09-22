@@ -25,8 +25,11 @@ public class SplashActivity extends Activity{
 		setContentView(R.layout.activity_splash);
 		
 		//打开界面之后判断是否是初次启动应用，如果是则直接进入应用，如果不是则进入引导页
-		if(SharedPreUtils.getBoolean(this, false,"guide", "first_start")){//初次启动
-			
+		if(SharedPreUtils.getBoolean(this, true,"guide", "first_start")){//初次启动
+			Intent intent = new Intent(this,WelcomeActivity.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.translate_horizontal_start_in, R.anim.translate_horizontal_start_out);
+			finish();
 		}else{
 			final boolean result = MyApplication.getInstance()
 					.getLockPatternUtils().isPatternExist();

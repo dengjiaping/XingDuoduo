@@ -19,6 +19,8 @@ import com.xiuman.xingduoduo.ui.fragment.FragmentCalssify;
 import com.xiuman.xingduoduo.ui.fragment.FragmentMe;
 import com.xiuman.xingduoduo.ui.fragment.FragmentShoppingCart;
 import com.xiuman.xingduoduo.ui.fragment.FragmentShoppingCenter;
+import com.xiuman.xingduoduo.util.NetUtil;
+import com.xiuman.xingduoduo.util.ToastUtil;
 
 /**
  * 
@@ -86,6 +88,9 @@ public class MainActivity extends BaseActivity implements
 	protected void initUI() {
 //		rbtn_shopping_center.setChecked(true);
 		selectTab(0);
+		if(!NetUtil.isNetAvailable(this)){
+			ToastUtil.ToastView(this, "网络连接失败");
+		}
 	}
 
 	/**

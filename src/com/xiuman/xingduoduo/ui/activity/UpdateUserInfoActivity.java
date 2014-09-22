@@ -176,14 +176,17 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 				break;
 			case AppConfig.SUCCESS_USER_INFO:// 获取用户信息
 				user = MyApplication.getInstance().getUserInfo();
-				Intent intent = new Intent(UpdateUserInfoActivity.this,UserInfoActivity.class);
+				Intent intent = new Intent(UpdateUserInfoActivity.this,
+						UserInfoActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("user", user);
 				intent.putExtras(bundle);
 				setResult(AppConfig.RESULT_CODE_OK, intent);
 				loadingdialog.dismiss();
 				finish();
-				overridePendingTransition(R.anim.translate_horizontal_finish_in, R.anim.translate_horizontal_finish_out);
+				overridePendingTransition(
+						R.anim.translate_horizontal_finish_in,
+						R.anim.translate_horizontal_finish_out);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:
 
@@ -239,7 +242,16 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 
 		tv_update_user_info_address.setText(user.getAreaStore());
 		tv_update_user_info_birth.setText(user.getBirth());
-		tv_update_user_info_sex.setText(user.getGender());
+		String user_sex = "";
+		user_sex = user.getGender();
+		tv_update_user_info_sex.setText(user_sex);
+		if (user_sex == null) {
+			tv_update_user_info_sex.setText("保密");
+		}else if(user_sex.equals("male")){
+			tv_update_user_info_sex.setText("男");
+		}else if(user_sex.equals("female")){
+			tv_update_user_info_sex.setText("女");
+		}
 		et_update_user_info_address_info.setText(user.getAddress());
 		et_update_user_info_ems.setText(user.getZipCode());
 		et_update_user_info_name.setText(user.getName());

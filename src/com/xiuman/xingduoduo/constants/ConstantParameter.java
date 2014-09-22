@@ -4,7 +4,7 @@ import com.xiuman.xingduoduo.R;
 
 /**
  * 
- * @名称：ConstantParameter.java 
+ * @名称：ConstantParameter.java
  * @描述：常量类(用于存放一些常量)
  * @author danding
  * @version 2014-6-5
@@ -14,5 +14,9 @@ public class ConstantParameter {
 	public static int[] posters = new int[] { R.drawable.classify_item_1,
 			R.drawable.classify_item_2, R.drawable.classify_item_3,
 			R.drawable.classify_item_4, R.drawable.classify_item_5,
-			R.drawable.classify_item_6, R.drawable.classify_item_7,R.drawable.classify_item_8 };
+			R.drawable.classify_item_6, R.drawable.classify_item_7,
+			R.drawable.classify_item_8 };
+	public static int[] guides = new int[] { R.drawable.guide_1,
+			R.drawable.guide_2, R.drawable.guide_3, R.drawable.guide_4,
+			R.drawable.guide_5 };
 }

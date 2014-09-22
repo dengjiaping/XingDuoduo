@@ -56,6 +56,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 引导页 -->
+        <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.WelcomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        </activity>
         <!-- 主界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.MainActivity"
@@ -87,7 +94,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
-         <!-- 用户信息编辑修改界面 -->
+        <!-- 用户信息编辑修改界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.UpdateUserInfoActivity"
             android:screenOrientation="portrait"
@@ -285,8 +292,8 @@
         <!-- 性多多服务协议界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.ProtocolActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 邀请码介绍 -->
@@ -298,22 +305,22 @@
         <!-- 设置界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.SettingActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 关于 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.AboutActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 应用推荐 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.AppRecommendActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 支付模块 -->

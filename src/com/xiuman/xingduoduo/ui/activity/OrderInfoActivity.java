@@ -145,6 +145,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 				} else {
 					ToastUtil.ToastView(OrderInfoActivity.this,
 							value_order.getMessage());
+					finish();
 				}
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				sv_order_info.setVisibility(View.VISIBLE);

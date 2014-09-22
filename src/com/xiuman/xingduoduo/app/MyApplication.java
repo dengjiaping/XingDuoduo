@@ -206,6 +206,10 @@ public class MyApplication extends Application {
 				AppConfig.FILE_USER_INFO, AppConfig.KEY_USER_INFO);
 		SharedPreUtils.setBoolean(this, true, AppConfig.FILE_USER_INFO,
 				AppConfig.KEY_USER_LOGIN);
+		//删除默认地址
+		deleteDefaultAddress();
+		//将购物车数量设置为0
+		setCartGoodsNumber(0);
 	}
 
 	/**
@@ -351,7 +355,7 @@ public class MyApplication extends Application {
 		SharedPreUtils.setString(this, json_user_address,
 				AppConfig.FILE_DEFAULT_ADDRESS, AppConfig.KEY_DEFAULT_ADDRESS);
 	}
-
+	
 	/**
 	 * @描述：获取默认收货地址
 	 * @return 2014-8-21
@@ -364,6 +368,14 @@ public class MyApplication extends Application {
 			address = new Gson().fromJson(json, UserAddress.class);
 		}
 		return address;
+	}
+	/**
+	 * @描述：用户退出时删除
+	 * 2014-9-21
+	 */
+	public void deleteDefaultAddress(){
+		SharedPreUtils.setString(this, "",
+				AppConfig.FILE_DEFAULT_ADDRESS, AppConfig.KEY_DEFAULT_ADDRESS);
 	}
 
 	/*----------------------------------------------保存广告--------------------------------------------------------*/

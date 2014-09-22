@@ -10,33 +10,33 @@
         android:id="@+id/iv_dot_mark1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/dot_default" />
+        android:src="@drawable/indicators_default" />
 
     <ImageView
         android:id="@+id/iv_dot_mark2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/dot_default" />
+        android:src="@drawable/indicators_default" />
 
     <ImageView
         android:id="@+id/iv_dot_mark3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/dot_default" />
+        android:src="@drawable/indicators_default" />
     <ImageView
         android:id="@+id/iv_dot_mark4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/dot_default" />
+        android:src="@drawable/indicators_default" />
     <ImageView
         android:id="@+id/iv_dot_mark5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/dot_default" />
+        android:src="@drawable/indicators_default" />
     <ImageView
         android:id="@+id/iv_dot_mark6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/dot_default" />
+        android:src="@drawable/indicators_default" />
 
 </LinearLayout>
