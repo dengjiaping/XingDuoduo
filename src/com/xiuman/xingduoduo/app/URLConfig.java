@@ -119,5 +119,7 @@ public class URLConfig {
 	public static final String CENTER_HOME_PLATE = "/goods!getGoodsAppByIt.action?";
 	//置顶商品
 	public static final String STICK_GOODS = "/goods!getGoodsIsTop.action?";
+	//应用推荐
+	public static final String APP_RECOMMEND = "/comment!androidAppRecommen.action";
 	
 }

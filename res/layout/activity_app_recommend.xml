@@ -30,6 +30,7 @@
                 android:fadingEdge="none"
                 android:listSelector="@android:color/transparent"
                 android:scrollbars="none" />
+            <include layout="@layout/line_match"/>
         </LinearLayout>
     </com.xiuman.xingduoduo.view.StretchScrollView>
 

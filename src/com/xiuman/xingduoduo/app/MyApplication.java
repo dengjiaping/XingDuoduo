@@ -31,6 +31,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.xiuman.xingduoduo.lock.util.LockPatternUtils;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.GoodsOne;
+import com.xiuman.xingduoduo.model.GoodsStick;
 import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.model.UserAddress;
 import com.xiuman.xingduoduo.util.SharedPreUtils;
@@ -412,7 +413,7 @@ public class MyApplication extends Application {
 	 * @param ads
 	 *            2014-9-20
 	 */
-	public void saveStick(ActionValue<GoodsOne> stcik) {
+	public void saveStick(ActionValue<GoodsStick> stcik) {
 		String json_stcik = new Gson().toJson(stcik).toString();
 		SharedPreUtils.setString(this, json_stcik, AppConfig.FILE_SAVE_STCIK,
 				AppConfig.KEY_SAVE_STICK);
@@ -422,13 +423,13 @@ public class MyApplication extends Application {
 	 * @return
 	 * 2014-9-21
 	 */
-	public ActionValue<GoodsOne> getStcik() {
-		ActionValue<GoodsOne> stcik = null;
+	public ActionValue<GoodsStick> getStcik() {
+		ActionValue<GoodsStick> stcik = null;
 		String json = SharedPreUtils.getString(this, AppConfig.FILE_SAVE_STCIK,
 				AppConfig.KEY_SAVE_STICK);
 		if (!json.equals("")) {
 			stcik = new Gson().fromJson(json,
-					new TypeToken<ActionValue<GoodsOne>>() {
+					new TypeToken<ActionValue<GoodsStick>>() {
 					}.getType());
 		}
 		return stcik;

@@ -37,6 +37,7 @@ import com.xiuman.xingduoduo.callback.TaskStickGoodsListBack;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.model.GoodsOne;
+import com.xiuman.xingduoduo.model.GoodsStick;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.testdata.Test;
 import com.xiuman.xingduoduo.ui.activity.ActivityActivity;
@@ -249,9 +250,17 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private ArrayList<GoodsOne> ads = new ArrayList<GoodsOne>();
 
 	// 请求置顶商品
-	private ActionValue<GoodsOne> value_stick;
+	private ActionValue<GoodsStick> value_stick;
 	// 置顶商品
-	private ArrayList<GoodsOne> stick = new ArrayList<GoodsOne>();;
+	private ArrayList<GoodsStick> stick = new ArrayList<GoodsStick>();
+	// 置顶top
+	private ArrayList<GoodsStick> stick_4 = new ArrayList<GoodsStick>();
+	// 置顶内衣
+	private ArrayList<GoodsStick> stick_5 = new ArrayList<GoodsStick>();
+	// 置顶套套
+	private ArrayList<GoodsStick> stick_6 = new ArrayList<GoodsStick>();
+	// 置顶道具
+	private ArrayList<GoodsStick> stick_7 = new ArrayList<GoodsStick>();
 
 	// 消息处理
 	@SuppressLint("HandlerLeak")
@@ -280,7 +289,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				}
 				break;
 			case AppConfig.STICK_SUCCED:// 获取置顶商品
-				value_stick = (ActionValue<GoodsOne>) msg.obj;
+				value_stick = (ActionValue<GoodsStick>) msg.obj;
 				if (value_stick.isSuccess()) {
 					stick = value_stick.getDatasource();
 					setStick(stick);
@@ -527,7 +536,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		getAds();
 		// 获取置顶商品
 		getStick();
-		//倒计时
+		// 倒计时
 		startDaojishi();
 
 		sv_shopping_center.setHeader(iv_center_bg_img);
@@ -675,43 +684,67 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 * @param stick
 	 *            2014-9-21
 	 */
-	private void setStick(ArrayList<GoodsOne> stick) {
+	private void setStick(ArrayList<GoodsStick> stick) {
 		if (stick.size() == 12) {
+			for(int i=0;i<stick.size();i++){
+				if(stick.get(i).isIs_hot()){
+					stick_4.add(stick.get(i));
+				}
+			}
+			
+			ArrayList<GoodsStick> stick_no = new ArrayList<GoodsStick>();
+			stick.removeAll(stick_4);
+			for(int i=0;i<stick.size();i++){
+				if(stick.get(i).getGoodsCategoryId().equals(classifyes_ids[1])){
+					stick_5.add(stick.get(i));
+				}
+			}
+			for(int i=0;i<stick.size();i++){
+				if(stick.get(i).getGoodsCategoryId().equals(classifyes_ids[0])){
+					stick_6.add(stick.get(i));
+				}
+			}
+			for(int i=0;i<stick.size();i++){
+				if(stick.get(i).getGoodsCategoryId().equals(classifyes_ids[3])){
+					stick_7.add(stick.get(i));
+				}
+			}
+			
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(0).getSourceImagePath(),
+					+ stick_4.get(0).getSourceImagePath(),
 					iv_center_4_left_bottom, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(1).getSourceImagePath(), iv_center_4_right_top,
+					+ stick_4.get(1).getSourceImagePath(), iv_center_4_right_top,
 					options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(2).getSourceImagePath(),
+					+ stick_4.get(2).getSourceImagePath(),
 					iv_center_4_right_bottom, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(3).getSourceImagePath(),
+					+ stick_5.get(0).getSourceImagePath(),
 					iv_center_5_left_bottom, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(4).getSourceImagePath(), iv_center_5_right_top,
+					+ stick_5.get(1).getSourceImagePath(), iv_center_5_right_top,
 					options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(5).getSourceImagePath(),
+					+ stick_5.get(2).getSourceImagePath(),
 					iv_center_5_right_bottom, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(6).getSourceImagePath(),
+					+ stick_6.get(0).getSourceImagePath(),
 					iv_center_6_left_bottom, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(7).getSourceImagePath(), iv_center_6_right_top,
+					+ stick_6.get(1).getSourceImagePath(), iv_center_6_right_top,
 					options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(8).getSourceImagePath(),
+					+ stick_6.get(2).getSourceImagePath(),
 					iv_center_6_right_bottom, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(9).getSourceImagePath(),
+					+ stick_7.get(0).getSourceImagePath(),
 					iv_center_7_left_bottom, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(10).getSourceImagePath(),
+					+ stick_7.get(1).getSourceImagePath(),
 					iv_center_7_right_top, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick.get(11).getSourceImagePath(),
+					+ stick_7.get(2).getSourceImagePath(),
 					iv_center_7_right_bottom, options);
 		}
 	}
@@ -934,40 +967,40 @@ public class FragmentShoppingCenter extends BaseFragment implements
 			String goods_id = null;
 			switch (v.getId()) {
 			case R.id.rlyt_center_4_left_bottom:// 模块四左下
-				goods_id = stick.get(0).getId();
+				goods_id = stick_4.get(0).getId();
 				break;
 			case R.id.rlyt_center_4_right_top:// 模块四右上
-				goods_id = stick.get(1).getId();
+				goods_id = stick_4.get(1).getId();
 				break;
 			case R.id.rlyt_center_4_right_bottom:// 模块四右下
-				goods_id = stick.get(2).getId();
+				goods_id = stick_4.get(2).getId();
 				break;
 			case R.id.rlyt_center_5_left_bottom:// 模块五左下
-				goods_id = stick.get(3).getId();
+				goods_id = stick_5.get(0).getId();
 				break;
 			case R.id.rlyt_center_5_right_top:// 模块五上
-				goods_id = stick.get(4).getId();
+				goods_id = stick_5.get(1).getId();
 				break;
 			case R.id.rlyt_center_5_right_bottom:// 模块五右下
-				goods_id = stick.get(5).getId();
+				goods_id = stick_5.get(2).getId();
 				break;
 			case R.id.rlyt_center_6_left_bottom:// 模块六左下
-				goods_id = stick.get(6).getId();
+				goods_id = stick_6.get(0).getId();
 				break;
 			case R.id.rlyt_center_6_right_top:// 模块六右上
-				goods_id = stick.get(7).getId();
+				goods_id = stick_6.get(1).getId();
 				break;
 			case R.id.llyt_center_6_right_bottom:// 模块六右下
-				goods_id = stick.get(8).getId();
+				goods_id = stick_6.get(2).getId();
 				break;
 			case R.id.rlyt_center_7_left_bottom:// 模块七左下
-				goods_id = stick.get(9).getId();
+				goods_id = stick_7.get(0).getId();
 				break;
 			case R.id.rlyt_center_7_right_top:// 模块七右上
-				goods_id = stick.get(10).getId();
+				goods_id = stick_7.get(1).getId();
 				break;
 			case R.id.rlyt_center_7_right_bottom:// 模块七右下
-				goods_id = stick.get(11).getId();
+				goods_id = stick_7.get(2).getId();
 				break;
 			}
 			Intent intent = new Intent(getActivity(), GoodsActivity.class);
@@ -1010,8 +1043,9 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private int mYear, mMonth, mDay;
 	private int mHour, mMinute;
 	private String date;
-//	private Handler mHandler2 = new Handler();// 全局handler
+	// private Handler mHandler2 = new Handler();// 全局handler
 	int time = 0;// 时间差
+
 	private void updateDateTime() {
 		mDate2 = Calendar.getInstance();
 		mYear = mDate2.get(Calendar.YEAR);
@@ -1021,13 +1055,11 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		mMinute = mDate2.get(Calendar.MINUTE);
 
 		date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
-				+ getDateFormat(mDay) + " " + 17 + ":"
-				+ "00" + ":00";
-		if(mHour>=17){
-			date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
-					+ getDateFormat(mDay+1) + " " + 17 + ":"
-					+ "00" + ":00";
-		}
+				+ getDateFormat(mDay) + " " + 24 + ":" + "00" + ":00";
+//		if (mHour >= 0) {
+//			date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
+//					+ getDateFormat(mDay + 1) + " " + 17 + ":" + "00" + ":00";
+//		}
 
 	}
 
@@ -1038,80 +1070,71 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		}
 		return date;
 	}
-	class TimeCount implements Runnable
-	{
+
+	class TimeCount implements Runnable {
 		@Override
-		public void run()
-		{
+		public void run() {
 			while (time > 0)// 整个倒计时执行的循环
 			{
 				time--;
 				mHandler.post(new Runnable() // 通过它在UI主线程中修改显示的剩余时间
 				{
-					public void run()
-					{
+					public void run() {
 						tv_center_daojishi.setText(getInterval(time));// 显示剩余时间
 					}
 				});
-				try
-				{
+				try {
 					Thread.sleep(1000);// 线程休眠一秒钟 这个就是倒计时的间隔时间
-				} catch (InterruptedException e)
-				{
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
 			// 下面是倒计时结束逻辑
-			mHandler.post(new Runnable()
-			{
+			mHandler.post(new Runnable() {
 				@Override
-				public void run()
-				{
+				public void run() {
 					tv_center_daojishi.setText("设定的时间到。");
 				}
 			});
 		}
 	}
+
 	/**
 	 * 设定显示文字
 	 */
-	public static String getInterval(int time)
-	{
+	public static String getInterval(int time) {
 		String txt = null;
-		if (time >= 0)
-		{
+		if (time >= 0) {
 			long hour = time % (24 * 3600) / 3600;// 小时
 			long minute = time % 3600 / 60;// 分钟
 			long second = time % 60;// 秒
-			
+
 			txt = hour + "小时" + minute + "分" + second + "秒";
-		} 
-		else
-		{
-			txt="已过期";
+		} else {
+			txt = "已过期";
 		}
 		return txt;
 	}
-	
-	private void startDaojishi(){
+
+	private void startDaojishi() {
 		updateDateTime();
 		time = getTimeInterval(date);
 		new Thread(new TimeCount()).start();// 开启线程
 	}
+
 	/**
 	 * 获取两个日期的时间差
 	 */
-	public static int getTimeInterval(String data)
-	{
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	public static int getTimeInterval(String data) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
 		int interval = 0;
-		try
-		{
+		try {
 			Date currentTime = new Date();// 获取现在的时间
 			Date beginTime = dateFormat.parse(data);
-			interval = (int) ((beginTime.getTime() - currentTime.getTime()) / (1000));// 时间差 单位秒
-		} catch (ParseException e)
-		{
+			interval = (int) ((beginTime.getTime() - currentTime.getTime()) / (1000));// 时间差
+																						// 单位秒
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return interval;

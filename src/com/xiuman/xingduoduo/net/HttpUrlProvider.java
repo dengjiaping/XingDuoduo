@@ -471,6 +471,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("categoryId", categoryId);
 		url += httpDataTask.jointToUrl("sorting", sorting);
 		httpDataTask.execute(url);
+		System.out.println("分类商品列表"+url);
 	}
 
 	/**
@@ -1052,5 +1053,19 @@ public class HttpUrlProvider extends HttpConnWorker {
 
 		httpDataTask.execute(url);
 	}
+	/**
+	 * @描述：应用推荐
+	 * @param mContext
+	 * @param httpTaskListener
+	 * 2014-9-22
+	 */
+	public void getAppRecommend(Context mContext, HttpTaskListener httpTaskListener){
+		String url = URLConfig.BASE_IP + URLConfig.APP_RECOMMEND;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
 
+		httpDataTask.execute(url);
+		System.out.println("应用推荐"+url);
+	}
+	
 }

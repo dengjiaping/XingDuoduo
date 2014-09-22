@@ -324,13 +324,13 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		mMinute = mDate2.get(Calendar.MINUTE);
 
 		date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
-				+ getDateFormat(mDay) + " " + 17 + ":"
+				+ getDateFormat(mDay) + " " + 24 + ":"
 				+ "00" + ":00";
-		if(mHour>=17){
-			date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
-					+ getDateFormat(mDay+1) + " " + 17 + ":"
-					+ "00" + ":00";
-		}
+//		if(mHour>=17){
+//			date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
+//					+ getDateFormat(mDay+1) + " " + 17 + ":"
+//					+ "00" + ":00";
+//		}
 
 	}
 

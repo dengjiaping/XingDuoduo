@@ -16,6 +16,7 @@
 
 package com.xiuman.xingduoduo.zxing.view;
 
+
 import java.util.Collection;
 import java.util.HashSet;
 

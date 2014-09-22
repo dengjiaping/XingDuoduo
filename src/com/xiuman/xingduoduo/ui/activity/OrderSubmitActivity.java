@@ -452,6 +452,11 @@ public class OrderSubmitActivity extends Base2Activity implements
 		}
 		// 所有商品均是活动商品
 		if (activity_count == cart_goods.size()) {
+			if(cb_order_pay_zhifubao.isChecked()){
+				current_trans = trans_ways[1];
+			}else if(cb_order_pay_daofu.isChecked()){
+				current_trans = trans_ways[3];
+			}
 			tv_order_submit_freight.setText("22");
 			order_total = goods_activity_total = 22 * goods_activity_nmber;
 		} else {

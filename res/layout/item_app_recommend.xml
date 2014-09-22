@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dip"
+    android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="7.5dip" >
@@ -9,37 +9,36 @@
     <!-- 头像 -->
 
     <ImageView
-        android:id="@+id/iv_expression_head"
-        android:layout_width="40dip"
-        android:layout_height="40dip"
+        android:id="@+id/iv_app_head"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
         android:scaleType="fitCenter" />
     <!-- 表情名字 -->
 
     <LinearLayout
         android:layout_width="0dip"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/tv_expression_name"
+            android:id="@+id/tv_app_name"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:paddingLeft="8dip"
             android:textColor="@color/color_black3"
             android:textSize="16sp" />
 
-        <ProgressBar
-            android:id="@+id/pb_download"
-            style="?android:attr/progressBarStyleHorizontal"
+        <TextView
+            android:id="@+id/tv_app_desc"
             android:layout_width="match_parent"
-            android:layout_height="5dip"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:progressDrawable="@drawable/bg_progress"
-            android:visibility="invisible" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dip"
+            android:textColor="@color/color_black3"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,7 +49,7 @@
         android:padding="2dip" >
 
         <Button
-            android:id="@+id/btn_download_expression"
+            android:id="@+id/btn_download_app"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_color_selector"

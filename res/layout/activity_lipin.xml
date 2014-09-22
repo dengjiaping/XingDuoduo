@@ -20,6 +20,8 @@
         <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView
             android:id="@+id/pulllv_lipin"
             android:layout_width="match_parent"
+            android:fadingEdge="none"
+            android:scrollbars="none"
             android:divider="@drawable/drawable_transparent"
             android:layout_height="match_parent" />
         <!-- 网络连接错误 -->

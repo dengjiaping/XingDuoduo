@@ -17,13 +17,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Vector;
 
 import com.xiuman.xingduoduo.app.Mylog;
-
-
-import android.media.Image;
 
 /**
  * @名称：PostSimulation.java
