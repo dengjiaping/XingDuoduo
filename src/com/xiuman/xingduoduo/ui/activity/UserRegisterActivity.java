@@ -91,7 +91,10 @@ public class UserRegisterActivity extends Base2Activity implements
 					ToastUtil.ToastView(UserRegisterActivity.this,
 							value.getMessage());
 					// 获取用户信息
-					getUserInfo();
+//					getUserInfo();
+					loadingdialog.dismiss();
+					finish();
+					
 				} else {
 					ToastUtil.ToastView(UserRegisterActivity.this,
 							value.getMessage());

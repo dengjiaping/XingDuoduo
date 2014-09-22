@@ -564,33 +564,33 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		rlyt_center_7_right_bottom.setLayoutParams(params4);
 		rlyt_center_7_right_top.setLayoutParams(params4);
 
-		// 设置测试文字
-		tv_center_4_left_bottom_txt1.setText("格林宝贝AV转珠棒");
-		tv_center_4_left_bottom_txt2.setText("伸缩之王，招蜂引蝶");
-		tv_center_4_right_top_txt1.setText("配耐力延迟喷剂");
-		tv_center_4_right_top_txt2.setText("让你更从容自信");
-		tv_center_4_right_bottom_txt1.setText("杜蕾斯");
-		tv_center_4_right_bottom_txt2.setText("活力装12只装");
-		tv_center_5_left_bottom_txt1.setText("午夜魅力");
-		tv_center_5_left_bottom_txt2.setText("加大码吊带裙");
-		tv_center_5_right_top_txt1.setText("午夜魅力");
-		tv_center_5_right_top_txt2.setText("让你更从容自信");
-		tv_center_5_right_bottom_txt1.setText("午夜魅力");
-		tv_center_5_right_bottom_txt2.setText("精美丝袜");
-
-		tv_center_6_left_bottom_txt1.setText("杜蕾斯");
-		tv_center_6_left_bottom_txt2.setText("加大24只装");
-		tv_center_6_right_top_txt1.setText("杜蕾斯");
-		tv_center_6_right_top_txt2.setText("活力12只装");
-		tv_center_6_right_bottom_txt1.setText("杜蕾斯");
-		tv_center_6_right_bottom_txt2.setText("持久8只装");
-
-		tv_center_7_left_bottom_txt1.setText("扣扣爱手指遥控跳蛋");
-		tv_center_7_left_bottom_txt2.setText("让你们在同一频道心跳不已");
-		tv_center_7_right_top_txt1.setText("多功能振动棒");
-		tv_center_7_right_top_txt2.setText("震震嘴多功能振动棒");
-		tv_center_7_right_bottom_txt1.setText("智能露娜缩阴球");
-		tv_center_7_right_bottom_txt2.setText("智能阴道紧致大师");
+//		// 设置测试文字
+//		tv_center_4_left_bottom_txt1.setText("格林宝贝AV转珠棒");
+//		tv_center_4_left_bottom_txt2.setText("伸缩之王，招蜂引蝶");
+//		tv_center_4_right_top_txt1.setText("配耐力延迟喷剂");
+//		tv_center_4_right_top_txt2.setText("让你更从容自信");
+//		tv_center_4_right_bottom_txt1.setText("杜蕾斯");
+//		tv_center_4_right_bottom_txt2.setText("活力装12只装");
+//		tv_center_5_left_bottom_txt1.setText("午夜魅力");
+//		tv_center_5_left_bottom_txt2.setText("加大码吊带裙");
+//		tv_center_5_right_top_txt1.setText("午夜魅力");
+//		tv_center_5_right_top_txt2.setText("让你更从容自信");
+//		tv_center_5_right_bottom_txt1.setText("午夜魅力");
+//		tv_center_5_right_bottom_txt2.setText("精美丝袜");
+//
+//		tv_center_6_left_bottom_txt1.setText("杜蕾斯");
+//		tv_center_6_left_bottom_txt2.setText("加大24只装");
+//		tv_center_6_right_top_txt1.setText("杜蕾斯");
+//		tv_center_6_right_top_txt2.setText("活力12只装");
+//		tv_center_6_right_bottom_txt1.setText("杜蕾斯");
+//		tv_center_6_right_bottom_txt2.setText("持久8只装");
+//
+//		tv_center_7_left_bottom_txt1.setText("扣扣爱手指遥控跳蛋");
+//		tv_center_7_left_bottom_txt2.setText("让你们在同一频道心跳不已");
+//		tv_center_7_right_top_txt1.setText("多功能振动棒");
+//		tv_center_7_right_top_txt2.setText("震震嘴多功能振动棒");
+//		tv_center_7_right_bottom_txt1.setText("智能露娜缩阴球");
+//		tv_center_7_right_bottom_txt2.setText("智能阴道紧致大师");
 
 	}
 
@@ -670,7 +670,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 *            2014-9-21
 	 */
 	private void setStick(ArrayList<GoodsOne> stick) {
-		if (stick.size() == 10) {
+		if (stick.size() == 12) {
 			imageLoader.displayImage(URLConfig.IMG_IP
 					+ stick.get(0).getSourceImagePath(),
 					iv_center_4_left_bottom, options);

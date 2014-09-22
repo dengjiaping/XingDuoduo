@@ -45,6 +45,8 @@ public class User implements Serializable {
 	private String gender;
 	// 姓名
 	private String name;
+	// 论坛id
+	private String user_id;
 
 	public User() {
 		super();
@@ -53,7 +55,8 @@ public class User implements Serializable {
 	public User(String userName, String userId, String email,
 			String createDate, double preferntial, String rankNmae,
 			String nickname, String birth, String phone, String address,
-			String areaStore, String zipCode, String gender, String name) {
+			String areaStore, String zipCode, String gender, String name,
+			String user_id) {
 		super();
 		this.userName = userName;
 		this.userId = userId;
@@ -69,6 +72,15 @@ public class User implements Serializable {
 		this.zipCode = zipCode;
 		this.gender = gender;
 		this.name = name;
+		this.user_id = user_id;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getName() {

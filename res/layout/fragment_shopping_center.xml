@@ -388,7 +388,7 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_4_left_bottom"
-                                android:scaleType="matrix" />
+                                android:scaleType="centerCrop" />
                             <!-- 文字1 -->
 
                             <TextView
@@ -439,7 +439,7 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_4_right_top"
-                                    android:scaleType="matrix" />
+                                    android:scaleType="centerCrop" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -485,7 +485,7 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_4_right_bottom"
-                                    android:scaleType="matrix" />
+                                    android:scaleType="centerCrop" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -619,7 +619,7 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_5_left_bottom"
-                                android:scaleType="matrix" />
+                                android:scaleType="centerCrop" />
                             <!-- 文字1 -->
 
                             <TextView
@@ -671,7 +671,7 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_5_right_top"
-                                    android:scaleType="matrix" />
+                                    android:scaleType="centerCrop" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -716,7 +716,7 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_5_right_bottom"
-                                    android:scaleType="matrix" />
+                                    android:scaleType="centerCrop" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -841,7 +841,7 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_6_left_bottom"
-                                android:scaleType="matrix" />
+                                android:scaleType="centerCrop" />
                             <!-- 文字1 -->
 
                             <TextView
@@ -892,7 +892,7 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_6_right_top"
-                                    android:scaleType="matrix" />
+                                    android:scaleType="centerCrop" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -937,7 +937,7 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_6_right_bottom"
-                                    android:scaleType="matrix" />
+                                    android:scaleType="centerCrop" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -1064,7 +1064,7 @@
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_7_left_bottom"
-                                android:scaleType="matrix" />
+                                android:scaleType="centerCrop" />
                             <!-- 文字1 -->
 
                             <TextView
@@ -1116,7 +1116,7 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_7_right_top"
-                                    android:scaleType="matrix" />
+                                    android:scaleType="centerCrop" />
                                 <!-- 文字1 -->
 
                                 <TextView
@@ -1161,7 +1161,7 @@
                                     android:layout_height="wrap_content"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_7_right_bottom"
-                                    android:scaleType="matrix" />
+                                    android:scaleType="centerCrop" />
                                 <!-- 文字1 -->
 
                                 <TextView

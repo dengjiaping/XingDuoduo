@@ -63,7 +63,9 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 					ToastUtil.ToastView(UserLoginActivity.this,
 							value.getMessage());
 					// 获取用户信息
-					getUserInfo();
+//					getUserInfo();
+					loadingdialog.dismiss();
+					finish();
 				} else {
 					ToastUtil.ToastView(UserLoginActivity.this,
 							value.getMessage());
