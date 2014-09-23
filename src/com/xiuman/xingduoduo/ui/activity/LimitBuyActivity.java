@@ -268,7 +268,6 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 					bundle.putSerializable("goods_one", goods_one);
 					bundle.putSerializable("goods_id",
 							goods_one.getId());
-					bundle.putInt("pic_tag", 1);
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(

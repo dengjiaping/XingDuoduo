@@ -1006,7 +1006,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 			Intent intent = new Intent(getActivity(), GoodsActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("goods_id", goods_id);
-			bundle.putInt("pic_tag", 1);
 			intent.putExtras(bundle);
 			getActivity().startActivity(intent);
 			getActivity().overridePendingTransition(

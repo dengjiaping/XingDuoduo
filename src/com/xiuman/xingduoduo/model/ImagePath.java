@@ -21,16 +21,28 @@ public class ImagePath implements Serializable {
 	private String path;
 	// 图片格式
 	private String sourceImageFormatName;
+	// 是否过滤
+	private boolean gdFlag;
 
 	public ImagePath() {
 		super();
 	}
 
-	public ImagePath(String id, String path, String sourceImageFormatName) {
+	public ImagePath(String id, String path, String sourceImageFormatName,
+			boolean gdFlag) {
 		super();
 		this.id = id;
 		this.path = path;
 		this.sourceImageFormatName = sourceImageFormatName;
+		this.gdFlag = gdFlag;
+	}
+
+	public boolean isGdFlag() {
+		return gdFlag;
+	}
+
+	public void setGdFlag(boolean gdFlag) {
+		this.gdFlag = gdFlag;
 	}
 
 	public String getId() {
@@ -56,12 +68,14 @@ public class ImagePath implements Serializable {
 	public void setSourceImageFormatName(String sourceImageFormatName) {
 		this.sourceImageFormatName = sourceImageFormatName;
 	}
+
 	/**
 	 * 直接返回图片完整地址
 	 */
 	@Override
 	public String toString() {
-		return URLConfig.IMG_IP+path+"/big/"+id+"."+sourceImageFormatName;
+		return URLConfig.IMG_IP + path + "/big/" + id + "."
+				+ sourceImageFormatName;
 	}
 
 }

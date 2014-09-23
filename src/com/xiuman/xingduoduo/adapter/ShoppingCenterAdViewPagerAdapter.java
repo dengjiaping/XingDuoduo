@@ -89,7 +89,6 @@ public class ShoppingCenterAdViewPagerAdapter extends PagerAdapter {
 				bundle.putSerializable("goods_one", goods_one);
 				bundle.putSerializable("goods_id",
 						goods_one.getId());
-				bundle.putInt("pic_tag", 1);
 				intent.putExtras(bundle);
 				context.startActivity(intent);
 				((Activity) context).overridePendingTransition(

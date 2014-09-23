@@ -198,10 +198,6 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	private ActionValue<GoodsOne> value_recommend;
 	//相关推荐商品列表
 	private ArrayList<GoodsOne> goods_recommend;
-
-	//商品第一张图标记(横图+方图)0：不移除第一张(放图)1：移除第一张(横图)
-	private int pic_tag = 0;
-	
 	
 	// 数据处理Hanlder
 	@SuppressLint("HandlerLeak")
@@ -341,8 +337,6 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		// 上级界面传递过来的商品id
 		goods_id = getIntent().getExtras().getString("goods_id");
 		
-		//图片标记
-		pic_tag = getIntent().getExtras().getInt("pic_tag");
 
 	}
 
@@ -517,9 +511,11 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		// 图片viewpager
 		goods_img_urls = goods_two.getImagePath();
 		
-		if(pic_tag==1){
-			if(goods_img_urls.size()>=2)
-			goods_img_urls.remove(0);
+		//是否移除特殊图片
+		for(int i=0;i<goods_img_urls.size();i++){
+			if(goods_img_urls.get(i).isGdFlag()){
+				goods_img_urls.remove(i);
+			}
 		}
 		
 		if (goods_img_urls != null && goods_img_urls.size() > 0) {

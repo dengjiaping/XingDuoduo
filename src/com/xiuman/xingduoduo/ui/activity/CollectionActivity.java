@@ -271,7 +271,6 @@ public class CollectionActivity extends Base2Activity implements
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("goods_id", goods_one.getId());
 					bundle.putSerializable("goods_one", goods_one);
-					bundle.putInt("pic_tag", 0);
 					intent.putExtras(bundle);
 					startActivityForResult(intent, AppConfig.REQUEST_CODE);
 					overridePendingTransition(

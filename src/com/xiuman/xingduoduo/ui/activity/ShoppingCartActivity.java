@@ -431,7 +431,6 @@ public class ShoppingCartActivity extends Base2Activity implements
 							GoodsActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("goods_id", goods_id);
-					bundle.putInt("pic_tag", 0);
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(

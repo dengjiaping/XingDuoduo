@@ -285,7 +285,6 @@ public class CenterClassifyActivity extends Base2Activity implements
 							bundle.putSerializable("goods_one", goods_one);
 							bundle.putSerializable("goods_id",
 									goods_one.getId());
-							bundle.putInt("pic_tag", 0);
 							intent.putExtras(bundle);
 							startActivity(intent);
 							overridePendingTransition(
