@@ -178,7 +178,7 @@ public class Test {
 
 		String plate_id_8 = "8";
 		String palte_name_8 = "白富美，高大上";
-		String plate_description_8 = "美空网里的一些美女分享等";
+		String plate_description_8 = "一大波美女即将来袭！";
 		String plate_tag_8 = "new";
 		int plate_icon_8 = R.drawable.ic_plate_8_baifumei;
 		BBSPlate palte_8 = new BBSPlate(plate_id_8, palte_name_8,

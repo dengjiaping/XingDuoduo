@@ -47,16 +47,19 @@ public class User implements Serializable {
 	private String name;
 	// 论坛id
 	private String user_id;
+	//头像地址
+	private String head_image;
 
 	public User() {
 		super();
 	}
 
+
 	public User(String userName, String userId, String email,
 			String createDate, double preferntial, String rankNmae,
 			String nickname, String birth, String phone, String address,
 			String areaStore, String zipCode, String gender, String name,
-			String user_id) {
+			String user_id, String head_image) {
 		super();
 		this.userName = userName;
 		this.userId = userId;
@@ -73,7 +76,19 @@ public class User implements Serializable {
 		this.gender = gender;
 		this.name = name;
 		this.user_id = user_id;
+		this.head_image = head_image;
 	}
+
+
+	public String getHead_image() {
+		return head_image;
+	}
+
+
+	public void setHead_image(String head_image) {
+		this.head_image = head_image;
+	}
+
 
 	public String getUser_id() {
 		return user_id;
