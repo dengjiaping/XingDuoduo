@@ -311,7 +311,6 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 	/*------------------------------------倒计时-------------------------------*/
 	private Calendar mDate2;
 	private int mYear, mMonth, mDay;
-	private int mHour, mMinute;
 	private String date;
 	private Handler mHandler = new Handler();// 全局handler
 	int time = 0;// 时间差
@@ -320,8 +319,6 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		mYear = mDate2.get(Calendar.YEAR);
 		mMonth = mDate2.get(Calendar.MONTH);
 		mDay = mDate2.get(Calendar.DAY_OF_MONTH);
-		mHour = mDate2.get(Calendar.HOUR_OF_DAY);
-		mMinute = mDate2.get(Calendar.MINUTE);
 
 		date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
 				+ getDateFormat(mDay) + " " + 24 + ":"
@@ -346,7 +343,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		@Override
 		public void run()
 		{
-			while (time > 0)// 整个倒计时执行的循环
+			while (time >= 0)// 整个倒计时执行的循环
 			{
 				time--;
 				mHandler.post(new Runnable() // 通过它在UI主线程中修改显示的剩余时间

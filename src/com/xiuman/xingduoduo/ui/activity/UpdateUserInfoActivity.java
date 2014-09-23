@@ -10,10 +10,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,6 +40,7 @@ import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.RegexUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
+import com.xiuman.xingduoduo.view.CustomDialog2;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.wheel.OnWheelChangedListener;
 import com.xiuman.xingduoduo.view.wheel.WheelView;
@@ -81,6 +84,8 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 	private Button btn_submit_update;
 	// 加载进度
 	private LoadingDialog loadingdialog;
+	//取消修改Dialog;
+	private CustomDialog2 dialog_cancel;
 
 	/*--------------------------性别--------------------------*/
 	// 组
@@ -160,8 +165,8 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 	// 修改消息返回
 	private ActionValue<?> value_update;
 	// 消息处理
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
-		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 修改成功
@@ -276,9 +281,7 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_common_back:// 返回
-			finish();
-			overridePendingTransition(R.anim.translate_horizontal_finish_in,
-					R.anim.translate_horizontal_finish_out);
+			cancelDialog();
 			break;
 		case R.id.btn_submit_update:// 提交修改
 			submitUpdate();
@@ -618,5 +621,41 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 		HttpUrlProvider.getIntance().getUserInfo(this,
 				new TaskUserInfoBack(handler), URLConfig.USERINFO,
 				user.getUserName());
+	}
+	/**
+	 * @描述：取消修改Dialog
+	 * 2014-9-23
+	 */
+	private void cancelDialog(){
+		dialog_cancel = new CustomDialog2(this, "确认取消修改？");
+		dialog_cancel.show();
+		dialog_cancel.btn_custom_dialog_sure.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog_cancel.dismiss();
+				finish();
+				overridePendingTransition(R.anim.translate_horizontal_finish_in,
+						R.anim.translate_horizontal_finish_out);
+			}
+		});
+		dialog_cancel.btn_custom_dialog_cancel
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						dialog_cancel.dismiss();
+					}
+				});
+	}
+	/**
+	 * 按键点击事件
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) { // 返回键
+			cancelDialog();
+		}
+		return true;
 	}
 }

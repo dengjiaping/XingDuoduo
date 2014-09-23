@@ -1,41 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="250dip"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/tv_dialog_custom_title"
-        android:layout_width="250dip"
-        android:layout_height="wrap_content"
-        android:background="@drawable/vertical_top_bg_selector"
-        android:padding="10dip"
-        android:gravity="center"
-        android:text="@string/user_receipt_address"
-        android:textColor="@color/color_white"
-        android:textSize="@dimen/txt_size_15" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dip"
-        android:scaleType="fitXY"
-        android:src="@drawable/line_solid" />
-
-    <TextView
         android:id="@+id/tv_dialog_custom_message"
-        android:layout_width="match_parent"
+        android:layout_width="250dip"
         android:layout_height="80dip"
-        android:background="@color/color_white"
+        android:background="@drawable/whole_stroke_bg_selector2"
         android:gravity="center"
         android:textColor="@color/color_black2"
         android:textSize="@dimen/txt_size_16" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dip"
-        android:scaleType="fitXY"
-        android:src="@drawable/line_solid" />
     <!-- 确定、取消 -->
 
     <LinearLayout
@@ -52,10 +30,12 @@
             android:text="@string/pop_cancel"
             android:textColor="@color/color_black"
             android:textSize="@dimen/txt_size_15" />
-		<View 
-		    android:layout_width="0.1dip"
-		    android:layout_height="match_parent"
-		    android:background="@color/color_black_line"/>
+
+        <View
+            android:layout_width="0.1dip"
+            android:layout_height="match_parent"
+            android:background="@color/color_black_line" />
+
         <Button
             android:id="@+id/btn_custom_dialog_sure"
             android:layout_width="0dip"

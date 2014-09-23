@@ -273,7 +273,7 @@ public class CollectionActivity extends Base2Activity implements
 					bundle.putSerializable("goods_one", goods_one);
 					bundle.putInt("pic_tag", 0);
 					intent.putExtras(bundle);
-					startActivity(intent);
+					startActivityForResult(intent, AppConfig.REQUEST_CODE);
 					overridePendingTransition(
 							R.anim.translate_horizontal_start_in,
 							R.anim.translate_horizontal_start_out);
@@ -361,6 +361,16 @@ public class CollectionActivity extends Base2Activity implements
 				currentPage, UID);
 		loadingdialog.show();
 
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode==AppConfig.RESULT_CODE_OK){
+			// 加载数据，测试数据，添加操作
+			pullgridview.doPullRefreshing(true, 500);
+			// 设置刷新时间
+			TimeUtil.setLastUpdateTime2(pullgridview);
+		}
 	}
 
 }

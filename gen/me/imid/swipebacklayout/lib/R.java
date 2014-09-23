@@ -29,7 +29,7 @@ public final class R {
 		public static final int swipe = 0x7f06025f;
 	}
 	public static final class layout {
-		public static final int swipeback_layout = 0x7f030082;
+		public static final int swipeback_layout = 0x7f030083;
 	}
 	public static final class style {
 		public static final int SwipeBackLayout = 0x7f070000;

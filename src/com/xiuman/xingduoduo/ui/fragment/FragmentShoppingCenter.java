@@ -228,7 +228,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				}
 			}
 			cunhuan = true;
-			mHandler.postDelayed(switchTask, 5000);
+			mHandler.postDelayed(switchTask, 3000);
 		}
 	};
 	Handler mHandler = new Handler();
@@ -1041,9 +1041,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	/*------------------------------------倒计时-------------------------------*/
 	private Calendar mDate2;
 	private int mYear, mMonth, mDay;
-	private int mHour, mMinute;
 	private String date;
-	// private Handler mHandler2 = new Handler();// 全局handler
+	 private Handler mHandler2 = new Handler();// 全局handler
 	int time = 0;// 时间差
 
 	private void updateDateTime() {
@@ -1051,8 +1050,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		mYear = mDate2.get(Calendar.YEAR);
 		mMonth = mDate2.get(Calendar.MONTH);
 		mDay = mDate2.get(Calendar.DAY_OF_MONTH);
-		mHour = mDate2.get(Calendar.HOUR_OF_DAY);
-		mMinute = mDate2.get(Calendar.MINUTE);
 
 		date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
 				+ getDateFormat(mDay) + " " + 24 + ":" + "00" + ":00";
@@ -1074,10 +1071,10 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	class TimeCount implements Runnable {
 		@Override
 		public void run() {
-			while (time > 0)// 整个倒计时执行的循环
+			while (time >= 0)// 整个倒计时执行的循环
 			{
 				time--;
-				mHandler.post(new Runnable() // 通过它在UI主线程中修改显示的剩余时间
+				mHandler2.post(new Runnable() // 通过它在UI主线程中修改显示的剩余时间
 				{
 					public void run() {
 						tv_center_daojishi.setText(getInterval(time));// 显示剩余时间
@@ -1090,7 +1087,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				}
 			}
 			// 下面是倒计时结束逻辑
-			mHandler.post(new Runnable() {
+			mHandler2.post(new Runnable() {
 				@Override
 				public void run() {
 					tv_center_daojishi.setText("设定的时间到。");

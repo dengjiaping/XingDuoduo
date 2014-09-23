@@ -207,9 +207,9 @@ public class MyApplication extends Application {
 				AppConfig.FILE_USER_INFO, AppConfig.KEY_USER_INFO);
 		SharedPreUtils.setBoolean(this, true, AppConfig.FILE_USER_INFO,
 				AppConfig.KEY_USER_LOGIN);
-		//删除默认地址
+		// 删除默认地址
 		deleteDefaultAddress();
-		//将购物车数量设置为0
+		// 将购物车数量设置为0
 		setCartGoodsNumber(0);
 	}
 
@@ -356,7 +356,7 @@ public class MyApplication extends Application {
 		SharedPreUtils.setString(this, json_user_address,
 				AppConfig.FILE_DEFAULT_ADDRESS, AppConfig.KEY_DEFAULT_ADDRESS);
 	}
-	
+
 	/**
 	 * @描述：获取默认收货地址
 	 * @return 2014-8-21
@@ -370,13 +370,13 @@ public class MyApplication extends Application {
 		}
 		return address;
 	}
+
 	/**
-	 * @描述：用户退出时删除
-	 * 2014-9-21
+	 * @描述：用户退出时删除 2014-9-21
 	 */
-	public void deleteDefaultAddress(){
-		SharedPreUtils.setString(this, "",
-				AppConfig.FILE_DEFAULT_ADDRESS, AppConfig.KEY_DEFAULT_ADDRESS);
+	public void deleteDefaultAddress() {
+		SharedPreUtils.setString(this, "", AppConfig.FILE_DEFAULT_ADDRESS,
+				AppConfig.KEY_DEFAULT_ADDRESS);
 	}
 
 	/*----------------------------------------------保存广告--------------------------------------------------------*/
@@ -390,10 +390,10 @@ public class MyApplication extends Application {
 		SharedPreUtils.setString(this, json_ads, AppConfig.FILE_SAVE_ADS,
 				AppConfig.KEY_SAVE_ADS);
 	}
+
 	/**
 	 * @描述：获取广告
-	 * @return
-	 * 2014-9-21
+	 * @return 2014-9-21
 	 */
 	public ActionValue<GoodsOne> getAds() {
 		ActionValue<GoodsOne> ads = null;
@@ -406,7 +406,7 @@ public class MyApplication extends Application {
 		}
 		return ads;
 	}
-	
+
 	/*----------------------------------------------保存首页置顶商品--------------------------------------------------------*/
 	/**
 	 * @描述：保存首页置顶商品
@@ -418,10 +418,10 @@ public class MyApplication extends Application {
 		SharedPreUtils.setString(this, json_stcik, AppConfig.FILE_SAVE_STCIK,
 				AppConfig.KEY_SAVE_STICK);
 	}
+
 	/**
 	 * @描述：获取首页置顶商品
-	 * @return
-	 * 2014-9-21
+	 * @return 2014-9-21
 	 */
 	public ActionValue<GoodsStick> getStcik() {
 		ActionValue<GoodsStick> stcik = null;
@@ -434,5 +434,55 @@ public class MyApplication extends Application {
 		}
 		return stcik;
 	}
-	
+
+	/*------------------------------------------------保存屏幕宽度和高度----------------------------------------------------------*/
+	/**
+	 * @描述：保存屏幕宽度
+	 * @param width
+	 *            2014-9-23
+	 */
+	public void saveScreenWidth(int width) {
+		SharedPreUtils.setString(this, width + "", "file_screenWidth",
+				"key_screenWidth");
+	}
+
+	/**
+	 * @描述：获取屏幕宽度
+	 * @return 2014-9-23
+	 */
+	public int getScreenWidth() {
+		int width = 0;
+		String result = SharedPreUtils.getString(this, "file_screenWidth",
+				"key_screenWidth");
+		if (result != "") {
+			width = Integer.parseInt(result);
+		}
+
+		return width;
+	}
+
+	/**
+	 * @描述：保存屏幕高度
+	 * @param width
+	 *            2014-9-23
+	 */
+	public void saveScreenHeight(int height) {
+		SharedPreUtils.setString(this, height + "", "file_screenHeight",
+				"key_screenHeight");
+	}
+
+	/**
+	 * @描述：获取屏幕高度
+	 * @return 2014-9-23
+	 */
+	public int getScreenHeight() {
+		int height = 0;
+		String result = SharedPreUtils.getString(this, "file_screenHeight",
+				"key_screenHeight");
+		if (result != "") {
+			height = Integer.parseInt(result);
+		}
+
+		return height;
+	}
 }

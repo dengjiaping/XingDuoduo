@@ -6,17 +6,21 @@
     android:orientation="vertical" >
 
     <!-- 更换用户密码 -->
-	<include layout="@layout/include_title_common"/>
+
+    <include layout="@layout/include_title_common" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="10dip"
         android:background="@color/color_bg" />
-	<include layout="@layout/line_match" />
+
+    <include layout="@layout/line_match" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dip"
-        android:gravity="center_vertical"
         android:background="@drawable/et_input_register_bg"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="10dip" >
 
@@ -120,5 +124,18 @@
     </LinearLayout>
 
     <include layout="@layout/line_match" />
+
+    <Button
+        android:id="@+id/btn_submit_update"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dip"
+        android:background="@drawable/btn_color_selector"
+        android:gravity="center"
+        android:padding="10dip"
+        android:text="@string/update_submit"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/txt_size_18" />
 
 </LinearLayout>

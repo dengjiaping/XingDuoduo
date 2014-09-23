@@ -13,8 +13,8 @@ import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -63,7 +63,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	private ListView lv_bbs_plates;
 	// 广告名
 	private TextView tv_bbs_ad_name;
-	
+
 	// 头像工具类
 	private ImageCropUtils cropUtils;
 	// 头像(Bitmap)
@@ -81,7 +81,6 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	private LinearLayout mypost_ll2;
 	private TextView mypost_login;
 	private CircleImageView bbs_post_cicle_image;
-	
 
 	/*-------------------------------Adapter--------------------------------*/
 
@@ -156,9 +155,9 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		// 获取屏幕宽度
 		screenHeight = dm.heightPixels;
 		screenWidth = dm.widthPixels;
-		
+
 		cropUtils = new ImageCropUtils(getActivity());
-		
+
 	}
 
 	/**
@@ -176,11 +175,12 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		mypost_ll = (LinearLayout) view.findViewById(R.id.mypost_ll);
 		mypost_send = (TextView) view.findViewById(R.id.mypost_send);
 		mypost_back = (TextView) view.findViewById(R.id.mypost_back);
-		mypost_ll1=(LinearLayout)view.findViewById(R.id.mypost_ll1);
-		mypost_ll2=(LinearLayout)view.findViewById(R.id.mypost_ll2);
-		mypost_ll0=(LinearLayout)view.findViewById(R.id.mypost_ll0);
-		mypost_login=(TextView)view.findViewById(R.id.mypost_login);
-		bbs_post_cicle_image=(CircleImageView)view.findViewById(R.id.bbs_post_cicle_image);
+		mypost_ll1 = (LinearLayout) view.findViewById(R.id.mypost_ll1);
+		mypost_ll2 = (LinearLayout) view.findViewById(R.id.mypost_ll2);
+		mypost_ll0 = (LinearLayout) view.findViewById(R.id.mypost_ll0);
+		mypost_login = (TextView) view.findViewById(R.id.mypost_login);
+		bbs_post_cicle_image = (CircleImageView) view
+				.findViewById(R.id.bbs_post_cicle_image);
 		btn_update_info.setOnClickListener(this);
 		mypost_ll1.setOnClickListener(this);
 		mypost_ll2.setOnClickListener(this);
@@ -196,26 +196,26 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		// 设置广告数据
 		setAdData();
 
-		//以父布局为准
+		// 以父布局为准
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				screenWidth, (int) (screenWidth *150/720));
+				screenWidth, (int) (screenWidth * 150 / 720));
 		mypost_ll.setLayoutParams(params);
 		// 设置板块
 		plate_adapter = new BBSPlateListViewAdapter(getActivity(), plates);
 		lv_bbs_plates.setAdapter(plate_adapter);
-		
-		
-		if(MyApplication.getInstance().isUserLogin()){
-			mypost_login.setText(MyApplication.getInstance().getUserInfo().getUserName());
+
+		if (MyApplication.getInstance().isUserLogin()) {
+			mypost_login.setText(MyApplication.getInstance().getUserInfo()
+					.getUserName());
 			File head = new File(cropUtils.createDirectory()
 					+ cropUtils.createNewPhotoName());
 			if (head.exists()) {
-				
+
 				user_head_bitmap = BitmapFactory.decodeFile(cropUtils
 						.createDirectory() + cropUtils.createNewPhotoName());
 				bbs_post_cicle_image.setImageBitmap(user_head_bitmap);
 			}
-		
+
 		}
 	}
 
@@ -283,15 +283,14 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		tv_bbs_ad_name.setText(Test.addTestCommunicationAd().get(0)
 				.getAd_content());
 	}
-	
-	protected void toLogin(){
-		Intent intent = new Intent(getActivity(),
-				UserLoginActivity.class);
+
+	protected void toLogin() {
+		Intent intent = new Intent(getActivity(), UserLoginActivity.class);
 		getActivity().startActivity(intent);
 		getActivity().overridePendingTransition(
 				R.anim.translate_horizontal_start_in,
 				R.anim.translate_horizontal_start_out);
-		
+
 	}
 
 	/*
@@ -305,9 +304,9 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		switch (arg0.getId()) {
 		case R.id.btn_update_info:// 顶部按钮
 			if (!visibility) {
-				
+
 				mypost_ll.setVisibility(View.VISIBLE);
-				
+
 				visibility = true;
 			} else {
 				mypost_ll.setVisibility(View.GONE);
@@ -318,43 +317,41 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 			break;
 
 		case R.id.mypost_ll1:// 我的发帖
-			if(MyApplication.getInstance().isUserLogin()){
-			Intent intent = new Intent(getActivity(),
-					MyPostActivity.class);
-			getActivity().startActivity(intent);
-			getActivity().overridePendingTransition(
-					R.anim.translate_horizontal_start_in,
-					R.anim.translate_horizontal_start_out);
-			}else{
-				toLogin();
-			}
-			break;
-		case R.id.mypost_ll2:// 我的回复
-			if(MyApplication.getInstance().isUserLogin()){
-				Intent intent = new Intent(getActivity(),
-						MyReplyActivity.class);
+			if (MyApplication.getInstance().isUserLogin()) {
+				Intent intent = new Intent(getActivity(), MyPostActivity.class);
 				getActivity().startActivity(intent);
 				getActivity().overridePendingTransition(
 						R.anim.translate_horizontal_start_in,
 						R.anim.translate_horizontal_start_out);
-				}else{
-					toLogin();
-				}
+			} else {
+				toLogin();
+			}
+			break;
+		case R.id.mypost_ll2:// 我的回复
+			if (MyApplication.getInstance().isUserLogin()) {
+				Intent intent = new Intent(getActivity(), MyReplyActivity.class);
+				getActivity().startActivity(intent);
+				getActivity().overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
+			} else {
+				toLogin();
+			}
 
 			break;
-			
+
 		case R.id.mypost_ll0:// 登陆
-			if(MyApplication.getInstance().isUserLogin()){
+			if (MyApplication.getInstance().isUserLogin()) {
 				Intent intent = new Intent(getActivity(),
 						UserInfoActivity.class);
 				getActivity().startActivity(intent);
 				getActivity().overridePendingTransition(
 						R.anim.translate_horizontal_start_in,
 						R.anim.translate_horizontal_start_out);
-				
-			}else{
+
+			} else {
 				toLogin();
-				
+
 			}
 
 			break;

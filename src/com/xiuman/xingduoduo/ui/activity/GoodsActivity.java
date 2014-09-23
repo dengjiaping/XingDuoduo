@@ -256,6 +256,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 					btn_collect
 							.setBackgroundResource(R.drawable.bg_btn_collect_n);
 					MyApplication.getInstance().deleteCollection(goods_id);
+					setResult(AppConfig.RESULT_CODE_OK);
 				} else {// 删除失败
 					ToastUtil.ToastView(GoodsActivity.this,
 							value_delete.getMessage());

@@ -7,13 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.GoodsOne;
+import com.xiuman.xingduoduo.util.SizeUtil;
 
 /**
  * 
@@ -30,6 +33,7 @@ public class ClassifyGoodsGridViewAdapter extends BaseAdapter {
 	public DisplayImageOptions options;// 配置图片加载及显示选项
 	public ImageLoader imageLoader;
 	private GoodsOne goodsone;
+	int screenWidth = 0;
 
 	public ClassifyGoodsGridViewAdapter(Context context, List<GoodsOne> goods,
 			DisplayImageOptions options, ImageLoader imageLoader) {
@@ -38,6 +42,7 @@ public class ClassifyGoodsGridViewAdapter extends BaseAdapter {
 		this.goods = goods;
 		this.options = options;
 		this.imageLoader = imageLoader;
+		screenWidth = MyApplication.getInstance().getScreenWidth();
 	}
 
 	@Override
@@ -70,6 +75,12 @@ public class ClassifyGoodsGridViewAdapter extends BaseAdapter {
 					.findViewById(R.id.tv_item_goods_price);
 			holder.tv_item_goods_sales = (TextView) convertView
 					.findViewById(R.id.tv_item_goods_sales);
+			
+			if(screenWidth!=0){
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(screenWidth/2-SizeUtil.dip2px(context, 20), screenWidth/2-SizeUtil.dip2px(context, 20));
+				holder.iv_item_goods_poster.setLayoutParams(params);
+			}
+			
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -79,7 +90,6 @@ public class ClassifyGoodsGridViewAdapter extends BaseAdapter {
 		// 添加操作，测试数据
 		imageLoader.displayImage(URLConfig.IMG_IP+goodsone.getSmallGoodsImagePath(),
 				holder.iv_item_goods_poster, options);
-//		holder.iv_item_goods_poster.setBackgroundResource(R.drawable.test_goods_pic);
 		holder.tv_item_goods_name.setText(goodsone.getName());
 		holder.tv_item_goods_price.setText("￥" + goodsone.getGoods_price());
 		holder.tv_item_goods_sales.setText("月销量 " + goodsone.getSalesVolume());
@@ -105,4 +115,5 @@ public class ClassifyGoodsGridViewAdapter extends BaseAdapter {
 		// 销量
 		TextView tv_item_goods_sales;
 	}
+	
 }

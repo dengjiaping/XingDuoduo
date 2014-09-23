@@ -154,7 +154,7 @@ public class Test {
 
 		String plate_id_5 = "5";
 		String palte_name_5 = "Gay Park";
-		String plate_description_5 = "同性恋的话题";
+		String plate_description_5 = "挑战禁忌，同性才是真爱";
 		String plate_tag_5 = "";
 		int plate_icon_5 = R.drawable.ic_plate_5_gay;
 		BBSPlate palte_5 = new BBSPlate(plate_id_5, palte_name_5,
@@ -170,7 +170,7 @@ public class Test {
 
 		String plate_id_7 = "7";
 		String palte_name_7 = "走走停停，一直在路上";
-		String plate_description_7 = "吃喝玩乐的主题，情侣分享情侣主题酒店，情侣约会等地";
+		String plate_description_7 = "哪里的麻辣烫最好吃？吃完麻辣烫去哪里？你知道吗？";
 		String plate_tag_7 = "";
 		int plate_icon_7 = R.drawable.ic_plate_7_way;
 		BBSPlate palte_7 = new BBSPlate(plate_id_7, palte_name_7,
@@ -200,7 +200,7 @@ public class Test {
 		plates.add(palte_6);
 		plates.add(palte_7);
 		plates.add(palte_8);
-		plates.add(palte_9);
+//		plates.add(palte_9);
 
 		return plates;
 

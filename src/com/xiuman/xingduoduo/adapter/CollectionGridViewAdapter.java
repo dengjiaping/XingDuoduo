@@ -113,7 +113,7 @@ public class CollectionGridViewAdapter extends BaseAdapter {
 
 	/**
 	 * 
-	 * @名称：ClassifyGoodsGridViewAdapter.java
+	 * @名称：CollectionGridViewAdapter.java
 	 * @描述：优化
 	 * @author danding
 	 * @version

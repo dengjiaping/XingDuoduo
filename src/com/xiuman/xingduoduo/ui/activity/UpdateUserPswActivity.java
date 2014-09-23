@@ -3,6 +3,7 @@ package com.xiuman.xingduoduo.ui.activity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.CustomDialog;
+import com.xiuman.xingduoduo.view.CustomDialog2;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 
 /**
@@ -35,6 +37,8 @@ public class UpdateUserPswActivity extends Base2Activity implements
 	private Button btn_back;
 	// 提交
 	private Button btn_submit;
+	// 提交修改
+	private Button btn_submit_update;
 	// 标题栏
 	private TextView tv_title;
 	// 原始密码
@@ -47,13 +51,15 @@ public class UpdateUserPswActivity extends Base2Activity implements
 	private LoadingDialog loadingdialog;
 	// 是否提交修改的Dialog
 	private CustomDialog dialog;
+	// 取消修改Dialog;
+	private CustomDialog2 dialog_cancel;
 
 	/*-----------------------------------------数据-------------------------------*/
 	// 从上级界面接收到的用户信息
 	private User user;
 	// 修改结果
 	private ActionValue<?> value;
-	
+
 	// Handler
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
@@ -110,6 +116,7 @@ public class UpdateUserPswActivity extends Base2Activity implements
 		et_update_user_psw_old = (EditText) findViewById(R.id.et_update_user_psw_old);
 		et_update_user_psw_new = (EditText) findViewById(R.id.et_update_user_psw_new);
 		et_update_user_psw_new2 = (EditText) findViewById(R.id.et_update_user_psw_new2);
+		btn_submit_update = (Button) findViewById(R.id.btn_submit_update);
 
 	}
 
@@ -121,7 +128,8 @@ public class UpdateUserPswActivity extends Base2Activity implements
 	@Override
 	protected void setListener() {
 		btn_back.setOnClickListener(this);
-		btn_submit.setOnClickListener(this);
+		btn_submit.setVisibility(View.INVISIBLE);
+		btn_submit_update.setOnClickListener(this);
 	}
 
 	/**
@@ -131,14 +139,10 @@ public class UpdateUserPswActivity extends Base2Activity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_common_back:
-			finish();
-			overridePendingTransition(R.anim.translate_horizontal_finish_in,
-					R.anim.translate_horizontal_finish_out);
+			cancelDialog();
 			break;
-		case R.id.btn_common_right:// 提交修改
+		case R.id.btn_submit_update:// 提交修改
 			updatePsw();
-			break;
-		default:
 			break;
 		}
 	}
@@ -179,7 +183,7 @@ public class UpdateUserPswActivity extends Base2Activity implements
 						UpdateUserPswActivity.this,
 						new TaskUpdateUserPswBack(handler),
 						URLConfig.UPDATE_PSW, user_name, user_old, user_new);
-				
+
 				dialog.dismiss();
 				loadingdialog.show();
 			}
@@ -201,5 +205,44 @@ public class UpdateUserPswActivity extends Base2Activity implements
 		HttpUrlProvider.getIntance().getUserInfo(UpdateUserPswActivity.this,
 				new TaskUserInfoBack(handler), URLConfig.USERINFO,
 				user.getUserName());
+	}
+
+	/**
+	 * @描述：取消修改Dialog 2014-9-23
+	 */
+	private void cancelDialog() {
+		dialog_cancel = new CustomDialog2(this, "确认取消修改？");
+		dialog_cancel.show();
+		dialog_cancel.btn_custom_dialog_sure
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						dialog_cancel.dismiss();
+						finish();
+						overridePendingTransition(
+								R.anim.translate_horizontal_finish_in,
+								R.anim.translate_horizontal_finish_out);
+					}
+				});
+		dialog_cancel.btn_custom_dialog_cancel
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						dialog_cancel.dismiss();
+					}
+				});
+	}
+
+	/**
+	 * 按键点击事件
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) { // 返回键
+			cancelDialog();
+		}
+		return true;
 	}
 }

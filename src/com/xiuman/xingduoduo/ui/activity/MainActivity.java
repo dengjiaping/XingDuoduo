@@ -1,19 +1,21 @@
 package com.xiuman.xingduoduo.ui.activity;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.Toast;
 
 import com.umeng.update.UmengUpdateAgent;
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.ui.base.BaseActivity;
 import com.xiuman.xingduoduo.ui.fragment.FragmentBBS;
 import com.xiuman.xingduoduo.ui.fragment.FragmentCalssify;
@@ -22,6 +24,7 @@ import com.xiuman.xingduoduo.ui.fragment.FragmentShoppingCart;
 import com.xiuman.xingduoduo.ui.fragment.FragmentShoppingCenter;
 import com.xiuman.xingduoduo.util.NetUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
+import com.xiuman.xingduoduo.view.CustomDialog2;
 
 /**
  * 
@@ -48,12 +51,15 @@ public class MainActivity extends BaseActivity implements
 
 	// 底部菜单
 	private RadioGroup radiogroup_main_bottom_menu;
-	//商城
+	// 商城
 	private RadioButton rbtn_shopping_center;
 
-	// 再按一次退出
-	private static Boolean isQuit = false;
 	Timer timer = new Timer();
+
+	// 屏幕宽高
+	private int screenHeight, screenWidth;
+	// 退出;
+	private CustomDialog2 dialog_cancel;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +78,14 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	protected void initData() {
 		fragmentManager = getSupportFragmentManager();
+		// 获取屏幕宽高
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		// 获取屏幕宽度
+		screenHeight = dm.heightPixels;
+		screenWidth = dm.widthPixels;
+		MyApplication.getInstance().saveScreenWidth(screenWidth);
+		MyApplication.getInstance().saveScreenHeight(screenHeight);
 	}
 
 	/**
@@ -88,9 +102,9 @@ public class MainActivity extends BaseActivity implements
 	 */
 	@Override
 	protected void initUI() {
-//		rbtn_shopping_center.setChecked(true);
+		// rbtn_shopping_center.setChecked(true);
 		selectTab(0);
-		if(!NetUtil.isNetAvailable(this)){
+		if (!NetUtil.isNetAvailable(this)) {
 			ToastUtil.ToastView(this, "网络连接失败");
 		}
 	}
@@ -213,28 +227,42 @@ public class MainActivity extends BaseActivity implements
 		}
 	}
 
+
+	/**
+	 * @描述：取消修改Dialog 2014-9-23
+	 */
+	private void cancelDialog() {
+		dialog_cancel = new CustomDialog2(this, "确认退出性多多？");
+		dialog_cancel.show();
+		dialog_cancel.btn_custom_dialog_sure
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						dialog_cancel.dismiss();
+						finish();
+						overridePendingTransition(
+								R.anim.translate_horizontal_finish_in,
+								R.anim.translate_horizontal_finish_out);
+					}
+				});
+		dialog_cancel.btn_custom_dialog_cancel
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						dialog_cancel.dismiss();
+					}
+				});
+	}
+
 	/**
 	 * 按键点击事件
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) { // 返回键
-			if (isQuit == false) {
-				isQuit = true;
-				Toast.makeText(getBaseContext(), "再按一次退出", Toast.LENGTH_SHORT)
-						.show();
-				TimerTask task = null;
-				task = new TimerTask() {
-					@Override
-					public void run() {
-						isQuit = false;
-					}
-				};
-				timer.schedule(task, 2000);
-			} else {
-				finish();
-				System.exit(0);
-			}
+			cancelDialog();
 		}
 		return true;
 	}
