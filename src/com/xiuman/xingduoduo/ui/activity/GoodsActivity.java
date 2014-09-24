@@ -486,7 +486,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		tv_goods_cost_price.setText(sp);
 		tv_goods_name.setText(goods_two.getName());
-		tv_goods_sales.setText("月销量 " + goods_two.getSalesVolume() + "件");
+		tv_goods_sales.setText("销量 " + goods_two.getSalesVolume() + "件");
 
 		String goods_params = "";
 		if (goods_two.getGoodsParams().size() > 0) {

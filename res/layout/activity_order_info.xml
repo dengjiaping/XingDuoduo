@@ -11,10 +11,13 @@
     <!-- 标题栏 -->
 
     <include
+        layout="@layout/network_error"
+        android:visibility="invisible" />
+
+    <include
         android:id="@+id/title"
         layout="@layout/include_title_common" />
-	<include layout="@layout/network_error"
-	    android:visibility="invisible"/>
+
     <ScrollView
         android:id="@+id/sv_order_info"
         android:layout_width="match_parent"
@@ -340,8 +343,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dip"
+                        android:layout_height="0dip"
                         android:orientation="horizontal" >
 
                         <TextView
@@ -452,11 +454,11 @@
                 android:layout_marginRight="5dip"
                 android:background="@drawable/btn_color_selector"
                 android:focusable="false"
+                android:minWidth="100dip"
                 android:paddingBottom="5dip"
                 android:paddingLeft="15dip"
                 android:paddingRight="15dip"
                 android:paddingTop="5dip"
-                android:minWidth="100dip"
                 android:text="@string/order_history_delete"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/txt_size_15" />

@@ -207,10 +207,6 @@ public class MyApplication extends Application {
 				AppConfig.FILE_USER_INFO, AppConfig.KEY_USER_INFO);
 		SharedPreUtils.setBoolean(this, true, AppConfig.FILE_USER_INFO,
 				AppConfig.KEY_USER_LOGIN);
-		// 删除默认地址
-		deleteDefaultAddress();
-		// 将购物车数量设置为0
-		setCartGoodsNumber(0);
 	}
 
 	/**
@@ -235,6 +231,10 @@ public class MyApplication extends Application {
 		// AppConfig.KEY_USER_INFO);
 		SharedPreUtils.setBoolean(this, false, AppConfig.FILE_USER_INFO,
 				AppConfig.KEY_USER_LOGIN);
+		// 删除默认地址
+		deleteDefaultAddress();
+		// 将购物车数量设置为0
+		setCartGoodsNumber(0);
 	}
 
 	/**

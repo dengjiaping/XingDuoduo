@@ -59,6 +59,8 @@ public class OrderCompleteActivity extends Base2Activity implements
 	private Button btn_order_complete_order_info;
 	// 进度加载
 	private LoadingDialog loadingdialog;
+	//货到付款tip
+	private TextView tv_order_pay_tip;
 
 	/*-----------------------ImageLoader-----------------------------*/
 	// ImageLoader
@@ -187,6 +189,7 @@ public class OrderCompleteActivity extends Base2Activity implements
 	@Override
 	protected void findViewById() {
 		loadingdialog = new LoadingDialog(this);
+		tv_order_pay_tip = (TextView) findViewById(R.id.tv_order_pay_tip);
 		btn_back = (Button) findViewById(R.id.btn_common_back);
 		btn_right = (Button) findViewById(R.id.btn_common_right);
 		btn_order_complete_go2pay = (Button) findViewById(R.id.btn_order_complete_go2pay);
@@ -232,12 +235,13 @@ public class OrderCompleteActivity extends Base2Activity implements
 				btn_order_complete_go2pay.setVisibility(View.VISIBLE);
 				tv_order_pay_status.setText("您的订单已生成，请及时支付...");
 			}
-			
+			tv_order_pay_tip.setVisibility(View.INVISIBLE);
 			
 		}else if(pay_tag==1){//货到付款
 			
 			tv_order_pay_status.setText("您的订单已生成，商品整装待发...");
 			btn_order_complete_go2pay.setVisibility(View.INVISIBLE);
+			tv_order_pay_tip.setVisibility(View.VISIBLE);
 		}
 		tv_order_complete_total.setText("总价：￥"+goods_total);
 		tv_order_complete_quanity.setText("商品数量："+goods_number);

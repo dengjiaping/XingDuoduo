@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_bg" >
+    android:background="@color/color_white" >
 
     <!-- 购物车界面（Activity） -->
     <!-- 标题栏 -->
@@ -95,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/color_bg"
+            android:background="@color/color_white"
             android:orientation="vertical" >
 
             <include layout="@layout/include_balance" />

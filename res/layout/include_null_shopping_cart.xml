@@ -3,7 +3,7 @@
     android:id="@+id/rlyt_null_cart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_bg"
+    android:background="@color/color_white"
     android:gravity="center" >
 
     <!-- 空的购物车 -->

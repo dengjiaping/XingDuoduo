@@ -292,8 +292,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				value_stick = (ActionValue<GoodsStick>) msg.obj;
 				if (value_stick.isSuccess()) {
 					stick = value_stick.getDatasource();
-					setStick(stick);
 					MyApplication.getInstance().saveStick(value_stick);
+					setStick(stick);
 				}
 				break;
 			case AppConfig.STICK_FAILD:// 置顶商品获取失败（无网络）
@@ -301,6 +301,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				if (value_stick != null) {
 					stick = value_stick.getDatasource();
 					setStick(stick);
+
 				} else {
 
 				}
@@ -686,36 +687,35 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 */
 	private void setStick(ArrayList<GoodsStick> stick) {
 		if (stick.size() == 12) {
-			for(int i=0;i<stick.size();i++){
-				if(stick.get(i).isIs_hot()){
+			for (int i = 0; i < stick.size(); i++) {
+				if (stick.get(i).isIs_hot()) {
 					stick_4.add(stick.get(i));
 				}
 			}
-			
-			ArrayList<GoodsStick> stick_no = new ArrayList<GoodsStick>();
+
 			stick.removeAll(stick_4);
-			for(int i=0;i<stick.size();i++){
-				if(stick.get(i).getGoodsCategoryId().equals(classifyes_ids[1])){
+			for (int i = 0; i < stick.size(); i++) {
+				if (stick.get(i).getGoodsCategoryId().equals(classifyes_ids[1])) {
 					stick_5.add(stick.get(i));
 				}
 			}
-			for(int i=0;i<stick.size();i++){
-				if(stick.get(i).getGoodsCategoryId().equals(classifyes_ids[0])){
+			for (int i = 0; i < stick.size(); i++) {
+				if (stick.get(i).getGoodsCategoryId().equals(classifyes_ids[0])) {
 					stick_6.add(stick.get(i));
 				}
 			}
-			for(int i=0;i<stick.size();i++){
-				if(stick.get(i).getGoodsCategoryId().equals(classifyes_ids[3])){
+			for (int i = 0; i < stick.size(); i++) {
+				if (stick.get(i).getGoodsCategoryId().equals(classifyes_ids[3])) {
 					stick_7.add(stick.get(i));
 				}
 			}
-			
+
 			imageLoader.displayImage(URLConfig.IMG_IP
 					+ stick_4.get(0).getSourceImagePath(),
 					iv_center_4_left_bottom, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick_4.get(1).getSourceImagePath(), iv_center_4_right_top,
-					options);
+					+ stick_4.get(1).getSourceImagePath(),
+					iv_center_4_right_top, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
 					+ stick_4.get(2).getSourceImagePath(),
 					iv_center_4_right_bottom, options);
@@ -723,8 +723,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 					+ stick_5.get(0).getSourceImagePath(),
 					iv_center_5_left_bottom, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick_5.get(1).getSourceImagePath(), iv_center_5_right_top,
-					options);
+					+ stick_5.get(1).getSourceImagePath(),
+					iv_center_5_right_top, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
 					+ stick_5.get(2).getSourceImagePath(),
 					iv_center_5_right_bottom, options);
@@ -732,8 +732,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 					+ stick_6.get(0).getSourceImagePath(),
 					iv_center_6_left_bottom, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
-					+ stick_6.get(1).getSourceImagePath(), iv_center_6_right_top,
-					options);
+					+ stick_6.get(1).getSourceImagePath(),
+					iv_center_6_right_top, options);
 			imageLoader.displayImage(URLConfig.IMG_IP
 					+ stick_6.get(2).getSourceImagePath(),
 					iv_center_6_right_bottom, options);
@@ -961,58 +961,58 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 * @author danding 2014-9-21
 	 */
 	class OnClickListener3 implements OnClickListener {
-
 		@Override
 		public void onClick(View v) {
-			String goods_id = null;
-			switch (v.getId()) {
-			case R.id.rlyt_center_4_left_bottom:// 模块四左下
-				goods_id = stick_4.get(0).getId();
-				break;
-			case R.id.rlyt_center_4_right_top:// 模块四右上
-				goods_id = stick_4.get(1).getId();
-				break;
-			case R.id.rlyt_center_4_right_bottom:// 模块四右下
-				goods_id = stick_4.get(2).getId();
-				break;
-			case R.id.rlyt_center_5_left_bottom:// 模块五左下
-				goods_id = stick_5.get(0).getId();
-				break;
-			case R.id.rlyt_center_5_right_top:// 模块五上
-				goods_id = stick_5.get(1).getId();
-				break;
-			case R.id.rlyt_center_5_right_bottom:// 模块五右下
-				goods_id = stick_5.get(2).getId();
-				break;
-			case R.id.rlyt_center_6_left_bottom:// 模块六左下
-				goods_id = stick_6.get(0).getId();
-				break;
-			case R.id.rlyt_center_6_right_top:// 模块六右上
-				goods_id = stick_6.get(1).getId();
-				break;
-			case R.id.llyt_center_6_right_bottom:// 模块六右下
-				goods_id = stick_6.get(2).getId();
-				break;
-			case R.id.rlyt_center_7_left_bottom:// 模块七左下
-				goods_id = stick_7.get(0).getId();
-				break;
-			case R.id.rlyt_center_7_right_top:// 模块七右上
-				goods_id = stick_7.get(1).getId();
-				break;
-			case R.id.rlyt_center_7_right_bottom:// 模块七右下
-				goods_id = stick_7.get(2).getId();
-				break;
+			if (stick != null) {
+				String goods_id = null;
+				switch (v.getId()) {
+				case R.id.rlyt_center_4_left_bottom:// 模块四左下
+					goods_id = stick_4.get(0).getId();
+					break;
+				case R.id.rlyt_center_4_right_top:// 模块四右上
+					goods_id = stick_4.get(1).getId();
+					break;
+				case R.id.rlyt_center_4_right_bottom:// 模块四右下
+					goods_id = stick_4.get(2).getId();
+					break;
+				case R.id.rlyt_center_5_left_bottom:// 模块五左下
+					goods_id = stick_5.get(0).getId();
+					break;
+				case R.id.rlyt_center_5_right_top:// 模块五上
+					goods_id = stick_5.get(1).getId();
+					break;
+				case R.id.rlyt_center_5_right_bottom:// 模块五右下
+					goods_id = stick_5.get(2).getId();
+					break;
+				case R.id.rlyt_center_6_left_bottom:// 模块六左下
+					goods_id = stick_6.get(0).getId();
+					break;
+				case R.id.rlyt_center_6_right_top:// 模块六右上
+					goods_id = stick_6.get(1).getId();
+					break;
+				case R.id.llyt_center_6_right_bottom:// 模块六右下
+					goods_id = stick_6.get(2).getId();
+					break;
+				case R.id.rlyt_center_7_left_bottom:// 模块七左下
+					goods_id = stick_7.get(0).getId();
+					break;
+				case R.id.rlyt_center_7_right_top:// 模块七右上
+					goods_id = stick_7.get(1).getId();
+					break;
+				case R.id.rlyt_center_7_right_bottom:// 模块七右下
+					goods_id = stick_7.get(2).getId();
+					break;
+				}
+				Intent intent = new Intent(getActivity(), GoodsActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("goods_id", goods_id);
+				intent.putExtras(bundle);
+				getActivity().startActivity(intent);
+				getActivity().overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
 			}
-			Intent intent = new Intent(getActivity(), GoodsActivity.class);
-			Bundle bundle = new Bundle();
-			bundle.putSerializable("goods_id", goods_id);
-			intent.putExtras(bundle);
-			getActivity().startActivity(intent);
-			getActivity().overridePendingTransition(
-					R.anim.translate_horizontal_start_in,
-					R.anim.translate_horizontal_start_out);
 		}
-
 	}
 
 	/**
@@ -1041,7 +1041,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private Calendar mDate2;
 	private int mYear, mMonth, mDay;
 	private String date;
-	 private Handler mHandler2 = new Handler();// 全局handler
+	private Handler mHandler2 = new Handler();// 全局handler
 	int time = 0;// 时间差
 
 	private void updateDateTime() {
@@ -1052,10 +1052,10 @@ public class FragmentShoppingCenter extends BaseFragment implements
 
 		date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
 				+ getDateFormat(mDay) + " " + 24 + ":" + "00" + ":00";
-//		if (mHour >= 0) {
-//			date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
-//					+ getDateFormat(mDay + 1) + " " + 17 + ":" + "00" + ":00";
-//		}
+		// if (mHour >= 0) {
+		// date = mYear + "-" + (getDateFormat(mMonth + 1)) + "-"
+		// + getDateFormat(mDay + 1) + " " + 17 + ":" + "00" + ":00";
+		// }
 
 	}
 
@@ -1074,11 +1074,11 @@ public class FragmentShoppingCenter extends BaseFragment implements
 			{
 				time--;
 				mHandler2.post(new Runnable() // 通过它在UI主线程中修改显示的剩余时间
-				{
-					public void run() {
-						tv_center_daojishi.setText(getInterval(time));// 显示剩余时间
-					}
-				});
+						{
+							public void run() {
+								tv_center_daojishi.setText(getInterval(time));// 显示剩余时间
+							}
+						});
 				try {
 					Thread.sleep(1000);// 线程休眠一秒钟 这个就是倒计时的间隔时间
 				} catch (InterruptedException e) {

@@ -82,7 +82,7 @@
     <string name="register_hint_identifying_code">请输入验证码</string>
     <string name="register_hint_psw">输入6-16位的数字或字母</string>
     <string name="register_hint_psw2">确认密码</string>
-    <string name="register_hint_user_name">请称呼我</string>
+    <string name="register_hint_user_name">用户名(推荐手机号码)</string>
     <string name="register_hint_nick_name">昵称</string>
     <string name="register_hint_invitation_code">请填写邀请码，没有可以不填</string>
     <string name="register_please_read_protocol_1">请阅读《</string>
@@ -203,6 +203,7 @@
         
   	<!-- 订单提交完成界面 -->
   	<string name="order_complete_tip">性多多订单</string>
+  	<string name="order_complete_tip2">亲为了您能按时收到货、请您保持电话通畅、性多多客服会和您再确认收货信息我们将在24小时内为您发货</string>
     
     <!-- 我的收藏列表 -->
     <string name="collection_title">我的收藏</string>

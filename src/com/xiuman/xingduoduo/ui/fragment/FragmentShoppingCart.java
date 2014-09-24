@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -98,7 +100,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 	private Button btn_balance;
 	/*-----------------------------------数据------------------------------------------*/
 	// 当前登录的用户
-	private User user;
+	private User user = null;
 	// 购物车商品列表
 	// private ArrayList<GoodsCart> cart_goods = new ArrayList<GoodsCart>();
 
@@ -318,7 +320,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 		cb_balance = (CheckBox) view.findViewById(R.id.cb_balance);
 		tv_prices = (TextView) view.findViewById(R.id.tv_prices);
 		btn_balance = (Button) view.findViewById(R.id.btn_balance);
-		
+
 		llyt_all = (LinearLayout) view.findViewById(R.id.llyt_all);
 		tv_cart_numer = (TextView) view.findViewById(R.id.tv_cart_numer);
 		llyt_network_error = (LinearLayout) view
@@ -344,8 +346,14 @@ public class FragmentShoppingCart extends BaseFragment implements
 	 */
 	@Override
 	protected void initUI() {
-		user = MyApplication.getInstance().getUserInfo();
-		if (user == null) {
+		llyt_null_cart.setVisibility(View.INVISIBLE);
+		if (MyApplication.getInstance().isUserLogin()) {
+			user = MyApplication.getInstance().getUserInfo();
+			if (user == null) {
+				// ToastUtil.ToastView(getActivity(),
+				// "您还没有登录,暂时不能将您喜爱的宝贝加入购物车哦！");
+			}
+		} else {
 			ToastUtil.ToastView(getActivity(), "您还没有登录,暂时不能将您喜爱的宝贝加入购物车哦！");
 		}
 	}
@@ -477,7 +485,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 			activity.selectTab(0);
 			break;
 		case R.id.btn_balance:// 结算
-			if (user == null) {
+			if (!MyApplication.getInstance().isUserLogin()) {
 				Intent intent = new Intent(getActivity(),
 						UserLoginActivity.class);
 				startActivity(intent);
