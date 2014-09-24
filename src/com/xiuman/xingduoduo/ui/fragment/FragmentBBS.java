@@ -233,7 +233,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	 */
 	@Override
 	protected void initUI() {
-
+		initFirstData();
 		// 以父布局为准
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 
@@ -258,8 +258,8 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 
 
 		}
-		initFirstData();
-		// 设置广告数据
+		
+		
 		
 
 	}

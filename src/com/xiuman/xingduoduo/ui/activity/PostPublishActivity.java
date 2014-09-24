@@ -124,6 +124,7 @@ public class PostPublishActivity extends Base2Activity implements
 
 	private String content;
 	private String userId;
+	private String userName;
 
 	// 存储路径
 	private static final String PATH = Environment
@@ -200,7 +201,7 @@ public class PostPublishActivity extends Base2Activity implements
 					BBSPost post = new BBSPost(et_post_content.getText()
 							.toString(), et_post_content.getText().toString(),
 							createTime, et_post_title.getText().toString(),
-							"" + 9, 0, 2, 0);
+							userName, 0, 2, 0);
 					bundle.putSerializable("postinfo_starter", post);
 					// 版块id
 					bundle.putString("forumId", forumId);
@@ -364,6 +365,7 @@ public class PostPublishActivity extends Base2Activity implements
 					loadingdialog.show();
 					User user = MyApplication.getInstance().getUserInfo();
 					userId = user.getUser_id();
+					userName=user.getUserName();
 					title = et_post_title.getText().toString();
 					content = et_post_content.getText().toString();
 
