@@ -106,6 +106,7 @@ public class DisucssOrderActivity extends Base2Activity implements
 		setListener();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
