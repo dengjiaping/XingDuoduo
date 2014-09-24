@@ -18,7 +18,7 @@ public class URLConfig {
 	// bbs内网测试地址
 //	public static final String PRIVATE_IP = "http://192.168.16.50:8080/bbs/app/";
 	// bbs板块帖子列表
-	public static final String FORUM_LIST_IP = "appTopForumList.jhtml?forumId=";
+	public static final String FORUM_LIST_IP = "appTopForumList.jhtml?";
 	// bbs 置顶帖
 	public static final String FORUM_TOP_LIST_IP = "appUpTopForumList.jhtml?";
 	// 帖子详情回复
@@ -31,11 +31,17 @@ public class URLConfig {
 	public static final String MY_POST__IP = "appMyTopicList.jhtml?";
 	// 我的回帖
 	public static final String MY_REPLY_POST_IP = "appMyPostReply.jhtml?";
+	// 我的广告贴
+	public static final String MY_AD_POST_IP = "appUpTopForumList.jhtml?";
+	
+	
 
 	// 接口地址前缀 121.199.57.38
 	public static final String BASE_IP = "http://121.199.57.38/shopxx/shop";
 	// 图片地址前缀
 	public static final String IMG_IP = "http://121.199.57.38/shopxx";
+	//头像上传
+	public static final String MY_HEAD_PHOTO_IP = "/member!fileUpload.action";
 	// 图文详情
 	public static final String IMG_TXT_IP = "http://121.199.57.38/shopxx/shop/goods!introduction.action?goodId=";
 	// 注册后缀

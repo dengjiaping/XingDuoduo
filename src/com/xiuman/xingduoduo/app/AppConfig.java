@@ -22,6 +22,10 @@ public class AppConfig {
 	public final static int BBS_PUBLISH_BACK = 9005;
 	// 帖子图片线程
 	public final static int BBS_PUBLISH_RUN = 9006;
+	// 上传头像线程
+	public final static int UPLOAD_PORAIT_RUN = 9007;
+	
+	
 	
 
 	// 购物车Fragment Activity请求码与返回码-----------------------------

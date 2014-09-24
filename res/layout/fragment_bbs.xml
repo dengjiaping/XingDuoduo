@@ -83,9 +83,9 @@
                         <com.xiuman.xingduoduo.view.CircleImageView
                             android:id="@+id/bbs_post_cicle_image"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="33dp"
                             android:layout_marginTop="10dp"
-                            android:background="@drawable/login_image" />
+                            android:src="@drawable/login_image" />
 
                         <TextView
                             android:id="@+id/mypost_login"

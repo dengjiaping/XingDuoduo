@@ -32,7 +32,11 @@ import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.model.PostStarter;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.util.TimeUtil;
+import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView;
 
 /**
@@ -80,6 +84,8 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	// 是上拉还是下拉
 	private boolean isUp = true;
 
+	private int currentPage = 1;
+
 	/*--------------------------------------数据--------------------------------*/
 	// 从上级界面接收到的板块信息
 	private BBSPlate plate;
@@ -98,7 +104,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 
 	private ActionValue<BBSPost> value;
 
-	private ArrayList<BBSPost> bbspost;
+	private ArrayList<BBSPost> bbspost=new  ArrayList<BBSPost>();
 
 	private ActionValue<BBSPost> valueTop;
 
@@ -118,20 +124,40 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				break;
 
 			case AppConfig.BBS_POST_BACK:
-				
+
 				value = (ActionValue<BBSPost>) msg.obj;
 				if (value.isSuccess()) {
-					bbspost = value.getDatasource();
-					adapter = new PlatePostListViewAdapter(
-							BBSPlateActivity.this, options, imageLoader,
-							bbspost);
-					lv_posts.setAdapter(adapter);
-					loadingdialog.dismiss();
+					if (isUp) {
+						bbspost.addAll(value.getDatasource());
+						adapter = new PlatePostListViewAdapter(
+								BBSPlateActivity.this, options, imageLoader,
+								bbspost);
+						lv_posts.setAdapter(adapter);
+						loadingdialog.dismiss();
+						adapter.notifyDataSetChanged();
+
+						// 下拉加载完成
+						pullsv_post.onPullDownRefreshComplete();
+						// 上拉刷新完成
+						pullsv_post.onPullUpRefreshComplete();
+						// 设置是否有更多的数据
+						TimeUtil.setLastUpdateTime3(pullsv_post);
+					} else {
+						bbspost.addAll(value.getDatasource());
+						adapter = new PlatePostListViewAdapter(
+								BBSPlateActivity.this, options, imageLoader,
+								bbspost);
+						lv_posts.setAdapter(adapter);
+						loadingdialog.dismiss();
+						adapter.notifyDataSetChanged();
+						pullsv_post.onPullUpRefreshComplete();
+						TimeUtil.setLastUpdateTime3(pullsv_post);
+					}
 				}
 
 				break;
 			case AppConfig.BBS_TOP_POST_BACK:
-				
+
 				valueTop = (ActionValue<BBSPost>) msg.obj;
 				if (valueTop.isSuccess()) {
 					bbspostTop = valueTop.getDatasource();
@@ -160,6 +186,8 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bbs_plate);
 		initData();
+		HttpUrlProvider.getIntance().getTopPost(BBSPlateActivity.this,
+				new TaskTopPostBack(handler), plate.getPlate_id(), 1, 10);
 		findViewById();
 		initUI();
 		setListener();
@@ -216,7 +244,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		tv_plate_name.setText(plate.getPlate_name());
 		tv_plate_description.setText(plate.getPlate_description());
 
-		initFirstData();
+		initFirstData(currentPage);
 	}
 
 	@Override
@@ -246,8 +274,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				}
 			}
 		});
-		
-		
+
 		lv_stick_posts.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -260,7 +287,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 							PostInfoActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("postinfo_starter", postinfo);
-					//版块id
+					// 版块id
 					bundle.putString("forumId", plate.getPlate_id());
 					intent.putExtras(bundle);
 					startActivity(intent);
@@ -269,6 +296,56 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 							R.anim.translate_horizontal_start_out);
 				}
 			}
+		});
+
+		pullsv_post.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.
+			 * OnRefreshListener
+			 * #onPullDownToRefresh(com.xiuman.xingduoduo.view.pulltorefresh
+			 * .PullToRefreshBase)
+			 */
+			@Override
+			public void onPullDownToRefresh(
+					PullToRefreshBase<ScrollView> refreshView) {
+				// TODO Auto-generated method stub
+				isUp = true;
+				currentPage = 1;
+				initFirstData(currentPage);
+
+			}
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.
+			 * OnRefreshListener
+			 * #onPullUpToRefresh(com.xiuman.xingduoduo.view.pulltorefresh
+			 * .PullToRefreshBase)
+			 */
+			@Override
+			public void onPullUpToRefresh(
+					PullToRefreshBase<ScrollView> refreshView) {
+				// TODO Auto-generated method stub
+
+				isUp = false;
+				if (value.isSuccess()) {
+					currentPage += 1;
+					initFirstData(currentPage);
+				} else {
+					ToastUtil.ToastView(BBSPlateActivity.this, getResources()
+							.getString(R.string.no_more));
+					// 上拉刷新完成
+					pullsv_post.onPullUpRefreshComplete();
+					// 设置是否有更多的数据
+					pullsv_post.setHasMoreData(false);
+				}
+
+			}
+
 		});
 	}
 
@@ -284,12 +361,12 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 			Intent intent_publish = new Intent(BBSPlateActivity.this,
 					PostPublishActivity.class);
 			Bundle bundle = new Bundle();
-			//版块id
+			// 版块id
 			bundle.putString("forumId", plate.getPlate_id());
 			intent_publish.putExtras(bundle);
 			startActivity(intent_publish);
 			break;
-		case R.id.btn_bbs_back://返回按钮
+		case R.id.btn_bbs_back:// 返回按钮
 			finish();
 			break;
 		default:
@@ -301,12 +378,12 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	 * @描述：加载数据(首次加载)--测试数据，添加操作
 	 * @date：2014-6-25
 	 */
-	private void initFirstData() {
+	private void initFirstData(int currentPage) {
 		// 请求数据
 		HttpUrlProvider.getIntance().getPost(BBSPlateActivity.this,
-				new TaskPostListBack(handler), plate.getPlate_id());
-		HttpUrlProvider.getIntance().getTopPost(BBSPlateActivity.this,
-				new TaskTopPostBack(handler), plate.getPlate_id(), 1, 10);
+				new TaskPostListBack(handler), plate.getPlate_id(),
+				currentPage, 8);
+		
 		loadingdialog.show();
 		// posts = Test.getTestPost();
 		//

@@ -68,15 +68,15 @@ public class PostSimulation {
 	 * 
 	 * 这儿是文件的内容，二进制流的形式
 	 */
-	private void addImageContent(String fileName, DataOutputStream output) {
+	private void addImageContent(String fileKey,String fileName, DataOutputStream output) {
 			File file=new File(fileName);
 			StringBuilder split = new StringBuilder();
 			split.append(twoHyphens + boundary + lineEnd);
 			split.append("Content-Disposition: form-data; name=\""
-					+ "attachment" + "\"; filename=\""
+					+ fileKey + "\"; filename=\""
 					+ fileName+ "\"" + lineEnd);
 			split.append("Content-Type: " + fileName.substring(fileName.lastIndexOf(".")+1) + lineEnd);
-			Mylog.i("图片类型", fileName.substring(fileName.lastIndexOf(".")));
+			Mylog.i("图片类型", fileName.substring(fileName.lastIndexOf(".")+1));
 			split.append(lineEnd);
 			try {
 				// 发送图片数据
@@ -129,7 +129,7 @@ public class PostSimulation {
 	 *            上传文件信息
 	 * @return 返回请求结果
 	 */
-	public String post(String actionUrl,List<String> fileNames,List<String> keys,Map<String ,String> maps) {
+	public String post(String actionUrl,String fileKey,List<String> fileNames,List<String> keys,Map<String ,String> maps) {
 		HttpURLConnection conn = null;
 		DataOutputStream output = null;
 		BufferedReader input = null;
@@ -160,7 +160,7 @@ public class PostSimulation {
 			}
 			
 			for(String fileName:fileNames){
-				addImageContent(fileName, output);
+				addImageContent(fileKey, fileName, output);
 				
 			}
 			

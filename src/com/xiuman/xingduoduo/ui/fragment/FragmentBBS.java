@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -31,8 +32,15 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.BBSAdViewPagerAdapter;
 import com.xiuman.xingduoduo.adapter.BBSPlateListViewAdapter;
+import com.xiuman.xingduoduo.adapter.PlatePostListViewAdapter;
+import com.xiuman.xingduoduo.adapter.PlateStickPostListViewAdapter;
+import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
+import com.xiuman.xingduoduo.callback.TaskPostListBack;
+import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPlate;
+import com.xiuman.xingduoduo.model.BBSPost;
+import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.testdata.Test;
 import com.xiuman.xingduoduo.ui.activity.BBSPlateActivity;
 import com.xiuman.xingduoduo.ui.activity.MyPostActivity;
@@ -41,7 +49,9 @@ import com.xiuman.xingduoduo.ui.activity.UserInfoActivity;
 import com.xiuman.xingduoduo.ui.activity.UserLoginActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
+import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
+import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.indicator.CirclePageIndicator;
 
 /**
@@ -63,6 +73,12 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	private ListView lv_bbs_plates;
 	// 广告名
 	private TextView tv_bbs_ad_name;
+
+
+	private LoadingDialog loadingdialog;
+
+	private ActionValue<BBSPost> value;
+	private List<BBSPost> bbspost;
 
 	// 头像工具类
 	private ImageCropUtils cropUtils;
@@ -112,6 +128,27 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		}
 	};
 	Handler mHandler = new Handler();
+	Handler HandlerMain = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+
+			case AppConfig.BBS_POST_BACK:
+
+				value = (ActionValue<BBSPost>) msg.obj;
+				if (value.isSuccess()) {
+					bbspost = value.getDatasource();
+					setAdData();
+
+				}
+
+				break;
+
+			case AppConfig.NET_ERROR_NOTNET:// 无网络
+
+				break;
+			}
+		}
+	};
 
 	/*------------------------------------ImageLoader---------------------*/
 	// ImageLoader
@@ -127,6 +164,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		findViewById(view);
 		initUI();
 		setListener();
+
 		return view;
 	}
 
@@ -136,6 +174,8 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
+
+		loadingdialog = new LoadingDialog(getActivity());
 		// 配置图片加载及显示选项（还有一些其他的配置，查阅doc文档吧）
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.weiboitem_pic_loading) //
@@ -193,12 +233,12 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	 */
 	@Override
 	protected void initUI() {
-		// 设置广告数据
-		setAdData();
 
 		// 以父布局为准
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				screenWidth, (int) (screenWidth * 150 / 720));
+
+				screenWidth, (int) (screenWidth * 185 / 720));
+
 		mypost_ll.setLayoutParams(params);
 		// 设置板块
 		plate_adapter = new BBSPlateListViewAdapter(getActivity(), plates);
@@ -216,7 +256,12 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				bbs_post_cicle_image.setImageBitmap(user_head_bitmap);
 			}
 
+
 		}
+		initFirstData();
+		// 设置广告数据
+		
+
 	}
 
 	/**
@@ -275,13 +320,12 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 			ImageView iv_ad = new ImageView(getActivity());
 			ad_ivs.add(iv_ad);
 		}
-		ad_adapter = new BBSAdViewPagerAdapter(Test.addTestCommunicationAd(),
-				ad_ivs, getActivity(), options, imageLoader);
+		ad_adapter = new BBSAdViewPagerAdapter(bbspost, ad_ivs, getActivity(),
+				options, imageLoader);
 		viewpager_bbs_ad.setAdapter(ad_adapter);
 		mIndicator.setViewPager(viewpager_bbs_ad);
 		switchTask.run();
-		tv_bbs_ad_name.setText(Test.addTestCommunicationAd().get(0)
-				.getAd_content());
+		tv_bbs_ad_name.setText("帖子");
 	}
 
 	protected void toLogin() {
@@ -290,6 +334,13 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		getActivity().overridePendingTransition(
 				R.anim.translate_horizontal_start_in,
 				R.anim.translate_horizontal_start_out);
+
+	}
+
+	protected void initFirstData() {
+
+		HttpUrlProvider.getIntance().getAdPost(getActivity(),
+				new TaskPostListBack(HandlerMain), "10", 1, 6);
 
 	}
 

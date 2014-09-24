@@ -17,7 +17,7 @@ import com.loopj.android.http.*;
 import com.xiuman.xingduoduo.app.URLConfig;
 
 public class MyHttpClient {
-  private static final String BASE_URL = URLConfig.PRIVATE_IP;
+  private static final String BASE_URL = URLConfig.BASE_IP;
 
   private static AsyncHttpClient client = new AsyncHttpClient();
 

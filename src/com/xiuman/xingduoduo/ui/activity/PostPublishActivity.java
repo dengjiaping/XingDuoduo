@@ -363,7 +363,7 @@ public class PostPublishActivity extends Base2Activity implements
 					// null);
 					loadingdialog.show();
 					User user = MyApplication.getInstance().getUserInfo();
-					userId = user.getUserId();
+					userId = user.getUser_id();
 					title = et_post_title.getText().toString();
 					content = et_post_content.getText().toString();
 
@@ -615,13 +615,13 @@ public class PostPublishActivity extends Base2Activity implements
 			scode = "";
 		}
 		map.put("scode", scode);
-		map.put("userId", "215");
+		map.put("userId", userId);
 		map.put("category", "1");
 		map.put("forumId", forumId);
 		map.put("postTypeId", "1");
 		map.put("title", title);
 		map.put("content", content);
-		return PostSimulation.getInstance().post(URLConfig.PRIVATE_IP + URLConfig.POST_PUBLISH__IP, Bimp.drr, keys, map);
+		return PostSimulation.getInstance().post(URLConfig.PRIVATE_IP + URLConfig.POST_PUBLISH__IP, "attachment", Bimp.drr, keys, map);
 
 	}
 

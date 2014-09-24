@@ -909,10 +909,14 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param forumId
 	 */
 	public void getPost(Context mContext, HttpTaskListener httpTaskListener,
-			String forumId) {
-		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_LIST_IP + forumId;
+			String forumId, int pageNo, int pageSize) {
+		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_LIST_IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
+		
+		url += httpDataTask.jointToUrl("forumId", forumId);
+		url += httpDataTask.jointToUrl("pageNo", pageNo);
+		url += httpDataTask.jointToUrl("pageSize", pageSize);
 
 		httpDataTask.execute(url);
 	}
@@ -1053,6 +1057,28 @@ public class HttpUrlProvider extends HttpConnWorker {
 
 		httpDataTask.execute(url);
 	}
+
+	
+	
+	/**
+	 * @描述:广告贴
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param forumId
+	 * @param pageNo
+	 * @param pageSize
+	 */
+	public void getAdPost(Context mContext, HttpTaskListener httpTaskListener,
+			String forumId, int pageNo, int pageSize) {
+		String url = URLConfig.PRIVATE_IP + URLConfig.MY_AD_POST_IP;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		
+		url += httpDataTask.jointToUrl("forumId", forumId);
+		url += httpDataTask.jointToUrl("pageNo", pageNo);
+		url += httpDataTask.jointToUrl("pageSize", pageSize);
+	}
+
 	/**
 	 * @描述：应用推荐
 	 * @param mContext
@@ -1067,5 +1093,5 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.execute(url);
 		System.out.println("应用推荐"+url);
 	}
-	
+
 }

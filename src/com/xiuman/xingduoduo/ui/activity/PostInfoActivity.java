@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -131,7 +132,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	private ActionValue<?> valueSend;
 
 	private String forumId;
-	
+
 	private String userId;
 
 	// 消息处理Handler-------------------------------------
@@ -162,19 +163,22 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 
 					ToastUtil.ToastView(PostInfoActivity.this,
 							valueSend.getMessage());
-					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					SimpleDateFormat format = new SimpleDateFormat(
+							"yyyy-MM-dd HH:mm:ss");
 					Date date = new Date();
 					String createTime = format.format(date);
-					BBSPostReply bps = new BBSPostReply(et_reply.getText().toString(),
-							createTime, postinfo_starter.title, userId, postinfo_starter.id, postinfo_starter.postTypeId, 1);
+					BBSPostReply bps = new BBSPostReply(et_reply.getText()
+							.toString(), createTime, postinfo_starter.title,
+							userId, postinfo_starter.id,
+							postinfo_starter.postTypeId, 1);
 
 					bbsReply.add(bps);
 					adapter.notifyDataSetChanged();
 
 					// 回复楼层
-//					adapter = new ReplyStarterListViewAdapter(
-//							PostInfoActivity.this, bbsReply);
-//					lv_postinfo_replys.setAdapter(adapter);
+					// adapter = new ReplyStarterListViewAdapter(
+					// PostInfoActivity.this, bbsReply);
+					// lv_postinfo_replys.setAdapter(adapter);
 
 				} else {
 					ToastUtil.ToastView(PostInfoActivity.this, "回复失败请重试");
@@ -215,8 +219,8 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		postinfo_starter = (BBSPost) getIntent().getExtras().getSerializable(
 				"postinfo_starter");
 		forumId = getIntent().getExtras().getString("forumId");
-		User user=MyApplication.getInstance().getUserInfo();
-		userId=user.getUserId();
+		User user = MyApplication.getInstance().getUserInfo();
+		userId = user.getUser_id();
 
 	}
 
@@ -281,9 +285,15 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	 * @描述：加载帖子数据 2014-8-16
 	 */
 	private void initPostInfo() {
+		String content = postinfo_starter.content;
+		if (content.length()>0&&content.indexOf("[att") > 0) {
+			content = content.substring(0, content.indexOf("[att"));
+		}else{
+			content="";
+		}
 		tv_postinfo_starter_name.setText(postinfo_starter.user);
 		tv_postinfo_starter_title.setText(postinfo_starter.title);
-		tv_postinfo_starter_content.setText(postinfo_starter.content);
+		tv_postinfo_starter_content.setText(content);
 		tv_postinfo_starter_time.setText(postinfo_starter.createTime);
 		List<String> imgList = new ArrayList<String>();
 
@@ -321,25 +331,26 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			et_reply.requestFocus();
 			break;
 		case R.id.btn_reply:// 发送回复
-			if(MyApplication.getInstance().isUserLogin()){
-			if ((et_reply.getText().toString()).length() < 3) {
-				ToastUtil.ToastView(PostInfoActivity.this, "回复不能少于3个字");
-			} else {
-				
-				HttpUrlProvider.getIntance().getPostReplySend(
-						PostInfoActivity.this, new TaskReplySendBack(handler),
-						forumId, "" + postinfo_starter.postTypeId,
-						"" + postinfo_starter.id, postinfo_starter.title,
-						et_reply.getText().toString(), userId);
+			if (MyApplication.getInstance().isUserLogin()) {
+				if ((et_reply.getText().toString()).length() < 3) {
+					ToastUtil.ToastView(PostInfoActivity.this, "回复不能少于3个字");
+				} else {
 
-			}}else{
+					HttpUrlProvider.getIntance().getPostReplySend(
+							PostInfoActivity.this,
+							new TaskReplySendBack(handler), forumId,
+							"" + postinfo_starter.postTypeId,
+							"" + postinfo_starter.id, postinfo_starter.title,
+							et_reply.getText().toString(), userId);
+
+				}
+			} else {
 				Intent intentLogin = new Intent(PostInfoActivity.this,
 						UserLoginActivity.class);
 				startActivity(intentLogin);
 				overridePendingTransition(R.anim.translate_horizontal_start_in,
 						R.anim.translate_horizontal_start_out);
-				
-				
+
 			}
 
 			break;

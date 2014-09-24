@@ -726,6 +726,15 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
             }, getSmoothScrollDuration()); 
         }
     }
+    
+    
+    public void setHasMoreData(boolean hasMoreData) {
+        if (null != mFooterLayout) {
+            if (!hasMoreData) {
+                mFooterLayout.setState(State.NO_MORE_DATA);
+            }
+        }
+    }
 
     /**
      * 开始加载更多，上拉松开后调用

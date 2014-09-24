@@ -1,7 +1,15 @@
 package com.xiuman.xingduoduo.ui.activity;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +18,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -21,12 +31,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
+import com.xiuman.xingduoduo.app.Mylog;
+import com.xiuman.xingduoduo.app.URLConfig;
+import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.User;
+import com.xiuman.xingduoduo.net.MyHttpClient;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
+import com.xiuman.xingduoduo.util.PostSimulation;
+import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 import com.xiuman.xingduoduo.view.CustomDialog;
 
@@ -81,7 +100,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 	private Button btn_pop_photo_camera;
 	// 取消
 	private Button btn_pop_photo_cancel;
-
+	private String userId;
 
 	/*---------------------------------数据变量-----------------------------------*/
 	// 屏幕宽高
@@ -92,7 +111,28 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 	private Bitmap user_head_bitmap;
 
 	// ----------------当前登录用户-----------------------
-	private User user;
+	private User user,user1;
+
+	private Handler handler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case AppConfig.UPLOAD_PORAIT_RUN:
+				String result = (String) msg.obj;
+				Mylog.i("头像上传返回", result);
+				if (result != null) {
+					ActionValue<?> value = new Gson().fromJson(result,
+							ActionValue.class);
+
+					if (value.isSuccess()) {
+
+						ToastUtil.ToastView(getApplication(), "头像已经上传");
+					}
+				}
+
+				break;
+			}
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +155,8 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		screenHeight = dm.heightPixels;
 
 		cropUtils = new ImageCropUtils(this);
+		user1 = MyApplication.getInstance().getUserInfo();
+		userId=user1.getUserId();
 
 	}
 
@@ -179,21 +221,21 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 					.createDirectory() + cropUtils.createNewPhotoName());
 			iv_userinfo_user_head.setImageBitmap(user_head_bitmap);
 		}
-
 		// 测试数据
 		tv_userinfo_user_rank.setText(user.getRankNmae());
 		tv_userinfo_user_name.setText(user.getNickname());
-		String user_sex = ""; 
+		String user_sex = "";
 		user_sex = user.getGender();
 		tv_userinfo_user_sex.setText(user_sex);
 		if (user_sex == null) {
 			tv_userinfo_user_sex.setText("保密");
-		}else if(user_sex.equals("male")){
+		} else if (user_sex.equals("male")) {
 			tv_userinfo_user_sex.setText("男");
-		}else if(user_sex.equals("female")){
+		} else if (user_sex.equals("female")) {
 			tv_userinfo_user_sex.setText("女");
 		}
-		tv_userinfo_user_createdate.setText(user.getCreateDate().subSequence(0, 10));
+		tv_userinfo_user_createdate.setText(user.getCreateDate().subSequence(0,
+				10));
 	}
 
 	/**
@@ -292,6 +334,9 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 			try {
 				cropUtils.saveFile(user_head_bitmap,
 						cropUtils.createNewPhotoName());
+
+				// 上传头像
+				uploadImg();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -306,6 +351,8 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 				try {
 					cropUtils.saveFile(user_head_bitmap,
 							cropUtils.createNewPhotoName());
+					// 上传头像
+					uploadImg();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -314,7 +361,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 			break;
 		case AppConfig.UPDATE_USER_ADDRESS:// 更新用户收货地址信息
 			break;
-			
+
 		case AppConfig.RESULT_CODE_OK:
 			user = (User) data.getExtras().getSerializable("user");
 			initUserInfo(user);
@@ -356,7 +403,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		// 设置pop动画
 		pop.setAnimationStyle(R.style.PopupAnimation);
 		// 设置pop 的位置
-		pop.showAtLocation(view, Gravity.TOP, 0, screenHeight);
+		pop.showAtLocation(view, Gravity.TOP, 0, (int) (screenHeight * 3 / 4));
 	}
 
 	/**
@@ -395,6 +442,89 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 						dialog_exit.dismiss();
 					}
 				});
+	}
+
+	protected void uploadImg() {
+
+		new Thread() {
+			public void run() {
+				Message msg = new Message();
+				msg.what = AppConfig.UPLOAD_PORAIT_RUN;
+				msg.obj = uploadFile();
+				handler.sendMessage(msg);
+			}
+		}.start();
+//		RequestParams params = new RequestParams();
+//		params.put("usernameIdhead ", userId);
+//		File file = new File(cropUtils.createDirectory()
+//				+ cropUtils.createNewPhotoName());
+//		try {
+//			params.put("myFile ", file);
+//
+//		} catch (FileNotFoundException e) {
+//		}
+//		MyHttpClient.post(URLConfig.MY_HEAD_PHOTO_IP, params,
+//				new JsonHttpResponseHandler() {
+//					/*
+//					 * (non-Javadoc)
+//					 * 
+//					 * @see com.loopj.android.http.JsonHttpResponseHandler
+//					 * #onFailure(int, org.apache.http.Header[],
+//					 * java.lang.Throwable, org.json.JSONObject)
+//					 */
+//					@Override
+//					public void onFailure(int statusCode,
+//							org.apache.http.Header[] headers,
+//							Throwable throwable, JSONObject errorResponse) {
+//						// TODO Auto-generated method stub
+//						super.onFailure(statusCode, headers, throwable,
+//								errorResponse);
+//					}
+//
+//					/*
+//					 * (non-Javadoc)
+//					 * 
+//					 * @see com.loopj.android.http.JsonHttpResponseHandler
+//					 * #onSuccess(int, org.apache.http.Header[],
+//					 * org.json.JSONObject)
+//					 */
+//					@Override
+//					public void onSuccess(int statusCode,
+//							org.apache.http.Header[] headers,
+//							JSONObject response) {
+//						// called when response HTTP status is
+//						// "200 OK"
+//						// TODO Auto-generated method stub
+//						super.onSuccess(statusCode, headers, response);
+//						System.out.println("jsonObject==>" + response);
+//						try {
+//							if (response.getBoolean("success")) {
+//								ToastUtil.ToastView(getApplication(), "头像已经上传");
+//
+//							} else {
+//
+//							}
+//						} catch (JSONException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//
+//					}
+//
+//				});
+
+	}
+
+	protected String uploadFile() {
+		List<String> keys = new ArrayList<String>();
+		keys.add("usernameIdhead");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("usernameIdhead", userId);
+		
+		List<String> fileNames = new ArrayList<String>();
+		fileNames.add(cropUtils.createDirectory() + cropUtils.createNewPhotoName());
+
+		return PostSimulation.getInstance().post(URLConfig.BASE_IP+URLConfig.MY_HEAD_PHOTO_IP, "myFile", fileNames, keys, map);
 	}
 
 }
