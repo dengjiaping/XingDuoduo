@@ -442,8 +442,8 @@ public class MyApplication extends Application {
 	 *            2014-9-23
 	 */
 	public void saveScreenWidth(int width) {
-		SharedPreUtils.setString(this, width + "", "file_screenWidth",
-				"key_screenWidth");
+		SharedPreUtils.setString(this, width + "", AppConfig.FILE_SWCRREN,
+				AppConfig.KEY_SWCRRENWIDTH);
 	}
 
 	/**
@@ -452,8 +452,8 @@ public class MyApplication extends Application {
 	 */
 	public int getScreenWidth() {
 		int width = 0;
-		String result = SharedPreUtils.getString(this, "file_screenWidth",
-				"key_screenWidth");
+		String result = SharedPreUtils.getString(this, AppConfig.FILE_SWCRREN,
+				AppConfig.KEY_SWCRRENWIDTH);
 		if (result != "") {
 			width = Integer.parseInt(result);
 		}
@@ -467,8 +467,8 @@ public class MyApplication extends Application {
 	 *            2014-9-23
 	 */
 	public void saveScreenHeight(int height) {
-		SharedPreUtils.setString(this, height + "", "file_screenHeight",
-				"key_screenHeight");
+		SharedPreUtils.setString(this, height + "", AppConfig.FILE_SWCRREN,
+				AppConfig.KEY_SWCRRENHEIGHT);
 	}
 
 	/**
@@ -477,8 +477,8 @@ public class MyApplication extends Application {
 	 */
 	public int getScreenHeight() {
 		int height = 0;
-		String result = SharedPreUtils.getString(this, "file_screenHeight",
-				"key_screenHeight");
+		String result = SharedPreUtils.getString(this, AppConfig.FILE_SWCRREN,
+				AppConfig.KEY_SWCRRENHEIGHT);
 		if (result != "") {
 			height = Integer.parseInt(result);
 		}

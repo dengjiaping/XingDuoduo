@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!-- 性别(男) -->
-    <item android:drawable="@drawable/bg_sex_female_p" android:state_checked="true"></item>
-    <item android:drawable="@drawable/bg_sex_female_n"></item>
-
-</selector>

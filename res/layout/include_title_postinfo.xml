@@ -29,6 +29,6 @@
         android:layout_height="40dip"
         android:layout_alignParentRight="true"
         android:layout_margin="5dip"
-        android:background="@drawable/bg_post_starter_selector" />
+        android:visibility="invisible" />
 
 </RelativeLayout>

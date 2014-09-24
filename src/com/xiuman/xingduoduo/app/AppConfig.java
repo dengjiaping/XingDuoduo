@@ -195,5 +195,11 @@ public class AppConfig {
 	public static final String FILE_SAVE_STCIK = "file_stick";
 	// key
 	public static final String KEY_SAVE_STICK = "key_stick";
-
+	
+	//屏幕宽高------------------------------------------------------------------
+	//file
+	public static final String FILE_SWCRREN = "file_screen";
+	//key
+	public static final String KEY_SWCRRENWIDTH = "key_screenwidth";
+	public static final String KEY_SWCRRENHEIGHT = "key_screenheight";
 }

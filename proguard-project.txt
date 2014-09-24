@@ -18,3 +18,108 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-ignorewarnings
+-dontoptimize
+-dontpreverify
+-verbose
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+
+-keepattributes *Annotation*
+-keepattributes Signature
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile,LineNumberTable
+
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class com.android.vending.licensing.ILicensingService
+-keep public class com.android.vending.licensing.IlicensingService
+-keep public class com.xiuman.xingduoduo.callback
+-keep public class com.xiuman.xingduoduo.net
+-keep public class com.xiuman.xingduoduo.util
+-keep public class com.xiuman.xingduoduo.net
+
+-keepclassmembers public class * extends android.view.View {
+   void set*(***);
+   *** get*();
+}
+
+-keepclassmembers class * extends android.app.Activity {
+   public void *(android.view.View);
+}
+
+-keepclassmembers class * extends android.widget.BaseAdapter{
+	
+}
+
+-keepclasseswithmembers class * {
+    native <methods>;
+}
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+-keep public class * implements java.io.Serializable{
+	public protected private *;
+}
+
+#suportv4
+-libraryjars libs/android-support-v4.jar
+-keep class android.support.v4.**{*;}
+-dontwarn android.support.v4.**
+
+#universal-image-loader-1.9.2.jar
+-libraryjars libs/universal-image-loader-1.9.2.jar
+-keep class com.nostra13.universalimageloader.** { *; }
+-dontwarn com.nostra13.universalimageloader.**
+
+#com.google.zxing
+-libraryjars libs/zxing.jar
+-keep class com.google.zxing.** { *; }
+-dontwarn com.google.zxing.**
+
+#org.apache.commons.httpclient
+-libraryjars libs/commons-httpclient-3.1.jar
+-keep class org.apache.commons.httpclient.**{*;}
+-dontwarn org.apache.commons.httpclient.**
+
+#com.google.gson
+-libraryjars libs/gson-2.2.4.jar
+-keep class sun.misc.Unsafe.**{ *; }
+-keep class com.google.gson.stream.** { *; }
+-keep class com.google.gson.examples.android.model.** { *; }
+-keep class com.google.gson.** { *;}
+
+#com.google.gson
+-libraryjars libs/jsoup-1.7.2.jar
+-keep class org.jsoup.** { *; }
+-dontwarn org.jsoup.**
+
+#com.google.gson
+-libraryjars libs/umeng-analytics-v5.2.3.jar
+-libraryjars libs/umeng-fb-v4.3.2.jar
+-libraryjars libs/umeng-update-v2.4.2.jar
+-keep class com.umeng.** { *; }
+-dontwarn com.umeng.**
+
+-keep class com.alipay.android.app.IAliPay{*;}
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}

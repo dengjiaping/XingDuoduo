@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!-- 只看楼主 -->
-    <item android:drawable="@drawable/bg_post_starter_p" android:state_checked="true"></item>
-    <item android:drawable="@drawable/bg_post_starter_n"></item>
-
-</selector>
