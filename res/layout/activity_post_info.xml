@@ -20,7 +20,6 @@
             android:id="@+id/pullsv_postinfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="40dip"
             android:fadingEdge="none" />
 
         <!-- 网络连接错误 -->
@@ -36,15 +35,15 @@
 
         <!-- 回帖 -->
 
-        <LinearLayout
-            android:id="@+id/llyt_reply_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal" >
-
-            <include layout="@layout/include_post_reply" />
-        </LinearLayout>
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llyt_reply_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <include layout="@layout/include_post_reply" />
+    </LinearLayout>
 
 </LinearLayout>

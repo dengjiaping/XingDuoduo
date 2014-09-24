@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.model.BBSPost;
-import com.xiuman.xingduoduo.model.PostStarter;
 /**
  * @名称：PlateStickPostListViewAdapter.java
  * @描述：置顶帖子的Adapter
@@ -62,7 +61,7 @@ public class PlateStickPostListViewAdapter extends BaseAdapter {
 		BBSPost stick_post = stick_posts.get(position);
 		
 		holder.iv_item_bbs_plate_stick_post_poster.setImageResource(R.drawable.icon_stick_post);
-		holder.tv_item_bbs_plate_stick_post_title.setText(stick_post.title);
+		holder.tv_item_bbs_plate_stick_post_title.setText(stick_post.getTitle());
 		
 		return convertView;
 	}

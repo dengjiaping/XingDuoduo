@@ -8,6 +8,11 @@
 package com.xiuman.xingduoduo.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import android.text.Html;
+
+import com.xiuman.xingduoduo.util.HtmlTag;
 
 /**
  * @名称：BBSnormalPost.java
@@ -20,39 +25,98 @@ public class BBSPost implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -7671161462929406109L;
-	public String content;
-	public String contentHtml;
-	public String createTime;
-	public String title;
-	public String user;
-	public int id;
-	public int postTypeId;
-	public int replyCount;
+	// 内容
+	private String content;
+	// 图片地址
+	private String contentHtml;
+	// 发帖时间
+	private String createTime;
+	// 帖子标题
+	private String title;
+	// 昵称
+	private String nickname;
+	// 性别
+	private boolean sex;
+	// id
+	private int id;
+	// 用户名
+	private String username;
 
-	/**
-	 * @param content
-	 * @param contentHtml
-	 * @param createTime
-	 * @param title
-	 * @param user
-	 * @param id
-	 * @param postTypeId
-	 * @param replyCount
-	 */
+	private int postTypeId;
+	// 回复数
+	private int replyCount;
+	// 头像地址
+	private String avatar;
+	//
+	private String primeLevel;
+
 	public BBSPost(String content, String contentHtml, String createTime,
-			String title, String user, int id, int postTypeId, int replyCount) {
+			String title, String nickname, boolean sex, int id,
+			String username, int postTypeId, int replyCount, String avatar,
+			String primeLevel) {
 		super();
 		this.content = content;
 		this.contentHtml = contentHtml;
 		this.createTime = createTime;
 		this.title = title;
-		this.user = user;
+		this.nickname = nickname;
+		this.sex = sex;
 		this.id = id;
+		this.username = username;
 		this.postTypeId = postTypeId;
 		this.replyCount = replyCount;
+		this.avatar = avatar;
+		this.primeLevel = primeLevel;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public boolean isSex() {
+		return sex;
+	}
+
+	public void setSex(boolean sex) {
+		this.sex = sex;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getPrimeLevel() {
+		return primeLevel;
+	}
+
+	public void setPrimeLevel(String primeLevel) {
+		this.primeLevel = primeLevel;
 	}
 
 	public String getContent() {
+		System.out.println("忒自内容" + content);
+		if (content.contains("[att")) {
+			content = content.substring(0, content.indexOf("[att"));
+			if (content.contains("\r\n\r\n"))
+				content.replace("\r\n\r\n", "\r\n");
+		} else {
+		}
 		return content;
 	}
 
@@ -61,12 +125,6 @@ public class BBSPost implements Serializable {
 	}
 
 	public String getContentHtml() {
-		if (content.length() > 0 && content.indexOf("[att") > 0) {
-
-			content = content.substring(0, content.indexOf("[att"));
-		} else {
-			content = "";
-		}
 		return contentHtml;
 	}
 
@@ -88,14 +146,6 @@ public class BBSPost implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
 	}
 
 	public int getId() {
@@ -120,6 +170,13 @@ public class BBSPost implements Serializable {
 
 	public void setReplyCount(int replyCount) {
 		this.replyCount = replyCount;
+	}
+
+	public ArrayList<String> getPostImgs() {
+		ArrayList<String> post_imgs = new ArrayList<String>();
+		post_imgs = HtmlTag.match(contentHtml, "img", "src");
+
+		return post_imgs;
 	}
 
 }

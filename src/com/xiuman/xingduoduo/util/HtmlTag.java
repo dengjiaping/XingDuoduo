@@ -8,7 +8,6 @@
 package com.xiuman.xingduoduo.util;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,8 +22,8 @@ import com.xiuman.xingduoduo.app.URLConfig;
  */
 public class HtmlTag {
 	
-	public static List<String> match(String source, String element, String attr) {
-		List<String> result = new ArrayList<String>();
+	public static ArrayList<String> match(String source, String element, String attr) {
+		ArrayList<String> result = new ArrayList<String>();
 		String reg = "<" + element + "[^<>]*?\\s" + attr + "=['\"]?(.*?)['\"]?\\s.*?>";
 		Matcher m = Pattern.compile(reg).matcher(source);
 		while (m.find()) {

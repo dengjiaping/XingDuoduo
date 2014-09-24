@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.model.ActionValue;
-import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.model.BBSPostReply;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 
@@ -34,7 +33,6 @@ public class TaskPostReplyBack implements HttpTaskListener {
 
 	@Override
 	public void dataSucced(String result) {
-		System.out.println("帖子回复返回" + result);
 		ActionValue<BBSPostReply> value = new Gson().fromJson(result,
 				new TypeToken<ActionValue<BBSPostReply>>() {
 				}.getType());

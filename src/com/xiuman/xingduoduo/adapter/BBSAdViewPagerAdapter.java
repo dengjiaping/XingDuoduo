@@ -16,13 +16,8 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiuman.xingduoduo.R;
-import com.xiuman.xingduoduo.app.Mylog;
-import com.xiuman.xingduoduo.model.AdBBS;
-import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.model.BBSPost;
-import com.xiuman.xingduoduo.ui.activity.BBSPlateActivity;
 import com.xiuman.xingduoduo.ui.activity.PostInfoActivity;
-import com.xiuman.xingduoduo.util.HtmlTag;
 
 /**
  * 
@@ -73,15 +68,15 @@ public class BBSAdViewPagerAdapter extends PagerAdapter {
 	public Object instantiateItem(ViewGroup container, final int position) {
 		iv_ad = ad_ivs.get(position);
 		iv_ad.setAdjustViewBounds(true);
-		iv_ad.setScaleType(ImageView.ScaleType.FIT_XY);
+		iv_ad.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		iv_ad.setTag(position);
 		// 切换
 		BBSPost post = ads.get(position);
 
-		List<String> post_imgs = new ArrayList<String>();
-		post_imgs = HtmlTag.match(post.contentHtml, "img", "src");
-		Mylog.i("广告图片地址", post_imgs.get(0));
-		imageLoader.displayImage(post_imgs.get(0), iv_ad, options);
+		// List<String> post_imgs = new ArrayList<String>();
+		// post_imgs = HtmlTag.match(post.contentHtml, "img", "src");
+		// Mylog.i("广告图片地址", post_imgs.get(0));
+		imageLoader.displayImage(post.getPostImgs().get(0), iv_ad, options);
 		// iv_ad.setImageResource(R.drawable.bg_center_ad_loading);
 		container.addView(iv_ad);
 
@@ -92,8 +87,7 @@ public class BBSAdViewPagerAdapter extends PagerAdapter {
 				Object obj = ads.get(position);
 				if (obj instanceof BBSPost) {
 					BBSPost postinfo = (BBSPost) obj;
-					Intent intent = new Intent(context,
-							PostInfoActivity.class);
+					Intent intent = new Intent(context, PostInfoActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("postinfo_starter", postinfo);
 					// 版块id
@@ -103,9 +97,6 @@ public class BBSAdViewPagerAdapter extends PagerAdapter {
 					((Activity) context).overridePendingTransition(
 							R.anim.translate_horizontal_start_in,
 							R.anim.translate_horizontal_start_out);
-//					((Activity) context).overridePendingTransition(
-//							R.anim.translate_horizontal_start_in,
-//							R.anim.translate_horizontal_start_out);
 				}
 
 			}

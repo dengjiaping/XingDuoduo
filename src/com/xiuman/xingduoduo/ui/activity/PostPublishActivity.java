@@ -134,7 +134,7 @@ public class PostPublishActivity extends Base2Activity implements
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 
-			case AppConfig.BBS_PUBLISH_RUN:
+			case AppConfig.BBS_PUBLISH_RUN://发表帖子
 				String result = (String) msg.obj;
 				Mylog.i("result", "123" + result);
 				if (result != null) {
@@ -144,29 +144,29 @@ public class PostPublishActivity extends Base2Activity implements
 					if (value.isSuccess()) {
 						ToastUtil.ToastView(PostPublishActivity.this,
 								value.getMessage());
-						Intent intent3 = new Intent(PostPublishActivity.this,
-								PostInfoActivity.class);
-						Bundle bundle = new Bundle();
-						SimpleDateFormat format = new SimpleDateFormat(
-								"yyyy-MM-dd HH:mm:ss");
-						Date date = new Date();
-						String createTime = format.format(date);
-						BBSPost post = new BBSPost(et_post_content.getText()
-								.toString(), et_post_content.getText()
-								.toString(), createTime, et_post_title
-								.getText().toString(), "" + 9, 0, 2, 0);
-						bundle.putSerializable("postinfo_starter", post);
-						// 版块id
-						bundle.putString("forumId", forumId);
-						intent3.putExtras(bundle);
-						Bimp.drr.clear();
-						Bimp.bmp.clear();
-						Bimp.max = 0;
-						loadingdialog.dismiss();
-						startActivity(intent3);
-						overridePendingTransition(
-								R.anim.translate_horizontal_start_in,
-								R.anim.translate_horizontal_start_out);
+//						Intent intent3 = new Intent(PostPublishActivity.this,
+//								PostInfoActivity.class);
+//						Bundle bundle = new Bundle();
+//						SimpleDateFormat format = new SimpleDateFormat(
+//								"yyyy-MM-dd HH:mm:ss");
+//						Date date = new Date();
+//						String createTime = format.format(date);
+//						BBSPost post = new BBSPost(et_post_content.getText()
+//								.toString(), et_post_content.getText()
+//								.toString(), createTime, et_post_title
+//								.getText().toString(), "" + 9, 0, 2, 0);
+//						bundle.putSerializable("postinfo_starter", post);
+//						// 版块id
+//						bundle.putString("forumId", forumId);
+//						intent3.putExtras(bundle);
+//						Bimp.drr.clear();
+//						Bimp.bmp.clear();
+//						Bimp.max = 0;
+//						loadingdialog.dismiss();
+//						startActivity(intent3);
+//						overridePendingTransition(
+//								R.anim.translate_horizontal_start_in,
+//								R.anim.translate_horizontal_start_out);
 						finish();
 
 					} else {
@@ -191,25 +191,25 @@ public class PostPublishActivity extends Base2Activity implements
 				if (value.isSuccess()) {
 					ToastUtil.ToastView(PostPublishActivity.this,
 							value.getMessage());
-					Intent intent = new Intent(PostPublishActivity.this,
-							PostInfoActivity.class);
-					Bundle bundle = new Bundle();
-					SimpleDateFormat format = new SimpleDateFormat(
-							"yyyy-MM-dd HH:mm:ss");
-					Date date = new Date();
-					String createTime = format.format(date);
-					BBSPost post = new BBSPost(et_post_content.getText()
-							.toString(), et_post_content.getText().toString(),
-							createTime, et_post_title.getText().toString(),
-							userName, 0, 2, 0);
-					bundle.putSerializable("postinfo_starter", post);
-					// 版块id
-					bundle.putString("forumId", forumId);
-					intent.putExtras(bundle);
-					startActivity(intent);
-					overridePendingTransition(
-							R.anim.translate_horizontal_start_in,
-							R.anim.translate_horizontal_start_out);
+//					Intent intent = new Intent(PostPublishActivity.this,
+//							PostInfoActivity.class);
+//					Bundle bundle = new Bundle();
+//					SimpleDateFormat format = new SimpleDateFormat(
+//							"yyyy-MM-dd HH:mm:ss");
+//					Date date = new Date();
+//					String createTime = format.format(date);
+//					BBSPost post = new BBSPost(et_post_content.getText()
+//							.toString(), et_post_content.getText().toString(),
+//							createTime, et_post_title.getText().toString(),
+//							userName, 0, 2, 0);
+//					bundle.putSerializable("postinfo_starter", post);
+//					// 版块id
+//					bundle.putString("forumId", forumId);
+//					intent.putExtras(bundle);
+//					startActivity(intent);
+//					overridePendingTransition(
+//							R.anim.translate_horizontal_start_in,
+//							R.anim.translate_horizontal_start_out);
 					finish();
 				}
 				break;

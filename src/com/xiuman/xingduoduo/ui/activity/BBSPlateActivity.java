@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.PlatePostListViewAdapter;
 import com.xiuman.xingduoduo.adapter.PlateStickPostListViewAdapter;
@@ -101,18 +103,19 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	private PlatePostListViewAdapter adapter;
 	// 置顶帖子
 	private PlateStickPostListViewAdapter adapter_stick;
+	// 返回结果(普通帖子)
+	private ActionValue<BBSPost> value_normal;
 
-	private ActionValue<BBSPost> value;
-
-	private ArrayList<BBSPost> bbspost=new  ArrayList<BBSPost>();
-
-	private ActionValue<BBSPost> valueTop;
-
+	private ArrayList<BBSPost> bbspost = new ArrayList<BBSPost>();
+	// 返回结果置顶帖子
+	private ActionValue<BBSPost> value_top;
+	// 置顶帖子列表
 	private ArrayList<BBSPost> bbspostTop;
 
 	// 消息处理Handler-------------------------------------
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
+		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 获取数据成功
@@ -123,12 +126,11 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				}
 				break;
 
-			case AppConfig.BBS_POST_BACK:
-
-				value = (ActionValue<BBSPost>) msg.obj;
-				if (value.isSuccess()) {
+			case AppConfig.BBS_POST_BACK://获取帖子列表
+				value_normal = (ActionValue<BBSPost>) msg.obj;
+				if (value_normal.isSuccess()) {
 					if (isUp) {
-						bbspost.addAll(value.getDatasource());
+						bbspost = value_normal.getDatasource();
 						adapter = new PlatePostListViewAdapter(
 								BBSPlateActivity.this, options, imageLoader,
 								bbspost);
@@ -143,7 +145,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 						// 设置是否有更多的数据
 						TimeUtil.setLastUpdateTime3(pullsv_post);
 					} else {
-						bbspost.addAll(value.getDatasource());
+						bbspost.addAll(value_normal.getDatasource());
 						adapter = new PlatePostListViewAdapter(
 								BBSPlateActivity.this, options, imageLoader,
 								bbspost);
@@ -153,14 +155,17 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 						pullsv_post.onPullUpRefreshComplete();
 						TimeUtil.setLastUpdateTime3(pullsv_post);
 					}
+				}else{
+					ToastUtil.ToastView(BBSPlateActivity.this, "没有更多帖子！");
+					loadingdialog.dismiss();
 				}
-
+				loadingdialog.dismiss();
 				break;
 			case AppConfig.BBS_TOP_POST_BACK:
 
-				valueTop = (ActionValue<BBSPost>) msg.obj;
-				if (valueTop.isSuccess()) {
-					bbspostTop = valueTop.getDatasource();
+				value_top = (ActionValue<BBSPost>) msg.obj;
+				if (value_top.isSuccess()) {
+					bbspostTop = value_top.getDatasource();
 					adapter = new PlatePostListViewAdapter(
 							BBSPlateActivity.this, options, imageLoader,
 							bbspostTop);
@@ -168,8 +173,6 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 							BBSPlateActivity.this, bbspostTop);
 
 					lv_stick_posts.setAdapter(adapter_stick);
-
-					loadingdialog.dismiss();
 				}
 
 				break;
@@ -186,8 +189,6 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bbs_plate);
 		initData();
-		HttpUrlProvider.getIntance().getTopPost(BBSPlateActivity.this,
-				new TaskTopPostBack(handler), plate.getPlate_id(), 1, 10);
 		findViewById();
 		initUI();
 		setListener();
@@ -203,7 +204,10 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				.showImageOnFail(R.drawable.onloading_goods_poster) // image加载失败
 				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				.bitmapConfig(Bitmap.Config.RGB_565)
+				.imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)
 				.imageScaleType(ImageScaleType.NONE).build();
+		
 
 		// 从上级界面接收到的板块信息
 		plate = (BBSPlate) getIntent().getExtras().getSerializable("bbs_plate");
@@ -244,7 +248,11 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		tv_plate_name.setText(plate.getPlate_name());
 		tv_plate_description.setText(plate.getPlate_description());
 
+		//获取普通帖子列表
 		initFirstData(currentPage);
+		//获取置顶帖子
+		HttpUrlProvider.getIntance().getTopPost(BBSPlateActivity.this,
+				new TaskTopPostBack(handler), plate.getPlate_id(), 1, 10);
 	}
 
 	@Override
@@ -332,7 +340,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				// TODO Auto-generated method stub
 
 				isUp = false;
-				if (value.isSuccess()) {
+				if (value_normal.isSuccess()) {
 					currentPage += 1;
 					initFirstData(currentPage);
 				} else {
@@ -383,7 +391,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		HttpUrlProvider.getIntance().getPost(BBSPlateActivity.this,
 				new TaskPostListBack(handler), plate.getPlate_id(),
 				currentPage, 8);
-		
+
 		loadingdialog.show();
 		// posts = Test.getTestPost();
 		//

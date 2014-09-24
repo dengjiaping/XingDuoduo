@@ -29,7 +29,7 @@
 
                 <!-- 头像 -->
 
-                <ImageView
+                <com.xiuman.xingduoduo.view.CircleImageView
                     android:id="@+id/iv_postinfo_starter_head"
                     android:layout_width="40dip"
                     android:layout_height="40dip"
@@ -89,7 +89,7 @@
                 android:id="@+id/tv_postinfo_starter_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
+                android:layout_marginTop="5dip"
                 android:textColor="@color/color_black2"
                 android:textSize="@dimen/txt_size_15" />
             <!-- 内容 -->
@@ -98,7 +98,7 @@
                 android:id="@+id/tv_postinfo_starter_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dip"
+                android:paddingTop="5dip"
                 android:textColor="@color/color_black3"
                 android:textSize="@dimen/txt_size_12" />
             <!-- 图片 -->

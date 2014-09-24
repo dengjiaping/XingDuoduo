@@ -14,12 +14,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.model.ActionValue;
-import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 
 /**
  * @名称：TaskPostPublishBack.java
- * @描述：
+ * @描述：发表帖子
  * @author Andrew Lee
  * 2014-9-17下午2:00:31
  */

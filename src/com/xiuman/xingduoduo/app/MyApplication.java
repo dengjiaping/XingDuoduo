@@ -25,6 +25,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -80,9 +81,16 @@ public class MyApplication extends Application {
 		mLockPatternUtils = new LockPatternUtils(this);
 		/** 初始化图片加载类配置信息 **/
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-				this).memoryCacheExtraOptions(720, 1280) // max width, max
-															// height，即保存的每个缓存文件的最大长宽
-				.threadPriority(Thread.NORM_PRIORITY - 2)// 加载图片的线程数
+				this)
+				.memoryCacheExtraOptions(480, 800)
+				// max width, max
+				.threadPriority(Thread.NORM_PRIORITY - 2)
+				// 加载图片的线程数
+				.threadPoolSize(2)
+				// 线程池内加载的数量
+				.memoryCacheSize(2 * 1024 * 1024)
+				.discCacheSize(50 * 1024 * 1024)
+				.memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 * 1024))
 				.denyCacheImageMultipleSizesInMemory()// 解码图像的大尺寸将在内存中缓存先前解码图像的小尺寸。
 				.discCacheFileNameGenerator(new Md5FileNameGenerator())// 设置磁盘缓存文件名称
 				.tasksProcessingOrder(QueueProcessingType.LIFO)// 设置加载显示图片队列进程

@@ -2,9 +2,9 @@ package com.xiuman.xingduoduo.adapter;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +15,13 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.BBSPost;
-import com.xiuman.xingduoduo.model.PostStarter;
-import com.xiuman.xingduoduo.util.HtmlTag;
 import com.xiuman.xingduoduo.util.TimeUtil;
+import com.xiuman.xingduoduo.view.CircleImageView;
 
 /**
  * @名称：PlatePostListViewAdapter.java
@@ -60,7 +62,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
+		final ViewHolder holder;
 		if (convertView == null) {
 			holder = new ViewHolder();
 			convertView = View.inflate(context, R.layout.item_bbs_plate_post,
@@ -87,35 +89,75 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.iv_item_bbs_plate_post_tag);
 			holder.llyt_item_bbs_plate_post_img_container = (LinearLayout) convertView
 					.findViewById(R.id.llyt_item_bbs_plate_post_img_container);
+			holder.iv_item_post_plate_post_head = (CircleImageView) convertView
+					.findViewById(R.id.iv_item_post_plate_post_head);
+			holder.iv_item_post_plate_post_sex = (ImageView) convertView
+					.findViewById(R.id.iv_item_post_plate_post_sex);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		BBSPost post = posts.get(position);
+		final BBSPost post = posts.get(position);
 		// 帖子标签(精华，推荐)
 		// holder.iv_item_bbs_plate_post_tag;
-//		String content = post.content;
-//		if (content.length()>0&&content.indexOf("[att") >0) {
-//
-//			content = content.substring(0, content.indexOf("[att"));
-//		}else{
-//			content="";
-//		}
-		
-		holder.tv_item_bbs_plate_post_title.setText(post.title);
-		holder.tv_item_bbs_plate_post_content.setText(post.getContent());
-		holder.tv_item_bbs_plate_post_user.setText(post.user);
-		holder.tv_item_bbs_plate_post_reply.setText(post.replyCount + "");
+		// String content = post.content;
+		// if (content.length()>0&&content.indexOf("[att") >0) {
+		//
+		// content = content.substring(0, content.indexOf("[att"));
+		// }else{
+		// content="";
+		// }
+		// 性别
+		if (post.isSex()) {
+			holder.iv_item_post_plate_post_sex
+					.setImageResource(R.drawable.sex_female);
+		} else {
+			holder.iv_item_post_plate_post_sex
+					.setImageResource(R.drawable.sex_male);
+		}
+
+		// 头像
+		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP + post.getAvatar(),
+				holder.iv_item_post_plate_post_head, options,
+				new ImageLoadingListener() {
+
+					@Override
+					public void onLoadingStarted(String arg0, View arg1) {
+
+					}
+
+					@Override
+					public void onLoadingFailed(String arg0, View arg1,
+							FailReason arg2) {
+						holder.iv_item_post_plate_post_head
+								.setImageResource(R.drawable.bg_head);
+					}
+
+					@Override
+					public void onLoadingComplete(String arg0, View arg1,
+							Bitmap arg2) {
+
+					}
+
+					@Override
+					public void onLoadingCancelled(String arg0, View arg1) {
+
+					}
+				});
+		holder.tv_item_bbs_plate_post_title.setText(post.getTitle());
+		holder.tv_item_bbs_plate_post_content.setText(Html.fromHtml(post.getContent()));
+		holder.tv_item_bbs_plate_post_user.setText(post.getNickname());
+		holder.tv_item_bbs_plate_post_reply.setText(post.getReplyCount() + "");
 		holder.tv_item_bbs_plate_post_time.setText(TimeUtil.getTimeStr(
-				TimeUtil.strToDate(post.createTime), new Date()));
+				TimeUtil.strToDate(post.getCreateTime()), new Date()));
 
 		// 图片数
 		int number = 0;
-		List<String> post_imgs = new ArrayList<String>();
-		post_imgs = HtmlTag.match(post.contentHtml, "img", "src");
-		number = post_imgs.size();
+		// List<String> post_imgs = new ArrayList<String>();
+		// post_imgs = HtmlTag.match(post.contentHtml, "img", "src");
+		number = post.getPostImgs().size();
 		if (number > 3) {
 			holder.tv_item_bbs_plate_post_img_number
 					.setText("共" + number + "张");
@@ -133,40 +175,135 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 			holder.iv_item_bbs_plate_post_img_1.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.INVISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.INVISIBLE);
-			imageLoader.displayImage(post_imgs.get(0),
+			imageLoader.displayImage(post.getPostImgs().get(0),
 					holder.iv_item_bbs_plate_post_img_1, options);
 		} else if (number == 2) {
 			holder.iv_item_bbs_plate_post_img_1.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.INVISIBLE);
-			imageLoader.displayImage(post_imgs.get(0),
-					holder.iv_item_bbs_plate_post_img_1, options);
-			imageLoader.displayImage(post_imgs.get(1),
-					holder.iv_item_bbs_plate_post_img_2, options);
+			imageLoader.displayImage(post.getPostImgs().get(0),
+					holder.iv_item_bbs_plate_post_img_1, options,
+					new ImageLoadingListener() {
+
+						@Override
+						public void onLoadingStarted(String arg0, View arg1) {
+
+						}
+
+						@Override
+						public void onLoadingFailed(String arg0, View arg1,
+								FailReason arg2) {
+
+						}
+
+						@Override
+						public void onLoadingComplete(String arg0, View arg1,
+								Bitmap arg2) {
+							imageLoader.displayImage(post.getPostImgs().get(1),
+									holder.iv_item_bbs_plate_post_img_2,
+									options);
+						}
+
+						@Override
+						public void onLoadingCancelled(String arg0, View arg1) {
+
+						}
+					});
+
 		} else if (number >= 3) {
 			holder.iv_item_bbs_plate_post_img_1.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.VISIBLE);
-			imageLoader.displayImage(post_imgs.get(0),
-					holder.iv_item_bbs_plate_post_img_1, options);
-			imageLoader.displayImage(post_imgs.get(1),
-					holder.iv_item_bbs_plate_post_img_2, options);
-			imageLoader.displayImage(post_imgs.get(2),
-					holder.iv_item_bbs_plate_post_img_3, options);
+			//加载第一章图片结束加载第二张
+			imageLoader.displayImage(post.getPostImgs().get(0),
+					holder.iv_item_bbs_plate_post_img_1, options,
+					new ImageLoadingListener() {
+
+						@Override
+						public void onLoadingStarted(String arg0, View arg1) {
+
+						}
+
+						@Override
+						public void onLoadingFailed(String arg0, View arg1,
+								FailReason arg2) {
+
+						}
+
+						@Override
+						public void onLoadingComplete(String arg0, View arg1,
+								Bitmap arg2) {
+							//加载第二章完成之后加载第三张
+							imageLoader.displayImage(post.getPostImgs().get(1),
+									holder.iv_item_bbs_plate_post_img_2,
+									options, new ImageLoadingListener() {
+
+										@Override
+										public void onLoadingStarted(
+												String arg0, View arg1) {
+
+										}
+
+										@Override
+										public void onLoadingFailed(
+												String arg0, View arg1,
+												FailReason arg2) {
+
+										}
+
+										@Override
+										public void onLoadingComplete(
+												String arg0, View arg1,
+												Bitmap arg2) {
+											imageLoader
+													.displayImage(
+															post.getPostImgs()
+																	.get(2),
+															holder.iv_item_bbs_plate_post_img_3,
+															options);
+										}
+
+										@Override
+										public void onLoadingCancelled(
+												String arg0, View arg1) {
+
+										}
+									});
+						}
+
+						@Override
+						public void onLoadingCancelled(String arg0, View arg1) {
+
+						}
+					});
+
 		}
 
 		return convertView;
 	}
 
 	static class ViewHolder {
+		// 用户头像
+		CircleImageView iv_item_post_plate_post_head;
+		// 用户性别
+		ImageView iv_item_post_plate_post_sex;
+		// 标题
 		TextView tv_item_bbs_plate_post_title;
+		// 内容
 		TextView tv_item_bbs_plate_post_content;
+		// 用户昵称
 		TextView tv_item_bbs_plate_post_user;
+		// 回复数
 		TextView tv_item_bbs_plate_post_reply;
+		// 图片数
 		TextView tv_item_bbs_plate_post_img_number;
+		// 创建时间
 		TextView tv_item_bbs_plate_post_time;
+		// 图片1
 		ImageView iv_item_bbs_plate_post_img_1;
+		// 图片2
 		ImageView iv_item_bbs_plate_post_img_2;
+		// 图片3
 		ImageView iv_item_bbs_plate_post_img_3;
 		// 没有使用
 		ImageView iv_item_bbs_plate_post_tag;
