@@ -96,16 +96,16 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 		BBSPost post = posts.get(position);
 		// 帖子标签(精华，推荐)
 		// holder.iv_item_bbs_plate_post_tag;
-		String content = post.content;
-		if (content.length()>0&&content.indexOf("[att") >0) {
-
-			content = content.substring(0, content.indexOf("[att"));
-		}else{
-			content="";
-		}
+//		String content = post.content;
+//		if (content.length()>0&&content.indexOf("[att") >0) {
+//
+//			content = content.substring(0, content.indexOf("[att"));
+//		}else{
+//			content="";
+//		}
 		
 		holder.tv_item_bbs_plate_post_title.setText(post.title);
-		holder.tv_item_bbs_plate_post_content.setText(content);
+		holder.tv_item_bbs_plate_post_content.setText(post.getContent());
 		holder.tv_item_bbs_plate_post_user.setText(post.user);
 		holder.tv_item_bbs_plate_post_reply.setText(post.replyCount + "");
 		holder.tv_item_bbs_plate_post_time.setText(TimeUtil.getTimeStr(
