@@ -1,15 +1,11 @@
 package com.xiuman.xingduoduo.ui.activity;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -32,8 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
@@ -41,7 +35,6 @@ import com.xiuman.xingduoduo.app.Mylog;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.User;
-import com.xiuman.xingduoduo.net.MyHttpClient;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
 import com.xiuman.xingduoduo.util.PostSimulation;
