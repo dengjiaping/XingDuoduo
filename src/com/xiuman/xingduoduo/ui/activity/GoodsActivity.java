@@ -238,7 +238,10 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 				} else {// 收藏失败
 					ToastUtil.ToastView(GoodsActivity.this,
 							value_add.getMessage());
-
+					if(value_add.getMessage().contains("您已经收藏过此商品")){
+						btn_collect.setBackgroundResource(R.drawable.bg_btn_collect_p);
+						MyApplication.getInstance().addCollection(goods_id);
+					}
 				}
 
 				break;

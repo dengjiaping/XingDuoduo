@@ -942,18 +942,23 @@ public class HttpUrlProvider extends HttpConnWorker {
 	}
 
 	/**
-	 * @描述:帖子回复列表
+	 * 
+	 * @描述：帖子回复列表
 	 * @param mContext
 	 * @param httpTaskListener
-	 * @param forumId
+	 * @param postId
+	 * @param pageNo
+	 * @param pageSize
+	 * 2014-9-25
 	 */
 	public void getPostReply(Context mContext,
-			HttpTaskListener httpTaskListener, int postId) {
-		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_REPLY_LIST_IP
-				+ postId;
+			HttpTaskListener httpTaskListener, int topicId,int pageNo) {
+		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_REPLY_LIST_IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
-
+		url += httpDataTask.jointToUrl("topicId", topicId);
+		url += httpDataTask.jointToUrl("pageNo", pageNo);
+		url += httpDataTask.jointToUrl("pageSize", 20);
 		httpDataTask.execute(url);
 	}
 
@@ -980,8 +985,18 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setParams("postTypeId", postTypeId);
 		httpDataTask.setParams("topicId", topicId);
 		httpDataTask.setParams("userId", userId);
-		httpDataTask.setParams("title", title);
-		httpDataTask.setParams("content", content);
+		try {
+			httpDataTask.setParams("title",
+					URLEncoder.encode(title, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		try {
+			httpDataTask.setParams("content",
+					URLEncoder.encode(content, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		// httpDataTask.setParams("shopId", shopId);
 
 		httpDataTask.execute(url);
@@ -1012,8 +1027,20 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setParams("attachment", attachment);
 		httpDataTask.setParams("userId", userId);
 		httpDataTask.setParams("scode", scode);
-		httpDataTask.setParams("title", content);
-		httpDataTask.setParams("content", content);
+		httpDataTask.setParams("title",title);
+		httpDataTask.setParams("content",content);
+//		try {
+//			httpDataTask.setParams("title",
+//					URLEncoder.encode(title, "utf-8"));
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//		try {
+//			httpDataTask.setParams("content",
+//					URLEncoder.encode(content, "utf-8"));
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
 		// httpDataTask.setParams("shopId", shopId);
 
 		httpDataTask.execute(url);
@@ -1027,13 +1054,13 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param pageNo
 	 * @param pageSize
 	 */
-	public void getMyPost(Context mContext, HttpTaskListener httpTaskListener, String userId, int pageNo, int pageSize) {
+	public void getMyPost(Context mContext, HttpTaskListener httpTaskListener, String userId, int pageNo) {
 		String url = URLConfig.PRIVATE_IP + URLConfig.MY_POST__IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("userId", userId);
 		url += httpDataTask.jointToUrl("pageNo", pageNo);
-		url += httpDataTask.jointToUrl("pageSize", pageSize);
+		url += httpDataTask.jointToUrl("pageSize", 10);
 
 		httpDataTask.execute(url);
 	}

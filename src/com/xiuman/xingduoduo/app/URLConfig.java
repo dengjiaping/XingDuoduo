@@ -22,7 +22,7 @@ public class URLConfig {
 	// bbs 置顶帖
 	public static final String FORUM_TOP_LIST_IP = "appUpTopForumList.jhtml?";
 	// 帖子详情回复
-	public static final String FORUM_REPLY_LIST_IP = "appPostInfo.jhtml?topicId=";
+	public static final String FORUM_REPLY_LIST_IP = "appPostInfo.jhtml?";
 	// 帖子回复
 	public static final String POST_REPLY__IP = "appPostReply.jhtml?";
 	// 帖子发表

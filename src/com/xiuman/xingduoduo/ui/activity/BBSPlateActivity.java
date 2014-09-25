@@ -30,7 +30,6 @@ import com.xiuman.xingduoduo.callback.TaskTopPostBack;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.model.BBSPost;
-import com.xiuman.xingduoduo.model.PostStarter;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.TimeUtil;
@@ -90,13 +89,6 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	/*--------------------------------------数据--------------------------------*/
 	// 从上级界面接收到的板块信息
 	private BBSPlate plate;
-	// 所有的帖子列表
-	private ArrayList<PostStarter> posts = new ArrayList<PostStarter>();
-	// 帖子列表(普通)
-	private ArrayList<PostStarter> normal_posts = new ArrayList<PostStarter>();
-	// 置顶帖子列表
-	private ArrayList<PostStarter> stick_posts = new ArrayList<PostStarter>();
-
 	/*--------------------------------------Adapter-----------------------------*/
 	// adapter(帖子列表)
 	private PlatePostListViewAdapter adapter;
@@ -104,8 +96,10 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	private PlateStickPostListViewAdapter adapter_stick;
 	// 返回结果(普通帖子)
 	private ActionValue<BBSPost> value_normal;
-
+	// 普通帖子列表
 	private ArrayList<BBSPost> bbspost = new ArrayList<BBSPost>();
+	// 普通帖子列表
+	private ArrayList<BBSPost> bbspost_get = new ArrayList<BBSPost>();
 	// 返回结果置顶帖子
 	private ActionValue<BBSPost> value_top;
 	// 置顶帖子列表
@@ -120,23 +114,18 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 			case AppConfig.NET_SUCCED:// 获取数据成功
 				loadingdialog.dismiss();
 				llyt_network_error.setVisibility(View.INVISIBLE);
-				if (normal_posts.size() == 0) {
-					llyt_null_post.setVisibility(View.VISIBLE);
-				}
 				break;
 
-			case AppConfig.BBS_POST_BACK://获取帖子列表
+			case AppConfig.BBS_POST_BACK:// 获取帖子列表
 				value_normal = (ActionValue<BBSPost>) msg.obj;
+				bbspost_get = value_normal.getDatasource();
 				if (value_normal.isSuccess()) {
 					if (isUp) {
-						bbspost = value_normal.getDatasource();
+						bbspost = bbspost_get;
 						adapter = new PlatePostListViewAdapter(
 								BBSPlateActivity.this, options, imageLoader,
 								bbspost);
 						lv_posts.setAdapter(adapter);
-						loadingdialog.dismiss();
-						adapter.notifyDataSetChanged();
-
 						// 下拉加载完成
 						pullsv_post.onPullDownRefreshComplete();
 						// 上拉刷新完成
@@ -144,30 +133,24 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 						// 设置是否有更多的数据
 						TimeUtil.setLastUpdateTime3(pullsv_post);
 					} else {
-						bbspost.addAll(value_normal.getDatasource());
-						adapter = new PlatePostListViewAdapter(
-								BBSPlateActivity.this, options, imageLoader,
-								bbspost);
-						lv_posts.setAdapter(adapter);
-						loadingdialog.dismiss();
-						adapter.notifyDataSetChanged();
+						bbspost.addAll(bbspost_get);
+						adapter.notifyDataSetChanged(); 
 						pullsv_post.onPullUpRefreshComplete();
 						TimeUtil.setLastUpdateTime3(pullsv_post);
+						loadingdialog.dismiss();
 					}
-				}else{
+				} else {
 					ToastUtil.ToastView(BBSPlateActivity.this, "没有更多帖子！");
+					// 上拉刷新完成
+					pullsv_post.onPullUpRefreshComplete();
 					loadingdialog.dismiss();
 				}
 				loadingdialog.dismiss();
 				break;
-			case AppConfig.BBS_TOP_POST_BACK:
-
+			case AppConfig.BBS_TOP_POST_BACK:// 获取置顶帖子
 				value_top = (ActionValue<BBSPost>) msg.obj;
 				if (value_top.isSuccess()) {
 					bbspostTop = value_top.getDatasource();
-					adapter = new PlatePostListViewAdapter(
-							BBSPlateActivity.this, options, imageLoader,
-							bbspostTop);
 					adapter_stick = new PlateStickPostListViewAdapter(
 							BBSPlateActivity.this, bbspostTop);
 
@@ -197,16 +180,20 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
-		// .showStubImage(R.drawable.weiboitem_pic_loading) //
-		// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloading_goods_poster) // image连接地址为空时
-				.showImageOnFail(R.drawable.onloading_goods_poster) // image加载失败
-				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				// .showStubImage(R.drawable.weiboitem_pic_loading) //
+				// 在ImageView加载过程中显示图片
+				.showImageForEmptyUri(R.drawable.onloading_goods_poster)
+				// image连接地址为空时
+				.showImageOnFail(R.drawable.onloading_goods_poster)
+				// image加载失败
+				.resetViewBeforeLoading(false) 
+				.cacheInMemory(true)
+				// 加载图片时会在内存中加载缓存
+				.cacheOnDisc(true)
+				// 加载图片时会在磁盘中加载缓存
 				.bitmapConfig(Bitmap.Config.RGB_565)
-				.imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)
-				.imageScaleType(ImageScaleType.NONE).build();
-		
+				.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+				.build();
 
 		// 从上级界面接收到的板块信息
 		plate = (BBSPlate) getIntent().getExtras().getSerializable("bbs_plate");
@@ -222,6 +209,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		tv_title = (TextView) findViewById(R.id.tv_bbs_title);
 
 		pullsv_post = (PullToRefreshScrollView) findViewById(R.id.pullsv_posts);
+		// pullsv_post.setPullRefreshEnabled(false);
 		pullsv_post.setPullLoadEnabled(true);
 		pullsv_post.setScrollLoadEnabled(true);
 		sv_posts = pullsv_post.getRefreshableView();
@@ -247,9 +235,9 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		tv_plate_name.setText(plate.getPlate_name());
 		tv_plate_description.setText(plate.getPlate_description());
 
-		//获取普通帖子列表
+		// 获取普通帖子列表
 		initFirstData(currentPage);
-		//获取置顶帖子
+		// 获取置顶帖子
 		HttpUrlProvider.getIntance().getTopPost(BBSPlateActivity.this,
 				new TaskTopPostBack(handler), plate.getPlate_id(), 1, 10);
 	}
@@ -304,52 +292,33 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				}
 			}
 		});
-
+		// 下拉刷新
 		pullsv_post.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.
-			 * OnRefreshListener
-			 * #onPullDownToRefresh(com.xiuman.xingduoduo.view.pulltorefresh
-			 * .PullToRefreshBase)
-			 */
 			@Override
 			public void onPullDownToRefresh(
 					PullToRefreshBase<ScrollView> refreshView) {
-				// TODO Auto-generated method stub
 				isUp = true;
 				currentPage = 1;
 				initFirstData(currentPage);
 
 			}
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.
-			 * OnRefreshListener
-			 * #onPullUpToRefresh(com.xiuman.xingduoduo.view.pulltorefresh
-			 * .PullToRefreshBase)
-			 */
 			@Override
 			public void onPullUpToRefresh(
 					PullToRefreshBase<ScrollView> refreshView) {
-				// TODO Auto-generated method stub
-
 				isUp = false;
-				if (value_normal.isSuccess()) {
-					currentPage += 1;
-					initFirstData(currentPage);
-				} else {
-					ToastUtil.ToastView(BBSPlateActivity.this, getResources()
-							.getString(R.string.no_more));
-					// 上拉刷新完成
-					pullsv_post.onPullUpRefreshComplete();
-					// 设置是否有更多的数据
-					pullsv_post.setHasMoreData(false);
-				}
+				// if (value_normal.isSuccess()) {
+				currentPage += 1;
+				initFirstData(currentPage);
+				// } else {
+				// ToastUtil.ToastView(BBSPlateActivity.this, getResources()
+				// .getString(R.string.no_more));
+				// // 上拉刷新完成
+				// pullsv_post.onPullUpRefreshComplete();
+				// // 设置是否有更多的数据
+				// pullsv_post.setHasMoreData(false);
+				// }
 
 			}
 
@@ -392,16 +361,5 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				currentPage, 8);
 
 		loadingdialog.show(BBSPlateActivity.this);
-		// posts = Test.getTestPost();
-		//
-		// // 将获得的帖子列表分为普通贴和置顶贴
-		// for (int i = 0; i < posts.size(); i++) {
-		// if (posts.get(i).getPost_tag().equals("置顶")) {
-		// stick_posts.add(posts.get(i));
-		// } else {
-		// normal_posts.add(posts.get(i));
-		// }
-		// }
-
 	}
 }

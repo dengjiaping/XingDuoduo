@@ -85,8 +85,6 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.iv_item_bbs_plate_post_img_2);
 			holder.iv_item_bbs_plate_post_img_3 = (ImageView) convertView
 					.findViewById(R.id.iv_item_bbs_plate_post_img_3);
-			holder.iv_item_bbs_plate_post_tag = (ImageView) convertView
-					.findViewById(R.id.iv_item_bbs_plate_post_tag);
 			holder.llyt_item_bbs_plate_post_img_container = (LinearLayout) convertView
 					.findViewById(R.id.llyt_item_bbs_plate_post_img_container);
 			holder.iv_item_post_plate_post_head = (CircleImageView) convertView
@@ -100,24 +98,14 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 		}
 
 		final BBSPost post = posts.get(position);
-		// 帖子标签(精华，推荐)
-		// holder.iv_item_bbs_plate_post_tag;
-		// String content = post.content;
-		// if (content.length()>0&&content.indexOf("[att") >0) {
-		//
-		// content = content.substring(0, content.indexOf("[att"));
-		// }else{
-		// content="";
-		// }
 		// 性别
 		if (post.isSex()) {
 			holder.iv_item_post_plate_post_sex
-					.setImageResource(R.drawable.sex_female);
+					.setImageResource(R.drawable.sex_male);
 		} else {
 			holder.iv_item_post_plate_post_sex
-					.setImageResource(R.drawable.sex_male);
+					.setImageResource(R.drawable.sex_female);
 		}
-
 		// 头像
 		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP + post.getAvatar(),
 				holder.iv_item_post_plate_post_head, options,
@@ -125,38 +113,39 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 
 					@Override
 					public void onLoadingStarted(String arg0, View arg1) {
-
 					}
-
 					@Override
 					public void onLoadingFailed(String arg0, View arg1,
 							FailReason arg2) {
-						holder.iv_item_post_plate_post_head
-								.setImageResource(R.drawable.bg_head);
+						if (post.isSex()) {
+							holder.iv_item_post_plate_post_head
+									.setImageResource(R.drawable.ic_male);
+						} else {
+							holder.iv_item_post_plate_post_head
+									.setImageResource(R.drawable.ic_female);
+						}
 					}
-
 					@Override
 					public void onLoadingComplete(String arg0, View arg1,
 							Bitmap arg2) {
-
 					}
-
 					@Override
 					public void onLoadingCancelled(String arg0, View arg1) {
-
 					}
 				});
 		holder.tv_item_bbs_plate_post_title.setText(post.getTitle());
-		holder.tv_item_bbs_plate_post_content.setText(Html.fromHtml(post.getContent()));
+		holder.tv_item_bbs_plate_post_content.setText(Html.fromHtml(post
+				.getContent()));
 		holder.tv_item_bbs_plate_post_user.setText(post.getNickname());
+		if (post.getNickname() == null) {
+			holder.tv_item_bbs_plate_post_user.setText(post.getUsername());
+		}
 		holder.tv_item_bbs_plate_post_reply.setText(post.getReplyCount() + "");
 		holder.tv_item_bbs_plate_post_time.setText(TimeUtil.getTimeStr(
 				TimeUtil.strToDate(post.getCreateTime()), new Date()));
 
 		// 图片数
 		int number = 0;
-		// List<String> post_imgs = new ArrayList<String>();
-		// post_imgs = HtmlTag.match(post.contentHtml, "img", "src");
 		number = post.getPostImgs().size();
 		if (number > 3) {
 			holder.tv_item_bbs_plate_post_img_number
@@ -214,7 +203,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 			holder.iv_item_bbs_plate_post_img_1.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.VISIBLE);
-			//加载第一章图片结束加载第二张
+			// 加载第一章图片结束加载第二张
 			imageLoader.displayImage(post.getPostImgs().get(0),
 					holder.iv_item_bbs_plate_post_img_1, options,
 					new ImageLoadingListener() {
@@ -233,7 +222,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 						@Override
 						public void onLoadingComplete(String arg0, View arg1,
 								Bitmap arg2) {
-							//加载第二章完成之后加载第三张
+							// 加载第二章完成之后加载第三张
 							imageLoader.displayImage(post.getPostImgs().get(1),
 									holder.iv_item_bbs_plate_post_img_2,
 									options, new ImageLoadingListener() {
@@ -306,7 +295,6 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 		// 图片3
 		ImageView iv_item_bbs_plate_post_img_3;
 		// 没有使用
-		ImageView iv_item_bbs_plate_post_tag;
 		LinearLayout llyt_item_bbs_plate_post_img_container;
 	}
 

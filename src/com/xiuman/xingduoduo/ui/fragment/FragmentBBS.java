@@ -396,7 +396,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 
 		if (MyApplication.getInstance().isUserLogin()) {
 			tv_bbs_user_name.setText(MyApplication.getInstance().getUserInfo()
-					.getUserName());
+					.getNickname());
 			File head = new File(cropUtils.createDirectory()
 					+ cropUtils.createNewPhotoName());
 			if (head.exists()) {

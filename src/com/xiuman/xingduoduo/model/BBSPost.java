@@ -41,19 +41,20 @@ public class BBSPost implements Serializable {
 	private int id;
 	// 用户名
 	private String username;
-
 	private int postTypeId;
 	// 回复数
 	private int replyCount;
 	// 头像地址
 	private String avatar;
-	//
+	//所属板块id
+	private int forumId;
 	private String primeLevel;
+
 
 	public BBSPost(String content, String contentHtml, String createTime,
 			String title, String nickname, boolean sex, int id,
 			String username, int postTypeId, int replyCount, String avatar,
-			String primeLevel) {
+			int forumId, String primeLevel) {
 		super();
 		this.content = content;
 		this.contentHtml = contentHtml;
@@ -66,7 +67,16 @@ public class BBSPost implements Serializable {
 		this.postTypeId = postTypeId;
 		this.replyCount = replyCount;
 		this.avatar = avatar;
+		this.forumId = forumId;
 		this.primeLevel = primeLevel;
+	}
+
+	public int getForumId() {
+		return forumId;
+	}
+
+	public void setForumId(int forumId) {
+		this.forumId = forumId;
 	}
 
 	public String getNickname() {
@@ -110,14 +120,14 @@ public class BBSPost implements Serializable {
 	}
 
 	public String getContent() {
-		System.out.println("忒自内容" + content);
-		if (content.contains("[att")) {
-			content = content.substring(0, content.indexOf("[att"));
-			if (content.contains("\r\n\r\n"))
-				content.replace("\r\n\r\n", "\r\n");
-		} else {
-		}
-		return content;
+//		if (content.contains("[att")) {
+//			content = content.substring(0, content.indexOf("[att"));
+//			if (content.contains("\r\n\r\n"))
+//				content.replace("\r\n\r\n", "\r\n");
+//		} else {
+//		}
+		return HtmlTag.clearTag2(contentHtml);
+//		return contentHtml;
 	}
 
 	public void setContent(String content) {
@@ -175,7 +185,11 @@ public class BBSPost implements Serializable {
 	public ArrayList<String> getPostImgs() {
 		ArrayList<String> post_imgs = new ArrayList<String>();
 		post_imgs = HtmlTag.match(contentHtml, "img", "src");
-
+		if(post_imgs.size()>0){
+			if(post_imgs.get(0).contains(".gif")){
+				post_imgs.clear();
+			}
+		}
 		return post_imgs;
 	}
 

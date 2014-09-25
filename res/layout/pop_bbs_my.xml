@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bbs_title_back"
+    android:orientation="horizontal"
+    android:weightSum="3" >
+
+    <!-- 我的发帖回帖 -->
+
+    <LinearLayout
+        android:id="@+id/llyt_bbs_user_head"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <com.xiuman.xingduoduo.view.CircleImageView
+            android:id="@+id/iv_bbs_user_head"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_marginTop="10dip"
+            android:src="@drawable/login_image" />
+
+        <TextView
+            android:id="@+id/tv_bbs_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/bbs_mypost_login"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/txt_size_18" />
+    </LinearLayout>
+    <!-- 我的帖子 -->
+
+    <LinearLayout
+        android:id="@+id/llyt_bbs_user_post"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:src="@drawable/mypost_image" />
+
+        <TextView
+            android:id="@+id/tv_bbs_user_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/bbs_mypost_send"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/txt_size_18" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llyt_bbs_user_reply"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:src="@drawable/mypost_reply" />
+
+        <TextView
+            android:id="@+id/tv_bbs_user_reply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/bbs_mypost_back"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/txt_size_18" />
+    </LinearLayout>
+
+</LinearLayout>

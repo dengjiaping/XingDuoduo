@@ -9,6 +9,8 @@ package com.xiuman.xingduoduo.model;
 
 import java.io.Serializable;
 
+import com.xiuman.xingduoduo.util.HtmlTag;
+
 /**
  * @名称：BBSPostReply.java
  * @描述：
@@ -59,7 +61,7 @@ public class BBSPostReply implements Serializable {
 	}
 
 	public String getContentHtml() {
-		return contentHtml;
+		return HtmlTag.clearTag(contentHtml);
 	}
 
 	public void setContentHtml(String contentHtml) {

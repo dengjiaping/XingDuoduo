@@ -1,10 +1,3 @@
-/**
- * @ClassName: MyPostActivity
- * @Description: TODO
- * @author Andrew Lee
- * @date 2014-9-19 下午2:52:54
- */
-
 package com.xiuman.xingduoduo.ui.activity;
 
 import java.util.ArrayList;
@@ -16,38 +9,35 @@ import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.PlatePostListViewAdapter;
-import com.xiuman.xingduoduo.adapter.PlateStickPostListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.callback.TaskPostListBack;
-import com.xiuman.xingduoduo.callback.TaskTopPostBack;
 import com.xiuman.xingduoduo.model.ActionValue;
-import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.model.BBSPost;
-import com.xiuman.xingduoduo.model.PostStarter;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.util.SizeUtil;
+import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
-import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
 
 /**
  * @名称：MyPostActivity.java
- * @描述：
- * @author Andrew Lee
- * 2014-9-19下午2:52:54
+ * @描述：我的帖子列表
+ * @author danding 2014-9-25
  */
 public class MyPostActivity extends Base2Activity implements OnClickListener {
 
@@ -59,19 +49,9 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	// 标题栏
 	private TextView tv_title;
 	// 下拉刷新ScrollView
-	private PullToRefreshScrollView pullsv_post;
-	// 可刷新的ScrollView
-	private ScrollView sv_posts;
+	private PullToRefreshListView pulllv_my_post;
 	// ListView(帖子)
 	private ListView lv_posts;
-//	// ListView(置顶帖子)
-//	private ListView lv_stick_posts;
-//	// 板块图标
-//	private ImageView iv_plate_icon;
-//	// 板块标题
-//	private TextView tv_plate_name;
-//	// 板块描述
-//	private TextView tv_plate_description;
 	// 网络连接失败显示的布局
 	private LinearLayout llyt_network_error;
 	// 帖子为空时显示的布局
@@ -89,59 +69,59 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	// 是上拉还是下拉
 	private boolean isUp = true;
 
-	/*--------------------------------------数据--------------------------------*/
-	// 从上级界面接收到的板块信息
-//	private BBSPlate plate;
-	// 所有的帖子列表
-	private ArrayList<PostStarter> posts = new ArrayList<PostStarter>();
-	// 帖子列表(普通)
-	private ArrayList<PostStarter> normal_posts = new ArrayList<PostStarter>();
-	// 置顶帖子列表
-	private ArrayList<PostStarter> stick_posts = new ArrayList<PostStarter>();
-
 	/*--------------------------------------Adapter-----------------------------*/
 	// adapter(帖子列表)
 	private PlatePostListViewAdapter adapter;
-	// 置顶帖子
-	private PlateStickPostListViewAdapter adapter_stick;
-
+	// 请求帖子返回结果
 	private ActionValue<BBSPost> value;
-
-	private ArrayList<BBSPost> bbspost;
-
-	private ActionValue<BBSPost> valueTop;
-
-	private ArrayList<BBSPost> bbspostTop;
-	
-	private LinearLayout bbs_sort_title;
-	
+	// 当前显示的帖子列表
+	private ArrayList<BBSPost> bbspost = new ArrayList<BBSPost>();
+	// 请求获取的帖子列表
+	private ArrayList<BBSPost> bbspost_get = new ArrayList<BBSPost>();
+	// 用户论坛id
 	private String userId;
+	// 当前请求页
+	private int currentPage = 1;
 
 	// 消息处理Handler-------------------------------------
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
+		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 获取数据成功
 				loadingdialog.dismiss();
 				llyt_network_error.setVisibility(View.INVISIBLE);
-				if (normal_posts.size() == 0) {
-					llyt_null_post.setVisibility(View.VISIBLE);
-				}
 				break;
 
-			case AppConfig.BBS_POST_BACK:
-				
+			case AppConfig.BBS_POST_BACK:// 获取帖子列表
 				value = (ActionValue<BBSPost>) msg.obj;
+				bbspost_get = value.getDatasource();
 				if (value.isSuccess()) {
-					bbspost = value.getDatasource();
-					adapter = new PlatePostListViewAdapter(
-							MyPostActivity.this, options, imageLoader,
-							bbspost);
-					lv_posts.setAdapter(adapter);
-					loadingdialog.dismiss();
-				}
+					if (isUp) {
+						bbspost = bbspost_get;
+						adapter = new PlatePostListViewAdapter(
+								MyPostActivity.this, options, imageLoader,
+								bbspost);
+						lv_posts.setAdapter(adapter);
+						// 下拉加载完成
+						pulllv_my_post.onPullDownRefreshComplete();
+						pulllv_my_post.onPullUpRefreshComplete();
+					} else {
+						bbspost.addAll(bbspost_get);
+						adapter.notifyDataSetChanged();
+						// 上拉刷新完成
+						pulllv_my_post.onPullUpRefreshComplete();
+					}
 
+				} else {
+					ToastUtil.ToastView(MyPostActivity.this, "没有更多帖子！");
+					if (currentPage == 1) {// 第一次请求返回结果为空
+						llyt_null_post.setVisibility(View.VISIBLE);
+					}
+				}
+				llyt_network_error.setVisibility(View.INVISIBLE);
+				loadingdialog.dismiss();
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
 				loadingdialog.dismiss();
@@ -154,7 +134,7 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_bbs_plate);
+		setContentView(R.layout.activity_my_post);
 		initData();
 		findViewById();
 		initUI();
@@ -172,9 +152,9 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.imageScaleType(ImageScaleType.NONE).build();
-		userId=MyApplication.getInstance().getUserInfo().getUserId();
-		// 从上级界面接收到的板块信息
-//		plate = (BBSPlate) getIntent().getExtras().getSerializable("bbs_plate");
+		if (MyApplication.getInstance().isUserLogin()) {
+			userId = MyApplication.getInstance().getUserInfo().getUser_id();
+		}
 	}
 
 	@Override
@@ -182,39 +162,29 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		loadingdialog = new LoadingDialog(this);
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		llyt_null_post = (LinearLayout) findViewById(R.id.llyt_plate_null_post);
-		btn_back = (Button) findViewById(R.id.btn_bbs_back);
-		btn_post = (Button) findViewById(R.id.btn_bbs_right);
-		tv_title = (TextView) findViewById(R.id.tv_bbs_title);
+		btn_back = (Button) findViewById(R.id.btn_common_back);
+		btn_post = (Button) findViewById(R.id.btn_common_right);
+		tv_title = (TextView) findViewById(R.id.tv_common_title);
 
-		pullsv_post = (PullToRefreshScrollView) findViewById(R.id.pullsv_posts);
-		pullsv_post.setPullLoadEnabled(true);
-		pullsv_post.setScrollLoadEnabled(true);
-		sv_posts = pullsv_post.getRefreshableView();
+		pulllv_my_post = (PullToRefreshListView) findViewById(R.id.pulllv_my_post);
+		pulllv_my_post.setPullRefreshEnabled(false);
+		pulllv_my_post.setPullLoadEnabled(true);
+		pulllv_my_post.setScrollLoadEnabled(true);
+		lv_posts = pulllv_my_post.getRefreshableView();
 
-		// container
-		View view = View.inflate(this, R.layout.activity_post_reply,
-				null);
-		lv_posts = (ListView) view.findViewById(R.id.my_post_reply);
-//		lv_stick_posts = (ListView) view.findViewById(R.id.lv_stick_posts);
-//		tv_plate_name = (TextView) view.findViewById(R.id.tv_bbs_plate_name);
-//		tv_plate_description = (TextView) view
-//				.findViewById(R.id.tv_bbs_plate_description);
-//		iv_plate_icon = (ImageView) view.findViewById(R.id.iv_bbs_plate_icon);
-//		bbs_sort_title=(LinearLayout) findViewById(R.id.bbs_sort_title_ll);
-		sv_posts.addView(view);
-
+		lv_posts.setDividerHeight(SizeUtil.dip2px(this, 20));
+		lv_posts.setDivider(getResources().getDrawable(
+				R.drawable.drawable_transparent));
+		lv_posts.setSelector(getResources().getDrawable(
+				R.drawable.whole_bg_normal_selector));
 	}
 
 	@Override
 	protected void initUI() {
-		tv_title.setText("我的发帖");
-//		iv_plate_icon.setImageResource(plate.getPlate_icon());
-//		tv_plate_name.setText(plate.getPlate_name());
-//		tv_plate_description.setText(plate.getPlate_description());
-//		bbs_sort_title.setVisibility(View.GONE);
-//		lv_stick_posts.setVisibility(View.GONE);
-
-		initFirstData();
+		tv_title.setText("我的帖子");
+		btn_post.setVisibility(View.INVISIBLE);
+		// 获取列表
+		initFirstData(currentPage);
 	}
 
 	@Override
@@ -235,7 +205,7 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 							PostInfoActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("postinfo_starter", postinfo);
-					bundle.putString("forumId", "1");
+					bundle.putString("forumId", postinfo.getForumId()+"");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(
@@ -244,7 +214,28 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 				}
 			}
 		});
-		
+
+		pulllv_my_post.setOnRefreshListener(new OnRefreshListener<ListView>() {
+
+			@Override
+			public void onPullDownToRefresh(
+					PullToRefreshBase<ListView> refreshView) {
+				
+				isUp = true;
+				currentPage = 1;
+				initFirstData(currentPage);
+			}
+
+			@Override
+			public void onPullUpToRefresh(
+					PullToRefreshBase<ListView> refreshView) {
+				ToastUtil.ToastView(MyPostActivity.this, "你大爷帖子！");
+				isUp = false;
+				currentPage += 1;
+				initFirstData(currentPage);
+			}
+		});
+
 	}
 
 	/**
@@ -255,19 +246,8 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_bbs_right:// 发表帖子
-			Intent intent_publish = new Intent(MyPostActivity.this,
-					PostPublishActivity.class);
-			Bundle bundle = new Bundle();
-			//版块id
-			bundle.putString("forumId", "1");
-			intent_publish.putExtras(bundle);
-			startActivity(intent_publish);
-			break;
-		case R.id.btn_bbs_back://返回按钮
+		case R.id.btn_common_back:// 返回按钮
 			finish();
-			break;
-		default:
 			break;
 		}
 	}
@@ -276,10 +256,10 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	 * @描述：加载数据(首次加载)--测试数据，添加操作
 	 * @date：2014-6-25
 	 */
-	private void initFirstData() {
+	private void initFirstData(int currentPage) {
 		// 请求数据
 		HttpUrlProvider.getIntance().getMyPost(MyPostActivity.this,
-				new TaskPostListBack(handler), userId, 1, 10);
+				new TaskPostListBack(handler), userId, currentPage);
 		loadingdialog.show(MyPostActivity.this);
 
 	}
