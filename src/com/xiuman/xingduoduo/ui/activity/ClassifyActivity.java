@@ -522,7 +522,7 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 	 */
 	private void initFirstData(String sort_url, int currentPage) {
 		// 加载数据显示加载Dialog
-		loadingdialog.show();
+		loadingdialog.show(ClassifyActivity.this);
 		// 请求数据
 		
 		if(sort_url.equals(URLConfig.SORT_JIAGE)){

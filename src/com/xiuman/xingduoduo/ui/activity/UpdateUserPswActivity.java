@@ -185,7 +185,7 @@ public class UpdateUserPswActivity extends Base2Activity implements
 						URLConfig.UPDATE_PSW, user_name, user_old, user_new);
 
 				dialog.dismiss();
-				loadingdialog.show();
+				loadingdialog.show(UpdateUserPswActivity.this);
 			}
 		});
 		dialog.btn_custom_dialog_cancel

@@ -244,7 +244,7 @@ public class GoodsDiscussActivity extends Base2Activity implements
 	 * @date：2014-6-25
 	 */
 	private void initFirstData(int currentPage) {
-		loadingdialog.show();
+		loadingdialog.show(GoodsDiscussActivity.this);
 		// 请求获取商品评价
 		HttpUrlProvider.getIntance().getGoodsDiscuss(this,
 				new TaskGoodsDiscussListBack(handler),

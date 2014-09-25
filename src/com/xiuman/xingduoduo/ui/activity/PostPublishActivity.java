@@ -362,7 +362,7 @@ public class PostPublishActivity extends Base2Activity implements
 					// "" + 2, "" + 2, et_post_title.getText().toString(),
 					// et_post_content.getText().toString(), "" + 9, null,
 					// null);
-					loadingdialog.show();
+					loadingdialog.show(PostPublishActivity.this);
 					User user = MyApplication.getInstance().getUserInfo();
 					userId = user.getUser_id();
 					userName=user.getUserName();

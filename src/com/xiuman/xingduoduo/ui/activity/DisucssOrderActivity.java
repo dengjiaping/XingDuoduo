@@ -166,7 +166,7 @@ public class DisucssOrderActivity extends Base2Activity implements
 					R.anim.translate_horizontal_finish_out);
 			break;
 		case R.id.btn_submit_discuss:// 提交评论
-			loadingdialog.show();
+			loadingdialog.show(DisucssOrderActivity.this);
 			for (int i = 0; i < order.getProductDetail().size(); i++) {
 				HttpUrlProvider.getIntance().getDisCussGoods(this,
 						new TaskDiscussGoodsBack(handler),

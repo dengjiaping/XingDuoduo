@@ -155,7 +155,7 @@ public class CollectionActivity extends Base2Activity implements
 						new TaskDeleteCollectionBack(handler),
 						URLConfig.DELETE_COLLECTION, goodsone.getId(),
 						user.getUserId());
-				loadingdialog.show();
+				loadingdialog.show(CollectionActivity.this);
 				break;
 			case AppConfig.DELETE_COLLECTION:// 请求接口
 				value_delete = (ActionValue<?>) msg.obj;
@@ -358,7 +358,7 @@ public class CollectionActivity extends Base2Activity implements
 		HttpUrlProvider.getIntance().getCollections(this,
 				new TaskGoodsListBack(handler), URLConfig.COLLECTIONS,
 				currentPage, UID);
-		loadingdialog.show();
+		loadingdialog.show(CollectionActivity.this);
 
 	}
 	@Override

@@ -42,7 +42,7 @@ public class LoadingDialog {
 
 	}
 
-	public void show() {
+	public void show(Context context) {
 		mDialog.show();
 	}
 

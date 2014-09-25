@@ -636,7 +636,7 @@ public class OrderSubmitActivity extends Base2Activity implements
 				user.getUserId(), current_pay, current_trans,
 				userAddress.getReceiveId(),
 				et_order_submit_message.getText().toString().trim(), shopId);
-		loadingdialog.show();
+		loadingdialog.show(OrderSubmitActivity.this);
 	}
 
 	/**

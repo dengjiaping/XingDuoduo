@@ -297,7 +297,7 @@ public class UserAddressCreateActivity extends Base2Activity implements
 				new TaskAddAddressBack(handler), URLConfig.ADD_ADDRESS,
 				user.getUserId(), address_user, address_phone, "",
 				address_area, address_detail, address_ems);
-		loadingdialog.show();
+		loadingdialog.show(UserAddressCreateActivity.this);
 
 	}
 

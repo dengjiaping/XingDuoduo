@@ -280,7 +280,7 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		// 请求数据
 		HttpUrlProvider.getIntance().getMyPost(MyPostActivity.this,
 				new TaskPostListBack(handler), userId, 1, 10);
-		loadingdialog.show();
+		loadingdialog.show(MyPostActivity.this);
 
 	}
 }

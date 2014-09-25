@@ -466,7 +466,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	 */
 	private void setGoodsData(GoodsTwo goods_two) {
 		// 首次加在数据显示dialog
-		loadingdialog.show();
+		loadingdialog.show(GoodsActivity.this);
 		// 是否已经收藏
 		if (MyApplication.getInstance().isCollected(goods_id)) {
 			btn_collect.setBackgroundResource(R.drawable.bg_btn_collect_p);
@@ -804,7 +804,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	 * @描述：请求商品详情 2014-8-15
 	 */
 	private void getGoodsInfo() {
-		loadingdialog.show();
+		loadingdialog.show(GoodsActivity.this);
 		HttpUrlProvider.getIntance().getGoodsInfo(this,
 				new TaskGoodsInfoBack(handler), URLConfig.GOODS_INFO, goods_id);
 	}

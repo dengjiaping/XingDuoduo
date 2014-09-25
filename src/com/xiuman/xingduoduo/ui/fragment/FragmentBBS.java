@@ -4,13 +4,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,9 +26,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -46,8 +52,8 @@ import com.xiuman.xingduoduo.ui.activity.UserInfoActivity;
 import com.xiuman.xingduoduo.ui.activity.UserLoginActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
+import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
-import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.indicator.CirclePageIndicator;
 
 /**
@@ -59,8 +65,7 @@ import com.xiuman.xingduoduo.view.indicator.CirclePageIndicator;
 public class FragmentBBS extends BaseFragment implements OnClickListener {
 
 	/*----------------------------------组件--------------------------------*/
-	// ScrollView
-	private ScrollView sv_bbs;
+	// 标题栏
 	// Viewpager
 	private ViewPager viewpager_bbs_ad;
 	// Indicator
@@ -70,9 +75,6 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	// 广告名
 	private TextView tv_bbs_ad_name;
 
-
-	private LoadingDialog loadingdialog;
-
 	private ActionValue<BBSPost> value;
 	private List<BBSPost> bbspost;
 
@@ -81,19 +83,23 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	// 头像(Bitmap)
 	private Bitmap user_head_bitmap;
 
-	// 屏幕宽高
-	private int screenHeight, screenWidth;
+	// 弹出pop
 	private Button btn_update_info;
-	private LinearLayout mypost_ll;
-	private TextView mypost_send;
-	private TextView mypost_back;
-	private Boolean visibility = false;
-	private LinearLayout mypost_ll0;
-	private LinearLayout mypost_ll1;
-	private LinearLayout mypost_ll2;
-	private TextView mypost_login;
-	private CircleImageView bbs_post_cicle_image;
-
+	/*---------PopWindow----------*/
+	// 个人信息的pop
+	private PopupWindow pop;
+	// 个人信息View
+	private View popview;
+	// 头像+昵称
+	private LinearLayout llyt_bbs_user_head;
+	// 头像
+	private CircleImageView iv_bbs_user_head;
+	// 昵称
+	private TextView tv_bbs_user_name;
+	// 个人帖子
+	private LinearLayout llyt_bbs_user_post;
+	// 个人回复
+	private LinearLayout llyt_bbs_user_reply;
 	/*-------------------------------Adapter--------------------------------*/
 
 	// 广告Adapter
@@ -124,7 +130,10 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		}
 	};
 	Handler mHandler = new Handler();
-	Handler HandlerMain = new Handler() {
+	// 请求广告结果返回-----------------------------------------------------
+	@SuppressLint("HandlerLeak")
+	private Handler HandlerMain = new Handler() {
+		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 
@@ -171,7 +180,6 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	@Override
 	protected void initData() {
 
-		loadingdialog = new LoadingDialog(getActivity());
 		// 配置图片加载及显示选项（还有一些其他的配置，查阅doc文档吧）
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.weiboitem_pic_loading) //
@@ -185,12 +193,6 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 
 		// 测试数据，板块
 		plates = Test.getBBSPlates();
-		// 获取屏幕宽高
-		DisplayMetrics dm = new DisplayMetrics();
-		getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-		// 获取屏幕宽度
-		screenHeight = dm.heightPixels;
-		screenWidth = dm.widthPixels;
 
 		cropUtils = new ImageCropUtils(getActivity());
 
@@ -206,21 +208,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		mIndicator = (CirclePageIndicator) view
 				.findViewById(R.id.indicator_bbs_ad);
 		lv_bbs_plates = (ListView) view.findViewById(R.id.lv_bbs_plates);
-		sv_bbs = (ScrollView) view.findViewById(R.id.sv_bbs);
 		btn_update_info = (Button) view.findViewById(R.id.btn_update_info);
-		mypost_ll = (LinearLayout) view.findViewById(R.id.mypost_ll);
-		mypost_send = (TextView) view.findViewById(R.id.mypost_send);
-		mypost_back = (TextView) view.findViewById(R.id.mypost_back);
-		mypost_ll1 = (LinearLayout) view.findViewById(R.id.mypost_ll1);
-		mypost_ll2 = (LinearLayout) view.findViewById(R.id.mypost_ll2);
-		mypost_ll0 = (LinearLayout) view.findViewById(R.id.mypost_ll0);
-		mypost_login = (TextView) view.findViewById(R.id.mypost_login);
-		bbs_post_cicle_image = (CircleImageView) view
-				.findViewById(R.id.bbs_post_cicle_image);
-		btn_update_info.setOnClickListener(this);
-		mypost_ll1.setOnClickListener(this);
-		mypost_ll2.setOnClickListener(this);
-		mypost_ll0.setOnClickListener(this);
 
 	}
 
@@ -230,33 +218,15 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	@Override
 	protected void initUI() {
 		initFirstData();
-		// 以父布局为准
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-
-				screenWidth, (int) (screenWidth * 185 / 720));
-
-		mypost_ll.setLayoutParams(params);
+		// // 以父布局为准
+		// RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+		//
+		// screenWidth, (int) (screenWidth * 185 / 720));
+		//
+		// mypost_ll.setLayoutParams(params);
 		// 设置板块
 		plate_adapter = new BBSPlateListViewAdapter(getActivity(), plates);
 		lv_bbs_plates.setAdapter(plate_adapter);
-
-		if (MyApplication.getInstance().isUserLogin()) {
-			mypost_login.setText(MyApplication.getInstance().getUserInfo()
-					.getUserName());
-			File head = new File(cropUtils.createDirectory()
-					+ cropUtils.createNewPhotoName());
-			if (head.exists()) {
-
-				user_head_bitmap = BitmapFactory.decodeFile(cropUtils
-						.createDirectory() + cropUtils.createNewPhotoName());
-				bbs_post_cicle_image.setImageBitmap(user_head_bitmap);
-			}
-
-
-		}
-		
-		
-		
 
 	}
 
@@ -265,6 +235,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	 */
 	@Override
 	protected void setListener() {
+		btn_update_info.setOnClickListener(this);
 		// 广告切换监听
 		viewpager_bbs_ad
 				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -324,15 +295,21 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		tv_bbs_ad_name.setText("帖子");
 	}
 
+	/**
+	 * @描述：登录 2014-9-25
+	 */
 	protected void toLogin() {
 		Intent intent = new Intent(getActivity(), UserLoginActivity.class);
 		getActivity().startActivity(intent);
 		getActivity().overridePendingTransition(
-				R.anim.translate_horizontal_start_in,
-				R.anim.translate_horizontal_start_out);
+				R.anim.translate_vertical_start_in,
+				R.anim.translate_vertical_start_out);
 
 	}
-
+	/**
+	 * @描述：加载数据
+	 * 2014-9-25
+	 */
 	protected void initFirstData() {
 
 		HttpUrlProvider.getIntance().getAdPost(getActivity(),
@@ -340,30 +317,17 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	/**
+	 * 点击事件
 	 */
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.btn_update_info:// 顶部按钮
-			if (!visibility) {
-
-				mypost_ll.setVisibility(View.VISIBLE);
-
-				visibility = true;
-			} else {
-				mypost_ll.setVisibility(View.GONE);
-				visibility = false;
-
-			}
-
+			showPop(btn_update_info);
 			break;
 
-		case R.id.mypost_ll1:// 我的发帖
+		case R.id.llyt_bbs_user_post:// 我的发帖
 			if (MyApplication.getInstance().isUserLogin()) {
 				Intent intent = new Intent(getActivity(), MyPostActivity.class);
 				getActivity().startActivity(intent);
@@ -373,8 +337,9 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 			} else {
 				toLogin();
 			}
+			dismissPop();
 			break;
-		case R.id.mypost_ll2:// 我的回复
+		case R.id.llyt_bbs_user_reply:// 我的回复
 			if (MyApplication.getInstance().isUserLogin()) {
 				Intent intent = new Intent(getActivity(), MyReplyActivity.class);
 				getActivity().startActivity(intent);
@@ -384,10 +349,10 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 			} else {
 				toLogin();
 			}
-
+			dismissPop();
 			break;
 
-		case R.id.mypost_ll0:// 登陆
+		case R.id.llyt_bbs_user_head:// 登陆
 			if (MyApplication.getInstance().isUserLogin()) {
 				Intent intent = new Intent(getActivity(),
 						UserInfoActivity.class);
@@ -400,9 +365,118 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				toLogin();
 
 			}
-
+			dismissPop();
 			break;
 		}
 
+	}
+
+	/**
+	 * 显示popupwindow
+	 * 
+	 * @param view
+	 */
+	private void showPop(View view) {
+		if (pop == null) {
+			popview = View.inflate(getActivity(), R.layout.pop_bbs_my, null);
+			pop = new PopupWindow(popview, LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT);
+		}
+
+		llyt_bbs_user_head = (LinearLayout) popview
+				.findViewById(R.id.llyt_bbs_user_head);
+		iv_bbs_user_head = (CircleImageView) popview
+				.findViewById(R.id.iv_bbs_user_head);
+		tv_bbs_user_name = (TextView) popview
+				.findViewById(R.id.tv_bbs_user_name);
+		llyt_bbs_user_post = (LinearLayout) popview
+				.findViewById(R.id.llyt_bbs_user_post);
+		llyt_bbs_user_reply = (LinearLayout) popview
+				.findViewById(R.id.llyt_bbs_user_reply);
+
+		if (MyApplication.getInstance().isUserLogin()) {
+			tv_bbs_user_name.setText(MyApplication.getInstance().getUserInfo()
+					.getUserName());
+			File head = new File(cropUtils.createDirectory()
+					+ cropUtils.createNewPhotoName());
+			if (head.exists()) {
+
+				user_head_bitmap = BitmapFactory.decodeFile(cropUtils
+						.createDirectory() + cropUtils.createNewPhotoName());
+				iv_bbs_user_head.setImageBitmap(user_head_bitmap);
+			}
+
+		}
+
+		llyt_bbs_user_head.setOnClickListener(this);
+		llyt_bbs_user_post.setOnClickListener(this);
+		llyt_bbs_user_reply.setOnClickListener(this);
+
+		// 使其聚焦
+		pop.setFocusable(true);
+		// 设置允许在外点击消失
+		pop.setOutsideTouchable(true);
+		// 给pop设置背景
+		Drawable background = new ColorDrawable(Color.TRANSPARENT);
+		pop.setBackgroundDrawable(background);
+		// 设置pop动画
+		pop.setAnimationStyle(R.style.PopupAnimation2);
+		// 设置pop 的位置
+		pop.showAtLocation(view, Gravity.TOP, 0,
+				SizeUtil.dip2px(getActivity(), 50)
+						+ getStatusHeight(getActivity()));
+	}
+
+	/**
+	 * 
+	 * @描述：隐藏pop
+	 * @date：2014-6-19
+	 */
+	private void dismissPop() {
+		if (pop != null) {
+			pop.dismiss();
+		}
+	}
+
+	/**
+	 * @描述：获取状态栏高度
+	 * @param activity
+	 * @return 2014-9-25
+	 */
+	public static int getStatusHeight(Activity activity) {
+		int statusHeight = 0;
+		Rect localRect = new Rect();
+		activity.getWindow().getDecorView()
+				.getWindowVisibleDisplayFrame(localRect);
+		statusHeight = localRect.top;
+		if (0 == statusHeight) {
+			Class<?> localClass;
+			try {
+				localClass = Class.forName("com.android.internal.R$dimen");
+				Object localObject = localClass.newInstance();
+				int i5 = Integer.parseInt(localClass
+						.getField("status_bar_height").get(localObject)
+						.toString());
+				statusHeight = activity.getResources()
+						.getDimensionPixelSize(i5);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			} catch (NoSuchFieldException e) {
+				e.printStackTrace();
+			} catch (java.lang.InstantiationException e) {
+				e.printStackTrace();
+			}
+		}
+		return statusHeight;
 	}
 }

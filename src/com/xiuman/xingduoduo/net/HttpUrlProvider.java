@@ -189,7 +189,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 	public void getUpdateUserInfo(Context mContext,
 			HttpTaskListener httpTaskListener, String singleurl,
 			String usernameId, String gender, String birth, String name,
-			String areaStore, String address, String zipCode, String mobile,
+			String areaStore, String address, String zipCode, String phone,
 			String nickname) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
@@ -221,7 +221,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 			e.printStackTrace();
 		}
 		url += httpDataTask.jointToUrl("zipCode", zipCode);
-		url += httpDataTask.jointToUrl("mobile", mobile);
+		url += httpDataTask.jointToUrl("phone", phone);
 		try {
 			url += httpDataTask.jointToUrl("nickname",
 					URLEncoder.encode(nickname, "utf-8"));

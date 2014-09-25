@@ -610,7 +610,7 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 				new TaskUpdateUserInfoBack(handler),
 				URLConfig.UPDATE_USER_INFO, user.getUserId(), gender, birth,
 				name, area, address, ems, phone, nickname);
-		loadingdialog.show();
+		loadingdialog.show(UpdateUserInfoActivity.this);
 
 	}
 

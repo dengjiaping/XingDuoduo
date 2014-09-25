@@ -304,7 +304,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 				LimitBuyActivity.this,
 				new TaskCenterClassifyGoodsBack(handler),
 				URLConfig.CENTER_HOME_PLATE, currentPage, classify_url);
-		loadingdialog.show();
+		loadingdialog.show(LimitBuyActivity.this);
 	}
 	
 	/*------------------------------------倒计时-------------------------------*/

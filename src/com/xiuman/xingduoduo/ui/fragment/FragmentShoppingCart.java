@@ -220,7 +220,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 								URLConfig.UPDATE_GOODS_NUMBER,
 								goods_update.getCartItemId(),
 								goods_update.getQuanity());
-				loadingdialog.show();
+				loadingdialog.show(getActivity());
 				break;
 			case AppConfig.UPDATE_SHOPPING_CART_GOODS_NUMBER:// 请求更新接口
 				value_update = (ActionValue<?>) msg.obj;
@@ -270,7 +270,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 				HttpUrlProvider.getIntance().getDeleteCartGoods(getActivity(),
 						new TaskDeleteCartBack(handler),
 						URLConfig.DELETE_GOODS_CART, goods.getCartItemId());
-				loadingdialog.show();
+				loadingdialog.show(getActivity());
 				break;
 			}
 		}
@@ -571,7 +571,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 		HttpUrlProvider.getIntance().getShoppingCart(getActivity(),
 				new TaskShoppingCartBack(handler), URLConfig.GOODS_CART,
 				currentPage, user.getUserId());
-		loadingdialog.show();
+		loadingdialog.show(getActivity());
 	}
 
 	/**

@@ -239,7 +239,7 @@ public class UserRegisterActivity extends Base2Activity implements
 		HttpUrlProvider.getIntance().getRegister(this,
 				new TaskRegisterBack(handler), URLConfig.REGISTER, user_name,
 				user_psw_1, user_email, nick_name,sex);
-		loadingdialog.show();
+		loadingdialog.show(UserRegisterActivity.this);
 	}
 	/**
 	 * 

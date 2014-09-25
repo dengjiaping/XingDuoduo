@@ -330,7 +330,7 @@ public class UserAddressUpdateActivity extends Base2Activity implements
 				new TaskUpdateAddressBack(handler), URLConfig.UPDATE_ADDRESS,
 				user_address.getReceiveId(), user.getUserId(), address_user,
 				address_phone, "", address_area, address_detail, address_ems);
-		loadingdialog.show();
+		loadingdialog.show(UserAddressUpdateActivity.this);
 
 	}
 
@@ -341,7 +341,7 @@ public class UserAddressUpdateActivity extends Base2Activity implements
 		HttpUrlProvider.getIntance().getDeleteAddresses(this,
 				new TaskDeleteAddressBack(handler), URLConfig.DELETE_ADDRESS,
 				user_address.getReceiveId());
-		loadingdialog.show();
+		loadingdialog.show(UserAddressUpdateActivity.this);
 	}
 
 	/**

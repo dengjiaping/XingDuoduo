@@ -300,7 +300,7 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 	 */
 	private void initFirstData(int page) {
 		// 加载数据接口
-		loadingdialog.show();
+		loadingdialog.show(OrderListActivity.this);
 		HttpUrlProvider.getIntance().getOrderHistory(this,
 				new TaskOrderHistoryBack(handler), URLConfig.ORDER_HISTORY,
 				page, user.getUserId());

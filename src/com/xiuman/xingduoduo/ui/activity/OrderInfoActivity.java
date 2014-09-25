@@ -515,7 +515,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 		HttpUrlProvider.getIntance().getDeleteOrder(OrderInfoActivity.this,
 				new TaskDeleteOrderBack(handler), URLConfig.DELETE_ORDER,
 				order_id);
-		loadingdialog.show();
+		loadingdialog.show(OrderInfoActivity.this);
 	}
 
 	/**
@@ -525,7 +525,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 		HttpUrlProvider.getIntance().getCancelOrder(OrderInfoActivity.this,
 				new TaskCancelOrderBack(handler), URLConfig.CANCEL_ORDR,
 				order_id);
-		loadingdialog.show();
+		loadingdialog.show(OrderInfoActivity.this);
 	}
 
 	/**
@@ -534,7 +534,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 	private void getOrderInfo() {
 		HttpUrlProvider.getIntance().getOrderInfo(this,
 				new TaskOrderInfoBack(handler), URLConfig.ORDER_INFO, order_id);
-		loadingdialog.show();
+		loadingdialog.show(OrderInfoActivity.this);
 	}
 
 	/**
@@ -544,7 +544,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 		// 请求获取支付参数
 		HttpUrlProvider.getIntance().getAlipay(this,
 				new TaskAlipayBack(handler), URLConfig.ALIPAY_URL, order_id);
-		loadingdialog.show();
+		loadingdialog.show(OrderInfoActivity.this);
 	}
 
 	/**
@@ -586,7 +586,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 		HttpUrlProvider.getIntance()
 				.getOrderTaker(this, new TaskTakeOrderBack(handler),
 						URLConfig.ORDER_TAKER, order_id);
-		loadingdialog.show();
+		loadingdialog.show(OrderInfoActivity.this);
 	}
 
 	@Override

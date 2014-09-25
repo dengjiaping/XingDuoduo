@@ -162,7 +162,7 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 	private void login(){
 		String user_name = et_login_user_name.getText().toString().trim();
 		String user_psw = et_login_user_psw.getText().toString().trim();
-		loadingdialog.show();
+		loadingdialog.show(UserLoginActivity.this);
 		HttpUrlProvider.getIntance().getUserLogin(this, new TaskUserLoginBack(handler), URLConfig.USER_LOGION, user_name, user_psw);
 	}
 	/**
@@ -172,7 +172,7 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 		String user_name = et_login_user_name.getText().toString().trim();
 		HttpUrlProvider.getIntance().getUserInfo(UserLoginActivity.this,
 				new TaskUserInfoBack(handler), URLConfig.USERINFO, user_name);
-		loadingdialog.show();
+		loadingdialog.show(UserLoginActivity.this);
 	}
 	/**
 	 * 自定义返回键的效果

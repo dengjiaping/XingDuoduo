@@ -169,7 +169,7 @@ public class AppRecommendActivity extends Base2Activity implements
 	private void getAppRecommend() {
 		HttpUrlProvider.getIntance().getAppRecommend(this,
 				new TaskAppRecommendBack(handler));
-		loadingdialog.show();
+		loadingdialog.show(AppRecommendActivity.this);
 	}
 
 }

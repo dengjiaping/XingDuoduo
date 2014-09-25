@@ -28,7 +28,6 @@ import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.GoodsOne;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
-import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
@@ -283,6 +282,6 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 				ActivityActivity.this,
 				new TaskCenterClassifyGoodsBack(handler),
 				URLConfig.CENTER_HOME_PLATE, currentPage, classify_url);
-		loadingdialog.show();
+		loadingdialog.show(ActivityActivity.this);
 	}
 }

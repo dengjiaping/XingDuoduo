@@ -192,7 +192,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	private void initClassify() {
 		HttpUrlProvider.getIntance().getClassify(getActivity(),
 				new TaskClassifyBack(handler), URLConfig.CLASSIFY);
-		loadingdialog.show();
+		loadingdialog.show(getActivity());
 	}
 	/**
 	 * 点击事件

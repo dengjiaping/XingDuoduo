@@ -330,7 +330,7 @@ public class CenterClassifyActivity extends Base2Activity implements
 				CenterClassifyActivity.this,
 				new TaskCenterClassifyGoodsBack(handler),
 				URLConfig.CENTER_HOME_PLATE, currentPage, classify_url);
-		loadingdialog.show();
+		loadingdialog.show(CenterClassifyActivity.this);
 	}
 
 }

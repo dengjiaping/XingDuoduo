@@ -281,7 +281,7 @@ public class OrderCompleteActivity extends Base2Activity implements
 		// 请求获取支付参数
 		HttpUrlProvider.getIntance().getAlipay(this,
 				new TaskAlipayBack(handler), URLConfig.ALIPAY_URL, orderId);
-		loadingdialog.show();
+		loadingdialog.show(OrderCompleteActivity.this);
 	}
 
 	/**

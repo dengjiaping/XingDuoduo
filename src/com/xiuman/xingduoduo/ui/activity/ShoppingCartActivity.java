@@ -218,7 +218,7 @@ public class ShoppingCartActivity extends Base2Activity implements
 						new TaskUpdateCartGoodsNumberBack(handler),
 						URLConfig.UPDATE_GOODS_NUMBER,
 						goods_update.getCartItemId(), goods_update.getQuanity());
-				loadingdialog.show();
+				loadingdialog.show(ShoppingCartActivity.this);
 				break;
 			case AppConfig.UPDATE_SHOPPING_CART_GOODS_NUMBER:// 请求更新接口
 				value_update = (ActionValue<?>) msg.obj;
@@ -267,7 +267,7 @@ public class ShoppingCartActivity extends Base2Activity implements
 						ShoppingCartActivity.this,
 						new TaskDeleteCartBack(handler),
 						URLConfig.DELETE_GOODS_CART, goods.getCartItemId());
-				loadingdialog.show();
+				loadingdialog.show(ShoppingCartActivity.this);
 				break;
 			}
 		}
@@ -444,17 +444,6 @@ public class ShoppingCartActivity extends Base2Activity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-//		user = MyApplication.getInstance().getUserInfo();
-//		if (user != null) {
-//			isReFresh = true;
-//		} else {
-//			isReFresh = false;
-//			Intent intent = new Intent(this, UserLoginActivity.class);
-//			startActivity(intent);
-//		}
-//		if (isReFresh) {
-//			mPullListView.doPullRefreshing(true, 500);
-//		}
 		user = MyApplication.getInstance().getUserInfo();
 		// 每次加载获取保存本地购物车数量与当前购物车数量进行比较，相同则不刷新，不同则刷新
 		int basic_number = MyApplication.getInstance().getCartGoodsNumber();
@@ -462,7 +451,6 @@ public class ShoppingCartActivity extends Base2Activity implements
 		if (MyApplication.getInstance().isUserLogin()) {
 			if (cart_goods_current.size() == 0) {
 				isReFresh = true;
-				System.out.println("我刷新ide" + cart_goods_current.size());
 			} else {
 				// 保存购物车数量到本地
 				int total_number = 0;
@@ -550,7 +538,7 @@ public class ShoppingCartActivity extends Base2Activity implements
 		HttpUrlProvider.getIntance().getShoppingCart(this,
 				new TaskShoppingCartBack(handler), URLConfig.GOODS_CART,
 				currentPage, user.getUserId());
-		loadingdialog.show();
+		loadingdialog.show(ShoppingCartActivity.this);
 	}
 
 	/**

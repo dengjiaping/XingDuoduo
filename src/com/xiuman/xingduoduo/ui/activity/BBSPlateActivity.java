@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.PlatePostListViewAdapter;
 import com.xiuman.xingduoduo.adapter.PlateStickPostListViewAdapter;
@@ -392,7 +391,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				new TaskPostListBack(handler), plate.getPlate_id(),
 				currentPage, 8);
 
-		loadingdialog.show();
+		loadingdialog.show(BBSPlateActivity.this);
 		// posts = Test.getTestPost();
 		//
 		// // 将获得的帖子列表分为普通贴和置顶贴

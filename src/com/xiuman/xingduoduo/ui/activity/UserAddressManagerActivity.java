@@ -215,7 +215,7 @@ public class UserAddressManagerActivity extends Base2Activity implements
 	 * @描述：请求用户的收货地址信息 2014-8-19
 	 */
 	private void initAddress() {
-		loadingdialog.show();
+		loadingdialog.show(UserAddressManagerActivity.this);
 		HttpUrlProvider.getIntance().getUserAddresses(this,
 				new TaskUserAddressesBack(handler), URLConfig.USER_ADDRESSES,
 				user.getUserId());

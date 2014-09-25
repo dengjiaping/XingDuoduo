@@ -322,6 +322,6 @@ public class SearchGoodsListActivity extends Base2Activity implements
 		HttpUrlProvider.getIntance().getSearchGoods(this,
 				new TaskGoodsListBack(handler), URLConfig.SEARCH, currentPage,
 				keyword);
-		loadingdialog.show();
+		loadingdialog.show(SearchGoodsListActivity.this);
 	}
 }
