@@ -280,7 +280,7 @@ public class MyReplyActivity extends Base2Activity implements OnClickListener {
 	private void initFirstData() {
 		// 请求数据
 		HttpUrlProvider.getIntance().getMyReplyPost(MyReplyActivity.this,
-				new TaskPostListBack(handler), userId, 1, 10);
+				new TaskPostListBack(handler), userId, 1);
 		loadingdialog.show(MyReplyActivity.this);
 
 	}

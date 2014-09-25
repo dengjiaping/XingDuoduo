@@ -309,7 +309,6 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		System.out.println("删除返回码" + resultCode);
 		if (requestCode == AppConfig.REQUEST_CODE) {
 			if (resultCode == AppConfig.RESULT_CODE_OK) {// 删除刷新
 				orders_current.remove(check_position);

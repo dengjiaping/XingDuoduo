@@ -82,7 +82,9 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	private String userId;
 	// 当前请求页
 	private int currentPage = 1;
-
+	// 获取帖子类型(0：我的帖子，1：我的回复)
+	private int type = 0;
+	private boolean flag = true;
 	// 消息处理Handler-------------------------------------
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
@@ -97,6 +99,7 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 			case AppConfig.BBS_POST_BACK:// 获取帖子列表
 				value = (ActionValue<BBSPost>) msg.obj;
 				bbspost_get = value.getDatasource();
+				System.out.println("获取我的帖子列表" + bbspost_get.size());
 				if (value.isSuccess()) {
 					if (isUp) {
 						bbspost = bbspost_get;
@@ -106,7 +109,6 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 						lv_posts.setAdapter(adapter);
 						// 下拉加载完成
 						pulllv_my_post.onPullDownRefreshComplete();
-						pulllv_my_post.onPullUpRefreshComplete();
 					} else {
 						bbspost.addAll(bbspost_get);
 						adapter.notifyDataSetChanged();
@@ -116,6 +118,8 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 
 				} else {
 					ToastUtil.ToastView(MyPostActivity.this, "没有更多帖子！");
+					pulllv_my_post.setHasMoreData(false);
+					flag = false;
 					if (currentPage == 1) {// 第一次请求返回结果为空
 						llyt_null_post.setVisibility(View.VISIBLE);
 					}
@@ -155,6 +159,8 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		if (MyApplication.getInstance().isUserLogin()) {
 			userId = MyApplication.getInstance().getUserInfo().getUser_id();
 		}
+
+		type = getIntent().getExtras().getInt("type");
 	}
 
 	@Override
@@ -167,7 +173,6 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		tv_title = (TextView) findViewById(R.id.tv_common_title);
 
 		pulllv_my_post = (PullToRefreshListView) findViewById(R.id.pulllv_my_post);
-		pulllv_my_post.setPullRefreshEnabled(false);
 		pulllv_my_post.setPullLoadEnabled(true);
 		pulllv_my_post.setScrollLoadEnabled(true);
 		lv_posts = pulllv_my_post.getRefreshableView();
@@ -181,10 +186,14 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 
 	@Override
 	protected void initUI() {
-		tv_title.setText("我的帖子");
+		if (type == 0) {
+			tv_title.setText("我的帖子");
+		} else if (type == 1) {
+			tv_title.setText("我的回复");
+		}
 		btn_post.setVisibility(View.INVISIBLE);
 		// 获取列表
-		initFirstData(currentPage);
+		initFirstData(currentPage, type);
 	}
 
 	@Override
@@ -205,7 +214,7 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 							PostInfoActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("postinfo_starter", postinfo);
-					bundle.putString("forumId", postinfo.getForumId()+"");
+					bundle.putString("forumId", postinfo.getForumId() + "");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(
@@ -215,27 +224,36 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 			}
 		});
 
+		// 下拉上啦刷新
 		pulllv_my_post.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
 			public void onPullDownToRefresh(
 					PullToRefreshBase<ListView> refreshView) {
-				
 				isUp = true;
 				currentPage = 1;
-				initFirstData(currentPage);
+				initFirstData(currentPage, type);
 			}
 
 			@Override
 			public void onPullUpToRefresh(
 					PullToRefreshBase<ListView> refreshView) {
-				ToastUtil.ToastView(MyPostActivity.this, "你大爷帖子！");
 				isUp = false;
-				currentPage += 1;
-				initFirstData(currentPage);
+				if (flag) {
+					currentPage += 1;
+					initFirstData(currentPage, type);
+				}else{
+					ToastUtil.ToastView(MyPostActivity.this, getResources()
+							.getString(R.string.no_more));
+					// 下拉加载完成
+					pulllv_my_post.onPullDownRefreshComplete();
+					// 上拉刷新完成
+					pulllv_my_post.onPullUpRefreshComplete();
+					// 设置是否有更多的数据
+					pulllv_my_post.setHasMoreData(false);
+				}
 			}
 		});
-
 	}
 
 	/**
@@ -256,10 +274,17 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	 * @描述：加载数据(首次加载)--测试数据，添加操作
 	 * @date：2014-6-25
 	 */
-	private void initFirstData(int currentPage) {
-		// 请求数据
-		HttpUrlProvider.getIntance().getMyPost(MyPostActivity.this,
-				new TaskPostListBack(handler), userId, currentPage);
+	private void initFirstData(int currentPage, int type) {
+		if (type == 0) {
+
+			// 请求数据
+			HttpUrlProvider.getIntance().getMyPost(MyPostActivity.this,
+					new TaskPostListBack(handler), userId, currentPage);
+		} else if (type == 1) {
+			// 请求数据
+			HttpUrlProvider.getIntance().getMyReplyPost(MyPostActivity.this,
+					new TaskPostListBack(handler), userId, currentPage);
+		}
 		loadingdialog.show(MyPostActivity.this);
 
 	}

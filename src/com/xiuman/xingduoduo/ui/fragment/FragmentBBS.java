@@ -330,6 +330,9 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		case R.id.llyt_bbs_user_post:// 我的发帖
 			if (MyApplication.getInstance().isUserLogin()) {
 				Intent intent = new Intent(getActivity(), MyPostActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putInt("type", 0);
+				intent.putExtras(bundle);
 				getActivity().startActivity(intent);
 				getActivity().overridePendingTransition(
 						R.anim.translate_horizontal_start_in,
@@ -341,7 +344,10 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 			break;
 		case R.id.llyt_bbs_user_reply:// 我的回复
 			if (MyApplication.getInstance().isUserLogin()) {
-				Intent intent = new Intent(getActivity(), MyReplyActivity.class);
+				Intent intent = new Intent(getActivity(), MyPostActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putInt("type", 1);
+				intent.putExtras(bundle);
 				getActivity().startActivity(intent);
 				getActivity().overridePendingTransition(
 						R.anim.translate_horizontal_start_in,

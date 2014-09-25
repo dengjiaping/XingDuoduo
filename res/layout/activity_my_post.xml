@@ -15,10 +15,13 @@
 
         <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView
             android:id="@+id/pulllv_my_post"
-            android:layout_width="match_parent"
+           android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@drawable/drawable_transparent"
-            android:fastScrollEnabled="true" />
+            android:background="@color/color_bg"
+            android:cacheColorHint="@android:color/transparent"
+            android:fadingEdge="none"
+            android:focusable="true"
+            android:listSelector="@drawable/whole_bg_selector" />
 
         <include
             layout="@layout/network_error"

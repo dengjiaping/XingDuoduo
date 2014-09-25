@@ -985,18 +985,20 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setParams("postTypeId", postTypeId);
 		httpDataTask.setParams("topicId", topicId);
 		httpDataTask.setParams("userId", userId);
-		try {
-			httpDataTask.setParams("title",
-					URLEncoder.encode(title, "utf-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		try {
-			httpDataTask.setParams("content",
-					URLEncoder.encode(content, "utf-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		httpDataTask.setParams("title",title);
+		httpDataTask.setParams("content",content);
+//		try {
+//			httpDataTask.setParams("title",
+//					URLEncoder.encode(title, "utf-8"));
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//		try {
+//			httpDataTask.setParams("content",
+//					URLEncoder.encode(content, "utf-8"));
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
 		// httpDataTask.setParams("shopId", shopId);
 
 		httpDataTask.execute(url);
@@ -1060,7 +1062,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("userId", userId);
 		url += httpDataTask.jointToUrl("pageNo", pageNo);
-		url += httpDataTask.jointToUrl("pageSize", 10);
+		url += httpDataTask.jointToUrl("pageSize", 2);
 
 		httpDataTask.execute(url);
 	}
@@ -1074,13 +1076,13 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param pageSize
 	 */
 	public void getMyReplyPost(Context mContext, HttpTaskListener httpTaskListener,
-			String userId, int pageNo, int pageSize) {
+			String userId, int pageNo) {
 		String url = URLConfig.PRIVATE_IP + URLConfig.MY_REPLY_POST_IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("userId", userId);
 		url += httpDataTask.jointToUrl("pageNo", pageNo);
-		url += httpDataTask.jointToUrl("pageSize", pageSize);
+		url += httpDataTask.jointToUrl("pageSize", 10);
 
 		httpDataTask.execute(url);
 	}

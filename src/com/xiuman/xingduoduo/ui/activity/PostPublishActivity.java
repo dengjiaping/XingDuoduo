@@ -1,16 +1,9 @@
 package com.xiuman.xingduoduo.ui.activity;
 
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -54,7 +47,6 @@ import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.app.Mylog;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.ActionValue;
-import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.PostSimulation;
