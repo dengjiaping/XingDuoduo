@@ -121,7 +121,7 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 
 		final BBSPostReply reply = replys.get(position);
 		// 头像
-		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP + reply.getAvatar(),
+		imageLoader.displayImage(URLConfig.IMG_IP + reply.getAvatar(),
 				holder.iv_item_postinfo_reply_head, options,
 				new ImageLoadingListener() {
 

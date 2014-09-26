@@ -107,7 +107,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					.setImageResource(R.drawable.sex_female);
 		}
 		// 头像
-		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP + post.getAvatar(),
+		imageLoader.displayImage(URLConfig.IMG_IP + post.getAvatar(),
 				holder.iv_item_post_plate_post_head, options,
 				new ImageLoadingListener() {
 

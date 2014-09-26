@@ -13,15 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView
-            android:id="@+id/pulllv_my_post"
-           android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_bg"
-            android:cacheColorHint="@android:color/transparent"
-            android:fadingEdge="none"
-            android:focusable="true"
-            android:listSelector="@drawable/whole_bg_selector" />
+       <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView
+            android:id="@+id/pullsv_my_posts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <include
             layout="@layout/network_error"

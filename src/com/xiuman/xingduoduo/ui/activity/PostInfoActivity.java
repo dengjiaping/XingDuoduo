@@ -341,7 +341,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		// }
 		// 头像
 		imageLoader.displayImage(
-				URLConfig.PRIVATE_IMG_IP + postinfo_starter.getAvatar(),
+				URLConfig.IMG_IP + postinfo_starter.getAvatar(),
 				iv_postinfo_starter_head, options, new ImageLoadingListener() {
 
 					@Override

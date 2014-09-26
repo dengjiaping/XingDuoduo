@@ -1,6 +1,7 @@
 package com.xiuman.xingduoduo.adapter;
 
 import java.util.List;
+import javax.crypto.spec.IvParameterSpec;
 
 import android.content.Context;
 import android.view.View;
@@ -66,6 +67,7 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 
 		imageLoader.displayImage(imgs.get(position),
 				holder.iv_item_postinfo_img_item, options);
+		System.out.println("图片宽度"+holder.iv_item_postinfo_img_item.getWidth());
 
 		return convertView;
 	}

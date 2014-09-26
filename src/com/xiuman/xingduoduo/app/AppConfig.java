@@ -24,9 +24,6 @@ public class AppConfig {
 	public final static int BBS_PUBLISH_RUN = 9006;
 	// 上传头像线程
 	public final static int UPLOAD_PORAIT_RUN = 9007;
-	
-	
-	
 
 	// 购物车Fragment Activity请求码与返回码-----------------------------
 	public final static int REQUEST_CODE = 1;
@@ -189,17 +186,22 @@ public class AppConfig {
 	public static final String FILE_SAVE_ADS = "file_ads";
 	// key
 	public static final String KEY_SAVE_ADS = "key_ads";
+	// 保存论坛广告------------------------------------------------------------
+	// file
+	public static final String FILE_SAVE_BBS_ADS = "file_bbs_ads";
+	// key
+	public static final String KEY_SAVE_BBS_ADS = "key_bbs_ads";
 
 	// 保存首页置顶商品------------------------------------------------------------
 	// file
 	public static final String FILE_SAVE_STCIK = "file_stick";
 	// key
 	public static final String KEY_SAVE_STICK = "key_stick";
-	
-	//屏幕宽高------------------------------------------------------------------
-	//file
+
+	// 屏幕宽高------------------------------------------------------------------
+	// file
 	public static final String FILE_SWCRREN = "file_screen";
-	//key
+	// key
 	public static final String KEY_SWCRRENWIDTH = "key_screenwidth";
 	public static final String KEY_SWCRRENHEIGHT = "key_screenheight";
 }

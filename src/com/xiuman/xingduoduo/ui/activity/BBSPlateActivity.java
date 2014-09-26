@@ -275,7 +275,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Object obj = lv_posts.getItemAtPosition(position);
+				Object obj = lv_stick_posts.getItemAtPosition(position);
 				if (obj instanceof BBSPost) {
 					BBSPost postinfo = (BBSPost) obj;
 					Intent intent = new Intent(BBSPlateActivity.this,

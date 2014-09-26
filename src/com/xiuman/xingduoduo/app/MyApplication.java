@@ -31,6 +31,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.xiuman.xingduoduo.lock.util.LockPatternUtils;
 import com.xiuman.xingduoduo.model.ActionValue;
+import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.model.GoodsOne;
 import com.xiuman.xingduoduo.model.GoodsStick;
 import com.xiuman.xingduoduo.model.User;
@@ -415,6 +416,33 @@ public class MyApplication extends Application {
 		return ads;
 	}
 
+	/*----------------------------------------------论坛广告--------------------------------------------------------*/
+	/**
+	 * @描述：保存广告
+	 * @param ads
+	 *            2014-9-20
+	 */
+	public void saveBBSAds(ActionValue<BBSPost> ads) {
+		String json_ads = new Gson().toJson(ads).toString();
+		SharedPreUtils.setString(this, json_ads, AppConfig.FILE_SAVE_BBS_ADS,
+				AppConfig.KEY_SAVE_BBS_ADS);
+	}
+
+	/**
+	 * @描述：获取广告
+	 * @return 2014-9-21
+	 */
+	public ActionValue<BBSPost> getBBSAds() {
+		ActionValue<BBSPost> ads = null;
+		String json = SharedPreUtils.getString(this, AppConfig.FILE_SAVE_BBS_ADS,
+				AppConfig.KEY_SAVE_BBS_ADS);
+		if (!json.equals("")) {
+			ads = new Gson().fromJson(json,
+					new TypeToken<ActionValue<BBSPost>>() {
+					}.getType());
+		}
+		return ads;
+	}
 	/*----------------------------------------------保存首页置顶商品--------------------------------------------------------*/
 	/**
 	 * @描述：保存首页置顶商品

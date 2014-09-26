@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llyt_posts_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <!-- 我的帖子 -->
+    <com.xiuman.xingduoduo.view.MyListView
+        android:id="@+id/lv_posts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@drawable/drawable_transparent"
+        android:dividerHeight="10dip"
+        android:listSelector="@drawable/whole_bg_normal_selector" />
+
+</LinearLayout>

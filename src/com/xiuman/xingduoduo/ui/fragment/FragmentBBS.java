@@ -47,7 +47,6 @@ import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.testdata.Test;
 import com.xiuman.xingduoduo.ui.activity.BBSPlateActivity;
 import com.xiuman.xingduoduo.ui.activity.MyPostActivity;
-import com.xiuman.xingduoduo.ui.activity.MyReplyActivity;
 import com.xiuman.xingduoduo.ui.activity.UserInfoActivity;
 import com.xiuman.xingduoduo.ui.activity.UserLoginActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
@@ -143,13 +142,17 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				if (value.isSuccess()) {
 					bbspost = value.getDatasource();
 					setAdData();
-
+					MyApplication.getInstance().saveBBSAds(value);
 				}
 
 				break;
 
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-
+				value = MyApplication.getInstance().getBBSAds();
+				if (value != null) {
+					bbspost = value.getDatasource();
+					setAdData();
+				}
 				break;
 			}
 		}
@@ -306,9 +309,9 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				R.anim.translate_vertical_start_out);
 
 	}
+
 	/**
-	 * @描述：加载数据
-	 * 2014-9-25
+	 * @描述：加载数据 2014-9-25
 	 */
 	protected void initFirstData() {
 

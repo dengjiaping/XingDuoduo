@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -32,7 +33,7 @@ import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
-import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView;
 
 /**
  * @名称：MyPostActivity.java
@@ -49,7 +50,9 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	// 标题栏
 	private TextView tv_title;
 	// 下拉刷新ScrollView
-	private PullToRefreshListView pulllv_my_post;
+	private PullToRefreshScrollView pulllv_my_post;
+	// 可刷新的ScrollView
+	private ScrollView sv_posts;
 	// ListView(帖子)
 	private ListView lv_posts;
 	// 网络连接失败显示的布局
@@ -172,16 +175,21 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		btn_post = (Button) findViewById(R.id.btn_common_right);
 		tv_title = (TextView) findViewById(R.id.tv_common_title);
 
-		pulllv_my_post = (PullToRefreshListView) findViewById(R.id.pulllv_my_post);
+		pulllv_my_post = (PullToRefreshScrollView) findViewById(R.id.pullsv_my_posts);
 		pulllv_my_post.setPullLoadEnabled(true);
 		pulllv_my_post.setScrollLoadEnabled(true);
-		lv_posts = pulllv_my_post.getRefreshableView();
+		sv_posts = pulllv_my_post.getRefreshableView();
 
+		View view = View.inflate(this, R.layout.include_my_posts_container,
+				null);
+		lv_posts = (ListView) view.findViewById(R.id.lv_posts);
 		lv_posts.setDividerHeight(SizeUtil.dip2px(this, 20));
 		lv_posts.setDivider(getResources().getDrawable(
 				R.drawable.drawable_transparent));
 		lv_posts.setSelector(getResources().getDrawable(
 				R.drawable.whole_bg_normal_selector));
+
+		sv_posts.addView(view);
 	}
 
 	@Override
@@ -225,35 +233,37 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		});
 
 		// 下拉上啦刷新
-		pulllv_my_post.setOnRefreshListener(new OnRefreshListener<ListView>() {
+		pulllv_my_post
+				.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
 
-			@Override
-			public void onPullDownToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
-				isUp = true;
-				currentPage = 1;
-				initFirstData(currentPage, type);
-			}
+					@Override
+					public void onPullDownToRefresh(
+							PullToRefreshBase<ScrollView> refreshView) {
+						isUp = true;
+						currentPage = 1;
+						initFirstData(currentPage, type);
+					}
 
-			@Override
-			public void onPullUpToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
-				isUp = false;
-				if (flag) {
-					currentPage += 1;
-					initFirstData(currentPage, type);
-				}else{
-					ToastUtil.ToastView(MyPostActivity.this, getResources()
-							.getString(R.string.no_more));
-					// 下拉加载完成
-					pulllv_my_post.onPullDownRefreshComplete();
-					// 上拉刷新完成
-					pulllv_my_post.onPullUpRefreshComplete();
-					// 设置是否有更多的数据
-					pulllv_my_post.setHasMoreData(false);
-				}
-			}
-		});
+					@Override
+					public void onPullUpToRefresh(
+							PullToRefreshBase<ScrollView> refreshView) {
+						// TODO Auto-generated method stub
+						isUp = false;
+						if (flag) {
+							currentPage += 1;
+							initFirstData(currentPage, type);
+						} else {
+							ToastUtil.ToastView(MyPostActivity.this,
+									getResources().getString(R.string.no_more));
+							// 下拉加载完成
+							pulllv_my_post.onPullDownRefreshComplete();
+							// 上拉刷新完成
+							pulllv_my_post.onPullUpRefreshComplete();
+							// 设置是否有更多的数据
+							pulllv_my_post.setHasMoreData(false);
+						}
+					}
+				});
 	}
 
 	/**

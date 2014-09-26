@@ -987,19 +987,6 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setParams("userId", userId);
 		httpDataTask.setParams("title",title);
 		httpDataTask.setParams("content",content);
-//		try {
-//			httpDataTask.setParams("title",
-//					URLEncoder.encode(title, "utf-8"));
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
-//		try {
-//			httpDataTask.setParams("content",
-//					URLEncoder.encode(content, "utf-8"));
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
-		// httpDataTask.setParams("shopId", shopId);
 
 		httpDataTask.execute(url);
 	}
@@ -1029,8 +1016,18 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setParams("attachment", attachment);
 		httpDataTask.setParams("userId", userId);
 		httpDataTask.setParams("scode", scode);
-		httpDataTask.setParams("title",title);
-		httpDataTask.setParams("content",content);
+//		httpDataTask.setParams("title",title);
+//		httpDataTask.setParams("content",content);
+		try {
+			httpDataTask.setParams("title",new String(title.getBytes("utf-8"), "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		try {
+			httpDataTask.setParams("content",new String(content.getBytes("utf-8"), "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 //		try {
 //			httpDataTask.setParams("title",
 //					URLEncoder.encode(title, "utf-8"));
@@ -1062,7 +1059,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("userId", userId);
 		url += httpDataTask.jointToUrl("pageNo", pageNo);
-		url += httpDataTask.jointToUrl("pageSize", 2);
+		url += httpDataTask.jointToUrl("pageSize", 10);
 
 		httpDataTask.execute(url);
 	}

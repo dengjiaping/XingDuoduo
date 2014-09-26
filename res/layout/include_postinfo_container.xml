@@ -99,8 +99,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dip"
-                android:textColor="@color/color_black3"
-                android:textSize="@dimen/txt_size_12" />
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/txt_size_14" />
             <!-- 图片 -->
 
             <com.xiuman.xingduoduo.view.MyListView
