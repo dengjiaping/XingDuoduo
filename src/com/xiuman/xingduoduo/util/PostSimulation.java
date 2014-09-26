@@ -75,9 +75,11 @@ public class PostSimulation {
 			split.append("Content-Disposition: form-data; name=\""
 					+ fileKey + "\"; filename=\""
 					+ fileName+ "\"" + lineEnd);
-			split.append("Content-Type: " + fileName.substring(fileName.lastIndexOf(".")+1) + lineEnd);
+			split.append("Content-Type: " +"image/"+ "png");
+//			split.append("Content-Type: " +"image/"+fileName.substring(fileName.lastIndexOf(".")+1) + lineEnd);
 			Mylog.i("图片类型", fileName.substring(fileName.lastIndexOf(".")+1));
 			split.append(lineEnd);
+			Mylog.i("图片字串", split.toString());
 			try {
 				// 发送图片数据
 				output.writeBytes(split.toString());
@@ -111,6 +113,7 @@ public class PostSimulation {
 					+ key + "\"" + lineEnd);
 			sb.append(lineEnd);
 			sb.append(value + lineEnd);
+			Mylog.i("表单字串", sb.toString());
 		try {
 			output.writeBytes(sb.toString());// 发送表单字段数据
 		} catch (IOException e) {
@@ -142,6 +145,7 @@ public class PostSimulation {
 			conn.setUseCaches(false); // 不使用Cache
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Connection", "keep-alive");
+			conn.setRequestProperty("Charset", "UTF-8");
 			conn.setRequestProperty("Content-Type", multipart_form_data
 					+ "; boundary=" + boundary);
 

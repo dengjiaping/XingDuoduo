@@ -113,13 +113,13 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 				String result = (String) msg.obj;
 				Mylog.i("头像上传返回", result);
 				if (result != null) {
-					ActionValue<?> value = new Gson().fromJson(result,
-							ActionValue.class);
-
-					if (value.isSuccess()) {
+//					ActionValue<?> value = new Gson().fromJson(result,
+//							ActionValue.class);
+//
+//					if (value.isSuccess()) {
 
 						ToastUtil.ToastView(getApplication(), "头像已经上传");
-					}
+//					}
 				}
 
 				break;
