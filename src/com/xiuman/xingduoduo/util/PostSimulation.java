@@ -1,18 +1,11 @@
-/**
- * @ClassName: PostSimulation
- * @Description: TODO
- * @author Andrew Lee
- * @date 2014-9-21 下午12:10:15
- */
-
 package com.xiuman.xingduoduo.util;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -23,34 +16,36 @@ import com.xiuman.xingduoduo.app.Mylog;
 
 /**
  * @名称：PostSimulation.java
- * @描述：
+ * @描述：发表帖子工具类
  * @author Andrew Lee 2014-9-21下午12:10:15
  */
 public class PostSimulation {
-	
+
 	private static PostSimulation instance = null;
 	private Vector properties = null;
 	private String multipart_form_data = "multipart/form-data";
 	private String twoHyphens = "--";
 	private String boundary = "****************fD4fH3gL0hK7aI6"; // 数据分隔符
-	private String lineEnd = "\r\n" ;// The value is
-															// "\r\n" in
-															// Windows.
+	private String lineEnd = "\r\n";// The value is
+									// "\r\n" in
+									// Windows.
+
 	private PostSimulation() {
 	}
-	
+
 	private static synchronized void syncInit() {
 		if (instance == null) {
 			instance = new PostSimulation();
 		}
 	}
-	
+
 	public static PostSimulation getInstance() {
 		if (instance == null) {
 			syncInit();
 		}
 		return instance;
 	}
+
 	public Vector getProperties() {
 		return properties;
 	}
@@ -59,6 +54,7 @@ public class PostSimulation {
 		PostSimulation shadow = new PostSimulation();
 		properties = shadow.getProperties();
 	}
+
 	/*
 	 * 上传图片内容，格式请参考HTTP 协议格式。
 	 * 人人网Photos.upload中的”程序调用“http://wiki.dev.renren.com/
@@ -68,36 +64,35 @@ public class PostSimulation {
 	 * 
 	 * 这儿是文件的内容，二进制流的形式
 	 */
-	private void addImageContent(String fileKey,String fileName, DataOutputStream output) {
-			File file=new File(fileName);
-			StringBuilder split = new StringBuilder();
-			split.append(twoHyphens + boundary + lineEnd);
-			split.append("Content-Disposition: form-data; name=\""
-					+ fileKey + "\"; filename=\""
-					+ fileName+ "\"" + lineEnd);
-			split.append("Content-Type: " +"image/"+ "png");
-//			split.append("Content-Type: " +"image/"+fileName.substring(fileName.lastIndexOf(".")+1) + lineEnd);
-			Mylog.i("图片类型", fileName.substring(fileName.lastIndexOf(".")+1));
-			split.append(lineEnd);
-			Mylog.i("图片字串", split.toString());
-			try {
-				// 发送图片数据
-				output.writeBytes(split.toString());
-				FileInputStream fStream = new FileInputStream(file);
-				// /* 设置每次写入1024bytes */
-				 int bufferSize = 1024;
-				 byte[] buffer = new byte[bufferSize];
-				 int length = -1;
-				// /* 从文件读取数据至缓冲区 */
-				 while ((length = fStream.read(buffer)) != -1) {
-				// /* 将资料写入DataOutputStream中 */
-					 output.write(buffer, 0, length);
-				 }
-				output.writeBytes(lineEnd);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
+	private void addImageContent(String fileKey, String fileName,
+			OutputStream output) {
+		File file = new File(fileName);
+		StringBuilder split = new StringBuilder();
+		split.append(twoHyphens + boundary + lineEnd);
+		split.append("Content-Disposition: form-data; name=\"" + fileKey
+				+ "\"; filename=\"" + fileName + "\"" + lineEnd);
+		split.append("Content-Type: "
+				+ fileName.substring(fileName.lastIndexOf(".") + 1) + lineEnd);
+		Mylog.i("图片类型", fileName.substring(fileName.lastIndexOf(".") + 1));
+		split.append(lineEnd);
+		try {
+			// 发送图片数据
+			output.write(split.toString().getBytes("utf-8"));
+			FileInputStream fStream = new FileInputStream(file);
+			// /* 设置每次写入1024bytes */
+			int bufferSize = 1024;
+			byte[] buffer = new byte[bufferSize];
+			int length = -1;
+			// /* 从文件读取数据至缓冲区 */
+			while ((length = fStream.read(buffer)) != -1) {
+				// /* 将资料写入OutputStream中 */
+				output.write(buffer, 0, length);
 			}
-		
+			output.write(lineEnd.getBytes("utf-8"));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 	/*
@@ -105,17 +100,16 @@ public class PostSimulation {
 	 * --****************fD4fH3hK7aI6 Content-Disposition: form-data;
 	 * name="action" // 一空行，必须有 upload
 	 */
-	private void addFormField(String key,String value,
-			DataOutputStream output) {
+	private void addFormField(String key, String value, OutputStream output) {
 		StringBuilder sb = new StringBuilder();
-			sb.append(twoHyphens + boundary + lineEnd);
-			sb.append("Content-Disposition: form-data; name=\""
-					+ key + "\"" + lineEnd);
-			sb.append(lineEnd);
-			sb.append(value + lineEnd);
-			Mylog.i("表单字串", sb.toString());
+		sb.append(twoHyphens + boundary + lineEnd);
+		sb.append("Content-Disposition: form-data; name=\"" + key + "\""
+				+ lineEnd);
+		sb.append(lineEnd);
+		sb.append(value + lineEnd);
 		try {
-			output.writeBytes(sb.toString());// 发送表单字段数据
+			output.write(sb.toString().getBytes("utf-8"));// 发送表单字段数据
+			System.out.println("表单字段" + sb.toString());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -132,9 +126,10 @@ public class PostSimulation {
 	 *            上传文件信息
 	 * @return 返回请求结果
 	 */
-	public String post(String actionUrl,String fileKey,List<String> fileNames,List<String> keys,Map<String ,String> maps) {
+	public String post(String actionUrl, String fileKey,
+			List<String> fileNames, List<String> keys, Map<String, String> maps) {
 		HttpURLConnection conn = null;
-		DataOutputStream output = null;
+		OutputStream output = null;
 		BufferedReader input = null;
 		try {
 			URL url = new URL(actionUrl);
@@ -145,35 +140,27 @@ public class PostSimulation {
 			conn.setUseCaches(false); // 不使用Cache
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Connection", "keep-alive");
-			conn.setRequestProperty("Charset", "UTF-8");
 			conn.setRequestProperty("Content-Type", multipart_form_data
 					+ "; boundary=" + boundary);
 
 			conn.connect();
-			output = new DataOutputStream(conn.getOutputStream());
-//			addFormField("scode", "", output);
-//			addFormField("userId", "215", output);
-//			addFormField("category", "1", output);
-//			addFormField("forumId", "1", output);
-//			addFormField("postTypeId", "1", output);
-//			addFormField("title", "title", output);
-//			addFormField("content", "content", output);
-//			
-			for(String key : keys){
+			output =conn.getOutputStream();
+			//
+			for (String key : keys) {
 				addFormField(key, maps.get(key), output);
 			}
+//			addFormField2(maps, output);
 			
-			for(String fileName:fileNames){
+			for (String fileName : fileNames) {
 				addImageContent(fileKey, fileName, output);
-				
+
 			}
-			
 
-//			addImageContent(files, output); // 添加图片内容
-//
-//			addFormField(params, output); // 添加表单字段内容
+			// addImageContent(files, output); // 添加图片内容
+			//
+			// addFormField(params, output); // 添加表单字段内容
 
-			output.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);// 数据结束标志
+			output.write((twoHyphens + boundary + twoHyphens + lineEnd).getBytes());// 数据结束标志
 			output.flush();
 
 			int code = conn.getResponseCode();
