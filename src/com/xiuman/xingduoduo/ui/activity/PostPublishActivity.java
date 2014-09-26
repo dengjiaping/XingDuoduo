@@ -96,9 +96,9 @@ public class PostPublishActivity extends Base2Activity implements
 
 	/*----------------------------------------数据--------------------------------------*/
 	// 从上级界面接收到的板块id(要将帖子发布在哪个板块)
-	private String plate_id;
+//	private String plate_id;
 	// 选择的图片列表
-	private ArrayList<String> post_imgs = new ArrayList<String>();
+//	private ArrayList<String> post_imgs = new ArrayList<String>();
 
 	/*----------------------------------------adapter-----------------------------------*/
 	// 添加图片的Adapter
@@ -126,7 +126,7 @@ public class PostPublishActivity extends Base2Activity implements
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 
-			case AppConfig.BBS_PUBLISH_RUN://发表帖子
+			case AppConfig.BBS_PUBLISH_RUN:// 发表帖子
 				String result = (String) msg.obj;
 				Mylog.i("result", "123" + result);
 				if (result != null) {
@@ -136,29 +136,29 @@ public class PostPublishActivity extends Base2Activity implements
 					if (value.isSuccess()) {
 						ToastUtil.ToastView(PostPublishActivity.this,
 								value.getMessage());
-//						Intent intent3 = new Intent(PostPublishActivity.this,
-//								PostInfoActivity.class);
-//						Bundle bundle = new Bundle();
-//						SimpleDateFormat format = new SimpleDateFormat(
-//								"yyyy-MM-dd HH:mm:ss");
-//						Date date = new Date();
-//						String createTime = format.format(date);
-//						BBSPost post = new BBSPost(et_post_content.getText()
-//								.toString(), et_post_content.getText()
-//								.toString(), createTime, et_post_title
-//								.getText().toString(), "" + 9, 0, 2, 0);
-//						bundle.putSerializable("postinfo_starter", post);
-//						// 版块id
-//						bundle.putString("forumId", forumId);
-//						intent3.putExtras(bundle);
-//						Bimp.drr.clear();
-//						Bimp.bmp.clear();
-//						Bimp.max = 0;
-//						loadingdialog.dismiss();
-//						startActivity(intent3);
-//						overridePendingTransition(
-//								R.anim.translate_horizontal_start_in,
-//								R.anim.translate_horizontal_start_out);
+						// Intent intent3 = new Intent(PostPublishActivity.this,
+						// PostInfoActivity.class);
+						// Bundle bundle = new Bundle();
+						// SimpleDateFormat format = new SimpleDateFormat(
+						// "yyyy-MM-dd HH:mm:ss");
+						// Date date = new Date();
+						// String createTime = format.format(date);
+						// BBSPost post = new BBSPost(et_post_content.getText()
+						// .toString(), et_post_content.getText()
+						// .toString(), createTime, et_post_title
+						// .getText().toString(), "" + 9, 0, 2, 0);
+						// bundle.putSerializable("postinfo_starter", post);
+						// // 版块id
+						// bundle.putString("forumId", forumId);
+						// intent3.putExtras(bundle);
+						// Bimp.drr.clear();
+						// Bimp.bmp.clear();
+						// Bimp.max = 0;
+						// loadingdialog.dismiss();
+						// startActivity(intent3);
+						// overridePendingTransition(
+						// R.anim.translate_horizontal_start_in,
+						// R.anim.translate_horizontal_start_out);
 						finish();
 
 					} else {
@@ -183,25 +183,25 @@ public class PostPublishActivity extends Base2Activity implements
 				if (value.isSuccess()) {
 					ToastUtil.ToastView(PostPublishActivity.this,
 							value.getMessage());
-//					Intent intent = new Intent(PostPublishActivity.this,
-//							PostInfoActivity.class);
-//					Bundle bundle = new Bundle();
-//					SimpleDateFormat format = new SimpleDateFormat(
-//							"yyyy-MM-dd HH:mm:ss");
-//					Date date = new Date();
-//					String createTime = format.format(date);
-//					BBSPost post = new BBSPost(et_post_content.getText()
-//							.toString(), et_post_content.getText().toString(),
-//							createTime, et_post_title.getText().toString(),
-//							userName, 0, 2, 0);
-//					bundle.putSerializable("postinfo_starter", post);
-//					// 版块id
-//					bundle.putString("forumId", forumId);
-//					intent.putExtras(bundle);
-//					startActivity(intent);
-//					overridePendingTransition(
-//							R.anim.translate_horizontal_start_in,
-//							R.anim.translate_horizontal_start_out);
+					// Intent intent = new Intent(PostPublishActivity.this,
+					// PostInfoActivity.class);
+					// Bundle bundle = new Bundle();
+					// SimpleDateFormat format = new SimpleDateFormat(
+					// "yyyy-MM-dd HH:mm:ss");
+					// Date date = new Date();
+					// String createTime = format.format(date);
+					// BBSPost post = new BBSPost(et_post_content.getText()
+					// .toString(), et_post_content.getText().toString(),
+					// createTime, et_post_title.getText().toString(),
+					// userName, 0, 2, 0);
+					// bundle.putSerializable("postinfo_starter", post);
+					// // 版块id
+					// bundle.putString("forumId", forumId);
+					// intent.putExtras(bundle);
+					// startActivity(intent);
+					// overridePendingTransition(
+					// R.anim.translate_horizontal_start_in,
+					// R.anim.translate_horizontal_start_out);
 					finish();
 				}
 				break;
@@ -357,7 +357,7 @@ public class PostPublishActivity extends Base2Activity implements
 					loadingdialog.show(PostPublishActivity.this);
 					User user = MyApplication.getInstance().getUserInfo();
 					userId = user.getUser_id();
-					userName=user.getUserName();
+					userName = user.getUserName();
 					title = et_post_title.getText().toString();
 					content = et_post_content.getText().toString();
 
@@ -580,15 +580,12 @@ public class PostPublishActivity extends Base2Activity implements
 
 		startActivityForResult(intent, TAKE_PICTURE);
 	}
-
+	/**
+	 * @描述：上传图片
+	 * @return
+	 * 2014-9-26
+	 */
 	protected String uploadFile() {
-		// addFormField("scode", "", output);
-		// addFormField("userId", "215", output);
-		// addFormField("category", "1", output);
-		// addFormField("forumId", "1", output);
-		// addFormField("postTypeId", "1", output);
-		// addFormField("title", "title", output);
-		// addFormField("content", "content", output);
 		List<String> keys = new ArrayList<String>();
 		keys.add("scode");
 		keys.add("userId");
@@ -601,6 +598,7 @@ public class PostPublishActivity extends Base2Activity implements
 		String scode = "";
 		for (int i = 0; i < Bimp.drr.size(); i++) {
 			scode += ((i + 1) + ",");
+			System.out.println("图片地址"+Bimp.drr.get(i));
 		}
 		if (scode.length() > 0) {
 
@@ -615,7 +613,10 @@ public class PostPublishActivity extends Base2Activity implements
 		map.put("postTypeId", "1");
 		map.put("title", title);
 		map.put("content", content);
-		return PostSimulation.getInstance().post(URLConfig.PRIVATE_IP + URLConfig.POST_PUBLISH__IP, "attachment", Bimp.drr, keys, map);
+		return PostSimulation.getInstance().post(
+				URLConfig.PRIVATE_IP + URLConfig.POST_PUBLISH__IP,
+				"attachment", Bimp.drr, keys, map);
+		
 
 	}
 

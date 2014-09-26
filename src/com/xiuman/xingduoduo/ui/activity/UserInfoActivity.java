@@ -104,22 +104,25 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 	private Bitmap user_head_bitmap;
 
 	// ----------------当前登录用户-----------------------
-	private User user,user1;
+	private User user;
 
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.UPLOAD_PORAIT_RUN:
 				String result = (String) msg.obj;
-				Mylog.i("头像上传返回", result);
+				Mylog.e("头像上传返回", result);
+				System.out.println("头像上传结果fanhui+" + result);
 				if (result != null) {
-//					ActionValue<?> value = new Gson().fromJson(result,
-//							ActionValue.class);
-//
-//					if (value.isSuccess()) {
+					ActionValue<?> value = new Gson().fromJson(result,
+							ActionValue.class);
+					System.out.println("头像上传结果" + value.getMessage() + "=="
+							+ value.isSuccess());
+					//
+					// if (value.isSuccess()) {
 
-						ToastUtil.ToastView(getApplication(), "头像已经上传");
-//					}
+					ToastUtil.ToastView(getApplication(), "头像已经上传");
+					// }
 				}
 
 				break;
@@ -148,8 +151,6 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		screenHeight = dm.heightPixels;
 
 		cropUtils = new ImageCropUtils(this);
-		user1 = MyApplication.getInstance().getUserInfo();
-		userId=user1.getUserId();
 
 	}
 
@@ -195,6 +196,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		super.onResume();
 		if (MyApplication.getInstance().isUserLogin()) {
 			user = MyApplication.getInstance().getUserInfo();
+			userId = user.getUserId();
 			initUserInfo(user);
 		}
 
@@ -437,8 +439,10 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 				});
 	}
 
+	/**
+	 * @描述：上传图片 2014-9-26
+	 */
 	protected void uploadImg() {
-
 		new Thread() {
 			public void run() {
 				Message msg = new Message();
@@ -447,77 +451,23 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 				handler.sendMessage(msg);
 			}
 		}.start();
-//		RequestParams params = new RequestParams();
-//		params.put("usernameIdhead ", userId);
-//		File file = new File(cropUtils.createDirectory()
-//				+ cropUtils.createNewPhotoName());
-//		try {
-//			params.put("myFile ", file);
-//
-//		} catch (FileNotFoundException e) {
-//		}
-//		MyHttpClient.post(URLConfig.MY_HEAD_PHOTO_IP, params,
-//				new JsonHttpResponseHandler() {
-//					/*
-//					 * (non-Javadoc)
-//					 * 
-//					 * @see com.loopj.android.http.JsonHttpResponseHandler
-//					 * #onFailure(int, org.apache.http.Header[],
-//					 * java.lang.Throwable, org.json.JSONObject)
-//					 */
-//					@Override
-//					public void onFailure(int statusCode,
-//							org.apache.http.Header[] headers,
-//							Throwable throwable, JSONObject errorResponse) {
-//						// TODO Auto-generated method stub
-//						super.onFailure(statusCode, headers, throwable,
-//								errorResponse);
-//					}
-//
-//					/*
-//					 * (non-Javadoc)
-//					 * 
-//					 * @see com.loopj.android.http.JsonHttpResponseHandler
-//					 * #onSuccess(int, org.apache.http.Header[],
-//					 * org.json.JSONObject)
-//					 */
-//					@Override
-//					public void onSuccess(int statusCode,
-//							org.apache.http.Header[] headers,
-//							JSONObject response) {
-//						// called when response HTTP status is
-//						// "200 OK"
-//						// TODO Auto-generated method stub
-//						super.onSuccess(statusCode, headers, response);
-//						System.out.println("jsonObject==>" + response);
-//						try {
-//							if (response.getBoolean("success")) {
-//								ToastUtil.ToastView(getApplication(), "头像已经上传");
-//
-//							} else {
-//
-//							}
-//						} catch (JSONException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//
-//					}
-//
-//				});
-
 	}
 
 	protected String uploadFile() {
 		List<String> keys = new ArrayList<String>();
-		keys.add("usernameIdhead");
+		keys.add("usernameId");
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("usernameIdhead", userId);
-		
+		map.put("usernameId", userId);
+
 		List<String> fileNames = new ArrayList<String>();
-		fileNames.add(cropUtils.createDirectory() + cropUtils.createNewPhotoName());
+		fileNames.add(cropUtils.createDirectory()
+				+ cropUtils.createNewPhotoName());
 
-		return PostSimulation.getInstance().post(URLConfig.BASE_IP+URLConfig.MY_HEAD_PHOTO_IP, "myFile", fileNames, keys, map);
+		String filename = cropUtils.createDirectory()
+				+ cropUtils.createNewPhotoName();
+		System.out.println("图片地址+"+filename+"==="+userId);
+		return PostSimulation.getInstance().postHead(
+				URLConfig.BASE_IP + URLConfig.UPLOAD_HEAD, "imgFile", filename,
+				"usernameId", userId);
 	}
-
 }
