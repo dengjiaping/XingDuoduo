@@ -233,6 +233,7 @@
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.PostInfoActivity"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 楼层信息 -->
@@ -245,6 +246,7 @@
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.PostPublishActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 相册列表界面 -->
@@ -369,7 +371,7 @@
         <!-- 渠道 -->
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Channel ID" />
+            android:value="keke" />
     </application>
 
 </manifest>

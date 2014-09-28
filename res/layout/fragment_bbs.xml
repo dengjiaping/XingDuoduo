@@ -39,29 +39,30 @@
 
                 <!-- 指示器 -->
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dip"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:background="@drawable/bg_communication_indicator"
+                    android:orientation="vertical"
                     android:gravity="center_vertical" >
 
                     <TextView
                         android:id="@+id/tv_bbs_ad_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:paddingTop="5dip"
                         android:textColor="@color/color_white"
-                        android:textSize="@dimen/txt_size_18"
-                        android:textStyle="bold"
-                        android:visibility="invisible" />
+                        android:textSize="@dimen/txt_size_15"/>
 
                     <com.xiuman.xingduoduo.view.indicator.CirclePageIndicator
                         android:id="@+id/indicator_bbs_ad"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:padding="10dip" />
-                </RelativeLayout>
+                        android:padding="5dip" />
+                </LinearLayout>
             </RelativeLayout>
             <!-- 板块 -->
 

@@ -3,10 +3,6 @@ package com.xiuman.xingduoduo.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
 /**
  * 
  * @名称：GoodsTwo.java
@@ -204,12 +200,14 @@ public class GoodsTwo implements Serializable {
 	 * @return 2014-8-15
 	 */
 	public String getIntroduction() {
-		if (introduction == null) {
-			return "";
-		}
-		Document doc = Jsoup.parse(introduction);
-		Element link = doc.select("img").first();
-		return link.attr("src");
+//		if (introduction == null) {
+//			return "";
+//		}
+//		Document doc = Jsoup.parse(introduction);
+//		Element link = doc.select("img").first();
+//		return link.attr("src");
+		
+		return introduction;
 	}
 
 	public void setIntroduction(String introduction) {

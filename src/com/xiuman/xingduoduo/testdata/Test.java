@@ -122,15 +122,15 @@ public class Test {
 		ArrayList<BBSPlate> plates = new ArrayList<BBSPlate>();
 		String plate_id_1 = "1";
 		String palte_name_1 = "涨姿势";
-		String plate_description_1 = "性爱姿势，两性健康，相爱只是，性爱误区，性爱心理";
+		String plate_description_1 = "性爱姿势，两性健康，相爱知识，性爱误区，性爱心理";
 		String plate_tag_1 = "hot";
 		int plate_icon_1 = R.drawable.ic_plate_1_zhangzishi;
 		BBSPlate palte_1 = new BBSPlate(plate_id_1, palte_name_1,
 				plate_description_1, plate_tag_1, plate_icon_1);
 
 		String plate_id_2 = "2";
-		String palte_name_2 = "性趣说";
-		String plate_description_2 = "男欢女爱的话题，两性恋爱等话题";
+		String palte_name_2 = "情趣说";
+		String plate_description_2 = "男欢女爱、两性恋爱等话题";
 		String plate_tag_2 = "";
 		int plate_icon_2 = R.drawable.ic_plate_2_xingqushuo;
 		BBSPlate palte_2 = new BBSPlate(plate_id_2, palte_name_2,
@@ -138,7 +138,7 @@ public class Test {
 
 		String plate_id_3 = "3";
 		String palte_name_3 = "爆照区";
-		String plate_description_3 = "自拍区，自拍美图，自拍重口味";
+		String plate_description_3 = "除了果照，我们都要！";
 		String plate_tag_3 = "hot";
 		int plate_icon_3 = R.drawable.ic_plate_3_baozhao;
 		BBSPlate palte_3 = new BBSPlate(plate_id_3, palte_name_3,
@@ -146,15 +146,15 @@ public class Test {
 
 		String plate_id_4 = "4";
 		String palte_name_4 = "内涵段子";
-		String plate_description_4 = "黄色笑话，内涵漫画段子";
+		String plate_description_4 = "节操是什么？能吃吗？";
 		String plate_tag_4 = "";
 		int plate_icon_4 = R.drawable.ic_plate_4_neihan;
 		BBSPlate palte_4 = new BBSPlate(plate_id_4, palte_name_4,
 				plate_description_4, plate_tag_4, plate_icon_4);
 
 		String plate_id_5 = "5";
-		String palte_name_5 = "Gay Park";
-		String plate_description_5 = "挑战禁忌，同性才是真爱";
+		String palte_name_5 = "攻德无量、万受无疆";
+		String plate_description_5 = "挑战禁忌，同性才是真爱！";
 		String plate_tag_5 = "";
 		int plate_icon_5 = R.drawable.ic_plate_5_gay;
 		BBSPlate palte_5 = new BBSPlate(plate_id_5, palte_name_5,
@@ -162,14 +162,14 @@ public class Test {
 
 		String plate_id_6 = "6";
 		String palte_name_6 = "晒出自性";
-		String plate_description_6 = "在性多多买了商品的用户，通过晒单，晒出自己的自信，性感，可以在这获得积分";
+		String plate_description_6 = "在性多多购买商品的用户，通过晒单，晒出你的自信和性感吧！";
 		String plate_tag_6 = "hot";
 		int plate_icon_6 = R.drawable.ic_plate_6_shaidan;
 		BBSPlate palte_6 = new BBSPlate(plate_id_6, palte_name_6,
 				plate_description_6, plate_tag_6, plate_icon_6);
 
 		String plate_id_7 = "7";
-		String palte_name_7 = "走走停停，一直在路上";
+		String palte_name_7 = "我们去哪儿";
 		String plate_description_7 = "哪里的麻辣烫最好吃？吃完麻辣烫去哪里？你知道吗？";
 		String plate_tag_7 = "";
 		int plate_icon_7 = R.drawable.ic_plate_7_way;
@@ -178,7 +178,7 @@ public class Test {
 
 		String plate_id_8 = "8";
 		String palte_name_8 = "白富美，高大上";
-		String plate_description_8 = "一大波美女即将来袭！";
+		String plate_description_8 = "不好！我的24k钛合金狗眼被亮瞎了！";
 		String plate_tag_8 = "new";
 		int plate_icon_8 = R.drawable.ic_plate_8_baifumei;
 		BBSPlate palte_8 = new BBSPlate(plate_id_8, palte_name_8,

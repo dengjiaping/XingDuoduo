@@ -29,6 +29,7 @@ import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemor
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.xiuman.xingduoduo.lock.util.LockPatternUtils;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPost;
@@ -87,11 +88,13 @@ public class MyApplication extends Application {
 				// max width, max
 				.threadPriority(Thread.NORM_PRIORITY - 2)
 				// 加载图片的线程数
-				.threadPoolSize(2)
+				.threadPoolSize(1)
 				// 线程池内加载的数量
 				.memoryCacheSize(2 * 1024 * 1024)
 				.discCacheSize(50 * 1024 * 1024)
-				.memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 * 1024))
+//				.memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 * 1024))
+				.memoryCache(new UsingFreqLimitedMemoryCache(50))
+				.imageDownloader(new BaseImageDownloader(this))
 				.denyCacheImageMultipleSizesInMemory()// 解码图像的大尺寸将在内存中缓存先前解码图像的小尺寸。
 				.discCacheFileNameGenerator(new Md5FileNameGenerator())// 设置磁盘缓存文件名称
 				.tasksProcessingOrder(QueueProcessingType.LIFO)// 设置加载显示图片队列进程

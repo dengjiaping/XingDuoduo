@@ -81,9 +81,9 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 
 	/*----------------------------------数据---------------------------------*/
 	// 接收到的分类名，测试数据
-	private String classify_name;
+	private String classify_name = "";
 	// 接收到的分类地址后缀
-	private String classify_url;
+	private String classify_url = "";
 	// 请求接口得到的商品数据
 	private ActionValue<GoodsOne> value;
 	// （商品列表）

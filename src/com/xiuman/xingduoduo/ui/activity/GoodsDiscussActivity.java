@@ -15,6 +15,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.GoodsDiscussListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
@@ -79,6 +82,12 @@ public class GoodsDiscussActivity extends Base2Activity implements
 	// 请求结果
 	private ActionValue<GoodsDiscuss> value_discuss;
 
+	/*-----------------------ImageLoader-----------------------------*/
+	// ImageLoader
+	public ImageLoader imageLoader = ImageLoader.getInstance();
+	// 配置图片加载及显示选项
+	public DisplayImageOptions options;
+
 	// 数据处理
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
@@ -100,7 +109,7 @@ public class GoodsDiscussActivity extends Base2Activity implements
 					if (isUp) {// 下拉
 						discusses_current = discusses_get;
 						adapter = new GoodsDiscussListViewAdapter(
-								GoodsDiscussActivity.this, discusses_current);
+								GoodsDiscussActivity.this, discusses_current,options,imageLoader);
 						// 下拉加载完成
 						pulllistview_discuss.onPullDownRefreshComplete();
 						lv_discuss.setAdapter(adapter);
@@ -118,7 +127,7 @@ public class GoodsDiscussActivity extends Base2Activity implements
 						}
 					}
 					TimeUtil.setLastUpdateTime(pulllistview_discuss);
-					
+
 					rlyt_discuss_null.setVisibility(View.INVISIBLE);
 				}
 
@@ -145,8 +154,17 @@ public class GoodsDiscussActivity extends Base2Activity implements
 		setListener();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
+		options = new DisplayImageOptions.Builder()
+		// .showStubImage(R.drawable.weiboitem_pic_loading) //
+		// 在ImageView加载过程中显示图片
+				.showImageForEmptyUri(R.drawable.ic_male) // image连接地址为空时
+				.showImageOnFail(R.drawable.ic_male) // image加载失败
+				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
+				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				.imageScaleType(ImageScaleType.NONE).build();
 		goods_id = getIntent().getExtras().getString("goods_id");
 	}
 

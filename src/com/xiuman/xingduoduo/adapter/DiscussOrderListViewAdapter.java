@@ -71,7 +71,7 @@ public class DiscussOrderListViewAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		final ViewHolder holder;
 //		if (convertView == null) {
 			holder = new ViewHolder();
@@ -115,7 +115,7 @@ public class DiscussOrderListViewAdapter extends BaseAdapter {
 		holder.tv_item_order_submit_goods_price.setText(goods.getProductPrice()+"");
 		holder.tv_item_order_submit_cart_total.setText(Float.parseFloat(goods
 				.getProductPrice()) * goods.getQuanity() + "");
-		
+		discuss_contents.add("");
 		holder.et_item_discuss_goods_content.addTextChangedListener(new TextWatcher() {
 			
 			@Override
@@ -131,7 +131,7 @@ public class DiscussOrderListViewAdapter extends BaseAdapter {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				discuss_contents.add(holder.et_item_discuss_goods_content.getText().toString());
+				discuss_contents.set(position,holder.et_item_discuss_goods_content.getText().toString());
 			}
 		});
 		

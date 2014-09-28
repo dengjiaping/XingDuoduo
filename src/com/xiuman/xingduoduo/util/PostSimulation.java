@@ -109,7 +109,6 @@ public class PostSimulation {
 		sb.append(value + lineEnd);
 		try {
 			output.write(sb.toString().getBytes("utf-8"));// 发送表单字段数据
-			System.out.println("表单字段" + sb.toString());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -144,13 +143,13 @@ public class PostSimulation {
 					+ "; boundary=" + boundary);
 
 			conn.connect();
-			output =conn.getOutputStream();
+			output = conn.getOutputStream();
 			//
 			for (String key : keys) {
 				addFormField(key, maps.get(key), output);
 			}
-//			addFormField2(maps, output);
-			
+			// addFormField2(maps, output);
+
 			for (String fileName : fileNames) {
 				addImageContent(fileKey, fileName, output);
 
@@ -160,7 +159,75 @@ public class PostSimulation {
 			//
 			// addFormField(params, output); // 添加表单字段内容
 
-			output.write((twoHyphens + boundary + twoHyphens + lineEnd).getBytes());// 数据结束标志
+			output.write((twoHyphens + boundary + twoHyphens + lineEnd)
+					.getBytes());// 数据结束标志
+			output.flush();
+
+			int code = conn.getResponseCode();
+			if (code != 200) {
+				throw new RuntimeException("请求‘" + actionUrl + "’失败！");
+			}
+
+			input = new BufferedReader(new InputStreamReader(
+					conn.getInputStream()));
+			StringBuilder response = new StringBuilder();
+			String oneLine;
+			while ((oneLine = input.readLine()) != null) {
+				response.append(oneLine + lineEnd);
+			}
+
+			return response.toString();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} finally {
+			// 统一释放资源
+			try {
+				if (output != null) {
+					output.close();
+				}
+				if (input != null) {
+					input.close();
+				}
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+
+			if (conn != null) {
+				conn.disconnect();
+			}
+		}
+	}
+
+	public String postHead(String actionUrl, String fileKey, String fileName,
+			String key, String value) {
+		HttpURLConnection conn = null;
+		OutputStream output = null;
+		BufferedReader input = null;
+		try {
+			URL url = new URL(actionUrl);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setConnectTimeout(120000);
+			conn.setDoInput(true); // 允许输入
+			conn.setDoOutput(true); // 允许输出
+			conn.setUseCaches(false); // 不使用Cache
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Connection", "keep-alive");
+			conn.setRequestProperty("Content-Type", multipart_form_data
+					+ "; boundary=" + boundary);
+
+			conn.connect();
+			output = conn.getOutputStream();
+			//
+//			addFormField(key, value, output);
+			StringBuffer params = new StringBuffer();
+            params.append(key).append("=").append(value);
+            byte[] bypes = params.toString().getBytes();
+            conn.getOutputStream().write(bypes);// 输入参数
+
+			addImageContent(fileKey, fileName, output);
+
+			output.write((twoHyphens + boundary + twoHyphens + lineEnd)
+					.getBytes());// 数据结束标志
 			output.flush();
 
 			int code = conn.getResponseCode();

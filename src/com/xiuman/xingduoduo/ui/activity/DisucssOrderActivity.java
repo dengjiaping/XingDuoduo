@@ -70,8 +70,8 @@ public class DisucssOrderActivity extends Base2Activity implements
 
 	// 评价成功数
 	private int success_number = 0;
-	
-	//返回值
+
+	// 返回值
 	private ActionValue<?> value_discuss;
 
 	@SuppressLint("HandlerLeak")
@@ -82,10 +82,13 @@ public class DisucssOrderActivity extends Base2Activity implements
 				value_discuss = (ActionValue<?>) msg.obj;
 				success_number++;
 				if (success_number == order.getProductDetail().size()) {
-					ToastUtil.ToastView(DisucssOrderActivity.this, value_discuss.getMessage());
+					ToastUtil.ToastView(DisucssOrderActivity.this,
+							value_discuss.getMessage());
 					setResult(AppConfig.RESULT_CODE_OK);
 					finish();
-					overridePendingTransition(R.anim.translate_horizontal_finish_in, R.anim.translate_horizontal_finish_out);
+					overridePendingTransition(
+							R.anim.translate_horizontal_finish_in,
+							R.anim.translate_horizontal_finish_out);
 				}
 				loadingdialog.dismiss();
 				break;
@@ -166,13 +169,17 @@ public class DisucssOrderActivity extends Base2Activity implements
 					R.anim.translate_horizontal_finish_out);
 			break;
 		case R.id.btn_submit_discuss:// 提交评论
-			loadingdialog.show(DisucssOrderActivity.this);
-			for (int i = 0; i < order.getProductDetail().size(); i++) {
-				HttpUrlProvider.getIntance().getDisCussGoods(this,
-						new TaskDiscussGoodsBack(handler),
-						URLConfig.DISCUSS_GOODS, user.getUserId(),
-						order.getProductDetail().get(i).getGoodId(),
-						adapter.getDiscuss_contents().get(i));
+			if (adapter.getDiscuss_contents().size() > 0) {
+				loadingdialog.show(DisucssOrderActivity.this);
+				for (int i = 0; i < order.getProductDetail().size(); i++) {
+					HttpUrlProvider.getIntance().getDisCussGoods(this,
+							new TaskDiscussGoodsBack(handler),
+							URLConfig.DISCUSS_GOODS, user.getUserId(),
+							order.getProductDetail().get(i).getGoodId(),
+							adapter.getDiscuss_contents().get(i));
+				}
+			} else {
+				ToastUtil.ToastView(DisucssOrderActivity.this, "您还没有输入任何评论哦！");
 			}
 			break;
 		}

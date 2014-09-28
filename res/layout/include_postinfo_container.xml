@@ -33,7 +33,7 @@
                     android:id="@+id/iv_postinfo_starter_head"
                     android:layout_width="40dip"
                     android:layout_height="40dip"
-                    android:src="@drawable/bg_head" />
+                    android:src="@drawable/ic_male" />
 
                 <LinearLayout
                     android:layout_width="0dip"

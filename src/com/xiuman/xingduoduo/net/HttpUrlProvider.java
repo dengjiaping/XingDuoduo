@@ -64,7 +64,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 	public void getRegister(Context mContext,
 			HttpTaskListener httpTaskListener, String singleurl,
 			String registrappusername, String registrapppassw,
-			String registrappemail, String nickname,String gender) {
+			String registrappemail, String nickname, String gender) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -471,7 +471,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("categoryId", categoryId);
 		url += httpDataTask.jointToUrl("sorting", sorting);
 		httpDataTask.execute(url);
-		System.out.println("分类商品列表"+url);
+		System.out.println("分类商品列表" + url);
 	}
 
 	/**
@@ -628,15 +628,16 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("sortType", sortType);
 		httpDataTask.execute(url);
 	}
+
 	/**
 	 * @描述：获取置顶商品
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @param singleurl
-	 * 2014-9-21
+	 *            2014-9-21
 	 */
 	public void getStickGoods(Context mContext,
-			HttpTaskListener httpTaskListener, String singleurl){
+			HttpTaskListener httpTaskListener, String singleurl) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -699,6 +700,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("OrderId", OrderId);
 		httpDataTask.execute(url);
 	}
+
 	/**
 	 * @描述：取消订单
 	 * @param mContext
@@ -714,7 +716,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("orderId", orderId);
 		httpDataTask.execute(url);
-		System.out.println("取消订单"+url);
+		System.out.println("取消订单" + url);
 	}
 
 	/**
@@ -913,7 +915,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_LIST_IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
-		
+
 		url += httpDataTask.jointToUrl("forumId", forumId);
 		url += httpDataTask.jointToUrl("pageNo", pageNo);
 		url += httpDataTask.jointToUrl("pageSize", pageSize);
@@ -949,10 +951,10 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param postId
 	 * @param pageNo
 	 * @param pageSize
-	 * 2014-9-25
+	 *            2014-9-25
 	 */
 	public void getPostReply(Context mContext,
-			HttpTaskListener httpTaskListener, int topicId,int pageNo) {
+			HttpTaskListener httpTaskListener, int topicId, int pageNo) {
 		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_REPLY_LIST_IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -985,8 +987,8 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setParams("postTypeId", postTypeId);
 		httpDataTask.setParams("topicId", topicId);
 		httpDataTask.setParams("userId", userId);
-		httpDataTask.setParams("title",title);
-		httpDataTask.setParams("content",content);
+		httpDataTask.setParams("title", title);
+		httpDataTask.setParams("content", content);
 
 		httpDataTask.execute(url);
 	}
@@ -1016,35 +1018,24 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setParams("attachment", attachment);
 		httpDataTask.setParams("userId", userId);
 		httpDataTask.setParams("scode", scode);
-//		httpDataTask.setParams("title",title);
-//		httpDataTask.setParams("content",content);
+		// httpDataTask.setParams("title",title);
+		// httpDataTask.setParams("content",content);
 		try {
-			httpDataTask.setParams("title",new String(title.getBytes("utf-8"), "utf-8"));
+			httpDataTask.setParams("title", new String(title.getBytes("utf-8"),
+					"utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		try {
-			httpDataTask.setParams("content",new String(content.getBytes("utf-8"), "utf-8"));
+			httpDataTask.setParams("content",
+					new String(content.getBytes("utf-8"), "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-//		try {
-//			httpDataTask.setParams("title",
-//					URLEncoder.encode(title, "utf-8"));
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
-//		try {
-//			httpDataTask.setParams("content",
-//					URLEncoder.encode(content, "utf-8"));
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
-		// httpDataTask.setParams("shopId", shopId);
 
 		httpDataTask.execute(url);
 	}
-	
+
 	/**
 	 * @描述:我的发帖
 	 * @param mContext
@@ -1053,7 +1044,8 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param pageNo
 	 * @param pageSize
 	 */
-	public void getMyPost(Context mContext, HttpTaskListener httpTaskListener, String userId, int pageNo) {
+	public void getMyPost(Context mContext, HttpTaskListener httpTaskListener,
+			String userId, int pageNo) {
 		String url = URLConfig.PRIVATE_IP + URLConfig.MY_POST__IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -1063,7 +1055,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 
 		httpDataTask.execute(url);
 	}
-	
+
 	/**
 	 * @描述:我的回帖
 	 * @param mContext
@@ -1072,8 +1064,8 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param pageNo
 	 * @param pageSize
 	 */
-	public void getMyReplyPost(Context mContext, HttpTaskListener httpTaskListener,
-			String userId, int pageNo) {
+	public void getMyReplyPost(Context mContext,
+			HttpTaskListener httpTaskListener, String userId, int pageNo) {
 		String url = URLConfig.PRIVATE_IP + URLConfig.MY_REPLY_POST_IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -1084,8 +1076,6 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.execute(url);
 	}
 
-	
-	
 	/**
 	 * @描述:广告贴
 	 * @param mContext
@@ -1099,7 +1089,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		String url = URLConfig.PRIVATE_IP + URLConfig.MY_AD_POST_IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
-		
+
 		url += httpDataTask.jointToUrl("forumId", forumId);
 		url += httpDataTask.jointToUrl("pageNo", pageNo);
 		url += httpDataTask.jointToUrl("pageSize", pageSize);
@@ -1110,15 +1100,16 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @描述：应用推荐
 	 * @param mContext
 	 * @param httpTaskListener
-	 * 2014-9-22
+	 *            2014-9-22
 	 */
-	public void getAppRecommend(Context mContext, HttpTaskListener httpTaskListener){
+	public void getAppRecommend(Context mContext,
+			HttpTaskListener httpTaskListener) {
 		String url = URLConfig.BASE_IP + URLConfig.APP_RECOMMEND;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 
 		httpDataTask.execute(url);
-		System.out.println("应用推荐"+url);
+		System.out.println("应用推荐" + url);
 	}
 
 }

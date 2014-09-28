@@ -208,6 +208,7 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	protected void setListener() {
 		btn_back.setOnClickListener(this);
 		btn_post.setOnClickListener(this);
+		llyt_network_error.setOnClickListener(this);
 
 		// 查看帖子详情
 		lv_posts.setOnItemClickListener(new OnItemClickListener() {
@@ -277,6 +278,9 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		case R.id.btn_common_back:// 返回按钮
 			finish();
 			break;
+		case R.id.llyt_network_error://重新加载
+			currentPage = 1;
+			initFirstData(currentPage, type);
 		}
 	}
 

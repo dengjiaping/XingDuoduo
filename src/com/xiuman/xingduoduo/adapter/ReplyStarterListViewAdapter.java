@@ -87,32 +87,6 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.tv_item_postinfo_reply_floor);
 			holder.btn_item_postinfo_starter_reply = (Button) convertView
 					.findViewById(R.id.btn_item_postinfo_starter_reply);
-//			holder.llyt_item_postinfo_starter_reply_floor_container = (LinearLayout) convertView
-//					.findViewById(R.id.llyt_item_postinfo_starter_reply_floor_container);
-//			holder.llyt_item_postinfo_starter_reply_floor_1 = (LinearLayout) convertView
-//					.findViewById(R.id.llyt_item_postinfo_starter_reply_floor_1);
-//			holder.tv_item_replyinfo_reply_floor_username1 = (TextView) convertView
-//					.findViewById(R.id.tv_item_replyinfo_reply_floor_username1);
-//			holder.iv_item_replyinfo_reply_floor_starter1 = (ImageView) convertView
-//					.findViewById(R.id.iv_item_replyinfo_reply_floor_starter1);
-//			holder.tv_item_replyinfo_reply_floor_content1 = (TextView) convertView
-//					.findViewById(R.id.tv_item_replyinfo_reply_floor_content1);
-//			holder.tv_item_replyinfo_reply_floor_time1 = (TextView) convertView
-//					.findViewById(R.id.tv_item_replyinfo_reply_floor_time1);
-//			holder.llyt_item_postinfo_starter_reply_floor_2 = (LinearLayout) convertView
-//					.findViewById(R.id.llyt_item_postinfo_starter_reply_floor_2);
-//			holder.tv_item_replyinfo_reply_floor_username2 = (TextView) convertView
-//					.findViewById(R.id.tv_item_replyinfo_reply_floor_username2);
-//			holder.iv_item_replyinfo_reply_floor_starter2 = (ImageView) convertView
-//					.findViewById(R.id.iv_item_replyinfo_reply_floor_starter2);
-//			holder.tv_item_replyinfo_reply_floor_content2 = (TextView) convertView
-//					.findViewById(R.id.tv_item_replyinfo_reply_floor_content2);
-//			holder.tv_item_replyinfo_reply_floor_time2 = (TextView) convertView
-//					.findViewById(R.id.tv_item_replyinfo_reply_floor_time2);
-//			holder.rlyt_item_postinfo_starter_reply_floor_loadmore = (RelativeLayout) convertView
-//					.findViewById(R.id.rlyt_item_postinfo_starter_reply_floor_loadmore);
-//			holder.tv_load_more_reply_number = (TextView) convertView
-//					.findViewById(R.id.tv_load_more_reply_number);
 
 			convertView.setTag(holder);
 		} else {
@@ -178,72 +152,6 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 
 					}
 				});
-
-		// 插楼回复内容设置------------------------------------
-		// 获取回复楼层的回复数
-		int number_replys = replys.size();
-		// if(number_replys<0){
-//		holder.llyt_item_postinfo_starter_reply_floor_container
-//				.setVisibility(View.GONE);
-		// }else if(number_replys>=1){
-		// holder.llyt_item_postinfo_starter_reply_floor_container.setVisibility(View.VISIBLE);
-		// holder.llyt_item_postinfo_starter_reply_floor_1.setVisibility(View.VISIBLE);
-		// holder.llyt_item_postinfo_starter_reply_floor_2.setVisibility(View.INVISIBLE);
-		// BBSPostReply reply_floor = replys.get(0);
-		// holder.tv_item_replyinfo_reply_floor_username1.setText(reply_floor.user);
-
-		// 回复楼层
-		// if(reply_floor.isStarter()){
-		// holder.iv_item_replyinfo_reply_floor_starter1.setVisibility(View.VISIBLE);
-		// holder.iv_item_replyinfo_reply_floor_starter1.setImageResource(R.drawable.bg_post_starter);
-		// }else{
-		// holder.iv_item_replyinfo_reply_floor_starter1.setVisibility(View.INVISIBLE);
-		// }
-		// holder.tv_item_replyinfo_reply_floor_content1.setText(reply_floor.contentHtml);
-		// holder.tv_item_replyinfo_reply_floor_time1.setText(TimeUtil.getTimeStr(
-		// TimeUtil.strToDate(reply_floor.createTime), new Date()));
-		// //回复数大于=2
-		// if(number_replys>=2){
-		// holder.llyt_item_postinfo_starter_reply_floor_2.setVisibility(View.VISIBLE);
-		// //楼层2
-		// BBSPostReply reply_floor2 = replys.get(1);
-		// holder.tv_item_replyinfo_reply_floor_username2.setText(reply_floor2.getReply_user().getUserName());
-		// if(reply_floor2.isStarter()){
-		// holder.iv_item_replyinfo_reply_floor_starter2.setVisibility(View.VISIBLE);
-		// holder.iv_item_replyinfo_reply_floor_starter2.setImageResource(R.drawable.bg_post_starter);
-		// }else{
-		// holder.iv_item_replyinfo_reply_floor_starter2.setVisibility(View.INVISIBLE);
-		// }
-		// holder.tv_item_replyinfo_reply_floor_content2.setText(reply_floor2.getReply_content());
-		// holder.tv_item_replyinfo_reply_floor_time2.setText(TimeUtil.getTimeStr(
-		// TimeUtil.strToDate(reply_floor2.getReply_time()), new Date()));
-		// //回复数大于2
-		// if(number_replys>2){
-		// holder.rlyt_item_postinfo_starter_reply_floor_loadmore.setVisibility(View.VISIBLE);
-		// holder.tv_load_more_reply_number.setText(""+(number_replys-2));
-		// }else{
-		// holder.rlyt_item_postinfo_starter_reply_floor_loadmore.setVisibility(View.INVISIBLE);
-		// }
-		// }
-
-		// }
-
-		// 加载更多回复
-//		holder.rlyt_item_postinfo_starter_reply_floor_loadmore
-//				.setOnClickListener(new OnClickListener() {
-//
-//					@Override
-//					public void onClick(View v) {
-//						Intent intent = new Intent(context,
-//								FloorReplyInfoActivity.class);
-//						Bundle bundle = new Bundle();
-//						bundle.putSerializable("reply", reply);
-//						bundle.putSerializable("replys", replys);
-//						bundle.putInt("floor", position + 1);
-//						intent.putExtras(bundle);
-//						context.startActivity(intent);
-//					}
-//				});
 
 		return convertView;
 	}

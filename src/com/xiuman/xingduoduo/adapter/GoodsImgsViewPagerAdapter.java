@@ -41,7 +41,7 @@ public class GoodsImgsViewPagerAdapter extends PagerAdapter {
 	 * @param options
 	 * @param imageLoader
 	 */
-	public GoodsImgsViewPagerAdapter( ArrayList<ImagePath> img_urls,
+	public GoodsImgsViewPagerAdapter(ArrayList<ImagePath> img_urls,
 			List<ImageView> img_ivs, Context context,
 			DisplayImageOptions options, ImageLoader imageLoader) {
 		super();
@@ -66,13 +66,14 @@ public class GoodsImgsViewPagerAdapter extends PagerAdapter {
 	public Object instantiateItem(ViewGroup container, int position) {
 		iv_img = img_ivs.get(position);
 		iv_img.setAdjustViewBounds(true);
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		iv_img.setLayoutParams(params);
 		iv_img.setScaleType(ImageView.ScaleType.FIT_XY);
 		iv_img.setTag(position);
 		// 测试数据，添操作
-		imageLoader.displayImage(img_urls.get(position).toString(),
-				iv_img, options);
+		imageLoader.displayImage(img_urls.get(position).toString(), iv_img,
+				options);
 		// iv_img.setImageResource(R.drawable.bg_center_ad_loading);
 		container.addView(iv_img);
 		return iv_img;

@@ -566,10 +566,12 @@ public class FragmentShoppingCart extends BaseFragment implements
 	 *            2014-8-18
 	 */
 	private void initShopingCart(int currentPage) {
-		HttpUrlProvider.getIntance().getShoppingCart(getActivity(),
-				new TaskShoppingCartBack(handler), URLConfig.GOODS_CART,
-				currentPage, user.getUserId());
-		loadingdialog.show(getActivity());
+		if (MyApplication.getInstance().isUserLogin()) {
+			HttpUrlProvider.getIntance().getShoppingCart(getActivity(),
+					new TaskShoppingCartBack(handler), URLConfig.GOODS_CART,
+					currentPage, user.getUserId());
+			loadingdialog.show(getActivity());
+		}
 	}
 
 	/**

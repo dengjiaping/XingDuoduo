@@ -116,11 +116,9 @@ public class HttpDataTask extends AsyncTask<String, Integer, String> {
 
 		if (httpMethor.equals("post")) {
 			result = httpDataProvide.invokePost(_url, httpParams);
-			System.out.println("链接地址："+_url+"参数："+httpParams.toString());
 		} else {
 			result = httpDataProvide.invokeGet(_url);
 		}
-		System.out.println("链接地址："+_url);
 		return result;
 	}
 

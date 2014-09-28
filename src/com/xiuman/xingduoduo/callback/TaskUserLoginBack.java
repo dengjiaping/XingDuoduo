@@ -29,7 +29,6 @@ public class TaskUserLoginBack implements HttpTaskListener {
 		ActionValue<User> value = new Gson()
 				.fromJson(result, ActionValue.class);
 		String user_info = new Gson().toJson(value.getDatasource().get(0));
-
 		// 保存用户登录信息
 		MyApplication.getInstance().saveUserInfo(user_info);
 		Message msg = Message.obtain();

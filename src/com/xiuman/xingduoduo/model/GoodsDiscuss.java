@@ -25,13 +25,20 @@ public class GoodsDiscuss implements Serializable {
 	private String content;
 	// 邮箱
 	private String contact;
+	// 昵称
+	private String nickname;
+	// 用户id
+	private String userid;
+	// 头像地址
+	private String imagehead;
 
 	public GoodsDiscuss() {
 		super();
 	}
 
 	public GoodsDiscuss(String id, String userName, String goodsname,
-			String createTime, String content, String contact) {
+			String createTime, String content, String contact, String nickname,
+			String userid, String imagehead) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -39,6 +46,33 @@ public class GoodsDiscuss implements Serializable {
 		this.createTime = createTime;
 		this.content = content;
 		this.contact = contact;
+		this.nickname = nickname;
+		this.userid = userid;
+		this.imagehead = imagehead;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public String getImagehead() {
+		return imagehead;
+	}
+
+	public void setImagehead(String imagehead) {
+		this.imagehead = imagehead;
 	}
 
 	public String getId() {

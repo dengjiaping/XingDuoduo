@@ -4,14 +4,21 @@ import java.util.List;
 import javax.crypto.spec.IvParameterSpec;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.app.MyApplication;
+import com.xiuman.xingduoduo.util.SizeUtil;
 
 /**
  * @名称：PostInfoImgsListViewAdapter.java
@@ -24,6 +31,7 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 	public DisplayImageOptions options;// 配置图片加载及显示选项
 	public ImageLoader imageLoader;
 	private List<String> imgs;
+	int width;
 
 	public PostInfoImgsListViewAdapter(Context context,
 			DisplayImageOptions options, ImageLoader imageLoader,
@@ -33,6 +41,7 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 		this.options = options;
 		this.imageLoader = imageLoader;
 		this.imgs = imgs;
+		width = MyApplication.getInstance().getScreenWidth();
 	}
 
 	@Override
@@ -52,7 +61,7 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
+		final ViewHolder holder;
 		if (convertView == null) {
 			convertView = View.inflate(context, R.layout.item_postinfo_img,
 					null);
@@ -67,7 +76,6 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 
 		imageLoader.displayImage(imgs.get(position),
 				holder.iv_item_postinfo_img_item, options);
-		System.out.println("图片宽度"+holder.iv_item_postinfo_img_item.getWidth());
 
 		return convertView;
 	}

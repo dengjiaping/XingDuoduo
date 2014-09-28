@@ -173,7 +173,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					pullsv_postinfo.onPullUpRefreshComplete();
 				}
 				loadingdialog.dismiss();
-
+				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.BBS_REPLY_SEND_BACK:// 获取回复成功
 				valueSend = (ActionValue<?>) msg.obj;
@@ -198,7 +198,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					bbsReply.add(bps);
 					et_reply.setText("");
 					adapter.notifyDataSetChanged();
-
+					llyt_network_error.setVisibility(View.INVISIBLE);
 					// 回复楼层
 					// adapter = new ReplyStarterListViewAdapter(
 					// PostInfoActivity.this, bbsReply);
@@ -309,7 +309,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		btn_postinfo_starter.setOnClickListener(this);
 		btn_postinfo_starter_reply.setOnClickListener(this);
 		btn_reply.setOnClickListener(this);
-
+		llyt_network_error.setOnClickListener(this);
 		pullsv_postinfo
 				.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
 
@@ -454,6 +454,10 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 
 			}
 
+			break;
+		case R.id.llyt_network_error://重新加载
+			currentPage = 1;
+			initPostInfo();
 			break;
 		}
 	}

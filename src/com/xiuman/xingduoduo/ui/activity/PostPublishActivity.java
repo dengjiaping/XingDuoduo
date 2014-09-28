@@ -29,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -93,12 +94,14 @@ public class PostPublishActivity extends Base2Activity implements
 
 	// 夹在数据时显示的Dialog
 	private LoadingDialog loadingdialog;
+	//控制软键盘的显示与隐藏
+	private InputMethodManager imm;
 
 	/*----------------------------------------数据--------------------------------------*/
 	// 从上级界面接收到的板块id(要将帖子发布在哪个板块)
-//	private String plate_id;
+	// private String plate_id;
 	// 选择的图片列表
-//	private ArrayList<String> post_imgs = new ArrayList<String>();
+	// private ArrayList<String> post_imgs = new ArrayList<String>();
 
 	/*----------------------------------------adapter-----------------------------------*/
 	// 添加图片的Adapter
@@ -232,6 +235,8 @@ public class PostPublishActivity extends Base2Activity implements
 		screenWidth = dm.widthPixels;
 		screenHeight = dm.heightPixels;
 
+		imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
 		forumId = getIntent().getExtras().getString("forumId");
 	}
 
@@ -268,6 +273,7 @@ public class PostPublishActivity extends Base2Activity implements
 					intent.putExtra("ID", arg2);
 					startActivity(intent);
 				}
+				imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);  
 			}
 		});
 	}
@@ -580,10 +586,10 @@ public class PostPublishActivity extends Base2Activity implements
 
 		startActivityForResult(intent, TAKE_PICTURE);
 	}
+
 	/**
 	 * @描述：上传图片
-	 * @return
-	 * 2014-9-26
+	 * @return 2014-9-26
 	 */
 	protected String uploadFile() {
 		List<String> keys = new ArrayList<String>();
@@ -598,7 +604,7 @@ public class PostPublishActivity extends Base2Activity implements
 		String scode = "";
 		for (int i = 0; i < Bimp.drr.size(); i++) {
 			scode += ((i + 1) + ",");
-			System.out.println("图片地址"+Bimp.drr.get(i));
+			System.out.println("图片地址" + Bimp.drr.get(i));
 		}
 		if (scode.length() > 0) {
 
@@ -616,7 +622,6 @@ public class PostPublishActivity extends Base2Activity implements
 		return PostSimulation.getInstance().post(
 				URLConfig.PRIVATE_IP + URLConfig.POST_PUBLISH__IP,
 				"attachment", Bimp.drr, keys, map);
-		
 
 	}
 

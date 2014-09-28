@@ -39,6 +39,8 @@ import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
 import com.xiuman.xingduoduo.util.PostSimulation;
 import com.xiuman.xingduoduo.util.ToastUtil;
+import com.xiuman.xingduoduo.util.Upload;
+import com.xiuman.xingduoduo.util.UploadUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 import com.xiuman.xingduoduo.view.CustomDialog;
 
@@ -331,7 +333,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 						cropUtils.createNewPhotoName());
 
 				// 上传头像
-				uploadImg();
+//				uploadImg();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -347,7 +349,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 					cropUtils.saveFile(user_head_bitmap,
 							cropUtils.createNewPhotoName());
 					// 上传头像
-					uploadImg();
+//					uploadImg();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -452,12 +454,12 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 			}
 		}.start();
 	}
-
+	
 	protected String uploadFile() {
 		List<String> keys = new ArrayList<String>();
-		keys.add("usernameId");
+		keys.add("usernameIdhead");
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("usernameId", userId);
+		map.put("usernameIdhead", userId);
 
 		List<String> fileNames = new ArrayList<String>();
 		fileNames.add(cropUtils.createDirectory()
@@ -466,8 +468,11 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		String filename = cropUtils.createDirectory()
 				+ cropUtils.createNewPhotoName();
 		System.out.println("图片地址+"+filename+"==="+userId);
-		return PostSimulation.getInstance().postHead(
-				URLConfig.BASE_IP + URLConfig.UPLOAD_HEAD, "imgFile", filename,
-				"usernameId", userId);
+//		return PostSimulation.getInstance().postHead(URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP, "myFile", filename, "usernameIdhead", userId);
+//		return PostSimulation.getInstance().post(URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP, "myFile", fileNames, keys, map);
+//		File head = new File(cropUtils.createDirectory()
+//				+ cropUtils.createNewPhotoName());
+//		return UploadUtil.uploadFile(head, URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP,"usernameIdhead",userId);
+		return Upload.upload(URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP+"usernameIdhead="+userId, filename, "usernameIdhead", userId);
 	}
 }

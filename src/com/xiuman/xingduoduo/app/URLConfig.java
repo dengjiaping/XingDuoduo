@@ -34,6 +34,8 @@ public class URLConfig {
 	// 我的广告贴
 	public static final String MY_AD_POST_IP = "appUpTopForumList.jhtml?";
 	
+	//上传头像
+	public static final String UPLOAD_HEAD = "/member!updateHeadImage.action?";
 	
 
 	// 接口地址前缀 121.199.57.38
@@ -41,7 +43,7 @@ public class URLConfig {
 	// 图片地址前缀
 	public static final String IMG_IP = "http://121.199.57.38/shopxx";
 	//头像上传
-	public static final String MY_HEAD_PHOTO_IP = "/member!fileUpload.action";
+	public static final String MY_HEAD_PHOTO_IP = "/member!fileUpload.action?";
 	// 图文详情
 	public static final String IMG_TXT_IP = "http://121.199.57.38/shopxx/shop/goods!introduction.action?goodId=";
 	// 注册后缀

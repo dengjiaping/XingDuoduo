@@ -114,13 +114,19 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 
 	// ViewPager 循环播放---------------------------------------------------
 	boolean cunhuan = false;
-	private int page_id = 1;
+	private int page_id = 0;
 	private Runnable switchTask = new Runnable() {
 		public void run() {
 			if (cunhuan) {
 				viewpager_bbs_ad.setCurrentItem(page_id);
+//				if(page_id==0){
+					tv_bbs_ad_name.setText(bbspost.get(page_id).getTitle());
+//				}else{
+//					tv_bbs_ad_name.setText(bbspost.get(page_id-1).getTitle());
+//				}
+				
 				page_id++;
-				if (page_id >= 6) {
+				if (page_id >= bbspost.size()) {
 					page_id = 0;
 				}
 			}
@@ -286,7 +292,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	 */
 	private void setAdData() {
 		// 添加广告,测试数据，添加操作
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < bbspost.size(); i++) {
 			ImageView iv_ad = new ImageView(getActivity());
 			ad_ivs.add(iv_ad);
 		}
@@ -295,7 +301,6 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		viewpager_bbs_ad.setAdapter(ad_adapter);
 		mIndicator.setViewPager(viewpager_bbs_ad);
 		switchTask.run();
-		tv_bbs_ad_name.setText("帖子");
 	}
 
 	/**

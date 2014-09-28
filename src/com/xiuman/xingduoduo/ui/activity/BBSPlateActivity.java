@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.PlatePostListViewAdapter;
 import com.xiuman.xingduoduo.adapter.PlateStickPostListViewAdapter;
@@ -146,6 +147,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 					loadingdialog.dismiss();
 				}
 				loadingdialog.dismiss();
+				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.BBS_TOP_POST_BACK:// 获取置顶帖子
 				value_top = (ActionValue<BBSPost>) msg.obj;
@@ -156,7 +158,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 
 					lv_stick_posts.setAdapter(adapter_stick);
 				}
-
+				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
 				loadingdialog.dismiss();
@@ -187,7 +189,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				.showImageOnFail(R.drawable.onloading_goods_poster)
 				// image加载失败
 				.resetViewBeforeLoading(false) 
-				.cacheInMemory(true)
+				.cacheInMemory(false)
 				// 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true)
 				// 加载图片时会在磁盘中加载缓存
@@ -246,6 +248,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	protected void setListener() {
 		btn_back.setOnClickListener(this);
 		btn_post.setOnClickListener(this);
+		llyt_network_error.setOnClickListener(this);
 
 		// 查看帖子详情
 		lv_posts.setOnItemClickListener(new OnItemClickListener() {
@@ -323,6 +326,8 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 			}
 
 		});
+		//滑动时不加载图片
+		lv_posts.setOnScrollListener(new PauseOnScrollListener(imageLoader, true, false));
 	}
 
 	/**
@@ -345,7 +350,10 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		case R.id.btn_bbs_back:// 返回按钮
 			finish();
 			break;
-		default:
+		case R.id.llyt_network_error://刷新数据
+			currentPage = 1;
+			initFirstData(currentPage);
+			
 			break;
 		}
 	}

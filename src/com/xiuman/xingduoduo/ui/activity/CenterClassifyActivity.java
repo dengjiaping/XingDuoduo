@@ -129,7 +129,7 @@ public class CenterClassifyActivity extends Base2Activity implements
 						}
 					}
 					TimeUtil.setLastUpdateTime2(pullgridview_classify_goods_list);
-					
+
 					llyt_null_goods.setVisibility(View.INVISIBLE);
 				}
 				loadingdialog.dismiss();
@@ -182,7 +182,7 @@ public class CenterClassifyActivity extends Base2Activity implements
 		tv_title = (TextView) findViewById(R.id.tv_common_title);
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		llyt_null_goods = (LinearLayout) findViewById(R.id.llyt_goods_null);
-		loadingdialog = new LoadingDialog(CenterClassifyActivity.this);
+		loadingdialog = new LoadingDialog(this);
 
 		// 刷新控件
 		pullgridview_classify_goods_list = (PullToRefreshGridView) findViewById(R.id.pullgridview_center_classify_goods_list);
