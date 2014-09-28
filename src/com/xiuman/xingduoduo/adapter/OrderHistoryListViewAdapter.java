@@ -91,7 +91,7 @@ public class OrderHistoryListViewAdapter extends BaseAdapter {
 		holder.tv_item_order_history_order_state
 				.setText(order.getOrderStatus());
 		imageLoader.displayImage(URLConfig.IMG_IP+order.getSmallGoodsImagePath(), holder.iv_item_order_history_poster, options);
-		holder.tv_item_order_history_create_time.setText(TimeUtil.second2Time(Long.parseLong(order.getCreate_date())));
+		holder.tv_item_order_history_create_time.setText(order.getCreate_date());
 		holder.tv_item_order_history_goods_number.setText(order.getQuanity()+"");
 		holder.tv_item_order_history_goods_total.setText(order.getTotalAmount());
 		return convertView;

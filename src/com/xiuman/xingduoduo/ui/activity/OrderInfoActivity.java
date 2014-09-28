@@ -35,7 +35,6 @@ import com.xiuman.xingduoduo.model.Order;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.pay.alipay.Result;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
-import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.CustomDialog;
 import com.xiuman.xingduoduo.view.LoadingDialog;
@@ -167,7 +166,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 				break;
 			case AppConfig.CANCEL_ORDER:// 取消订单
 				value_cancel = (ActionValue<?>) msg.obj;
-				if(value_cancel.isSuccess()){
+				if (value_cancel.isSuccess()) {
 					ToastUtil.ToastView(OrderInfoActivity.this,
 							value_cancel.getMessage());
 					setResult(AppConfig.RESULT_CODE_OK_2);
@@ -322,8 +321,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 		tv_order_info_order_words.setText(order.getMemo());
 		tv_order_info_id.setText(order.getOrderSn());
 
-		tv_order_info_time.setText(TimeUtil.second2Time(Long.parseLong(order
-				.getCreate_date())));
+		tv_order_info_time.setText(order.getCreate_date());
 
 		tv_order_info_trans_pay.setText(order.getDelivery());
 

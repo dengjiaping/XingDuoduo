@@ -37,10 +37,8 @@ import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
-import com.xiuman.xingduoduo.util.PostSimulation;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.util.Upload;
-import com.xiuman.xingduoduo.util.UploadUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 import com.xiuman.xingduoduo.view.CustomDialog;
 
