@@ -52,7 +52,6 @@ import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.PullScrollView;
 import com.xiuman.xingduoduo.view.PullScrollView.OnTurnListener;
 import com.xiuman.xingduoduo.view.indicator.CirclePageIndicator;
-import com.xiuman.xingduoduo.zxing.ui.SweepActivty;
 
 /**
  * 
@@ -102,26 +101,14 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private RelativeLayout rlyt_center_4_left_bottom;
 	// 图片
 	private ImageView iv_center_4_left_bottom;
-	// 文字1
-	private TextView tv_center_4_left_bottom_txt1;
-	// 文字2
-	private TextView tv_center_4_left_bottom_txt2;
 	// 模块四商品右上---------------------------------------------
 	private RelativeLayout rlyt_center_4_right_top;
 	// 图片
 	private ImageView iv_center_4_right_top;
-	// 文字1
-	private TextView tv_center_4_right_top_txt1;
-	// 文字2
-	private TextView tv_center_4_right_top_txt2;
 	// 模块四商品右下---------------------------------------------
 	private RelativeLayout rlyt_center_4_right_bottom;
 	// 图片
 	private ImageView iv_center_4_right_bottom;
-	// 文字1
-	private TextView tv_center_4_right_bottom_txt1;
-	// 文字2
-	private TextView tv_center_4_right_bottom_txt2;
 	// 模块五内衣
 	private ImageView iv_center_5_top;
 	// More
@@ -130,26 +117,14 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private RelativeLayout rlyt_center_5_left_bottom;
 	// 图片
 	private ImageView iv_center_5_left_bottom;
-	// 文字1
-	private TextView tv_center_5_left_bottom_txt1;
-	// 文字2
-	private TextView tv_center_5_left_bottom_txt2;
 	// 模块五商品右上---------------------------------------------
 	private RelativeLayout rlyt_center_5_right_top;
 	// 图片
 	private ImageView iv_center_5_right_top;
-	// 文字1
-	private TextView tv_center_5_right_top_txt1;
-	// 文字2
-	private TextView tv_center_5_right_top_txt2;
 	// 模块五商品右下---------------------------------------------
 	private RelativeLayout rlyt_center_5_right_bottom;
 	// 图片
 	private ImageView iv_center_5_right_bottom;
-	// 文字1
-	private TextView tv_center_5_right_bottom_txt1;
-	// 文字2
-	private TextView tv_center_5_right_bottom_txt2;
 	// 模块六内衣
 	private ImageView iv_center_6_top;
 	// More
@@ -158,26 +133,14 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private RelativeLayout rlyt_center_6_left_bottom;
 	// 图片
 	private ImageView iv_center_6_left_bottom;
-	// 文字1
-	private TextView tv_center_6_left_bottom_txt1;
-	// 文字2
-	private TextView tv_center_6_left_bottom_txt2;
 	// 模块六商品右上--------------------------------------------
 	private RelativeLayout rlyt_center_6_right_top;
 	// 图片
 	private ImageView iv_center_6_right_top;
-	// 文字1
-	private TextView tv_center_6_right_top_txt1;
-	// 文字2
-	private TextView tv_center_6_right_top_txt2;
 	// 模块六商品右下-------------------------------------------
 	private RelativeLayout rlyt_center_6_right_bottom;
 	// 图片
 	private ImageView iv_center_6_right_bottom;
-	// 文字1
-	private TextView tv_center_6_right_bottom_txt1;
-	// 文字2
-	private TextView tv_center_6_right_bottom_txt2;
 	// 模块七内衣
 	private ImageView iv_center_7_top;
 	// More
@@ -186,26 +149,14 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private RelativeLayout rlyt_center_7_left_bottom;
 	// 图片
 	private ImageView iv_center_7_left_bottom;
-	// 文字1
-	private TextView tv_center_7_left_bottom_txt1;
-	// 文字2
-	private TextView tv_center_7_left_bottom_txt2;
 	// 模块七商品右上------------------------------------------
 	private RelativeLayout rlyt_center_7_right_top;
 	// 图片
 	private ImageView iv_center_7_right_top;
-	// 文字1
-	private TextView tv_center_7_right_top_txt1;
-	// 文字2
-	private TextView tv_center_7_right_top_txt2;
 	// 模块七商品右下------------------------------------------
 	private RelativeLayout rlyt_center_7_right_bottom;
 	// 图片
 	private ImageView iv_center_7_right_bottom;
-	// 文字1
-	private TextView tv_center_7_right_bottom_txt1;
-	// 文字2
-	private TextView tv_center_7_right_bottom_txt2;
 
 	/*------------------------------------广告----------------------------*/
 	private CirclePageIndicator mIndicator;
@@ -414,28 +365,16 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				.findViewById(R.id.rlyt_center_4_left_bottom);
 		iv_center_4_left_bottom = (ImageView) view
 				.findViewById(R.id.iv_center_4_left_bottom);
-		tv_center_4_left_bottom_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_4_left_bottom_txt1);
-		tv_center_4_left_bottom_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_4_left_bottom_txt2);
 		// ---
 		rlyt_center_4_right_top = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_4_right_top);
 		iv_center_4_right_top = (ImageView) view
 				.findViewById(R.id.iv_center_4_right_top);
-		tv_center_4_right_top_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_4_right_top_txt1);
-		tv_center_4_right_top_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_4_right_top_txt2);
 		// --
 		rlyt_center_4_right_bottom = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_4_right_bottom);
 		iv_center_4_right_bottom = (ImageView) view
 				.findViewById(R.id.iv_center_4_right_bottom);
-		tv_center_4_right_bottom_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_4_right_bottom_txt1);
-		tv_center_4_right_bottom_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_4_right_bottom_txt2);
 
 		iv_center_5_top = (ImageView) view.findViewById(R.id.iv_center_5_top);
 		btn_center_5_top = (Button) view.findViewById(R.id.btn_center_5_top);
@@ -444,28 +383,16 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				.findViewById(R.id.rlyt_center_5_left_bottom);
 		iv_center_5_left_bottom = (ImageView) view
 				.findViewById(R.id.iv_center_5_left_bottom);
-		tv_center_5_left_bottom_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_5_left_bottom_txt1);
-		tv_center_5_left_bottom_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_5_left_bottom_txt2);
 		// ---
 		rlyt_center_5_right_top = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_5_right_top);
 		iv_center_5_right_top = (ImageView) view
 				.findViewById(R.id.iv_center_5_right_top);
-		tv_center_5_right_top_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_5_right_top_txt1);
-		tv_center_5_right_top_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_5_right_top_txt2);
 		// ---
 		rlyt_center_5_right_bottom = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_5_right_bottom);
 		iv_center_5_right_bottom = (ImageView) view
 				.findViewById(R.id.iv_center_5_right_bottom);
-		tv_center_5_right_bottom_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_5_right_bottom_txt1);
-		tv_center_5_right_bottom_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_5_right_bottom_txt2);
 
 		iv_center_6_top = (ImageView) view.findViewById(R.id.iv_center_6_top);
 		btn_center_6_top = (Button) view.findViewById(R.id.btn_center_6_top);
@@ -474,28 +401,16 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				.findViewById(R.id.rlyt_center_6_left_bottom);
 		iv_center_6_left_bottom = (ImageView) view
 				.findViewById(R.id.iv_center_6_left_bottom);
-		tv_center_6_left_bottom_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_6_left_bottom_txt1);
-		tv_center_6_left_bottom_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_6_left_bottom_txt2);
 		// ---
 		rlyt_center_6_right_top = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_6_right_top);
 		iv_center_6_right_top = (ImageView) view
 				.findViewById(R.id.iv_center_6_right_top);
-		tv_center_6_right_top_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_6_right_top_txt1);
-		tv_center_6_right_top_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_6_right_top_txt2);
 		// --
 		rlyt_center_6_right_bottom = (RelativeLayout) view
 				.findViewById(R.id.llyt_center_6_right_bottom);
 		iv_center_6_right_bottom = (ImageView) view
 				.findViewById(R.id.iv_center_6_right_bottom);
-		tv_center_6_right_bottom_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_6_right_bottom_txt1);
-		tv_center_6_right_bottom_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_6_right_bottom_txt2);
 
 		iv_center_7_top = (ImageView) view.findViewById(R.id.iv_center_7_top);
 		btn_center_7_top = (Button) view.findViewById(R.id.btn_center_7_top);
@@ -504,28 +419,16 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				.findViewById(R.id.rlyt_center_7_left_bottom);
 		iv_center_7_left_bottom = (ImageView) view
 				.findViewById(R.id.iv_center_7_left_bottom);
-		tv_center_7_left_bottom_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_7_left_bottom_txt1);
-		tv_center_7_left_bottom_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_7_left_bottom_txt2);
 		// ---
 		rlyt_center_7_right_top = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_7_right_top);
 		iv_center_7_right_top = (ImageView) view
 				.findViewById(R.id.iv_center_7_right_top);
-		tv_center_7_right_top_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_7_right_top_txt1);
-		tv_center_7_right_top_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_7_right_top_txt2);
 		// ---
 		rlyt_center_7_right_bottom = (RelativeLayout) view
 				.findViewById(R.id.rlyt_center_7_right_bottom);
 		iv_center_7_right_bottom = (ImageView) view
 				.findViewById(R.id.iv_center_7_right_bottom);
-		tv_center_7_right_bottom_txt1 = (TextView) view
-				.findViewById(R.id.tv_center_7_right_bottom_txt1);
-		tv_center_7_right_bottom_txt2 = (TextView) view
-				.findViewById(R.id.tv_center_7_right_bottom_txt2);
 	}
 
 	/**
@@ -581,34 +484,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		rlyt_center_6_right_top.setLayoutParams(params4);
 		rlyt_center_7_right_bottom.setLayoutParams(params4);
 		rlyt_center_7_right_top.setLayoutParams(params4);
-
-		// // 设置测试文字
-		// tv_center_4_left_bottom_txt1.setText("格林宝贝AV转珠棒");
-		// tv_center_4_left_bottom_txt2.setText("伸缩之王，招蜂引蝶");
-		// tv_center_4_right_top_txt1.setText("配耐力延迟喷剂");
-		// tv_center_4_right_top_txt2.setText("让你更从容自信");
-		// tv_center_4_right_bottom_txt1.setText("杜蕾斯");
-		// tv_center_4_right_bottom_txt2.setText("活力装12只装");
-		// tv_center_5_left_bottom_txt1.setText("午夜魅力");
-		// tv_center_5_left_bottom_txt2.setText("加大码吊带裙");
-		// tv_center_5_right_top_txt1.setText("午夜魅力");
-		// tv_center_5_right_top_txt2.setText("让你更从容自信");
-		// tv_center_5_right_bottom_txt1.setText("午夜魅力");
-		// tv_center_5_right_bottom_txt2.setText("精美丝袜");
-		//
-		// tv_center_6_left_bottom_txt1.setText("杜蕾斯");
-		// tv_center_6_left_bottom_txt2.setText("加大24只装");
-		// tv_center_6_right_top_txt1.setText("杜蕾斯");
-		// tv_center_6_right_top_txt2.setText("活力12只装");
-		// tv_center_6_right_bottom_txt1.setText("杜蕾斯");
-		// tv_center_6_right_bottom_txt2.setText("持久8只装");
-		//
-		// tv_center_7_left_bottom_txt1.setText("扣扣爱手指遥控跳蛋");
-		// tv_center_7_left_bottom_txt2.setText("让你们在同一频道心跳不已");
-		// tv_center_7_right_top_txt1.setText("多功能振动棒");
-		// tv_center_7_right_top_txt2.setText("震震嘴多功能振动棒");
-		// tv_center_7_right_bottom_txt1.setText("智能露娜缩阴球");
-		// tv_center_7_right_bottom_txt2.setText("智能阴道紧致大师");
 
 	}
 
@@ -766,10 +641,10 @@ public class FragmentShoppingCenter extends BaseFragment implements
 					R.anim.translate_horizontal_start_out);
 			break;
 		case R.id.btn_sweep_1:// 扫码
-			Intent intent = new Intent();
-			intent.setClass(getActivity(), SweepActivty.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivityForResult(intent, 1);
+//			Intent intent = new Intent();
+//			intent.setClass(getActivity(), SweepActivty.class);
+//			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//			startActivityForResult(intent, 1);
 			break;
 		}
 	}
@@ -786,9 +661,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				Bundle bundle = data.getExtras();
 				// 添加操作
 				ToastUtil.ToastView(getActivity(), bundle.getString("result"));
-				// 显示
-				// mImageView.setImageBitmap((Bitmap)
-				// data.getParcelableExtra("bitmap"));
 			}
 			break;
 		}

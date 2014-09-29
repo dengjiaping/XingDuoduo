@@ -371,5 +371,11 @@ public class CollectionActivity extends Base2Activity implements
 			TimeUtil.setLastUpdateTime2(pullgridview);
 		}
 	}
-
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
+	}
 }

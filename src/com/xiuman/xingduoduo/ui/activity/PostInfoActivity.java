@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.os.Handler;
 import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -108,6 +110,9 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	// 配置图片加载及显示选项
 	public DisplayImageOptions options;
 
+	// 控制软键盘的显示与隐藏
+	private InputMethodManager imm;
+
 	/*----------------------------------标记----------------------------------*/
 	// 是上拉还是下拉
 	private boolean isUp = true;
@@ -167,7 +172,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 						pullsv_postinfo.onPullUpRefreshComplete();
 					}
 
-				}else{
+				} else {
 					ToastUtil.ToastView(PostInfoActivity.this, "没有更多回复！");
 					// 上拉刷新完成
 					pullsv_postinfo.onPullUpRefreshComplete();
@@ -178,6 +183,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			case AppConfig.BBS_REPLY_SEND_BACK:// 获取回复成功
 				valueSend = (ActionValue<?>) msg.obj;
 				if (valueSend.isSuccess()) {
+					imm.hideSoftInputFromWindow(et_reply.getWindowToken(), 0);
 					ToastUtil.ToastView(PostInfoActivity.this,
 							valueSend.getMessage());
 					SimpleDateFormat format = new SimpleDateFormat(
@@ -213,6 +219,9 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				loadingdialog.dismiss();
 				llyt_network_error.setVisibility(View.VISIBLE);
 				break;
+			case AppConfig.BBS_REPLY_FAILD:
+				ToastUtil.ToastView(PostInfoActivity.this, "不支持表情输入，请重试！");
+				break;
 			}
 		}
 	};
@@ -243,7 +252,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				// 加载图片时会在磁盘中加载缓存
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.NONE).build();
-
+		imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		// 从上级界面接收到的帖子
 		postinfo_starter = (BBSPost) getIntent().getExtras().getSerializable(
 				"postinfo_starter");
@@ -455,11 +464,19 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			}
 
 			break;
-		case R.id.llyt_network_error://重新加载
+		case R.id.llyt_network_error:// 重新加载
 			currentPage = 1;
 			initPostInfo();
 			break;
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
 	}
 
 }

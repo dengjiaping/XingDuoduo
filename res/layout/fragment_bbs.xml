@@ -51,10 +51,10 @@
                         android:id="@+id/tv_bbs_ad_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="center|left"
                         android:paddingTop="5dip"
                         android:textColor="@color/color_white"
-                        android:textSize="@dimen/txt_size_15"/>
+                        android:textSize="@dimen/txt_size_16"/>
 
                     <com.xiuman.xingduoduo.view.indicator.CirclePageIndicator
                         android:id="@+id/indicator_bbs_ad"

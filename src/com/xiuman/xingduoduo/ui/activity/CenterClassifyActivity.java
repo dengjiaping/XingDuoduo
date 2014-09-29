@@ -332,5 +332,11 @@ public class CenterClassifyActivity extends Base2Activity implements
 				URLConfig.CENTER_HOME_PLATE, currentPage, classify_url);
 		loadingdialog.show(CenterClassifyActivity.this);
 	}
-
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
+	}
 }

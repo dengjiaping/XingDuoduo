@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xiuman.xingduoduo"
-    android:versionCode="1"
-    android:versionName="1.0.0.1" >
+    android:versionCode="2"
+    android:versionName="1.0.0.2" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -245,7 +245,7 @@
         <!-- 发表帖子界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.PostPublishActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
@@ -371,7 +371,7 @@
         <!-- 渠道 -->
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="keke" />
+            android:value="zhengqian" />
     </application>
 
 </manifest>

@@ -49,8 +49,8 @@
                     <android.support.v4.view.ViewPager
                         android:id="@+id/viewpager_shoppingcenter_ad"
                         android:layout_width="match_parent"
-                        android:background="@drawable/onloading_goods_poster"
-                        android:layout_height="150dip" />
+                        android:layout_height="150dip"
+                        android:background="@drawable/onloading_goods_poster" />
 
                     <!-- 指示器 -->
 
@@ -389,29 +389,6 @@
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_4_left_bottom"
                                 android:scaleType="fitXY" />
-                            <!-- 文字1 -->
-
-                            <TextView
-                                android:id="@+id/tv_center_4_left_bottom_txt1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginTop="10dip"
-                                android:paddingLeft="8dip"
-                                android:textColor="@color/color_center_1"
-                                android:textSize="@dimen/txt_size_18" />
-                            <!-- 文字2 -->
-
-                            <TextView
-                                android:id="@+id/tv_center_4_left_bottom_txt2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tv_center_4_left_bottom_txt1"
-                                android:layout_marginTop="5dip"
-                                android:paddingLeft="8dip"
-                                android:textColor="@color/color_black3"
-                                android:textSize="@dimen/txt_size_15" />
                         </RelativeLayout>
 
                         <include layout="@layout/line_match_v" />
@@ -440,30 +417,6 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_4_right_top"
                                     android:scaleType="fitXY" />
-                                <!-- 文字1 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_4_right_top_txt1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="10dip"
-                                    android:paddingRight="8dip"
-                                    android:textColor="@color/color_center_1"
-                                    android:textSize="@dimen/txt_size_15" />
-                                <!-- 文字2 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_4_right_top_txt2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_below="@id/tv_center_4_right_top_txt1"
-                                    android:layout_marginTop="5dip"
-                                    android:paddingRight="8dip"
-                                    android:textColor="@color/color_black3"
-                                    android:textSize="@dimen/txt_size_12" />
                             </RelativeLayout>
 
                             <include layout="@layout/line_match" />
@@ -486,30 +439,6 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_4_right_bottom"
                                     android:scaleType="fitXY" />
-                                <!-- 文字1 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_4_right_bottom_txt1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="10dip"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_center_1"
-                                    android:textSize="@dimen/txt_size_15" />
-                                <!-- 文字2 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_4_right_bottom_txt2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_below="@id/tv_center_4_right_bottom_txt1"
-                                    android:layout_marginTop="5dip"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_black3"
-                                    android:textSize="@dimen/txt_size_12" />
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -620,30 +549,6 @@
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_5_left_bottom"
                                 android:scaleType="fitXY" />
-                            <!-- 文字1 -->
-
-                            <TextView
-                                android:id="@+id/tv_center_5_left_bottom_txt1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginTop="10dip"
-                                android:paddingLeft="8dip"
-                                android:textColor="@color/color_center_1"
-                                android:textSize="@dimen/txt_size_18" />
-                            <!-- 文字2 -->
-
-                            <TextView
-                                android:id="@+id/tv_center_5_left_bottom_txt2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_below="@id/tv_center_5_left_bottom_txt1"
-                                android:layout_marginTop="5dip"
-                                android:paddingLeft="8dip"
-                                android:textColor="@color/color_black3"
-                                android:textSize="@dimen/txt_size_15" />
                         </RelativeLayout>
 
                         <include layout="@layout/line_match_v" />
@@ -672,30 +577,6 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_5_right_top"
                                     android:scaleType="fitXY" />
-                                <!-- 文字1 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_5_right_top_txt1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="10dip"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_center_1"
-                                    android:textSize="@dimen/txt_size_15" />
-                                <!-- 文字2 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_5_right_top_txt2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_below="@id/tv_center_5_right_top_txt1"
-                                    android:layout_marginTop="5dip"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_black3"
-                                    android:textSize="@dimen/txt_size_12" />
                             </RelativeLayout>
                             <!-- 热卖产品右下下 -->
 
@@ -717,29 +598,6 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_5_right_bottom"
                                     android:scaleType="fitXY" />
-                                <!-- 文字1 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_5_right_bottom_txt1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="10dip"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_center_1"
-                                    android:textSize="@dimen/txt_size_15" />
-                                <!-- 文字2 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_5_right_bottom_txt2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_below="@id/tv_center_5_right_bottom_txt1"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_black3"
-                                    android:textSize="@dimen/txt_size_12" />
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -842,29 +700,6 @@
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_6_left_bottom"
                                 android:scaleType="fitXY" />
-                            <!-- 文字1 -->
-
-                            <TextView
-                                android:id="@+id/tv_center_6_left_bottom_txt1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginTop="10dip"
-                                android:paddingLeft="8dip"
-                                android:textColor="@color/color_center_3"
-                                android:textSize="@dimen/txt_size_18" />
-                            <!-- 文字2 -->
-
-                            <TextView
-                                android:id="@+id/tv_center_6_left_bottom_txt2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_below="@id/tv_center_6_left_bottom_txt1"
-                                android:paddingLeft="8dip"
-                                android:textColor="@color/color_black3"
-                                android:textSize="@dimen/txt_size_15" />
                         </RelativeLayout>
 
                         <include layout="@layout/line_match_v" />
@@ -893,29 +728,6 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_6_right_top"
                                     android:scaleType="fitXY" />
-                                <!-- 文字1 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_6_right_top_txt1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="10dip"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_center_3"
-                                    android:textSize="@dimen/txt_size_18" />
-                                <!-- 文字2 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_6_right_top_txt2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_below="@id/tv_center_6_right_top_txt1"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_black3"
-                                    android:textSize="@dimen/txt_size_15" />
                             </RelativeLayout>
 
                             <include layout="@layout/line_match" />
@@ -938,29 +750,6 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_6_right_bottom"
                                     android:scaleType="fitXY" />
-                                <!-- 文字1 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_6_right_bottom_txt1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="10dip"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_center_3"
-                                    android:textSize="@dimen/txt_size_18" />
-                                <!-- 文字2 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_6_right_bottom_txt2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_below="@id/tv_center_6_right_bottom_txt1"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_black3"
-                                    android:textSize="@dimen/txt_size_15" />
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -988,7 +777,6 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="10dip" >
-
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -1065,29 +853,6 @@
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_7_left_bottom"
                                 android:scaleType="fitXY" />
-                            <!-- 文字1 -->
-
-                            <TextView
-                                android:id="@+id/tv_center_7_left_bottom_txt1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginTop="10dip"
-                                android:paddingLeft="8dip"
-                                android:textColor="@color/color_center_4"
-                                android:textSize="@dimen/txt_size_15" />
-                            <!-- 文字2 -->
-
-                            <TextView
-                                android:id="@+id/tv_center_7_left_bottom_txt2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_below="@id/tv_center_7_left_bottom_txt1"
-                                android:paddingLeft="8dip"
-                                android:textColor="@color/color_black3"
-                                android:textSize="@dimen/txt_size_12" />
                         </RelativeLayout>
 
                         <include layout="@layout/line_match_v" />
@@ -1117,29 +882,6 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_7_right_top"
                                     android:scaleType="fitXY" />
-                                <!-- 文字1 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_7_right_top_txt1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="10dip"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_center_4"
-                                    android:textSize="@dimen/txt_size_15" />
-                                <!-- 文字2 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_7_right_top_txt2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_below="@id/tv_center_7_right_top_txt1"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_black3"
-                                    android:textSize="@dimen/txt_size_12" />
                             </RelativeLayout>
 
                             <include layout="@layout/line_match" />
@@ -1162,29 +904,6 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_7_right_bottom"
                                     android:scaleType="fitXY" />
-                                <!-- 文字1 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_7_right_bottom_txt1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="10dip"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_center_4"
-                                    android:textSize="@dimen/txt_size_15" />
-                                <!-- 文字2 -->
-
-                                <TextView
-                                    android:id="@+id/tv_center_7_right_bottom_txt2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_below="@id/tv_center_7_right_bottom_txt1"
-                                    android:paddingLeft="8dip"
-                                    android:textColor="@color/color_black3"
-                                    android:textSize="@dimen/txt_size_12" />
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>

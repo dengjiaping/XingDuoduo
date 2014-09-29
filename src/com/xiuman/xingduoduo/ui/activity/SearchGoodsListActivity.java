@@ -324,4 +324,11 @@ public class SearchGoodsListActivity extends Base2Activity implements
 				keyword);
 		loadingdialog.show(SearchGoodsListActivity.this);
 	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
+	}
 }

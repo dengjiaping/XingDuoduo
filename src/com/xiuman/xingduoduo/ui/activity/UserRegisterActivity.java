@@ -73,11 +73,10 @@ public class UserRegisterActivity extends Base2Activity implements
 	private Dialog dialog_sex;
 	// 当前性别
 	private String sex;
-	
+
 	/*---------------------------------数据----------------------------------*/
 	// 注册结果
 	private ActionValue<?> value;
-	
 
 	// Handler
 	@SuppressLint("HandlerLeak")
@@ -91,10 +90,10 @@ public class UserRegisterActivity extends Base2Activity implements
 					ToastUtil.ToastView(UserRegisterActivity.this,
 							value.getMessage());
 					// 获取用户信息
-//					getUserInfo();
+					// getUserInfo();
 					loadingdialog.dismiss();
 					finish();
-					
+
 				} else {
 					ToastUtil.ToastView(UserRegisterActivity.this,
 							value.getMessage());
@@ -223,9 +222,9 @@ public class UserRegisterActivity extends Base2Activity implements
 		} else if (user_email.equals("")) {
 			ToastUtil.ToastView(this, "请输入您的邮箱");
 			return;
-		} else if(sex.equals("")){
+		} else if (sex.equals("")) {
 			ToastUtil.ToastView(this, "请选择您的性别");
-		}else if (!user_email.matches(RegexUtil.regex_email)) {
+		} else if (!user_email.matches(RegexUtil.regex_email)) {
 			ToastUtil.ToastView(this, "请输入正确的邮箱地址");
 			return;
 		} else if (user_psw_1.length() < 6 || user_psw_1.length() > 16) {
@@ -238,9 +237,10 @@ public class UserRegisterActivity extends Base2Activity implements
 		// 请求注册
 		HttpUrlProvider.getIntance().getRegister(this,
 				new TaskRegisterBack(handler), URLConfig.REGISTER, user_name,
-				user_psw_1, user_email, nick_name,sex);
+				user_psw_1, user_email, nick_name, sex);
 		loadingdialog.show(UserRegisterActivity.this);
 	}
+
 	/**
 	 * 
 	 * @描述：性别选择Dialog
@@ -294,7 +294,7 @@ public class UserRegisterActivity extends Base2Activity implements
 
 		}
 	}
-	
+
 	/**
 	 * @描述：获取用户信息 2014-8-12
 	 */
@@ -302,5 +302,12 @@ public class UserRegisterActivity extends Base2Activity implements
 		String user_name = et_register_user_name.getText().toString().trim();
 		HttpUrlProvider.getIntance().getUserInfo(UserRegisterActivity.this,
 				new TaskUserInfoBack(handler), URLConfig.USERINFO, user_name);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
 	}
 }

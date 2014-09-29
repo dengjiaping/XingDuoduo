@@ -48,7 +48,7 @@ public class TaskReplySendBack implements HttpTaskListener {
 	@Override
 	public void dataError(String result) {
 		Message msg = Message.obtain();
-		msg.what = AppConfig.NET_ERROR_NOTNET;
+		msg.what = AppConfig.BBS_REPLY_FAILD;
 		handler.sendMessage(msg);
 	}
 

@@ -18,6 +18,8 @@ public class AppConfig {
 	public final static int BBS_REPLY_POST_BACK = 9003;
 	// 帖子回复返回
 	public final static int BBS_REPLY_SEND_BACK = 9004;
+	//回复帖子失败
+	public final static int BBS_REPLY_FAILD = 9009;
 	// 帖子发表返回
 	public final static int BBS_PUBLISH_BACK = 9005;
 	// 帖子图片线程

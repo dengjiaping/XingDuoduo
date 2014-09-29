@@ -245,4 +245,10 @@ public class UpdateUserPswActivity extends Base2Activity implements
 		}
 		return true;
 	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+	}
 }

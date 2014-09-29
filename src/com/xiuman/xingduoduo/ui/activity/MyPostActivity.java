@@ -302,4 +302,11 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		loadingdialog.show(MyPostActivity.this);
 
 	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
+	}
 }

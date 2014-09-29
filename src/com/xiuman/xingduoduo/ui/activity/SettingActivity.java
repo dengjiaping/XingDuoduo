@@ -9,11 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.util.ToastUtil;
 /**
  * @名称：SettingActivity.java
  * @描述：设置界面
@@ -103,7 +105,9 @@ public class SettingActivity extends Base2Activity implements OnClickListener {
 			overridePendingTransition(R.anim.translate_horizontal_start_in, R.anim.translate_horizontal_start_out);
 			break;
 		case R.id.llyt_setting_clear_cache://清除缓存
-			
+			ImageLoader.getInstance().clearDiskCache();
+			ImageLoader.getInstance().clearMemoryCache();
+			ToastUtil.ToastView(SettingActivity.this, "清除成功");
 			break;
 		case R.id.llyt_setting_app_recommend://应用推荐
 			Intent intent_app = new Intent(SettingActivity.this,AppRecommendActivity.class);

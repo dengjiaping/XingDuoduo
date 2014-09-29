@@ -610,5 +610,12 @@ public class ShoppingCartActivity extends Base2Activity implements
 		}
 		return list_checked_get;
 	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
+	}
 
 }

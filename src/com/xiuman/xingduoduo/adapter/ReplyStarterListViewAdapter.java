@@ -136,7 +136,7 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 		}
 
 		holder.tv_item_postinfo_reply_name.setText(reply.getNickname());
-		if(reply.getNickname()==""){
+		if(reply.getNickname()==null){
 			holder.tv_item_postinfo_reply_name.setText(reply.getUsername());
 		}
 		holder.tv_item_postinfo_reply_floor.setText(position + 1 + "楼");

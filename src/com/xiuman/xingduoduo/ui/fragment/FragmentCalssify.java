@@ -26,7 +26,6 @@ import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.activity.ClassifyActivity;
 import com.xiuman.xingduoduo.ui.activity.SearchActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
-import com.xiuman.xingduoduo.view.LoadingDialog;
 
 /**
  * 
@@ -43,7 +42,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	//分类
 	private GridView gridview_good_classify;
 	// 进度加载
-	private LoadingDialog loadingdialog;
+//	private LoadingDialog loadingdialog;
 
 	/*--------------------------------------adapter------------------------------*/
 	private ClassifyGridviewAdapter classify_adapter;
@@ -66,7 +65,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 请求数据成功
-				loadingdialog.dismiss();
+//				loadingdialog.dismiss();
 				value = (ActionValue<Classify>) msg.obj;
 				classies = (ArrayList<Classify>) value.getDatasource();
 				classify_adapter = new ClassifyGridviewAdapter(
@@ -75,7 +74,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 				isNet = true;
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络(使用本地保存的数据)
-				loadingdialog.dismiss();
+//				loadingdialog.dismiss();
 				classify_adapter = new ClassifyGridviewAdapter(
 						getActivity());
 				gridview_good_classify.setAdapter(classify_adapter);
@@ -113,7 +112,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	 */
 	@Override
 	protected void findViewById(View view) {
-		loadingdialog = new LoadingDialog(getActivity());
+//		loadingdialog = new LoadingDialog(getActivity());
 		gridview_good_classify = (GridView) view
 				.findViewById(R.id.gridview_good_classify);
 		btn_search = (Button) view.findViewById(R.id.btn_search);
@@ -124,7 +123,11 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	 */
 	@Override
 	protected void initUI() {
-		initClassify();
+//		initClassify();
+		classify_adapter = new ClassifyGridviewAdapter(
+				getActivity());
+		gridview_good_classify.setAdapter(classify_adapter);
+		isNet = false;
 	}
 
 	/**
@@ -192,7 +195,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	private void initClassify() {
 		HttpUrlProvider.getIntance().getClassify(getActivity(),
 				new TaskClassifyBack(handler), URLConfig.CLASSIFY);
-		loadingdialog.show(getActivity());
+//		loadingdialog.show(getActivity());
 	}
 	/**
 	 * 点击事件

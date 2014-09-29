@@ -480,5 +480,10 @@ public class UserAddressCreateActivity extends Base2Activity implements
 			mCurrentAreaName = mAreaDatasMap.get(mCurrentCityName)[newValue];
 		}
 	}
-
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+	}
 }

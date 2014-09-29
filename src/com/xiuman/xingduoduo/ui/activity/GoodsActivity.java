@@ -836,4 +836,11 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 					.get(position).getSpecifications());
 		}
 	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
+	}
 }

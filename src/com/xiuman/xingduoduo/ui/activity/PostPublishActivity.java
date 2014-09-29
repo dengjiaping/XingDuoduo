@@ -123,7 +123,7 @@ public class PostPublishActivity extends Base2Activity implements
 
 	// 存储路径
 	private static final String PATH = Environment
-			.getExternalStorageDirectory() + "/DCIM/xingduoduo";
+			.getExternalStorageDirectory() + "/DCIM";
 
 	private Handler handlerMain = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -273,7 +273,7 @@ public class PostPublishActivity extends Base2Activity implements
 					intent.putExtra("ID", arg2);
 					startActivity(intent);
 				}
-				imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);  
+				imm.hideSoftInputFromWindow(gv_post_imgs.getWindowToken(), 0);
 			}
 		});
 	}

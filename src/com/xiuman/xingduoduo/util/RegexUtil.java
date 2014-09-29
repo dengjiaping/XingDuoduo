@@ -29,4 +29,5 @@ public class RegexUtil {
 	 * 密码匹配
 	 */
 	public static String regex_user = "^[a-zA-Z]\\w{6,16}$";
+	public static String reg ="^([a-z]|[A-Z]|[0-9]|[\u2E80-\u9FFF]){3,}|@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?|[wap.]{4}|[www.]{4}|[blog.]{5}|[bbs.]{4}|[.com]{4}|[.cn]{3}|[.net]{4}|[.org]{4}|[http://]{7}|[ftp://]{6}$";  
 }

@@ -184,5 +184,11 @@ public class DisucssOrderActivity extends Base2Activity implements
 			break;
 		}
 	}
-
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
+	}
 }

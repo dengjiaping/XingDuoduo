@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.xiuman.xingduoduo.app.MyApplication;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -76,7 +78,7 @@ public class ImageCropUtils {
 	 */
 	public String createNewPhotoName() {
 
-		return "xingduoduo_user_head.jpg";
+		return MyApplication.getInstance().getUserInfo().getUserId()+".png";
 	}
 
 	/**

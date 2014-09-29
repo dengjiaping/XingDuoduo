@@ -118,7 +118,7 @@ public class AppRecommendActivity extends Base2Activity implements
 
 	@Override
 	protected void initUI() {
-		tv_title.setText("推荐应用");
+		tv_title.setText("精品推荐");
 		btn_right.setVisibility(View.INVISIBLE);
 		getAppRecommend();
 	}

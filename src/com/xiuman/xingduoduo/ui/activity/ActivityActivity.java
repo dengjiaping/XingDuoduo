@@ -284,4 +284,11 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 				URLConfig.CENTER_HOME_PLATE, currentPage, classify_url);
 		loadingdialog.show(ActivityActivity.this);
 	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
+	}
 }

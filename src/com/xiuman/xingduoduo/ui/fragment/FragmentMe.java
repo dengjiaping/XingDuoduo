@@ -18,12 +18,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.umeng.fb.FeedbackAgent;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.MyApplication;
+import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.lock.ui.GuideGesturePasswordActivity;
 import com.xiuman.xingduoduo.lock.ui.UnlockGesturePasswordActivity;
 import com.xiuman.xingduoduo.model.User;
+import com.xiuman.xingduoduo.ui.activity.AppRecommendActivity;
 import com.xiuman.xingduoduo.ui.activity.CollectionActivity;
 import com.xiuman.xingduoduo.ui.activity.HelpActivity;
 import com.xiuman.xingduoduo.ui.activity.OrderListActivity;
@@ -86,6 +91,8 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 	private LinearLayout llyt_me_menu_weibo;
 	// 使用帮助
 	private LinearLayout llyt_me_menu_help;
+	// 您可能喜欢的应用
+	private LinearLayout llyt_setting_app_recommend;
 
 	/*--------------------------数据变量-----------------*/
 	// 头像工具类
@@ -94,6 +101,11 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 	private Bitmap user_head_bitmap;
 	// 当前登录用户
 	private User user;
+	/*-----------------------ImageLoader-----------------------------*/
+	// ImageLoader
+	public ImageLoader imageLoader = ImageLoader.getInstance();
+	// 配置图片加载及显示选项
+	public DisplayImageOptions options;
 
 	/*--------------------------友盟------------------------*/
 	// 意见反馈
@@ -115,6 +127,14 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 	 */
 	@Override
 	protected void initData() {
+		options = new DisplayImageOptions.Builder()
+		// .showStubImage(R.drawable.weiboitem_pic_loading) //
+		// 在ImageView加载过程中显示图片
+				.showImageForEmptyUri(R.drawable.bg_head) // image连接地址为空时
+				.showImageOnFail(R.drawable.bg_head) // image加载失败
+				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
+				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				.imageScaleType(ImageScaleType.NONE).build();
 		cropUtils = new ImageCropUtils(getActivity());
 
 		agent = new FeedbackAgent(getActivity());
@@ -152,6 +172,8 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 				.findViewById(R.id.llyt_me_menu_weibo);
 		llyt_me_menu_help = (LinearLayout) view
 				.findViewById(R.id.llyt_me_menu_help);
+		llyt_setting_app_recommend = (LinearLayout) view
+				.findViewById(R.id.llyt_setting_app_recommend);
 	}
 
 	/**
@@ -187,6 +209,7 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 		llyt_me_menu_kefu.setOnClickListener(this);
 		llyt_me_menu_weibo.setOnClickListener(this);
 		llyt_me_menu_help.setOnClickListener(this);
+		llyt_setting_app_recommend.setOnClickListener(this);
 
 		// 滑动按钮开启隐私保护
 		mSlideButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -233,8 +256,8 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 	 * 加载用户信息
 	 */
 	private void initUserInfo() {
-		//如果用户已经登陆
-		if(MyApplication.getInstance().isUserLogin()){
+		// 如果用户已经登陆
+		if (MyApplication.getInstance().isUserLogin()) {
 			user = MyApplication.getInstance().getUserInfo();
 			File head = new File(cropUtils.createDirectory()
 					+ cropUtils.createNewPhotoName());
@@ -242,10 +265,12 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 				user_head_bitmap = BitmapFactory.decodeFile(cropUtils
 						.createDirectory() + cropUtils.createNewPhotoName());
 				iv_me_head.setImageBitmap(user_head_bitmap);
+			}else if(user.getHead_image()!=null){
+				imageLoader.displayImage(URLConfig.IMG_IP+user.getHead_image(), iv_me_head, options);
 			}
 			tv_me_user_name.setText(user.getNickname());
 			btn_me_register.setVisibility(View.INVISIBLE);
-		}else{
+		} else {
 			iv_me_head.setImageResource(R.drawable.bg_head);
 			tv_me_user_name.setText(R.string.me_please_login);
 			btn_me_register.setVisibility(View.VISIBLE);
@@ -299,8 +324,8 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 			}
 			break;
 		case R.id.btn_me_my_order:// 我的订单
-			
-			if(MyApplication.getInstance().isUserLogin()){//如果用户已经登录则可以查看订单
+
+			if (MyApplication.getInstance().isUserLogin()) {// 如果用户已经登录则可以查看订单
 				Intent intent_order = new Intent(getActivity(),
 						OrderListActivity.class);
 				Bundle bundle_user = new Bundle();
@@ -308,31 +333,34 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 				bundle_user.putSerializable("user", user);
 				intent_order.putExtras(bundle_user);
 				getActivity().startActivity(intent_order);
-			}else{
+			} else {
 				Intent intent_login = new Intent(getActivity(),
 						UserLoginActivity.class);
 				getActivity().startActivity(intent_login);
-				getActivity().overridePendingTransition(R.anim.translate_vertical_start_in,
+				getActivity().overridePendingTransition(
+						R.anim.translate_vertical_start_in,
 						R.anim.translate_vertical_start_out);
 			}
-			
+
 			break;
 		case R.id.btn_me_my_collection:// 我的收藏
-			if(MyApplication.getInstance().isUserLogin()){//如果用户已经登录则可以查看收藏
-				Intent intent_collection = new Intent(getActivity(),CollectionActivity.class);
+			if (MyApplication.getInstance().isUserLogin()) {// 如果用户已经登录则可以查看收藏
+				Intent intent_collection = new Intent(getActivity(),
+						CollectionActivity.class);
 				Bundle bundle_user = new Bundle();
 				// 测试数据
 				bundle_user.putSerializable("user", user);
 				intent_collection.putExtras(bundle_user);
 				getActivity().startActivity(intent_collection);
-			}else{
+			} else {
 				Intent intent_login = new Intent(getActivity(),
 						UserLoginActivity.class);
 				getActivity().startActivity(intent_login);
-				getActivity().overridePendingTransition(R.anim.translate_vertical_start_in,
+				getActivity().overridePendingTransition(
+						R.anim.translate_vertical_start_in,
 						R.anim.translate_vertical_start_out);
 			}
-			
+
 			break;
 		case R.id.btn_me_my_app_msg:// 系统消息
 			ToastUtil.ToastView(getActivity(), "功能暂未开放哦^_^");
@@ -384,6 +412,14 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 			break;
 		case R.id.llyt_me_menu_weibo:// 微博
 
+			break;
+		case R.id.llyt_setting_app_recommend:// 应用推荐
+			Intent intent_app = new Intent(getActivity(),
+					AppRecommendActivity.class);
+			startActivity(intent_app);
+			getActivity().overridePendingTransition(
+					R.anim.translate_horizontal_start_in,
+					R.anim.translate_horizontal_start_out);
 			break;
 		}
 	}

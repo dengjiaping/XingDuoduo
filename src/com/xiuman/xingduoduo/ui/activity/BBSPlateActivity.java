@@ -193,6 +193,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				// 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true)
 				// 加载图片时会在磁盘中加载缓存
+				.considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
 				.build();
@@ -369,5 +370,12 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				currentPage, 8);
 
 		loadingdialog.show(BBSPlateActivity.this);
+	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
 	}
 }

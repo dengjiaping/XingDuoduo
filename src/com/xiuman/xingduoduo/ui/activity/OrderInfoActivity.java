@@ -597,4 +597,11 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 			}
 		}
 	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
+	}
 }

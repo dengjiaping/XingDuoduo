@@ -28,6 +28,8 @@
             android:layout_weight="1"
             android:background="@drawable/et_input_register_bg"
             android:hint="@string/postinfo_reply_hint"
+            android:inputType="text"
+            android:textColorHint="#888C89"
             android:textColor="@color/color_black3"
             android:textSize="@dimen/txt_size_14" />
 

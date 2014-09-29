@@ -708,4 +708,11 @@ public class OrderSubmitActivity extends Base2Activity implements
 		}
 
 	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
+	}
 }

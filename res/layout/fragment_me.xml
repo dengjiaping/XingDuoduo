@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingBottom="10dip"
-                    android:paddingTop="40dip" >
+                    android:paddingTop="50dip" >
 
                     <!-- 顶部个人信息 -->
 
@@ -84,10 +84,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dip"
-                    android:gravity="center_vertical"
                     android:background="@drawable/bg_me_menu"
-                    android:orientation="horizontal" >
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dip" >
 
                     <!-- 订单 -->
 
@@ -107,7 +107,8 @@
                             android:textColor="@color/color_white"
                             android:textSize="@dimen/txt_size_14" />
                     </RelativeLayout>
-                    <include layout="@layout/line_match_v"/>
+
+                    <include layout="@layout/line_match_v" />
                     <!-- 收藏 -->
 
                     <RelativeLayout
@@ -126,7 +127,8 @@
                             android:textColor="@color/color_white"
                             android:textSize="@dimen/txt_size_14" />
                     </RelativeLayout>
-                    <include layout="@layout/line_match_v"/>
+
+                    <include layout="@layout/line_match_v" />
                     <!-- app消息 -->
 
                     <RelativeLayout
@@ -161,9 +163,9 @@
                     android:id="@+id/llyt_me_menu_protect"
                     android:layout_width="match_parent"
                     android:layout_height="60dip"
+                    android:background="@drawable/whole_bg_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:background="@drawable/whole_bg_selector"
                     android:orientation="horizontal"
                     android:paddingLeft="8dip" >
 
@@ -262,7 +264,7 @@
                 </LinearLayout>
 
                 <include layout="@layout/line_match_drawable" />
-                                <!-- 客服热线 -->
+                <!-- 客服热线 -->
 
                 <LinearLayout
                     android:id="@+id/llyt_me_menu_kefu"
@@ -310,18 +312,52 @@
                 </LinearLayout>
 
                 <include layout="@layout/line_match_drawable" />
+                <!-- 应用推荐 -->
+
+                <LinearLayout
+                    android:id="@+id/llyt_setting_app_recommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:background="@drawable/whole_bg_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dip" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/bg_setting_app_recommend" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="8dip"
+                        android:text="@string/setting_app_2"
+                        android:textColor="@color/color_red_tel"
+                        android:textSize="@dimen/txt_size_18" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_me_menu_right" />
+                </LinearLayout>
+                <include layout="@layout/line_match_drawable" />
                 <!-- 微博 -->
 
                 <LinearLayout
                     android:id="@+id/llyt_me_menu_weibo"
                     android:layout_width="match_parent"
-                    android:layout_height="60dip"
+                    android:layout_height="0dip"
                     android:background="@drawable/whole_bg_selector"
                     android:clickable="true"
-                    android:visibility="invisible"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingLeft="8dip" >
+                    android:paddingLeft="8dip"
+                    android:visibility="invisible" >
 
                     <ImageView
                         android:layout_width="wrap_content"

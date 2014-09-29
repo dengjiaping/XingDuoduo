@@ -163,6 +163,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 					btn_balance.setText("结算(" + 0 + ")");
 					// 下拉加载完成
 					mPullListView.onPullDownRefreshComplete();
+					mPullListView.onPullUpRefreshComplete();
 					btn_balance.setClickable(false);
 					btn_balance.setBackgroundColor(R.color.color_black3);
 				} else {
@@ -187,6 +188,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 
 						// 上拉刷新完成
 						mPullListView.onPullUpRefreshComplete();
+						mPullListView.onPullDownRefreshComplete();
 					}
 					TimeUtil.setLastUpdateTime(mPullListView);
 					mListView.setAdapter(adapter);

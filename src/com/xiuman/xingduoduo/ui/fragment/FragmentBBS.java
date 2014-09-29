@@ -39,6 +39,7 @@ import com.xiuman.xingduoduo.adapter.BBSAdViewPagerAdapter;
 import com.xiuman.xingduoduo.adapter.BBSPlateListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
+import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.callback.TaskPostListBack;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPlate;
@@ -119,12 +120,8 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		public void run() {
 			if (cunhuan) {
 				viewpager_bbs_ad.setCurrentItem(page_id);
-//				if(page_id==0){
-					tv_bbs_ad_name.setText(bbspost.get(page_id).getTitle());
-//				}else{
-//					tv_bbs_ad_name.setText(bbspost.get(page_id-1).getTitle());
-//				}
-				
+				tv_bbs_ad_name.setText(bbspost.get(page_id).getTitle());
+
 				page_id++;
 				if (page_id >= bbspost.size()) {
 					page_id = 0;
@@ -418,6 +415,11 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				user_head_bitmap = BitmapFactory.decodeFile(cropUtils
 						.createDirectory() + cropUtils.createNewPhotoName());
 				iv_bbs_user_head.setImageBitmap(user_head_bitmap);
+			} else if (MyApplication.getInstance().getUserInfo()
+					.getHead_image() != null) {
+				imageLoader.displayImage(URLConfig.IMG_IP
+						+ MyApplication.getInstance().getUserInfo()
+								.getHead_image(), iv_bbs_user_head, options);
 			}
 
 		}

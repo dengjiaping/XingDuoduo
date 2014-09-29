@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,17 +29,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
-import com.xiuman.xingduoduo.app.Mylog;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
+import com.xiuman.xingduoduo.util.PostSimulation;
 import com.xiuman.xingduoduo.util.ToastUtil;
-import com.xiuman.xingduoduo.util.Upload;
 import com.xiuman.xingduoduo.view.CircleImageView;
 import com.xiuman.xingduoduo.view.CustomDialog;
 
@@ -95,6 +98,11 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 	private Button btn_pop_photo_cancel;
 	private String userId;
 
+	/*-----------------------ImageLoader-----------------------------*/
+	// ImageLoader
+	public ImageLoader imageLoader = ImageLoader.getInstance();
+	// 配置图片加载及显示选项
+	public DisplayImageOptions options;
 	/*---------------------------------数据变量-----------------------------------*/
 	// 屏幕宽高
 	private int screenWidth, screenHeight;
@@ -106,25 +114,22 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 	// ----------------当前登录用户-----------------------
 	private User user;
 
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.UPLOAD_PORAIT_RUN:
 				String result = (String) msg.obj;
-				Mylog.e("头像上传返回", result);
-				System.out.println("头像上传结果fanhui+" + result);
 				if (result != null) {
 					ActionValue<?> value = new Gson().fromJson(result,
 							ActionValue.class);
-					System.out.println("头像上传结果" + value.getMessage() + "=="
-							+ value.isSuccess());
-					//
-					// if (value.isSuccess()) {
+					if (value.isSuccess()) {
 
-					ToastUtil.ToastView(getApplication(), "头像已经上传");
-					// }
+						ToastUtil.ToastView(getApplication(), "头像已经上传");
+					}else{
+						ToastUtil.ToastView(getApplication(), "头像上传失败，请重试！");
+					}
 				}
-
 				break;
 			}
 		}
@@ -143,6 +148,14 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 
 	@Override
 	protected void initData() {
+		options = new DisplayImageOptions.Builder()
+		// .showStubImage(R.drawable.weiboitem_pic_loading) //
+		// 在ImageView加载过程中显示图片
+				.showImageForEmptyUri(R.drawable.bg_head) // image连接地址为空时
+				.showImageOnFail(R.drawable.bg_head) // image加载失败
+				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
+				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				.imageScaleType(ImageScaleType.NONE).build();
 		// 获取屏幕宽高
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -215,6 +228,8 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 			user_head_bitmap = BitmapFactory.decodeFile(cropUtils
 					.createDirectory() + cropUtils.createNewPhotoName());
 			iv_userinfo_user_head.setImageBitmap(user_head_bitmap);
+		}else if(user.getHead_image()!=null){
+			imageLoader.displayImage(URLConfig.IMG_IP+user.getHead_image(), iv_userinfo_user_head, options);
 		}
 		// 测试数据
 		tv_userinfo_user_rank.setText(user.getRankNmae());
@@ -331,7 +346,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 						cropUtils.createNewPhotoName());
 
 				// 上传头像
-//				uploadImg();
+				uploadImg();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -347,7 +362,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 					cropUtils.saveFile(user_head_bitmap,
 							cropUtils.createNewPhotoName());
 					// 上传头像
-//					uploadImg();
+					uploadImg();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -452,7 +467,11 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 			}
 		}.start();
 	}
-	
+
+	/**
+	 * @描述：进行上传操作
+	 * @return 2014-9-29
+	 */
 	protected String uploadFile() {
 		List<String> keys = new ArrayList<String>();
 		keys.add("usernameIdhead");
@@ -465,12 +484,11 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 
 		String filename = cropUtils.createDirectory()
 				+ cropUtils.createNewPhotoName();
-		System.out.println("图片地址+"+filename+"==="+userId);
-//		return PostSimulation.getInstance().postHead(URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP, "myFile", filename, "usernameIdhead", userId);
-//		return PostSimulation.getInstance().post(URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP, "myFile", fileNames, keys, map);
-//		File head = new File(cropUtils.createDirectory()
-//				+ cropUtils.createNewPhotoName());
-//		return UploadUtil.uploadFile(head, URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP,"usernameIdhead",userId);
-		return Upload.upload(URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP+"usernameIdhead="+userId, filename, "usernameIdhead", userId);
+		return PostSimulation.getInstance().postHead(
+				URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP, "myFile",
+				filename, "usernameIdhead", userId);
+		// return Upload.upload(URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP,
+		// filename, "usernameIdhead", userId);
 	}
+	
 }

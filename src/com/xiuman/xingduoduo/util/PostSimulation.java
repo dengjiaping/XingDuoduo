@@ -16,8 +16,8 @@ import com.xiuman.xingduoduo.app.Mylog;
 
 /**
  * @名称：PostSimulation.java
- * @描述：发表帖子工具类
- * @author Andrew Lee 2014-9-21下午12:10:15
+ * @描述：发帖(带图)上传头像工具类
+ * @author danding 2014-9-29
  */
 public class PostSimulation {
 
@@ -71,13 +71,13 @@ public class PostSimulation {
 		split.append(twoHyphens + boundary + lineEnd);
 		split.append("Content-Disposition: form-data; name=\"" + fileKey
 				+ "\"; filename=\"" + fileName + "\"" + lineEnd);
-		split.append("Content-Type: "
-				+ fileName.substring(fileName.lastIndexOf(".") + 1) + lineEnd);
-		Mylog.i("图片类型", fileName.substring(fileName.lastIndexOf(".") + 1));
+		split.append("Content-Type: " + "image/png" + lineEnd);
+		Mylog.e("图片类型", fileName.substring(fileName.lastIndexOf(".") + 1));
 		split.append(lineEnd);
 		try {
 			// 发送图片数据
 			output.write(split.toString().getBytes("utf-8"));
+			Mylog.e("发帖", split.toString());
 			FileInputStream fStream = new FileInputStream(file);
 			// /* 设置每次写入1024bytes */
 			int bufferSize = 1024;
@@ -87,6 +87,7 @@ public class PostSimulation {
 			while ((length = fStream.read(buffer)) != -1) {
 				// /* 将资料写入OutputStream中 */
 				output.write(buffer, 0, length);
+				System.out.println("找到照片" + length);
 			}
 			output.write(lineEnd.getBytes("utf-8"));
 		} catch (IOException e) {
@@ -109,6 +110,7 @@ public class PostSimulation {
 		sb.append(value + lineEnd);
 		try {
 			output.write(sb.toString().getBytes("utf-8"));// 发送表单字段数据
+			System.out.println("找到照片" + sb.toString());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -218,11 +220,11 @@ public class PostSimulation {
 			conn.connect();
 			output = conn.getOutputStream();
 			//
-//			addFormField(key, value, output);
-			StringBuffer params = new StringBuffer();
-            params.append(key).append("=").append(value);
-            byte[] bypes = params.toString().getBytes();
-            conn.getOutputStream().write(bypes);// 输入参数
+			addFormField(key, value, output);
+			// StringBuffer params = new StringBuffer();
+			// params.append(key).append("=").append(value);
+			// byte[] bypes = params.toString().getBytes();
+			// conn.getOutputStream().write(bypes);// 输入参数
 
 			addImageContent(fileKey, fileName, output);
 

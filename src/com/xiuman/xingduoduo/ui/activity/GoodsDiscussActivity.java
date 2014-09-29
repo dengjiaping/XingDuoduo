@@ -268,5 +268,11 @@ public class GoodsDiscussActivity extends Base2Activity implements
 				new TaskGoodsDiscussListBack(handler),
 				URLConfig.GOODS_DISCUSS_LIST, currentPage, goods_id);
 	}
-
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
+	}
 }

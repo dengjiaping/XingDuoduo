@@ -182,7 +182,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		btn_back = (Button) findViewById(R.id.btn_common_back);
 		btn_right = (Button) findViewById(R.id.btn_common_right);
 		tv_title = (TextView) findViewById(R.id.tv_common_title);
-		loadingdialog = new LoadingDialog(this);
+		loadingdialog = new LoadingDialog(LimitBuyActivity.this);
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		llyt_null_goods = (LinearLayout) findViewById(R.id.llyt_goods_null);
 		
@@ -414,5 +414,13 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 			e.printStackTrace();
 		}
 		return interval;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		loadingdialog.dismiss();
+		loadingdialog = null;
+		imageLoader.stop();
 	}
 }
