@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.ClassifyGridviewAdapter;
@@ -39,6 +40,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	/*--------------------------------------组件---------------------------------*/
 	//搜索按钮
 	private Button btn_search;
+	private TextView tv_title;
 	//分类
 	private GridView gridview_good_classify;
 	// 进度加载
@@ -112,6 +114,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	 */
 	@Override
 	protected void findViewById(View view) {
+		tv_title = (TextView) view.findViewById(R.id.tv_title);
 //		loadingdialog = new LoadingDialog(getActivity());
 		gridview_good_classify = (GridView) view
 				.findViewById(R.id.gridview_good_classify);
@@ -124,6 +127,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	@Override
 	protected void initUI() {
 //		initClassify();
+		tv_title.setText("分类");
 		classify_adapter = new ClassifyGridviewAdapter(
 				getActivity());
 		gridview_good_classify.setAdapter(classify_adapter);

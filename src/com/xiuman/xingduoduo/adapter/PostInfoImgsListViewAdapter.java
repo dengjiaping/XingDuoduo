@@ -1,24 +1,19 @@
 package com.xiuman.xingduoduo.adapter;
 
 import java.util.List;
-import javax.crypto.spec.IvParameterSpec;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.MyApplication;
-import com.xiuman.xingduoduo.util.SizeUtil;
 
 /**
  * @名称：PostInfoImgsListViewAdapter.java
@@ -73,14 +68,13 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
 		imageLoader.displayImage(imgs.get(position),
 				holder.iv_item_postinfo_img_item, options);
 
+		
 		return convertView;
 	}
-
 	static class ViewHolder {
-		ImageView iv_item_postinfo_img_item;
+		public ImageView iv_item_postinfo_img_item;
 	}
 }

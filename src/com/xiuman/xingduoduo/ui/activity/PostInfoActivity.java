@@ -13,11 +13,13 @@ import android.os.Handler;
 import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -25,7 +27,6 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.PostInfoImgsListViewAdapter;
@@ -191,8 +192,10 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					Date date = new Date();
 					String createTime = format.format(date);
 					boolean sex = false;
-					if (user.getGender().equals("male")) {
-						sex = true;
+					if (user.getGender() != null) {
+						if (user.getGender() == "male") {
+							sex = true;
+						}
 					}
 					BBSPostReply bps = new BBSPostReply(et_reply.getText()
 							.toString(), createTime,
@@ -240,18 +243,17 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
-				// .showStubImage(R.drawable.weiboitem_pic_loading) //
+//		 .showStubImage(R.drawable.onloadong_post) //
 				// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloading_goods_poster)
+				.showImageForEmptyUri(R.drawable.onloadong_post)
 				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloading_goods_poster)
+				.showImageOnFail(R.drawable.onloadong_post)
 				// image加载失败
-				.cacheInMemory(true)
+				.cacheInMemory(false)
 				// 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true)
 				// 加载图片时会在磁盘中加载缓存
-				.bitmapConfig(Bitmap.Config.RGB_565)
-				.imageScaleType(ImageScaleType.NONE).build();
+				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		// 从上级界面接收到的帖子
 		postinfo_starter = (BBSPost) getIntent().getExtras().getSerializable(
@@ -394,13 +396,12 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		tv_postinfo_starter_time.setText(TimeUtil.getTimeStr(
 				TimeUtil.strToDate(postinfo_starter.getCreateTime()),
 				new Date()));
-		// List<String> imgList = new ArrayList<String>();
 		//
-		// imgList = HtmlTag.match(postinfo_starter.contentHtml, "img", "src");
 		adapter_img = new PostInfoImgsListViewAdapter(this, options,
 				imageLoader, postinfo_starter.getPostImgs());
+		System.out.println("图片数量" + postinfo_starter.getPostImgs().size());
 		lv_postinfo_starter_imgs.setAdapter(adapter_img);
-
+		// setListViewHeight(lv_postinfo_starter_imgs);
 		loadingdialog.show(PostInfoActivity.this);
 		// 获取列表
 		getReply(currentPage);
@@ -441,7 +442,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			break;
 		case R.id.btn_reply:// 发送回复
 			if (MyApplication.getInstance().isUserLogin()) {
-				if ((et_reply.getText().toString()).length() < 2) {
+				if ((et_reply.getText().toString().trim()).length() < 2) {
 					ToastUtil.ToastView(PostInfoActivity.this, "回复不能少于2个字");
 				} else {
 
@@ -479,4 +480,20 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		imageLoader.stop();
 	}
 
+	public void setListViewHeight(ListView listView) {
+		ListAdapter listAdapter = listView.getAdapter(); // 根据传入ListView的adapter的getView方法获取每个item的高度，然后叠加就得到ListView的高度
+		if (listAdapter == null) {
+			return;
+		}
+		int totalHeight = 0;
+		for (int i = 0; i < listAdapter.getCount(); i++) {
+			View listItem = listAdapter.getView(i, null, listView);
+			listItem.measure(0, 0);
+			totalHeight += listItem.getMeasuredHeight();
+		}
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight
+				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1)); // 加上diverHeight
+		listView.setLayoutParams(params);
+	}
 }

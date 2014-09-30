@@ -5,6 +5,7 @@ import java.util.Date;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,6 +115,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					@Override
 					public void onLoadingStarted(String arg0, View arg1) {
 					}
+
 					@Override
 					public void onLoadingFailed(String arg0, View arg1,
 							FailReason arg2) {
@@ -125,10 +127,12 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 									.setImageResource(R.drawable.ic_female);
 						}
 					}
+
 					@Override
 					public void onLoadingComplete(String arg0, View arg1,
 							Bitmap arg2) {
 					}
+
 					@Override
 					public void onLoadingCancelled(String arg0, View arg1) {
 					}
@@ -271,31 +275,39 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 		return convertView;
 	}
 
+	public static Bitmap loadResBitmap(String path, int scalSize) {
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = false;
+		options.inSampleSize = scalSize;
+		Bitmap bmp = BitmapFactory.decodeFile(path, options);
+		return bmp;
+	}
+
 	static class ViewHolder {
 		// 用户头像
-		CircleImageView iv_item_post_plate_post_head;
+		public CircleImageView iv_item_post_plate_post_head;
 		// 用户性别
-		ImageView iv_item_post_plate_post_sex;
+		public ImageView iv_item_post_plate_post_sex;
 		// 标题
-		TextView tv_item_bbs_plate_post_title;
+		public TextView tv_item_bbs_plate_post_title;
 		// 内容
-		TextView tv_item_bbs_plate_post_content;
+		public TextView tv_item_bbs_plate_post_content;
 		// 用户昵称
-		TextView tv_item_bbs_plate_post_user;
+		public TextView tv_item_bbs_plate_post_user;
 		// 回复数
-		TextView tv_item_bbs_plate_post_reply;
+		public TextView tv_item_bbs_plate_post_reply;
 		// 图片数
-		TextView tv_item_bbs_plate_post_img_number;
+		public TextView tv_item_bbs_plate_post_img_number;
 		// 创建时间
-		TextView tv_item_bbs_plate_post_time;
+		public TextView tv_item_bbs_plate_post_time;
 		// 图片1
-		ImageView iv_item_bbs_plate_post_img_1;
+		public ImageView iv_item_bbs_plate_post_img_1;
 		// 图片2
-		ImageView iv_item_bbs_plate_post_img_2;
+		public ImageView iv_item_bbs_plate_post_img_2;
 		// 图片3
-		ImageView iv_item_bbs_plate_post_img_3;
+		public ImageView iv_item_bbs_plate_post_img_3;
 		// 没有使用
-		LinearLayout llyt_item_bbs_plate_post_img_container;
+		public LinearLayout llyt_item_bbs_plate_post_img_container;
 	}
 
 }

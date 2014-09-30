@@ -46,10 +46,9 @@ public class BBSPost implements Serializable {
 	private int replyCount;
 	// 头像地址
 	private String avatar;
-	//所属板块id
+	// 所属板块id
 	private int forumId;
 	private String primeLevel;
-
 
 	public BBSPost(String content, String contentHtml, String createTime,
 			String title, String nickname, boolean sex, int id,
@@ -120,14 +119,14 @@ public class BBSPost implements Serializable {
 	}
 
 	public String getContent() {
-//		if (content.contains("[att")) {
-//			content = content.substring(0, content.indexOf("[att"));
-//			if (content.contains("\r\n\r\n"))
-//				content.replace("\r\n\r\n", "\r\n");
-//		} else {
-//		}
+		// if (content.contains("[att")) {
+		// content = content.substring(0, content.indexOf("[att"));
+		// if (content.contains("\r\n\r\n"))
+		// content.replace("\r\n\r\n", "\r\n");
+		// } else {
+		// }
 		return HtmlTag.clearTag2(contentHtml);
-//		return contentHtml;
+		// return contentHtml;
 	}
 
 	public void setContent(String content) {
@@ -185,9 +184,11 @@ public class BBSPost implements Serializable {
 	public ArrayList<String> getPostImgs() {
 		ArrayList<String> post_imgs = new ArrayList<String>();
 		post_imgs = HtmlTag.match(contentHtml, "img", "src");
-		if(post_imgs.size()>0){
-			if(post_imgs.get(0).contains(".gif")){
-				post_imgs.clear();
+		if (post_imgs.size() > 0) {
+			for (int i = 0; i < post_imgs.size(); i++) {
+				if (post_imgs.get(i).endsWith(".gif")) {
+					post_imgs.remove(i);
+				}
 			}
 		}
 		return post_imgs;

@@ -36,8 +36,10 @@ import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.app.URLConfig;
+import com.xiuman.xingduoduo.callback.TaskUserInfoBack;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.User;
+import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
 import com.xiuman.xingduoduo.util.PostSimulation;
@@ -126,6 +128,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 					if (value.isSuccess()) {
 
 						ToastUtil.ToastView(getApplication(), "头像已经上传");
+						getUserInfo();
 					}else{
 						ToastUtil.ToastView(getApplication(), "头像上传失败，请重试！");
 					}
@@ -490,5 +493,11 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		// return Upload.upload(URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP,
 		// filename, "usernameIdhead", userId);
 	}
-	
+	/**
+	 * @描述：获取用户信息 2014-8-12
+	 */
+	public void getUserInfo() {
+		HttpUrlProvider.getIntance().getUserInfo(UserInfoActivity.this,
+				new TaskUserInfoBack(handler), URLConfig.USERINFO, user.getUserName());
+	}
 }

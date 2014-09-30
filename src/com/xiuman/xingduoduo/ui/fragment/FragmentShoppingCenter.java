@@ -66,6 +66,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	/*------------------------------------组件----------------------------*/
 	// 搜索
 	private Button btn_search;
+	private TextView tv_title;
 	// 扫码
 	private Button btn_sweep;
 	// 顶部图
@@ -331,6 +332,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 */
 	@Override
 	protected void findViewById(View view) {
+		tv_title = (TextView) view.findViewById(R.id.tv_title);
 		btn_sweep = (Button) view.findViewById(R.id.btn_sweep_1);
 		btn_search = (Button) view.findViewById(R.id.btn_search);
 		iv_center_bg_img = (ImageView) view.findViewById(R.id.iv_center_bg_img);
@@ -436,6 +438,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 */
 	@Override
 	protected void initUI() {
+		tv_title.setText("商城");
 		// 设置数据为上次请求的数据
 		setLastData();
 		// 获取广告

@@ -106,7 +106,7 @@
             <com.xiuman.xingduoduo.view.MyListView
                 android:id="@+id/lv_postinfo_starter_imgs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/color_white"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="5dip"
@@ -131,6 +131,7 @@
         android:id="@+id/iv_postinfo_tag"
         android:layout_width="30dip"
         android:layout_height="30dip"
+        android:visibility="invisible"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/ic_bbs_plate_hot" />

@@ -66,6 +66,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 
 	/*----------------------------------组件--------------------------------*/
 	// 标题栏
+	private TextView tv_title;
 	// Viewpager
 	private ViewPager viewpager_bbs_ad;
 	// Indicator
@@ -193,7 +194,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				.showImageOnLoading(R.drawable.bg_center_ad_loading)
 				.showImageForEmptyUri(R.drawable.bg_center_ad_loading) // image连接地址为空时
 				.showImageOnFail(R.drawable.bg_center_ad_loading) // image加载失败
-				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
+				.cacheInMemory(false) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.imageScaleType(ImageScaleType.NONE).build();
 
@@ -209,6 +210,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	 */
 	@Override
 	protected void findViewById(View view) {
+		tv_title = (TextView) view.findViewById(R.id.tv_title);
 		tv_bbs_ad_name = (TextView) view.findViewById(R.id.tv_bbs_ad_name);
 		viewpager_bbs_ad = (ViewPager) view.findViewById(R.id.viewpager_bbs_ad);
 		mIndicator = (CirclePageIndicator) view
@@ -224,6 +226,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	@Override
 	protected void initUI() {
 		initFirstData();
+		tv_title.setText("圈套");
 		// // 以父布局为准
 		// RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 		//
@@ -296,6 +299,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		ad_adapter = new BBSAdViewPagerAdapter(bbspost, ad_ivs, getActivity(),
 				options, imageLoader);
 		viewpager_bbs_ad.setAdapter(ad_adapter);
+		tv_bbs_ad_name.setText(bbspost.get(0).getTitle());
 		mIndicator.setViewPager(viewpager_bbs_ad);
 		switchTask.run();
 	}

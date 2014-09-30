@@ -63,6 +63,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 	/*-----------------------------------组件--------------------------------*/
 	// 二维码
 	private Button btn_sweep;
+	private TextView tv_title;
 	// 搜索
 	private Button btn_search;
 	// ListView
@@ -313,6 +314,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 	 */
 	@Override
 	protected void findViewById(View view) {
+		tv_title = (TextView) view.findViewById(R.id.tv_title);
 		btn_go2center = (Button) view.findViewById(R.id.btn_go2center);
 		btn_sweep = (Button) view.findViewById(R.id.btn_sweep_1);
 		btn_search = (Button) view.findViewById(R.id.btn_search);
@@ -346,6 +348,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 	 */
 	@Override
 	protected void initUI() {
+		tv_title.setText("购物车");
 		llyt_null_cart.setVisibility(View.INVISIBLE);
 		if (MyApplication.getInstance().isUserLogin()) {
 			user = MyApplication.getInstance().getUserInfo();

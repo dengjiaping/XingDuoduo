@@ -1,7 +1,11 @@
 package com.xiuman.xingduoduo.view;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
+
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.ListView;
 
 /**
@@ -25,5 +29,15 @@ public class MyListView extends ListView {
 		int mExpandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
 				MeasureSpec.AT_MOST);
 		super.onMeasure(widthMeasureSpec, mExpandSpec);
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent ev) {
+		switch (ev.getAction()) {
+		case MotionEvent.ACTION_MOVE:
+			this.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), true, false));
+			break;
+		}
+		return super.onTouchEvent(ev);
 	}
 }

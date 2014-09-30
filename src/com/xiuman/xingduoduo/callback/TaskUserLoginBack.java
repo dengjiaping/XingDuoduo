@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.model.ActionValue;
@@ -26,8 +27,9 @@ public class TaskUserLoginBack implements HttpTaskListener {
 
 	@Override
 	public void dataSucced(String result) {
-		ActionValue<User> value = new Gson()
-				.fromJson(result, ActionValue.class);
+		ActionValue<User> value = new Gson().fromJson(result,
+				new TypeToken<ActionValue<User>>() {
+				}.getType());
 		String user_info = new Gson().toJson(value.getDatasource().get(0));
 		// 保存用户登录信息
 		MyApplication.getInstance().saveUserInfo(user_info);
