@@ -637,5 +637,4 @@ public class PostPublishActivity extends Base2Activity implements
 			}
 		}
 	}
-
 }

@@ -196,6 +196,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				.showImageOnFail(R.drawable.bg_center_ad_loading) // image加载失败
 				.cacheInMemory(false) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.NONE).build();
 
 		// 测试数据，板块

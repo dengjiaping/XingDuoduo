@@ -97,7 +97,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
+		
 		final BBSPost post = posts.get(position);
 		// 性别
 		if (post.isSex()) {

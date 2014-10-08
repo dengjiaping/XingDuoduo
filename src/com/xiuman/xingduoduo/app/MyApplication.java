@@ -23,20 +23,18 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Bitmap.CompressFormat;
 import android.os.Build;
 import android.os.Environment;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.xiuman.xingduoduo.lock.util.LockPatternUtils;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPost;
@@ -88,9 +86,9 @@ public class MyApplication extends Application {
 		super.onCreate();
 		mInstance = this;
 		mLockPatternUtils = new LockPatternUtils(this);
-		int threadPoolSize = 0;
+		int threadPoolSize = 3;
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			threadPoolSize = 6;
+			threadPoolSize = 5;
 		} else {
 			threadPoolSize = 3;
 		}
@@ -100,38 +98,53 @@ public class MyApplication extends Application {
 		/** 初始化图片加载类配置信息 **/
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				this)
-//				.memoryCacheExtraOptions(480, 800)
-//				// max width, max
-//				.threadPriority(Thread.NORM_PRIORITY - 2)
-//				// 加载图片的线程数
-//				.threadPoolSize(1)
-//				// 线程池内加载的数量
-//				.memoryCacheSize(2 * 1024 * 1024)
-//				.discCacheSize(50 * 1024 * 1024)
-//				// .memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 *
-//				// 1024))
-//				.memoryCache(new UsingFreqLimitedMemoryCache(50))
-//				.imageDownloader(new BaseImageDownloader(this))
-//				.denyCacheImageMultipleSizesInMemory()// 解码图像的大尺寸将在内存中缓存先前解码图像的小尺寸。
-//				.diskCacheFileNameGenerator(new Md5FileNameGenerator())// 设置磁盘缓存文件名称
-//				.tasksProcessingOrder(QueueProcessingType.LIFO)// 设置加载显示图片队列进程
-//				.writeDebugLogs()
-				.threadPoolSize(threadPoolSize) // 线程池个数
-				.threadPriority(Thread.NORM_PRIORITY - 1) // 线程的优先级
-				.tasksProcessingOrder(QueueProcessingType.FIFO) // 任务处理顺序
-				.memoryCacheExtraOptions(480, 800) // 在内存中存放的图片大小
-				.discCacheExtraOptions(480, 800, null) // 在硬盘在中存放的图片大小、压缩类型、压缩率
+				// .memoryCacheExtraOptions(480, 800)
+				// // max width, max
+				// .threadPriority(Thread.NORM_PRIORITY - 2)
+				// // 加载图片的线程数
+				// .threadPoolSize(1)
+				// // 线程池内加载的数量
+				// .memoryCacheSize(2 * 1024 * 1024)
+				// .discCacheSize(50 * 1024 * 1024)
+				// // .memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 *
+				// // 1024))
+				// .memoryCache(new UsingFreqLimitedMemoryCache(50))
+				// .imageDownloader(new BaseImageDownloader(this))
+				// .denyCacheImageMultipleSizesInMemory()//
+				// 解码图像的大尺寸将在内存中缓存先前解码图像的小尺寸。
+				// .diskCacheFileNameGenerator(new Md5FileNameGenerator())//
+				// 设置磁盘缓存文件名称
+				// .tasksProcessingOrder(QueueProcessingType.LIFO)//
+				// 设置加载显示图片队列进程
+				// .writeDebugLogs()
+				// 原
+				// .threadPoolSize(threadPoolSize) // 线程池个数
+				// .threadPriority(Thread.NORM_PRIORITY - 1) // 线程的优先级
+				// .tasksProcessingOrder(QueueProcessingType.FIFO) // 任务处理顺序
+				// .memoryCacheExtraOptions(480, 800) // 在内存中存放的图片大小
+				// .discCacheExtraOptions(480, 800, null) //
+				// 在硬盘在中存放的图片大小、压缩类型、压缩率
+				// .denyCacheImageMultipleSizesInMemory()
+				// .memoryCache(new LruMemoryCache(2 * 1024 * 1024)) // ?
+				// .memoryCacheSizePercentage(13) // 缓存大小的百分比
+				// .memoryCacheSize(2 * 1024 * 1024)
+				// .discCache(new UnlimitedDiscCache(cacheDir))
+				// .discCacheSize(50 * 1024 * 1024) // 设置缓存的大小(内存大小) ?
+				// .discCacheFileCount(200) // 设置缓存文件的数量
+				// .discCacheFileNameGenerator(new Md5FileNameGenerator()) //
+				// 文件名(MD5)
+				// .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
+				// // default
+				// .writeDebugLogs() // 写调试日志
+
+				// 现
+				.threadPoolSize(4).threadPriority(0)
 				.denyCacheImageMultipleSizesInMemory()
-				.memoryCache(new LruMemoryCache(2 * 1024 * 1024)) // ?
-				.memoryCacheSizePercentage(13) // 缓存大小的百分比
-				.memoryCacheSize(2 * 1024 * 1024)
+				.memoryCache(new WeakMemoryCache())
 				.discCache(new UnlimitedDiscCache(cacheDir))
-				.discCacheSize(50 * 1024 * 1024) // 设置缓存的大小(内存大小) ?
-				.discCacheFileCount(200) // 设置缓存文件的数量
-				.discCacheFileNameGenerator(new Md5FileNameGenerator()) // 文件名(MD5)
-				.defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
-				.writeDebugLogs() // 写调试日志
-				.build();
+				.discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+				.defaultDisplayImageOptions(DisplayImageOptions.createSimple())
+				.tasksProcessingOrder(QueueProcessingType.LIFO).build();
 		ImageLoader.getInstance().init(config);
 		httpClient = this.createHttpClient();
 	}

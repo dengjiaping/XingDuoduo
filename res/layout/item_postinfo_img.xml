@@ -10,6 +10,7 @@
         android:id="@+id/iv_item_postinfo_img_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minHeight="200dip"
         android:scaleType="centerCrop" />
 
 </LinearLayout>

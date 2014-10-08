@@ -3,6 +3,7 @@ package com.xiuman.xingduoduo.ui.activity;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -124,6 +125,7 @@ public class FloorReplyInfoActivity extends Base2Activity implements OnClickList
 				.showImageOnFail(R.drawable.onloading_goods_poster) // image加载失败
 				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.NONE).build();
 		
 		//从上级界面接收到的信息

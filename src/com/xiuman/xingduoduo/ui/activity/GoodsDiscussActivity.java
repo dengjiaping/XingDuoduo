@@ -3,6 +3,7 @@ package com.xiuman.xingduoduo.ui.activity;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -164,6 +165,7 @@ public class GoodsDiscussActivity extends Base2Activity implements
 				.showImageOnFail(R.drawable.ic_male) // image加载失败
 				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.NONE).build();
 		goods_id = getIntent().getExtras().getString("goods_id");
 	}

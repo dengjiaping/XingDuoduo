@@ -76,8 +76,8 @@
     </style>
     <!-- PopWindow动画2 -->
      <style name="PopupAnimation2" mce_bogus="1" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/pop_in2</item>
-        <item name="android:windowExitAnimation">@anim/pop_out2</item>
+        <item name="android:windowEnterAnimation">@anim/pop_set_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_set_out</item>
     </style>
 
 </resources>

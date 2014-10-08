@@ -10,6 +10,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -305,13 +306,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	protected void initData() {
 		// 配置图片加载及显示选项（还有一些其他的配置，查阅doc文档吧）
 		options = new DisplayImageOptions.Builder()
-		// .showStubImage(R.drawable.weiboitem_pic_loading) //
-		// 在ImageView加载过程中显示图片
-		// .showImageOnLoading(R.drawable.bg_center_ad_loading)
-				// .showImageForEmptyUri(R.drawable.bg_center_ad_loading) //
-				// image连接地址为空时
-				// .showImageOnFail(R.drawable.bg_center_ad_loading) //
-				// image加载失败
 				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.imageScaleType(ImageScaleType.NONE).build();
@@ -644,10 +638,10 @@ public class FragmentShoppingCenter extends BaseFragment implements
 					R.anim.translate_horizontal_start_out);
 			break;
 		case R.id.btn_sweep_1:// 扫码
-//			Intent intent = new Intent();
-//			intent.setClass(getActivity(), SweepActivty.class);
-//			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//			startActivityForResult(intent, 1);
+			// Intent intent = new Intent();
+			// intent.setClass(getActivity(), SweepActivty.class);
+			// intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			// startActivityForResult(intent, 1);
 			break;
 		}
 	}

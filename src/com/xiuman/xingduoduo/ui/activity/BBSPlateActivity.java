@@ -135,7 +135,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 						TimeUtil.setLastUpdateTime3(pullsv_post);
 					} else {
 						bbspost.addAll(bbspost_get);
-						adapter.notifyDataSetChanged(); 
+						adapter.notifyDataSetChanged();
 						pullsv_post.onPullUpRefreshComplete();
 						TimeUtil.setLastUpdateTime3(pullsv_post);
 						loadingdialog.dismiss();
@@ -182,21 +182,20 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
-//				 .showStubImage(R.drawable.onloadong_post) //
+				// .showStubImage(R.drawable.onloadong_post) //
+				.showImageOnLoading(R.drawable.onloadong_post)
 				// 在ImageView加载过程中显示图片
 				.showImageForEmptyUri(R.drawable.onloadong_post)
 				// image连接地址为空时
 				.showImageOnFail(R.drawable.onloadong_post)
 				// image加载失败
-				.resetViewBeforeLoading(false) 
+//				.resetViewBeforeLoading(false)
 				.cacheInMemory(false)
 				// 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true)
 				// 加载图片时会在磁盘中加载缓存
-				.considerExifParams(true)
-				.bitmapConfig(Bitmap.Config.RGB_565)
-				.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-				.build();
+				.considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565)
+				.imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
 
 		// 从上级界面接收到的板块信息
 		plate = (BBSPlate) getIntent().getExtras().getSerializable("bbs_plate");
@@ -327,8 +326,9 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 			}
 
 		});
-		//滑动时不加载图片
-		lv_posts.setOnScrollListener(new PauseOnScrollListener(imageLoader, true, false));
+		// 滑动时不加载图片
+		lv_posts.setOnScrollListener(new PauseOnScrollListener(imageLoader,
+				true, false));
 	}
 
 	/**
@@ -351,10 +351,10 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		case R.id.btn_bbs_back:// 返回按钮
 			finish();
 			break;
-		case R.id.llyt_network_error://刷新数据
+		case R.id.llyt_network_error:// 刷新数据
 			currentPage = 1;
 			initFirstData(currentPage);
-			
+
 			break;
 		}
 	}
@@ -371,6 +371,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 
 		loadingdialog.show(BBSPlateActivity.this);
 	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

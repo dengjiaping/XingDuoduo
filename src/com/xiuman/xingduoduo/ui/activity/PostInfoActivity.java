@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.PostInfoImgsListViewAdapter;
@@ -93,8 +94,6 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	// 回复帖子列表
 	private ListView lv_postinfo_replys;
 
-	// 底部回复输入框(父)----------------------
-	private LinearLayout llyt_reply_container;
 	// 回复输入框
 	private EditText et_reply;
 	// 发送回复
@@ -223,7 +222,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				llyt_network_error.setVisibility(View.VISIBLE);
 				break;
 			case AppConfig.BBS_REPLY_FAILD:
-				ToastUtil.ToastView(PostInfoActivity.this, "不支持表情输入，请重试！");
+				ToastUtil.ToastView(PostInfoActivity.this, "回复失败请重试!");
 				break;
 			}
 		}
@@ -243,16 +242,17 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
-//		 .showStubImage(R.drawable.onloadong_post) //
-				// 在ImageView加载过程中显示图片
+				// .showStubImage(R.drawable.onloadong_post) //
+//				.showImageOnLoading(R.drawable.onloadong_post)
 				.showImageForEmptyUri(R.drawable.onloadong_post)
 				// image连接地址为空时
 				.showImageOnFail(R.drawable.onloadong_post)
 				// image加载失败
-				.cacheInMemory(false)
+				.cacheInMemory(true)
 				// 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true)
 				// 加载图片时会在磁盘中加载缓存
+				.imageScaleType(ImageScaleType.EXACTLY)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		// 从上级界面接收到的帖子
@@ -272,7 +272,6 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		btn_postinfo_starter = (Button) findViewById(R.id.btn_postinfo_starter);
 		tv_postinfo_title = (TextView) findViewById(R.id.tv_postinfo_title);
 
-		llyt_reply_container = (LinearLayout) findViewById(R.id.llyt_reply_container);
 		et_reply = (EditText) findViewById(R.id.et_reply);
 		btn_reply = (Button) findViewById(R.id.btn_reply);
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
@@ -390,6 +389,9 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			iv_postinfo_starter_sex.setImageResource(R.drawable.sex_female);
 		}
 		tv_postinfo_starter_name.setText(postinfo_starter.getNickname());
+		if(postinfo_starter.getNickname()==null){
+			tv_postinfo_starter_name.setText(postinfo_starter.getUsername());
+		}
 		tv_postinfo_starter_title.setText(postinfo_starter.getTitle());
 		tv_postinfo_starter_content.setText(Html.fromHtml(postinfo_starter
 				.getContent()));
@@ -478,6 +480,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		loadingdialog.dismiss();
 		loadingdialog = null;
 		imageLoader.stop();
+		imageLoader.clearMemoryCache();
 	}
 
 	public void setListViewHeight(ListView listView) {

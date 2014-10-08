@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.MyApplication;
 
@@ -69,7 +70,7 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		imageLoader.displayImage(imgs.get(position),
-				holder.iv_item_postinfo_img_item, options);
+				holder.iv_item_postinfo_img_item, options,new SimpleImageLoadingListener());
 
 		
 		return convertView;

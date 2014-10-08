@@ -234,7 +234,8 @@
             android:name="com.xiuman.xingduoduo.ui.activity.PostInfoActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Transparent"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+            android:hardwareAccelerated="false"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
         </activity>
         <!-- 楼层信息 -->
         <activity
@@ -247,7 +248,7 @@
             android:name="com.xiuman.xingduoduo.ui.activity.PostPublishActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+            android:windowSoftInputMode="stateVisible|adjustPan" >
         </activity>
         <!-- 相册列表界面 -->
         <activity
@@ -371,7 +372,7 @@
         <!-- 渠道 -->
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="taobao" />
+            android:value="xingduoduo" />
     </application>
 
 </manifest>
