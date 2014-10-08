@@ -378,5 +378,6 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		loadingdialog.dismiss();
 		loadingdialog = null;
 		imageLoader.stop();
+		imageLoader.clearMemoryCache();
 	}
 }
