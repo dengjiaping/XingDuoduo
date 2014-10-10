@@ -243,9 +243,9 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.onloadong_post) //
 				// .showImageOnLoading(R.drawable.onloadong_post)
-				.showImageForEmptyUri(R.drawable.onloadong_post)
+				.showImageForEmptyUri(R.drawable.onloading_goods_poster)
 				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloadong_post)
+				.showImageOnFail(R.drawable.onloading_goods_poster)
 				// image加载失败
 				.cacheInMemory(true)
 				// 加载图片时会在内存中加载缓存

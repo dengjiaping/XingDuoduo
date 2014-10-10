@@ -22,6 +22,9 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -30,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -74,12 +78,17 @@ import com.xiuman.xingduoduo.view.indicator.CirclePageIndicator;
 public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 	/*--------------------------------组件-------------------------------*/
+	// 标题栏
+	private LinearLayout llyt_goodsinfo_title;
 	// 返回
 	private Button btn_back_goods;
 	// 购物车
 	private Button btn_goods_shopping_cart;
 	// 收藏
 	private Button btn_collect;
+	// 商品content
+	private RelativeLayout rlyt_goodsinfo_content;
+
 	// ViewPager（图片）
 	private ViewPager viewpager_goods_imgs;
 	// 指示器
@@ -104,7 +113,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	private Button btn_goods_appraise;
 	// 查看基本参数
 	private Button btn_goods_params;
-	//相关推荐
+	// 相关推荐
 	private LinearLayout llyt_goods_recommend;
 	// 商品推荐
 	private HorizontalListView lv_goods_recommend;
@@ -143,6 +152,18 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	private TextView tv_pop_goods_price;
 	// 商品规格
 	private TextView tv_pop_goods_size;
+
+	/*-----------------------------------------后缩动画-------------------------------*/
+	// 主页缩放动画
+	private Animation mScalInAnimation1;
+	// 主页缩放完毕小幅回弹动画
+	private Animation mScalInAnimation2;
+	// 主页回弹正常状态动画
+	private Animation mScalOutAnimation;
+	// 标题恢复动画
+	private Animation mTranInAnimation;
+	// 标题消失动画
+	private Animation mTranOutAnimation;
 
 	/*-------------------------------Adapter-----------------------------*/
 	// 图片ViewPager
@@ -194,12 +215,12 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	private ActionValue<?> value_delete;
 	// 添加商品到购物车
 	private ActionValue<?> value_add2cart;
-	
-	//相关推荐-------------------------------------------------------------
+
+	// 相关推荐-------------------------------------------------------------
 	private ActionValue<GoodsOne> value_recommend;
-	//相关推荐商品列表
+	// 相关推荐商品列表
 	private ArrayList<GoodsOne> goods_recommend;
-	
+
 	// 数据处理Hanlder
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
@@ -217,8 +238,9 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 					setGoodsData(goods_two);
 					llyt_network_error.setVisibility(View.INVISIBLE);
 					llyt_bottom.setVisibility(View.VISIBLE);
-					//请求获取相关推荐商品
-					getRecommend(value_goodsinfo.getDatasource().get(0).getGoodsCategoryId());
+					// 请求获取相关推荐商品
+					getRecommend(value_goodsinfo.getDatasource().get(0)
+							.getGoodsCategoryId());
 				}
 				loadingdialog.dismiss();
 				break;
@@ -239,8 +261,9 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 				} else {// 收藏失败
 					ToastUtil.ToastView(GoodsActivity.this,
 							value_add.getMessage());
-					if(value_add.getMessage().contains("您已经收藏过此商品")){
-						btn_collect.setBackgroundResource(R.drawable.bg_btn_collect_p);
+					if (value_add.getMessage().contains("您已经收藏过此商品")) {
+						btn_collect
+								.setBackgroundResource(R.drawable.bg_btn_collect_p);
 						MyApplication.getInstance().addCollection(goods_id);
 					}
 				}
@@ -292,17 +315,21 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 				}
 
 				break;
-			case AppConfig.GOODS_RECOMMEND_SUCCESS://相关推荐成功
-				//请求成功显示推荐
-				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+			case AppConfig.GOODS_RECOMMEND_SUCCESS:// 相关推荐成功
+				// 请求成功显示推荐
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+						LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 				llyt_goods_recommend.setLayoutParams(params);
 				value_recommend = (ActionValue<GoodsOne>) msg.obj;
 				goods_recommend = value_recommend.getDatasource();
-				adapter_recommend = new GoodsRecommendHListViewAdapter(GoodsActivity.this, goods_recommend, options, imageLoader);
+				adapter_recommend = new GoodsRecommendHListViewAdapter(
+						GoodsActivity.this, goods_recommend, options,
+						imageLoader);
 				lv_goods_recommend.setAdapter(adapter_recommend);
 				break;
-			case AppConfig.GOODS_RECOMMEND_FAILD://请求推荐失败
-				LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(0, 0);
+			case AppConfig.GOODS_RECOMMEND_FAILD:// 请求推荐失败
+				LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
+						0, 0);
 				llyt_goods_recommend.setLayoutParams(params2);
 				break;
 			}
@@ -324,12 +351,16 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	protected void initData() {
 
 		options = new DisplayImageOptions.Builder()
-		// .showStubImage(R.drawable.weiboitem_pic_loading) //
-		// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloading_goods_poster) // image连接地址为空时
-				.showImageOnFail(R.drawable.onloading_goods_poster) // image加载失败
-				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				// .showStubImage(R.drawable.weiboitem_pic_loading) //
+				// 在ImageView加载过程中显示图片
+				.showImageForEmptyUri(R.drawable.onloading_goods_poster)
+				// image连接地址为空时
+				.showImageOnFail(R.drawable.onloading_goods_poster)
+				// image加载失败
+				.cacheInMemory(true)
+				// 加载图片时会在内存中加载缓存
+				.cacheOnDisc(true)
+				// 加载图片时会在磁盘中加载缓存
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.NONE).build();
 
@@ -341,12 +372,14 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		screenWidth = dm.widthPixels;
 		// 上级界面传递过来的商品id
 		goods_id = getIntent().getExtras().getString("goods_id");
-		
 
 	}
 
 	@Override
 	protected void findViewById() {
+		llyt_goodsinfo_title = (LinearLayout) findViewById(R.id.llyt_goodsinfo_title);
+		rlyt_goodsinfo_content = (RelativeLayout) findViewById(R.id.rlyt_goodsinfo_content);
+
 		viewpager_goods_imgs = (ViewPager) findViewById(R.id.viewpager_goods_imgs);
 		indicator_goods_imgs = (CirclePageIndicator) findViewById(R.id.indicator_goods_imgs);
 		tv_goods_price = (TextView) findViewById(R.id.tv_goods_price);
@@ -376,6 +409,18 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		lv_goods_recommend = (HorizontalListView) findViewById(R.id.lv_goods_recommend);
 
 		loadingdialog = new LoadingDialog(GoodsActivity.this);
+
+		// 动画初始化
+		mScalInAnimation1 = AnimationUtils.loadAnimation(GoodsActivity.this,
+				R.anim.root_in);
+		mScalInAnimation2 = AnimationUtils.loadAnimation(GoodsActivity.this,
+				R.anim.root_in2);
+		mScalOutAnimation = AnimationUtils.loadAnimation(GoodsActivity.this,
+				R.anim.root_out);
+		mTranInAnimation = AnimationUtils.loadAnimation(GoodsActivity.this,
+				R.anim.title_in);
+		mTranOutAnimation = AnimationUtils.loadAnimation(GoodsActivity.this,
+				R.anim.title_out);
 	}
 
 	@Override
@@ -388,7 +433,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, 0);
 		tv_goods_params.setLayoutParams(params);
 
-		//设置相关推荐默认不显示
+		// 设置相关推荐默认不显示
 		llyt_goods_recommend.setLayoutParams(params);
 		// 请求数据
 		getGoodsInfo();
@@ -430,7 +475,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 				}
 			}
 		});
-
+		mScalInAnimation1.setAnimationListener(new ScalInAnimation());
 	}
 
 	@Override
@@ -481,10 +526,11 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		}
 
 		tv_goods_price.setText("￥" + goods_two.getGoods_price() + "");
-		String cost_price = "￥"
-				+ goods_two.getMarketPrice();
-		tv_goods_zhekou.setText(((Float.parseFloat(goods_two.getGoods_price())/goods_two.getMarketPrice())*10+"").substring(0, 3)+"折");
-		if(Float.parseFloat(goods_two.getGoods_price())==0){
+		String cost_price = "￥" + goods_two.getMarketPrice();
+		tv_goods_zhekou
+				.setText(((Float.parseFloat(goods_two.getGoods_price()) / goods_two
+						.getMarketPrice()) * 10 + "").substring(0, 3) + "折");
+		if (Float.parseFloat(goods_two.getGoods_price()) == 0) {
 			tv_goods_zhekou.setText("活动");
 		}
 		SpannableString sp = new SpannableString(cost_price);
@@ -516,14 +562,14 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 		// 图片viewpager
 		goods_img_urls = goods_two.getImagePath();
-		
-		//是否移除特殊图片
-		for(int i=0;i<goods_img_urls.size();i++){
-			if(goods_img_urls.get(i).isGdFlag()){
+
+		// 是否移除特殊图片
+		for (int i = 0; i < goods_img_urls.size(); i++) {
+			if (goods_img_urls.get(i).isGdFlag()) {
 				goods_img_urls.remove(i);
 			}
 		}
-		
+
 		if (goods_img_urls != null && goods_img_urls.size() > 0) {
 			for (int i = 0; i < goods_img_urls.size(); i++) {
 				ImageView iv_ad = new ImageView(GoodsActivity.this);
@@ -674,10 +720,10 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 					});
 			dialog.show();
 			break;
-		case R.id.llyt_network_error://重新加载
+		case R.id.llyt_network_error:// 重新加载
 			getGoodsInfo();
 			break;
-			
+
 		}
 	}
 
@@ -774,6 +820,19 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	 */
 	private void showPop(View view) {
 		if (pop != null) {
+			// 标题和主页开始播放动画
+			llyt_goodsinfo_title.startAnimation(mTranOutAnimation);
+			rlyt_goodsinfo_content.startAnimation(mScalInAnimation1);
+
+			 pop.setOnDismissListener(new OnDismissListener() {
+				
+				@Override
+				public void onDismiss() {
+					llyt_goodsinfo_title.startAnimation(mTranInAnimation);
+					rlyt_goodsinfo_content.startAnimation(mScalOutAnimation);
+				}
+			});
+
 			// 设置pop 的位置
 			pop.showAtLocation(view, Gravity.TOP, 0, screenHeight);
 		}
@@ -787,6 +846,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	private void dismissPop() {
 		if (pop != null) {
 			pop.dismiss();
+			// 标题和主页开始播放动画
 		}
 	}
 
@@ -818,12 +878,13 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		HttpUrlProvider.getIntance().getGoodsInfo(this,
 				new TaskGoodsInfoBack(handler), URLConfig.GOODS_INFO, goods_id);
 	}
+
 	/**
-	 * @描述：获取相关商品推荐
-	 * 2014-9-17
+	 * @描述：获取相关商品推荐 2014-9-17
 	 */
-	private void getRecommend(String categoryId){
-		HttpUrlProvider.getIntance().getGoodsRecommend(this, new TaskGoodsRecommendBack(handler), categoryId);
+	private void getRecommend(String categoryId) {
+		HttpUrlProvider.getIntance().getGoodsRecommend(this,
+				new TaskGoodsRecommendBack(handler), categoryId);
 	}
 
 	/**
@@ -843,6 +904,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 					.get(position).getSpecifications());
 		}
 	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -850,5 +912,29 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		loadingdialog = null;
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();
+	}
+
+	/**
+	 * @描述：缩小动画的回调
+	 * @名称：GoodsActivity.java
+	 * @author CSX
+	 * @日期：2014-10-10
+	 */
+	public class ScalInAnimation implements AnimationListener {
+
+		@Override
+		public void onAnimationStart(Animation animation) {
+
+		}
+
+		@Override
+		public void onAnimationEnd(Animation animation) {
+			rlyt_goodsinfo_content.startAnimation(mScalInAnimation2);
+		}
+
+		@Override
+		public void onAnimationRepeat(Animation animation) {
+
+		}
 	}
 }

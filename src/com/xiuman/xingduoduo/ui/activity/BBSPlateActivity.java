@@ -183,11 +183,11 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.onloadong_post) //
-				.showImageOnLoading(R.drawable.onloadong_post)
+				.showImageOnLoading(R.drawable.onloading_goods_poster)
 				// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloadong_post)
+				.showImageForEmptyUri(R.drawable.onloading_goods_poster)
 				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloadong_post)
+				.showImageOnFail(R.drawable.onloading_goods_poster)
 				// image加载失败
 				// .resetViewBeforeLoading(false)
 				.cacheInMemory(false)

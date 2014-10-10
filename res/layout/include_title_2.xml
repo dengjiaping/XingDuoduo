@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rlyt_title"
     android:layout_width="match_parent"
-    android:layout_height="50dip"
+    android:layout_height="46dip"
     android:background="@color/color_mian"
     android:gravity="center_vertical" >
 
@@ -13,7 +13,7 @@
         android:layout_width="40dip"
         android:layout_height="40dip"
         android:visibility="invisible"
-        android:layout_margin="5dip"
+        android:layout_margin="3dip"
         android:background="@drawable/bg_btn_sweep" />
 
     <TextView
@@ -32,7 +32,7 @@
         android:layout_width="40dip"
         android:layout_height="40dip"
         android:layout_alignParentRight="true"
-        android:layout_margin="5dip"
+        android:layout_margin="3dip"
         android:background="@drawable/bg_btn_update_info" />
 
 </RelativeLayout>

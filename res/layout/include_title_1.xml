@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dip"
+    android:layout_height="46dip"
     android:background="@color/color_title_back"
     android:gravity="center_vertical" >
 
@@ -11,7 +11,7 @@
         android:id="@+id/btn_sweep_1"
         android:layout_width="40dip"
         android:layout_height="40dip"
-        android:layout_margin="5dip"
+        android:layout_margin="3dip"
         android:visibility="invisible"
         android:background="@drawable/bg_btn_sweep" />
 
@@ -31,7 +31,7 @@
         android:layout_width="40dip"
         android:layout_height="40dip"
         android:layout_alignParentRight="true"
-        android:layout_margin="5dip"
+        android:layout_margin="3dip"
         android:background="@drawable/bg_btn_search" />
 
 </RelativeLayout>

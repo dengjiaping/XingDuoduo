@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dip"
+    android:layout_height="46dip"
     android:background="@color/color_mian"
     android:gravity="center_vertical" >
 
@@ -35,7 +35,7 @@
         android:layout_width="36dip"
         android:layout_height="36dip"
         android:layout_alignParentRight="true"
-        android:layout_margin="7dip"
+        android:layout_margin="5dip"
         android:background="@drawable/bg_btn_fresh" />
 
 </RelativeLayout>
