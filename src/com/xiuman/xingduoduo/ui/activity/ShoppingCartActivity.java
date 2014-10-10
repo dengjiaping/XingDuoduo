@@ -618,6 +618,8 @@ public class ShoppingCartActivity extends Base2Activity implements
 		loadingdialog.dismiss();
 		loadingdialog = null;
 		imageLoader.stop();
+		imageLoader.clearMemoryCache();
+		
 	}
 
 }

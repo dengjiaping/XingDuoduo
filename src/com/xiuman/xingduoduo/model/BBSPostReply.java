@@ -1,15 +1,6 @@
-/**
- * @ClassName: BBSPostReply
- * @Description: TODO
- * @author Andrew Lee
- * @date 2014-9-16 上午11:27:09
- */
-
 package com.xiuman.xingduoduo.model;
 
 import java.io.Serializable;
-
-import com.xiuman.xingduoduo.util.HtmlTag;
 
 /**
  * @名称：BBSPostReply.java
@@ -22,7 +13,7 @@ public class BBSPostReply implements Serializable {
 	 */
 	private static final long serialVersionUID = 4812954585040231855L;
 	// 回复内容
-	private String contentHtml;
+	private String content;
 	// 回复时间
 	private String createTime;
 	// 标题
@@ -30,7 +21,7 @@ public class BBSPostReply implements Serializable {
 	// 昵称
 	private String nickname;
 	// id
-	private int String;
+	private String id;
 	//
 	private int postTypeId;
 
@@ -42,17 +33,15 @@ public class BBSPostReply implements Serializable {
 	// 用户名
 	private String username;
 
-	public BBSPostReply(java.lang.String contentHtml,
-			java.lang.String createTime, java.lang.String title,
-			java.lang.String nickname, int string, int postTypeId,
-			int editCount, boolean sex, java.lang.String avatar,
-			java.lang.String username) {
+	public BBSPostReply(String content, String createTime, String title,
+			String nickname, String id, int postTypeId, int editCount,
+			boolean sex, String avatar, String username) {
 		super();
-		this.contentHtml = contentHtml;
+		this.content = content;
 		this.createTime = createTime;
 		this.title = title;
 		this.nickname = nickname;
-		String = string;
+		this.id = id;
 		this.postTypeId = postTypeId;
 		this.editCount = editCount;
 		this.sex = sex;
@@ -60,12 +49,12 @@ public class BBSPostReply implements Serializable {
 		this.username = username;
 	}
 
-	public String getContentHtml() {
-		return HtmlTag.clearTag(contentHtml);
+	public String getContent() {
+		return content;
 	}
 
-	public void setContentHtml(String contentHtml) {
-		this.contentHtml = contentHtml;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getNickname() {
@@ -76,12 +65,12 @@ public class BBSPostReply implements Serializable {
 		this.nickname = nickname;
 	}
 
-	public int getString() {
-		return String;
+	public String getId() {
+		return id;
 	}
 
-	public void setString(int string) {
-		String = string;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public boolean isSex() {

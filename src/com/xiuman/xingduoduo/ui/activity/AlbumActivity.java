@@ -20,37 +20,36 @@ import com.xiuman.xingduoduo.adapter.ImageBucketAdapter;
 import com.xiuman.xingduoduo.model.ImageBucket;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.pic.AlbumHelper;
+
 /**
  * @名称：AlbumActivity.java
  * @描述：相册列表
- * @author danding
- * 2014-8-15
+ * @author danding 2014-8-15
  */
 public class AlbumActivity extends Base2Activity implements OnClickListener {
-	
+
 	/*--------------------------------组件-----------------------------*/
-	//返回
+	// 返回
 	private Button btn_back;
-	//右侧(隐藏)
+	// 右侧(隐藏)
 	private Button btn_right;
-	//标题
+	// 标题
 	private TextView tv_title;
-	//相册列表
-	private  ListView lv_album;
-	
-	
+	// 相册列表
+	private ListView lv_album;
+
 	/*--------------------------------数据-----------------------------*/
-	//相册列表
-	private  List<ImageBucket> dataList;
-	
+	// 相册列表
+	private List<ImageBucket> dataList;
+
 	/*---------------------------------Adapter--------------------------*/
 	private ImageBucketAdapter adapter;// 自定义的适配器
-	//相册工具类
+	// 相册工具类
 	private AlbumHelper helper;
-	
+
 	public static final String EXTRA_IMAGE_LIST = "imagelist";
 	public static Bitmap bimap;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,13 +59,13 @@ public class AlbumActivity extends Base2Activity implements OnClickListener {
 		initUI();
 		setListener();
 	}
+
 	@Override
 	protected void initData() {
 		helper = AlbumHelper.getHelper();
 		helper.init(getApplicationContext());
-		dataList = helper.getImagesBucketList(false);	
-		bimap=BitmapFactory.decodeResource(
-				getResources(),
+		dataList = helper.getImagesBucketList(false);
+		bimap = BitmapFactory.decodeResource(getResources(),
 				R.drawable.icon_addpic_unfocused);
 	}
 
@@ -82,14 +81,14 @@ public class AlbumActivity extends Base2Activity implements OnClickListener {
 	protected void initUI() {
 		btn_right.setVisibility(View.INVISIBLE);
 		tv_title.setText("选择相册");
-		
+
 		adapter = new ImageBucketAdapter(this, dataList);
 		lv_album.setAdapter(adapter);
 	}
 
 	@Override
 	protected void setListener() {
-		
+
 		btn_back.setOnClickListener(this);
 		lv_album.setOnItemClickListener(new OnItemClickListener() {
 
@@ -103,17 +102,27 @@ public class AlbumActivity extends Base2Activity implements OnClickListener {
 				/**
 				 * 通知适配器，绑定的数据发生了改变，应当刷新视图
 				 */
-				// adapter.notifyDataSetChanged();
-				Intent intent = new Intent(AlbumActivity.this,
-						AlbumLsitActivity.class);
-				intent.putExtra(AlbumActivity.EXTRA_IMAGE_LIST,
-						(Serializable) dataList.get(position).imageList);
-				startActivityForResult(intent,5);
+				Object obj = lv_album.getItemAtPosition(position);
+				if(obj instanceof ImageBucket){
+					ImageBucket bucket = (ImageBucket)obj;
+					// adapter.notifyDataSetChanged();
+					Intent intent = new Intent(AlbumActivity.this,
+							AlbumLsitActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString("bucket", bucket.bucketName);
+					intent.putExtras(bundle);
+					intent.putExtra(AlbumActivity.EXTRA_IMAGE_LIST,
+							(Serializable) dataList.get(position).imageList);
+					startActivityForResult(intent, 5);
+				}
+				
+				
 			}
 
 		});
-		
+
 	}
+
 	/**
 	 * 点击事件
 	 */
@@ -128,8 +137,8 @@ public class AlbumActivity extends Base2Activity implements OnClickListener {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode==5) {
-			if(resultCode==2){
+		if (requestCode == 5) {
+			if (resultCode == 2) {
 				finish();
 			}
 		}

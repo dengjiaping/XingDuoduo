@@ -235,7 +235,8 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Transparent"
             android:hardwareAccelerated="false"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize|adjustUnspecified" >
         </activity>
         <!-- 楼层信息 -->
         <activity

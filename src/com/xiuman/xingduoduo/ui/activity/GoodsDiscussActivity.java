@@ -201,7 +201,7 @@ public class GoodsDiscussActivity extends Base2Activity implements
 	@Override
 	protected void setListener() {
 		btn_back.setOnClickListener(this);
-
+		llyt_network_error.setOnClickListener(this);
 		// 设置监听
 		pulllistview_discuss
 				.setOnRefreshListener(new OnRefreshListener<ListView>() {
@@ -245,6 +245,10 @@ public class GoodsDiscussActivity extends Base2Activity implements
 		case R.id.btn_common_back:// 返回
 			finish();
 
+			break;
+		case R.id.llyt_network_error://重新加载
+			currentPage = 1;
+			initFirstData(currentPage);
 			break;
 
 		}

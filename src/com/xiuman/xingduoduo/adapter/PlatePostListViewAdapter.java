@@ -5,7 +5,6 @@ import java.util.Date;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,6 +87,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.iv_item_bbs_plate_post_img_3);
 			holder.llyt_item_bbs_plate_post_img_container = (LinearLayout) convertView
 					.findViewById(R.id.llyt_item_bbs_plate_post_img_container);
+			
 			holder.iv_item_post_plate_post_head = (CircleImageView) convertView
 					.findViewById(R.id.iv_item_post_plate_post_head);
 			holder.iv_item_post_plate_post_sex = (ImageView) convertView
@@ -138,8 +138,8 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					}
 				});
 		holder.tv_item_bbs_plate_post_title.setText(post.getTitle());
-		holder.tv_item_bbs_plate_post_content.setText(Html.fromHtml(post
-				.getContent()));
+		holder.tv_item_bbs_plate_post_content.setText(post
+				.getContent());
 		holder.tv_item_bbs_plate_post_user.setText(post.getNickname());
 		if (post.getNickname() == null) {
 			holder.tv_item_bbs_plate_post_user.setText(post.getUsername());
@@ -150,12 +150,16 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 
 		// 图片数
 		int number = 0;
-		number = post.getPostImgs().size();
+		number = post.getImgList().size();
 		if (number > 3) {
 			holder.tv_item_bbs_plate_post_img_number
 					.setText("共" + number + "张");
+			holder.tv_item_bbs_plate_post_img_number.setVisibility(View.VISIBLE);
+		}else{
+			holder.tv_item_bbs_plate_post_img_number.setVisibility(View.INVISIBLE);
 		}
-		// 图片
+		
+//		// 图片
 		holder.llyt_item_bbs_plate_post_img_container
 				.setVisibility(View.VISIBLE);
 		if (number == 0) {
@@ -168,13 +172,13 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 			holder.iv_item_bbs_plate_post_img_1.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.INVISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.INVISIBLE);
-			imageLoader.displayImage(post.getPostImgs().get(0),
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0),
 					holder.iv_item_bbs_plate_post_img_1, options);
 		} else if (number == 2) {
 			holder.iv_item_bbs_plate_post_img_1.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.INVISIBLE);
-			imageLoader.displayImage(post.getPostImgs().get(0),
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0),
 					holder.iv_item_bbs_plate_post_img_1, options,
 					new ImageLoadingListener() {
 
@@ -192,7 +196,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 						@Override
 						public void onLoadingComplete(String arg0, View arg1,
 								Bitmap arg2) {
-							imageLoader.displayImage(post.getPostImgs().get(1),
+							imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(1),
 									holder.iv_item_bbs_plate_post_img_2,
 									options);
 						}
@@ -208,7 +212,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.VISIBLE);
 			// 加载第一章图片结束加载第二张
-			imageLoader.displayImage(post.getPostImgs().get(0),
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0),
 					holder.iv_item_bbs_plate_post_img_1, options,
 					new ImageLoadingListener() {
 
@@ -227,7 +231,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 						public void onLoadingComplete(String arg0, View arg1,
 								Bitmap arg2) {
 							// 加载第二章完成之后加载第三张
-							imageLoader.displayImage(post.getPostImgs().get(1),
+							imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(1),
 									holder.iv_item_bbs_plate_post_img_2,
 									options, new ImageLoadingListener() {
 
@@ -250,7 +254,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 												Bitmap arg2) {
 											imageLoader
 													.displayImage(
-															post.getPostImgs()
+															URLConfig.PRIVATE_IMG_IP+post.getImgList()
 																	.get(2),
 															holder.iv_item_bbs_plate_post_img_3,
 															options);
@@ -275,13 +279,6 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	public static Bitmap loadResBitmap(String path, int scalSize) {
-		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inJustDecodeBounds = false;
-		options.inSampleSize = scalSize;
-		Bitmap bmp = BitmapFactory.decodeFile(path, options);
-		return bmp;
-	}
 
 	static class ViewHolder {
 		// 用户头像

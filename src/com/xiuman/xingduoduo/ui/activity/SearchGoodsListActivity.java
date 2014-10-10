@@ -332,5 +332,6 @@ public class SearchGoodsListActivity extends Base2Activity implements
 		loadingdialog.dismiss();
 		loadingdialog = null;
 		imageLoader.stop();
+		imageLoader.clearMemoryCache();
 	}
 }

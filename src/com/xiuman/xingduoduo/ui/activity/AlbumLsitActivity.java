@@ -33,7 +33,7 @@ import com.xiuman.xingduoduo.util.pic.Bimp;
  * @author danding
  * 2014-8-14
  */
-public class AlbumLsitActivity extends Base2Activity {
+public class AlbumLsitActivity extends Base2Activity implements OnClickListener {
 	
 	public static final String EXTRA_IMAGE_LIST = "imagelist";
 	/*--------------------组件------------------------------------*/
@@ -45,8 +45,10 @@ public class AlbumLsitActivity extends Base2Activity {
 	private TextView tv_title;
 	//图片展示GridView
 	private GridView gridView;
+
+	//相册标题
+	private String title;
 	
-	;
 	/*-------------------------------数据-------------------------------*/
 	private List<ImageItem> dataList;
 	
@@ -79,8 +81,10 @@ public class AlbumLsitActivity extends Base2Activity {
 		initUI();
 		setListener();
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initData() {
+		title = getIntent().getExtras().getString("bucket");
 		dataList = (List<ImageItem>) getIntent().getSerializableExtra(
 				EXTRA_IMAGE_LIST);
 		helper = AlbumHelper.getHelper();
@@ -89,6 +93,8 @@ public class AlbumLsitActivity extends Base2Activity {
 
 	@Override
 	protected void findViewById() {
+		btn_back = (Button) findViewById(R.id.btn_common_back2);
+		tv_title = (TextView) findViewById(R.id.tv_common_title2);
 		btn_sure = (Button) findViewById(R.id.btn_common_right2);
 		gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -96,6 +102,11 @@ public class AlbumLsitActivity extends Base2Activity {
 
 	@Override
 	protected void initUI() {
+		tv_title.setText("选择图片");
+		if(title!=null){
+			tv_title.setText(title);
+		}
+		btn_sure.setText("完成");
 		adapter = new ImageGridAdapter(this, dataList,
 				mHandler);
 		gridView.setAdapter(adapter);
@@ -118,6 +129,7 @@ public class AlbumLsitActivity extends Base2Activity {
 
 	@Override
 	protected void setListener() {
+		btn_back.setOnClickListener(this);
 		btn_sure.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -153,6 +165,18 @@ public class AlbumLsitActivity extends Base2Activity {
 					R.anim.translate_horizontal_finish_out);
 		}
 		return true;
+	}
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btn_common_back2:
+			finish();
+			overridePendingTransition(R.anim.translate_horizontal_finish_in, R.anim.translate_horizontal_finish_out);
+			break;
+
+		default:
+			break;
+		}
 	}
 
 }

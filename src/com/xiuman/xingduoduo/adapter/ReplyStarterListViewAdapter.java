@@ -142,7 +142,7 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 		holder.tv_item_postinfo_reply_floor.setText(position + 1 + "楼");
 		holder.tv_item_postinfo_reply_time.setText(TimeUtil.getTimeStr(
 				TimeUtil.strToDate(reply.getCreateTime()), new Date()));
-		holder.tv_item_postinfo_reply_content.setText(Html.fromHtml(reply.getContentHtml()));
+		holder.tv_item_postinfo_reply_content.setText(Html.fromHtml(reply.getContent()));
 
 		holder.btn_item_postinfo_starter_reply
 				.setOnClickListener(new OnClickListener() {

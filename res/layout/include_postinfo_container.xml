@@ -115,7 +115,7 @@
 
         <include layout="@layout/line_match_drawable" />
         <!-- 回帖列表 -->
-
+		<!-- 
         <com.xiuman.xingduoduo.view.MyListView
             android:id="@+id/lv_postinfo_replys"
             android:layout_width="match_parent"
@@ -124,6 +124,7 @@
             android:divider="@drawable/line_small"
             android:dividerHeight="0.1dip"
             android:listSelector="@color/color_white" />
+             -->
     </LinearLayout>
     <!-- 帖子标签(精化啥的) -->
 

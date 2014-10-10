@@ -43,10 +43,14 @@ public class LoadingDialog {
 	}
 
 	public void show(Context context) {
-		mDialog.show();
+		if (mDialog != null) {
+			mDialog.show();
+		}
 	}
 
 	public void dismiss() {
-		mDialog.dismiss();
+		if (mDialog != null) {
+			mDialog.dismiss();
+		}
 	}
 }

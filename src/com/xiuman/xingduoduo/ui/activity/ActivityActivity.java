@@ -184,6 +184,7 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 		
 		lv_lipin = pulllv_lipin.getRefreshableView();
 		lv_lipin.setDividerHeight(1);
+		lv_lipin.setScrollBarSize(0);
 		lv_lipin.setDivider(new ColorDrawable(android.R.color.transparent));
 		lv_lipin.setSelector(R.drawable.whole_bg_normal_selector);
 	}
@@ -192,7 +193,7 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 	protected void initUI() {
 		btn_right.setVisibility(View.INVISIBLE);
 		tv_title.setText(classify_name);
-
+		llyt_network_error.setOnClickListener(this);
 		// 加载数据，测试数据，添加操作
 		initFirstData(currentPage);
 		// 设置刷新时间
@@ -271,7 +272,11 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 			overridePendingTransition(R.anim.translate_horizontal_finish_in,
 					R.anim.translate_horizontal_finish_out);
 			break;
-
+		case R.id.llyt_network_error://重新加载
+			currentPage = 1;
+			isUp = true;
+			initFirstData(currentPage);
+			break;
 		}
 	}
 
@@ -292,5 +297,6 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 		loadingdialog.dismiss();
 		loadingdialog = null;
 		imageLoader.stop();
+		imageLoader.clearMemoryCache();
 	}
 }

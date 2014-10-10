@@ -8,9 +8,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -48,6 +48,7 @@ import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView;
 
@@ -66,9 +67,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	// 标题栏
 	private TextView tv_postinfo_title;
 	// 下拉刷新ScrollView
-	private PullToRefreshScrollView pullsv_postinfo;
-	// 可刷新的ScrollView
-	private ScrollView sv_postinfo;
+	private PullToRefreshListView pulllv_postinfo;
 	// 帖子标签
 	private ImageView iv_postinfo_tag;
 
@@ -162,20 +161,20 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 								imageLoader);
 						lv_postinfo_replys.setAdapter(adapter);
 						// 下拉加载完成
-						pullsv_postinfo.onPullDownRefreshComplete();
+						pulllv_postinfo.onPullDownRefreshComplete();
 						// 上拉刷新完成
-						pullsv_postinfo.onPullUpRefreshComplete();
+						pulllv_postinfo.onPullUpRefreshComplete();
 					} else {
 						bbsReply.addAll(value.getDatasource());
 						adapter.notifyDataSetChanged();
 						// 上拉刷新完成
-						pullsv_postinfo.onPullUpRefreshComplete();
+						pulllv_postinfo.onPullUpRefreshComplete();
 					}
 
 				} else {
 					ToastUtil.ToastView(PostInfoActivity.this, "没有更多回复！");
 					// 上拉刷新完成
-					pullsv_postinfo.onPullUpRefreshComplete();
+					pulllv_postinfo.onPullUpRefreshComplete();
 				}
 				loadingdialog.dismiss();
 				llyt_network_error.setVisibility(View.INVISIBLE);
@@ -199,7 +198,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					BBSPostReply bps = new BBSPostReply(et_reply.getText()
 							.toString(), createTime,
 							postinfo_starter.getTitle(), user.getNickname(),
-							postinfo_starter.getId(),
+							postinfo_starter.getId() + "",
 							postinfo_starter.getPostTypeId(), 1, sex,
 							user.getHead_image(), user.getName());
 
@@ -243,7 +242,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.onloadong_post) //
-//				.showImageOnLoading(R.drawable.onloadong_post)
+				// .showImageOnLoading(R.drawable.onloadong_post)
 				.showImageForEmptyUri(R.drawable.onloadong_post)
 				// image连接地址为空时
 				.showImageOnFail(R.drawable.onloadong_post)
@@ -277,12 +276,19 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		loadingdialog = new LoadingDialog(this);
 
-		pullsv_postinfo = (PullToRefreshScrollView) findViewById(R.id.pullsv_postinfo);
+		pulllv_postinfo = (PullToRefreshListView) findViewById(R.id.pulllv_postinfo);
 		// 下拉刷新不可用,上拉加载可用
-		pullsv_postinfo.setPullRefreshEnabled(false);
-		pullsv_postinfo.setPullLoadEnabled(true);
-		pullsv_postinfo.setScrollLoadEnabled(true);
-		sv_postinfo = pullsv_postinfo.getRefreshableView();
+		pulllv_postinfo.setPullRefreshEnabled(false);
+		pulllv_postinfo.setPullLoadEnabled(true);
+		pulllv_postinfo.setScrollLoadEnabled(true);
+		lv_postinfo_replys = pulllv_postinfo.getRefreshableView();
+		
+		lv_postinfo_replys.setCacheColorHint(Color.TRANSPARENT);
+		lv_postinfo_replys.setBackgroundColor(Color.WHITE);
+		lv_postinfo_replys.setDivider(getResources().getDrawable(R.drawable.line_small));
+		lv_postinfo_replys.setSelector(R.color.color_white);
+		
+		
 		View view = View.inflate(this, R.layout.include_postinfo_container,
 				null);
 		iv_postinfo_starter_head = (CircleImageView) view
@@ -302,9 +308,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				.findViewById(R.id.btn_postinfo_starter_reply);
 		lv_postinfo_starter_imgs = (ListView) view
 				.findViewById(R.id.lv_postinfo_starter_imgs);
-		lv_postinfo_replys = (ListView) view
-				.findViewById(R.id.lv_postinfo_replys);
-		sv_postinfo.addView(view);
+		lv_postinfo_replys.addHeaderView(view);
 	}
 
 	@Override
@@ -320,35 +324,29 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		btn_postinfo_starter_reply.setOnClickListener(this);
 		btn_reply.setOnClickListener(this);
 		llyt_network_error.setOnClickListener(this);
-		pullsv_postinfo
-				.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
+		pulllv_postinfo.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
-					@Override
-					public void onPullDownToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
+			@Override
+			public void onPullDownToRefresh(
+					PullToRefreshBase<ListView> refreshView) {
 
-					}
+			}
 
-					@Override
-					public void onPullUpToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
-						isUp = false;
-						currentPage++;
-						getReply(currentPage);
-					}
-				});
+			@Override
+			public void onPullUpToRefresh(
+					PullToRefreshBase<ListView> refreshView) {
+				isUp = false;
+				currentPage++;
+				getReply(currentPage);
+			}
+		});
+
 	}
 
 	/**
 	 * @描述：加载帖子数据 2014-8-16
 	 */
 	private void initPostInfo() {
-		// String content = postinfo_starter.getContent();
-		// if (content.length()>0&&content.indexOf("[att") > 0) {
-		// content = content.substring(0, content.indexOf("[att"));
-		// }else{
-		// content="";
-		// }
 		// 头像
 		imageLoader.displayImage(
 				URLConfig.IMG_IP + postinfo_starter.getAvatar(),
@@ -389,19 +387,18 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			iv_postinfo_starter_sex.setImageResource(R.drawable.sex_female);
 		}
 		tv_postinfo_starter_name.setText(postinfo_starter.getNickname());
-		if(postinfo_starter.getNickname()==null){
+		if (postinfo_starter.getNickname() == null) {
 			tv_postinfo_starter_name.setText(postinfo_starter.getUsername());
 		}
 		tv_postinfo_starter_title.setText(postinfo_starter.getTitle());
-		tv_postinfo_starter_content.setText(Html.fromHtml(postinfo_starter
-				.getContent()));
+		tv_postinfo_starter_content.setText(postinfo_starter.getContent());
 		tv_postinfo_starter_time.setText(TimeUtil.getTimeStr(
 				TimeUtil.strToDate(postinfo_starter.getCreateTime()),
 				new Date()));
 		//
 		adapter_img = new PostInfoImgsListViewAdapter(this, options,
-				imageLoader, postinfo_starter.getPostImgs());
-		System.out.println("图片数量" + postinfo_starter.getPostImgs().size());
+				imageLoader, postinfo_starter.getImgList());
+		System.out.println("图片数量" + postinfo_starter.getImgList().size());
 		lv_postinfo_starter_imgs.setAdapter(adapter_img);
 		// setListViewHeight(lv_postinfo_starter_imgs);
 		loadingdialog.show(PostInfoActivity.this);

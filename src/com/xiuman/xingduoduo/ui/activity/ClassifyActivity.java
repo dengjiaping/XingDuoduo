@@ -544,5 +544,6 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 		loadingdialog.dismiss();
 		loadingdialog = null;
 		imageLoader.stop();
+		imageLoader.clearMemoryCache();
 	}
 }

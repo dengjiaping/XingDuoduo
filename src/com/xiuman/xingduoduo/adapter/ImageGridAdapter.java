@@ -14,14 +14,23 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.model.ImageItem;
+import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.pic.Bimp;
 import com.xiuman.xingduoduo.util.pic.BitmapCache;
 import com.xiuman.xingduoduo.util.pic.BitmapCache.ImageCallback;
 
+/**
+ * @名称：ImageGridAdapter.java
+ * @描述：相册图片列表
+ * @author danding 2014-10-10
+ */
 public class ImageGridAdapter extends BaseAdapter {
 
 	private TextCallback textcallback = null;
@@ -94,15 +103,22 @@ public class ImageGridAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final Holder holder;
-
+		int scwidth = MyApplication.getInstance().getScreenWidth();
+		int width = (scwidth - SizeUtil.dip2px(act, 8) * 5) / 4;
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
+				width);
 		if (convertView == null) {
 			holder = new Holder();
 			convertView = View.inflate(act, R.layout.item_image_grid, null);
 			holder.iv = (ImageView) convertView.findViewById(R.id.image);
+
+			holder.iv.setLayoutParams(params);
+
 			holder.selected = (ImageView) convertView
 					.findViewById(R.id.isselected);
 			holder.text = (TextView) convertView
 					.findViewById(R.id.item_image_grid_text);
+			holder.text.setLayoutParams(params);
 			convertView.setTag(holder);
 		} else {
 			holder = (Holder) convertView.getTag();
@@ -113,7 +129,7 @@ public class ImageGridAdapter extends BaseAdapter {
 		cache.displayBmp(holder.iv, item.thumbnailPath, item.imagePath,
 				callback);
 		if (item.isSelected) {
-			holder.selected.setImageResource(R.drawable.icon_data_select);  
+			holder.selected.setImageResource(R.drawable.icon_data_select);
 			holder.text.setBackgroundResource(R.drawable.bgd_relatly_line);
 		} else {
 			holder.selected.setImageResource(-1);
@@ -130,7 +146,8 @@ public class ImageGridAdapter extends BaseAdapter {
 					if (item.isSelected) {
 						holder.selected
 								.setImageResource(R.drawable.icon_data_select);
-						holder.text.setBackgroundResource(R.drawable.bgd_relatly_line);
+						holder.text
+								.setBackgroundResource(R.drawable.bgd_relatly_line);
 						selectTotal++;
 						if (textcallback != null)
 							textcallback.onListen(selectTotal);

@@ -13,6 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.MyApplication;
+import com.xiuman.xingduoduo.app.URLConfig;
 
 /**
  * @名称：PostInfoImgsListViewAdapter.java
@@ -67,7 +68,7 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		imageLoader.displayImage(imgs.get(position),
+		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+imgs.get(position),
 				holder.iv_item_postinfo_img_item, options,new SimpleImageLoadingListener());
 
 		

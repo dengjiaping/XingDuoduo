@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -33,12 +32,13 @@ import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
-import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
 
 /**
  * @名称：BBSPlateActivity.java
@@ -55,9 +55,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	// 标题栏
 	private TextView tv_title;
 	// 下拉刷新ScrollView
-	private PullToRefreshScrollView pullsv_post;
-	// 可刷新的ScrollView
-	private ScrollView sv_posts;
+	private PullToRefreshListView pullsv_post;
 	// ListView(帖子)
 	private ListView lv_posts;
 	// ListView(置顶帖子)
@@ -132,18 +130,20 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 						// 上拉刷新完成
 						pullsv_post.onPullUpRefreshComplete();
 						// 设置是否有更多的数据
-						TimeUtil.setLastUpdateTime3(pullsv_post);
+						TimeUtil.setLastUpdateTime(pullsv_post);
 					} else {
 						bbspost.addAll(bbspost_get);
 						adapter.notifyDataSetChanged();
 						pullsv_post.onPullUpRefreshComplete();
-						TimeUtil.setLastUpdateTime3(pullsv_post);
+						TimeUtil.setLastUpdateTime(pullsv_post);
 						loadingdialog.dismiss();
 					}
+					pullsv_post.setHasMoreData(true);
 				} else {
 					ToastUtil.ToastView(BBSPlateActivity.this, "没有更多帖子！");
 					// 上拉刷新完成
 					pullsv_post.onPullUpRefreshComplete();
+					pullsv_post.setHasMoreData(false);
 					loadingdialog.dismiss();
 				}
 				loadingdialog.dismiss();
@@ -189,12 +189,12 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				// image连接地址为空时
 				.showImageOnFail(R.drawable.onloadong_post)
 				// image加载失败
-//				.resetViewBeforeLoading(false)
+				// .resetViewBeforeLoading(false)
 				.cacheInMemory(false)
 				// 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true)
 				// 加载图片时会在磁盘中加载缓存
-				.considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565)
+				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
 
 		// 从上级界面接收到的板块信息
@@ -210,24 +210,26 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		btn_post = (Button) findViewById(R.id.btn_bbs_right);
 		tv_title = (TextView) findViewById(R.id.tv_bbs_title);
 
-		pullsv_post = (PullToRefreshScrollView) findViewById(R.id.pullsv_posts);
-		// pullsv_post.setPullRefreshEnabled(false);
+		pullsv_post = (PullToRefreshListView) findViewById(R.id.pulllv_posts);
+		pullsv_post.setPullRefreshEnabled(true);
 		pullsv_post.setPullLoadEnabled(true);
 		pullsv_post.setScrollLoadEnabled(true);
-		sv_posts = pullsv_post.getRefreshableView();
+		lv_posts = pullsv_post.getRefreshableView();
 
+		lv_posts.setDivider(getResources().getDrawable(R.drawable.drawable_transparent));
+		lv_posts.setDividerHeight(SizeUtil.dip2px(this, 10));
+		
+		
 		// container
 		View view = View.inflate(this, R.layout.include_bbs_posts_container,
 				null);
-		lv_posts = (ListView) view.findViewById(R.id.lv_posts);
 		lv_stick_posts = (ListView) view.findViewById(R.id.lv_stick_posts);
 		tv_plate_name = (TextView) view.findViewById(R.id.tv_bbs_plate_name);
 		tv_plate_description = (TextView) view
 				.findViewById(R.id.tv_bbs_plate_description);
 		iv_plate_icon = (ImageView) view.findViewById(R.id.iv_bbs_plate_icon);
 
-		sv_posts.addView(view);
-
+		lv_posts.addHeaderView(view);
 	}
 
 	@Override
@@ -296,20 +298,20 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 			}
 		});
 		// 下拉刷新
-		pullsv_post.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
+
+		pullsv_post.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
 			public void onPullDownToRefresh(
-					PullToRefreshBase<ScrollView> refreshView) {
+					PullToRefreshBase<ListView> refreshView) {
 				isUp = true;
 				currentPage = 1;
 				initFirstData(currentPage);
-
 			}
 
 			@Override
 			public void onPullUpToRefresh(
-					PullToRefreshBase<ScrollView> refreshView) {
+					PullToRefreshBase<ListView> refreshView) {
 				isUp = false;
 				// if (value_normal.isSuccess()) {
 				currentPage += 1;
@@ -322,9 +324,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				// // 设置是否有更多的数据
 				// pullsv_post.setHasMoreData(false);
 				// }
-
 			}
-
 		});
 		// 滑动时不加载图片
 		lv_posts.setOnScrollListener(new PauseOnScrollListener(imageLoader,
@@ -352,6 +352,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.llyt_network_error:// 刷新数据
+			isUp = true;
 			currentPage = 1;
 			initFirstData(currentPage);
 

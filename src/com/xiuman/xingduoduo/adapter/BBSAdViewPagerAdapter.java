@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.ui.activity.PostInfoActivity;
 
@@ -76,7 +77,7 @@ public class BBSAdViewPagerAdapter extends PagerAdapter {
 		// List<String> post_imgs = new ArrayList<String>();
 		// post_imgs = HtmlTag.match(post.contentHtml, "img", "src");
 		// Mylog.i("广告图片地址", post_imgs.get(0));
-		imageLoader.displayImage(post.getPostImgs().get(0), iv_ad, options);
+		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0), iv_ad, options);
 		// iv_ad.setImageResource(R.drawable.bg_center_ad_loading);
 		container.addView(iv_ad);
 

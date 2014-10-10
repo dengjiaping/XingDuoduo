@@ -64,7 +64,7 @@ public class ImageBucketAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int arg0) {
-		return null;
+		return dataList.get(arg0);
 	}
 
 	@Override

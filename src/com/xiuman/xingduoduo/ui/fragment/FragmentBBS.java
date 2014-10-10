@@ -53,6 +53,7 @@ import com.xiuman.xingduoduo.ui.activity.UserLoginActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
 import com.xiuman.xingduoduo.util.SizeUtil;
+import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 import com.xiuman.xingduoduo.view.indicator.CirclePageIndicator;
 
@@ -145,7 +146,8 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				value = (ActionValue<BBSPost>) msg.obj;
 				if (value.isSuccess()) {
 					bbspost = value.getDatasource();
-					setAdData();
+//					setAdData();
+					ToastUtil.ToastView(getActivity(), "请求成功");
 					MyApplication.getInstance().saveBBSAds(value);
 				}
 
@@ -155,7 +157,8 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				value = MyApplication.getInstance().getBBSAds();
 				if (value != null) {
 					bbspost = value.getDatasource();
-					setAdData();
+//					setAdData();
+					ToastUtil.ToastView(getActivity(), "请求失败");
 				}
 				break;
 			}

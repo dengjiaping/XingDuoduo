@@ -145,6 +145,7 @@ public class UserAddressManagerActivity extends Base2Activity implements
 	protected void setListener() {
 		btn_back.setOnClickListener(this);
 		btn_add_address.setOnClickListener(this);
+		llyt_network_error.setOnClickListener(this);
 
 		// 收货地址列表item点击分两种情况，一种查看详细信息，一种选择收货地址，根据接收到的值来确定
 		lv_user_addresses.setOnItemClickListener(new OnItemClickListener() {
@@ -206,7 +207,8 @@ public class UserAddressManagerActivity extends Base2Activity implements
 			Intent intent = new Intent(this, UserAddressCreateActivity.class);
 			startActivityForResult(intent, AppConfig.REQUEST_CODE);
 			break;
-		default:
+		case R.id.llyt_network_error://重新加载
+			initAddress();
 			break;
 		}
 	}

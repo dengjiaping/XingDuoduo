@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llyt_posts_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
-    
-  
+
     <!-- 板块信息 -->
 
     <LinearLayout
@@ -63,16 +62,8 @@
         android:dividerHeight="0.1dip"
         android:listSelector="@drawable/whole_bg_selector" />
 
-    <include layout="@layout/line_match_drawable" />
-    <!-- 帖子列表 -->
-
-    <com.xiuman.xingduoduo.view.MyListView
-        android:id="@+id/lv_posts"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dip"
-        android:divider="@drawable/drawable_transparent"
-        android:dividerHeight="10dip"
-        android:listSelector="@drawable/whole_bg_normal_selector" />
+    <include
+        android:layout_marginBottom="10dip"
+        layout="@layout/line_match_drawable" />
 
 </LinearLayout>

@@ -605,5 +605,6 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 		loadingdialog.dismiss();
 		loadingdialog = null;
 		imageLoader.stop();
+		imageLoader.clearMemoryCache();
 	}
 }

@@ -257,7 +257,7 @@ public class CollectionActivity extends Base2Activity implements
 		btn_back.setOnClickListener(this);
 		btn_edit.setOnClickListener(this);
 		btn_collection_go2center.setOnClickListener(this);
-
+		llyt_network_error.setOnClickListener(this);
 		// 进入商品详情界面
 		collection_list.setOnItemClickListener(new OnItemClickListener() {
 
@@ -345,7 +345,9 @@ public class CollectionActivity extends Base2Activity implements
 			startActivity(intent_main);
 			finish();
 			break;
-		default:
+		case R.id.llyt_network_error://重新加载
+			currentPage = 1;
+			initFirstData(currentPage);
 			break;
 		}
 	}

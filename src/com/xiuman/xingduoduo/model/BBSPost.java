@@ -10,8 +10,6 @@ package com.xiuman.xingduoduo.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import android.text.Html;
-
 import com.xiuman.xingduoduo.util.HtmlTag;
 
 /**
@@ -28,7 +26,7 @@ public class BBSPost implements Serializable {
 	// 内容
 	private String content;
 	// 图片地址
-	private String contentHtml;
+	private ArrayList<String> imgList;
 	// 发帖时间
 	private String createTime;
 	// 帖子标题
@@ -50,13 +48,13 @@ public class BBSPost implements Serializable {
 	private int forumId;
 	private String primeLevel;
 
-	public BBSPost(String content, String contentHtml, String createTime,
-			String title, String nickname, boolean sex, int id,
-			String username, int postTypeId, int replyCount, String avatar,
-			int forumId, String primeLevel) {
+	public BBSPost(String content, ArrayList<String> imgList,
+			String createTime, String title, String nickname, boolean sex,
+			int id, String username, int postTypeId, int replyCount,
+			String avatar, int forumId, String primeLevel) {
 		super();
 		this.content = content;
-		this.contentHtml = contentHtml;
+		this.imgList = imgList;
 		this.createTime = createTime;
 		this.title = title;
 		this.nickname = nickname;
@@ -68,6 +66,14 @@ public class BBSPost implements Serializable {
 		this.avatar = avatar;
 		this.forumId = forumId;
 		this.primeLevel = primeLevel;
+	}
+
+	public ArrayList<String> getImgList() {
+		return imgList;
+	}
+
+	public void setImgList(ArrayList<String> imgList) {
+		this.imgList = imgList;
 	}
 
 	public int getForumId() {
@@ -119,26 +125,11 @@ public class BBSPost implements Serializable {
 	}
 
 	public String getContent() {
-		// if (content.contains("[att")) {
-		// content = content.substring(0, content.indexOf("[att"));
-		// if (content.contains("\r\n\r\n"))
-		// content.replace("\r\n\r\n", "\r\n");
-		// } else {
-		// }
-		return HtmlTag.clearTag2(contentHtml);
-		// return contentHtml;
+		return content;
 	}
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public String getContentHtml() {
-		return contentHtml;
-	}
-
-	public void setContentHtml(String contentHtml) {
-		this.contentHtml = contentHtml;
 	}
 
 	public String getCreateTime() {
@@ -181,17 +172,17 @@ public class BBSPost implements Serializable {
 		this.replyCount = replyCount;
 	}
 
-	public ArrayList<String> getPostImgs() {
-		ArrayList<String> post_imgs = new ArrayList<String>();
-		post_imgs = HtmlTag.match(contentHtml, "img", "src");
-		if (post_imgs.size() > 0) {
-			for (int i = 0; i < post_imgs.size(); i++) {
-				if (post_imgs.get(i).endsWith(".gif")) {
-					post_imgs.remove(i);
-				}
-			}
-		}
-		return post_imgs;
-	}
+//	public ArrayList<String> getPostImgs() {
+//		ArrayList<String> post_imgs = new ArrayList<String>();
+//		post_imgs = HtmlTag.match(contentHtml, "img", "src");
+//		if (post_imgs.size() > 0) {
+//			for (int i = 0; i < post_imgs.size(); i++) {
+//				if (post_imgs.get(i).endsWith(".gif")) {
+//					post_imgs.remove(i);
+//				}
+//			}
+//		}
+//		return post_imgs;
+//	}
 
 }

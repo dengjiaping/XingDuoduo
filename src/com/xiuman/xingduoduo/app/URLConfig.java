@@ -17,15 +17,15 @@ public class URLConfig {
 //	public static final String PRIVATE_IMG_IP = "http://192.168.16.50:8080";
 	// bbs内网测试地址
 //	public static final String PRIVATE_IP = "http://192.168.16.50:8080/bbs/app/";
-	// bbs板块帖子列表
-	public static final String FORUM_LIST_IP = "appTopForumList.jhtml?";
-	// bbs 置顶帖
-	public static final String FORUM_TOP_LIST_IP = "appUpTopForumList.jhtml?";
+	// 普通帖子
+	public static final String FORUM_LIST_IP = "appTopForumAndroidList.jhtml?";
+	// 置顶帖子
+	public static final String FORUM_TOP_LIST_IP = "appUpTopForumAndroidList.jhtml?";
 	// 帖子详情回复
-	public static final String FORUM_REPLY_LIST_IP = "appPostInfo.jhtml?";
-	// 帖子回复
+	public static final String FORUM_REPLY_LIST_IP = "appPostAndroidInfo.jhtml?";
+	// 回帖
 	public static final String POST_REPLY__IP = "appPostReply.jhtml?";
-	// 帖子发表
+	// 发帖
 	public static final String POST_PUBLISH__IP = "appPostNote.jhtml?";
 	// 我的发帖
 	public static final String MY_POST__IP = "appMyTopicList.jhtml?";

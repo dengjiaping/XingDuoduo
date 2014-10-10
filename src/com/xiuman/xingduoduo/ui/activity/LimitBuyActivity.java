@@ -219,6 +219,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void setListener() {
 		btn_back.setOnClickListener(this);
+		llyt_network_error.setOnClickListener(this);
 
 		// 下拉刷新，上拉加载
 		pullsv_limitbuy
@@ -292,7 +293,10 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 					R.anim.translate_horizontal_finish_out);
 			break;
 
-		default:
+		case R.id.llyt_network_error://重新加载
+			
+			currentPage = 1;
+			initFirstData(currentPage);
 			break;
 		}
 	}
@@ -424,5 +428,6 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		loadingdialog.dismiss();
 		loadingdialog = null;
 		imageLoader.stop();
+		imageLoader.clearMemoryCache();
 	}
 }

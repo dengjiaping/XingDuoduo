@@ -405,6 +405,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		btn_goods_buy.setOnClickListener(this);
 		btn_call_kefu.setOnClickListener(this);
 		btn_goods_shopping_cart.setOnClickListener(this);
+		llyt_network_error.setOnClickListener(this);
 
 		// 打开推荐商品
 		lv_goods_recommend.setOnItemClickListener(new OnItemClickListener() {
@@ -673,6 +674,10 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 					});
 			dialog.show();
 			break;
+		case R.id.llyt_network_error://重新加载
+			getGoodsInfo();
+			break;
+			
 		}
 	}
 
@@ -844,5 +849,6 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		loadingdialog.dismiss();
 		loadingdialog = null;
 		imageLoader.stop();
+		imageLoader.clearMemoryCache();
 	}
 }

@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-       <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView
-            android:id="@+id/pullsv_my_posts"
+       <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView
+            android:id="@+id/pulllv_my_posts"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
