@@ -3,6 +3,7 @@ package com.xiuman.xingduoduo.ui.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +24,6 @@ import android.widget.TextView;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.db.dao.SearchRecentlyDao;
-import com.xiuman.xingduoduo.ui.activity.SearchActivity;
 import com.xiuman.xingduoduo.ui.activity.SearchGoodsListActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
 
@@ -53,6 +53,7 @@ public class FragmentSearchRecently extends BaseFragment {
 	/**
 	 * Message消息处理
 	 */
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -198,7 +199,6 @@ public class FragmentSearchRecently extends BaseFragment {
 			this.context = context;
 			//暂时注释
 			keywords = recently_dao.getKeywords();
-			//keywords = Test.getTestSearchRencently();
 		}
 
 		@Override

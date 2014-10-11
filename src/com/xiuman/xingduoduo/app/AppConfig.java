@@ -26,6 +26,9 @@ public class AppConfig {
 	public final static int BBS_PUBLISH_RUN = 9006;
 	// 上传头像线程
 	public final static int UPLOAD_PORAIT_RUN = 9007;
+	//帖子图片刷新**************
+	public final static int FLUSH_IMG_ADAPTER = 9010;
+	
 
 	// 购物车Fragment Activity请求码与返回码-----------------------------
 	public final static int REQUEST_CODE = 1;

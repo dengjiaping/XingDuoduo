@@ -39,20 +39,16 @@
 
                     <TextView
                         android:id="@+id/tv_order_pay_status"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_23"
                         android:gravity="center"
-                        android:textColor="@color/color_black3"
                         android:textSize="@dimen/txt_size_18" />
 
                     <TextView
                         android:id="@+id/tv_order_pay_tip"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_21"
                         android:gravity="center"
                         android:padding="5dip"
                         android:text="@string/order_complete_tip2"
-                        android:textColor="@color/color_black"
                         android:textSize="@dimen/txt_size_12" />
                 </LinearLayout>
             </RelativeLayout>
@@ -60,12 +56,10 @@
             <include layout="@layout/line_match" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_21"
                 android:padding="10dip"
                 android:paddingTop="10dip"
                 android:text="@string/order_complete_tip"
-                android:textColor="@color/color_black3"
                 android:textSize="@dimen/txt_size_18" />
 
             <include layout="@layout/line_left10" />
@@ -93,17 +87,13 @@
 
                     <TextView
                         android:id="@+id/tv_order_complete_total"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_black3"
+                        style="@style/txt_style_3"
                         android:textSize="@dimen/txt_size_15" />
 
                     <TextView
                         android:id="@+id/tv_order_complete_quanity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_3"
                         android:layout_marginTop="10dip"
-                        android:textColor="@color/color_black3"
                         android:textSize="@dimen/txt_size_15" />
                 </LinearLayout>
             </LinearLayout>

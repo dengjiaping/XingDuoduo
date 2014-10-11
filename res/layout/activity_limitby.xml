@@ -16,8 +16,8 @@
 
         <!-- 帖子列表 -->
 
-        <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView
-            android:id="@+id/pullsv_limtbuy"
+        <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView
+            android:id="@+id/pulllv_limtbuy"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <!-- 网络连接错误 -->

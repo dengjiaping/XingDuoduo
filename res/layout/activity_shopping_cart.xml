@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:background="@color/color_white" >
 
     <!-- 购物车界面（Activity） -->
@@ -9,8 +8,7 @@
 
     <LinearLayout
         android:id="@+id/lv_cart_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:layout_alignParentTop="true"
         android:orientation="vertical" >
 
@@ -19,8 +17,7 @@
 
     <LinearLayout
         android:id="@+id/llyt_all"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:background="@drawable/whole_stroke_bg_selector"
         android:gravity="center_vertical"
         android:padding="5dip"
@@ -36,8 +33,7 @@
             android:button="@null" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:layout_marginLeft="5dip"
             android:text="@string/cart_select_all"
             android:textColor="@color/color_red"
@@ -48,9 +44,7 @@
             android:layout_weight="1"/>
         <TextView 
             android:id="@+id/tv_cart_numer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/color_black3"
+            style="@style/txt_style_3"
             android:textSize="@dimen/txt_size_15"/>
     </LinearLayout>
 
@@ -66,15 +60,13 @@
 
             <com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView
                 android:id="@+id/pull_shopping_cart_goods"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:divider="@drawable/custom_line_4"
+                style="@style/txt_style_base3"
                 android:fastScrollEnabled="true" />
 
             <LinearLayout
                 android:id="@+id/llyt_cart_null"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                style="@style/txt_style_base2"
                 android:orientation="vertical"
                 android:visibility="invisible" >
 
@@ -92,8 +84,7 @@
         <!-- 结算 -->
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:layout_alignParentBottom="true"
             android:background="@color/color_white"
             android:orientation="vertical" >

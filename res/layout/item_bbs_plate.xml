@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/txt_style_base2"
     android:orientation="vertical" >
 
     <!-- 论坛板块 -->
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        style="@style/txt_style_base3">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingBottom="8dip"
@@ -28,27 +25,23 @@
             <!-- 板块名，介绍 -->
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:layout_marginLeft="15dip"
                 android:gravity="center_vertical"
                 android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/tv_item_bbs_plate_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:textColor="@color/color_mian"
+                    style="@style/txt_style_base2"
                     android:textSize="@dimen/txt_size_20" />
 
                 <TextView
                     android:id="@+id/tv_item_bbs_plate_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_21"
                     android:layout_marginTop="5dip"
                     android:lines="2"
                     android:paddingRight="10dip"
-                    android:textColor="@color/color_black"
                     android:textSize="@dimen/txt_size_12" />
             </LinearLayout>
         </LinearLayout>

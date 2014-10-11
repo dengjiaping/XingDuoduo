@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.xiuman.xingduoduo.R;
-import com.xiuman.xingduoduo.model.Ad;
-import com.xiuman.xingduoduo.model.AdBBS;
 import com.xiuman.xingduoduo.model.BBSPlate;
 
 /**
@@ -16,73 +14,7 @@ import com.xiuman.xingduoduo.model.BBSPlate;
  * @version 2014-6-12
  */
 public class Test {
-	/**
-	 * 
-	 * 描述：添加广告的测试数据
-	 * 
-	 * @return
-	 */
-	public static List<Ad> addTestAd() {
-		List<Ad> ads = new ArrayList<Ad>();
-		String ad_poster_url = "";
-		String ad_url = "";
-		String ad_content = "";
 
-		Ad ad = new Ad(ad_poster_url, ad_url, ad_content);
-
-		ads.add(ad);
-		ads.add(ad);
-		ads.add(ad);
-		ads.add(ad);
-		ads.add(ad);
-		ads.add(ad);
-		return ads;
-
-	}
-
-	/**
-	 * 
-	 * 描述：添加广告的测试数据
-	 * 
-	 * @return
-	 */
-	public static List<AdBBS> addTestCommunicationAd() {
-		List<AdBBS> ads = new ArrayList<AdBBS>();
-		String ad_poster_url = "";
-		String ad_url = "";
-		String ad_content = "七夕七重惠，和开发速度很快就会";
-
-		AdBBS ad = new AdBBS(ad_poster_url, ad_url, ad_content);
-
-		ads.add(ad);
-		ads.add(ad);
-		ads.add(ad);
-		ads.add(ad);
-		ads.add(ad);
-		ads.add(ad);
-		return ads;
-
-	}
-
-	/**
-	 * 
-	 * 描述：获取最近搜索的关键词
-	 * 
-	 * @return
-	 */
-	public static List<String> getTestSearchRencently() {
-		List<String> recently_keywords = new ArrayList<String>();
-
-		recently_keywords.add("避孕套");
-		recently_keywords.add("延时");
-		recently_keywords.add("振动棒");
-		recently_keywords.add("制服诱惑");
-		recently_keywords.add("比基尼");
-		recently_keywords.add("杜蕾斯");
-		recently_keywords.add("飞机杯");
-		recently_keywords.add("蕾丝");
-		return recently_keywords;
-	}
 
 	/**
 	 * 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/txt_style_base2"
     android:background="@color/color_white"
     android:orientation="vertical" >
 
@@ -45,10 +44,8 @@
 
             <TextView
                 android:id="@+id/tv_pop_goods_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_3"
                 android:text="@string/select_goods_standard"
-                android:textColor="@color/color_black3"
                 android:textSize="@dimen/txt_size_12" />
         </LinearLayout>
 
@@ -72,28 +69,24 @@
 
         <LinearLayout
             android:id="@+id/llyt_pop_goods_size_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:orientation="vertical"
             android:padding="10dip" >
 
             <!-- 规格列表 -->
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dip"
                 android:layout_marginTop="10dip"
                 android:text="@string/standard"
-                android:textColor="@color/color_black3"
+                style="@style/txt_style_23"
                 android:textSize="@dimen/txt_size_15" />
 
             <include layout="@layout/line_match" />
 
             <com.xiuman.xingduoduo.view.SingleSelectCheckBoxs
                 android:id="@+id/sscb_pop_size"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/txt_style_base3"
                 android:layout_marginBottom="20dip"
                 android:layout_marginTop="20dip" />
 
@@ -101,18 +94,15 @@
             <!-- 购买数量 -->
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginBottom="20dip"
+                style="@style/txt_style_base2"
                 android:layout_marginTop="20dip"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/number"
-                    android:textColor="@color/color_black3"
+                    style="@style/txt_style_3"
                     android:textSize="@dimen/txt_size_15" />
 
                 <LinearLayout

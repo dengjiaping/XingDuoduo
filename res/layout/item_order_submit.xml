@@ -9,9 +9,8 @@
     <!-- 购物车item -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_gravity="left"
+        style="@style/txt_style_base3"
         android:gravity="left"
         android:orientation="horizontal"
         android:padding="10dip" >
@@ -30,8 +29,7 @@
 
             <ImageView
                 android:id="@+id/iv_item_order_submit_goods_isActivity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base1"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:src="@drawable/icon_gift"
@@ -62,11 +60,9 @@
 
             <TextView
                 android:id="@+id/tv_item_order_submit_goods_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:gravity="bottom"
-                android:textColor="@color/color_black"
+                style="@style/txt_style_1"
                 android:textSize="@dimen/txt_size_14" />
         </LinearLayout>
         <!-- 商品单价、数量 -->
@@ -80,61 +76,49 @@
             <!-- 单价 -->
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base1"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="￥"
-                    android:textColor="@color/color_black2"
+                    style="@style/txt_style_2"
                     android:textSize="@dimen/txt_size_14" />
 
                 <TextView
                     android:id="@+id/tv_item_order_submit_goods_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_black2"
+                    style="@style/txt_style_2"
                     android:textSize="@dimen/txt_size_14" />
             </LinearLayout>
 
             <!-- 数量 -->
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_1"
                 android:gravity="right"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="×"
-                    android:textColor="@color/color_black2"
+                    style="@style/txt_style_2"
                     android:textSize="@dimen/txt_size_18" />
 
                 <TextView
                     android:id="@+id/tv_item_order_submit_goods_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_black2"
+                    style="@style/txt_style_2"
                     android:textSize="@dimen/txt_size_14" />
             </LinearLayout>
             <!-- 总价 -->
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:gravity="right"
+                style="@style/txt_style_base1"
                 android:orientation="horizontal" >
 
                 <!-- 商品总价 -->
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="￥"
+                    style="@style/txt_style_base1"
                     android:textColor="@color/color_red"
                     android:textSize="@dimen/txt_size_14" />
 

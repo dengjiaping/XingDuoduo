@@ -14,7 +14,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.OrderSimple;
-import com.xiuman.xingduoduo.util.TimeUtil;
 
 /**
  * @名称：OrderHistoryListViewAdapter.java

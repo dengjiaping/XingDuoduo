@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/txt_style_base2"
     android:background="@drawable/whole_bg_selector"
     android:orientation="vertical"
     android:padding="10dip" >
@@ -11,41 +10,34 @@
 
     <ImageView
         android:id="@+id/iv_item_goods_poster"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter" />
     <!-- 商品名 -->
 
     <TextView
         android:id="@+id/tv_item_goods_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textColor="@color/color_black2"
+        style="@style/txt_style_22"
         android:textSize="@dimen/txt_size_15" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:gravity="center_vertical" >
 
         <!-- 价格 -->
 
         <TextView
             android:id="@+id/tv_item_goods_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:textColor="@color/color_red"
             android:textSize="@dimen/txt_size_15" />
         <!-- 销量 -->
 
         <TextView
             android:id="@+id/tv_item_goods_sales"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_1"
             android:layout_alignParentRight="true"
-            android:textColor="@color/color_black"
             android:textSize="@dimen/txt_size_12" />
     </RelativeLayout>
 

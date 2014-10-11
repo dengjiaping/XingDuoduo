@@ -149,6 +149,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()

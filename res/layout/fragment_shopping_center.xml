@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:background="@color/color_bg"
     android:orientation="vertical" >
 
@@ -11,8 +10,7 @@
     <include layout="@layout/include_title_1" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        style="@style/txt_style_base3">
 
         <ImageView
             android:id="@+id/iv_center_bg_img"
@@ -25,14 +23,12 @@
 
         <com.xiuman.xingduoduo.view.PullScrollView
             android:id="@+id/sv_shopping_center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/txt_style_base3"
             android:fadingEdge="none"
             android:scrollbars="none" >
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:orientation="vertical" >
 
                 <!-- 竖直方向分模块 -->
@@ -41,8 +37,7 @@
                 <!-- 广告1 -->
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    style="@style/txt_style_base2">
 
                     <!-- ViewPager -->
 
@@ -56,16 +51,14 @@
 
                     <com.xiuman.xingduoduo.view.indicator.CirclePageIndicator
                         android:id="@+id/indicator"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:layout_alignParentBottom="true"
                         android:padding="10dip" />
                 </RelativeLayout>
                 <!-- 模块2 -->
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base2"
                     android:orientation="horizontal" >
 
                     <!-- 高大上 -->
@@ -81,13 +74,11 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_22"
                             android:layout_gravity="bottom"
                             android:layout_marginBottom="5dip"
                             android:gravity="center"
                             android:text="高大上"
-                            android:textColor="@color/color_black2"
                             android:textSize="@dimen/txt_size_14" />
                     </LinearLayout>
                     <!-- 一路同行 -->
@@ -103,13 +94,11 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_marginBottom="5dip"
                             android:gravity="center"
                             android:text="一路同性"
-                            android:textColor="@color/color_black2"
+                            style="@style/txt_style_22"
                             android:textSize="@dimen/txt_size_14" />
                     </LinearLayout>
                     <!-- 礼品专区 -->
@@ -125,13 +114,11 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_marginBottom="5dip"
                             android:gravity="center"
                             android:text="活动专区"
-                            android:textColor="@color/color_black2"
+                            style="@style/txt_style_22"
                             android:textSize="@dimen/txt_size_14" />
                     </LinearLayout>
                     <!-- 涨姿势 -->
@@ -147,13 +134,11 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_marginBottom="5dip"
                             android:gravity="center"
                             android:text="涨姿势"
-                            android:textColor="@color/color_black2"
+                            style="@style/txt_style_22"
                             android:textSize="@dimen/txt_size_14" />
                     </LinearLayout>
                 </LinearLayout>
@@ -167,8 +152,7 @@
                 <!-- 模块3 -->
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+					style="@style/txt_style_base2"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
@@ -184,10 +168,9 @@
                         android:orientation="vertical" >
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:layout_marginTop="10dip"
                             android:gravity="left"
+                            style="@style/txt_style_base2"
                             android:paddingLeft="8dip"
                             android:text="限时抢购"
                             android:textColor="@color/color_mian"
@@ -195,8 +178,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base2"
                             android:layout_marginTop="10dip"
                             android:gravity="left"
                             android:paddingLeft="8dip"
@@ -206,13 +188,11 @@
 
                         <TextView
                             android:id="@+id/tv_center_daojishi"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:layout_marginTop="10dip"
                             android:gravity="left"
                             android:paddingLeft="8dip"
                             android:text="2时16分45秒"
-                            android:textColor="@color/color_black3"
+                            style="@style/txt_style_23"
                             android:textSize="@dimen/txt_size_15" />
                     </LinearLayout>
 
@@ -236,18 +216,15 @@
                             android:orientation="vertical" >
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                                 android:layout_marginRight="8dip"
                                 android:layout_marginTop="10dip"
                                 android:gravity="right"
+                                style="@style/txt_style_23"
                                 android:text="新品专区"
-                                android:textColor="@color/color_black3"
                                 android:textSize="@dimen/txt_size_15" />
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/txt_style_base2"
                                 android:layout_marginRight="8dip"
                                 android:layout_marginTop="5dip"
                                 android:gravity="right"
@@ -261,27 +238,23 @@
 
                         <LinearLayout
                             android:id="@+id/llyt_center_egao"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:layout_weight="1"
                             android:background="@drawable/bg_center_3_egao"
                             android:clickable="true"
                             android:orientation="vertical" >
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                                 android:layout_marginRight="8dip"
                                 android:layout_marginTop="10dip"
                                 android:gravity="right"
                                 android:text="恶搞专区"
-                                android:textColor="@color/color_black3"
+                                style="@style/txt_style_23"
                                 android:textSize="@dimen/txt_size_15" />
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                                 android:layout_marginRight="8dip"
+                                style="@style/txt_style_23"
                                 android:layout_marginTop="5dip"
                                 android:gravity="right"
                                 android:text="定期精选"
@@ -302,21 +275,18 @@
                 <include layout="@layout/line_match" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:background="@color/color_white"
+                    style="@style/txt_style_base2"
                     android:orientation="vertical" >
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="10dip" >
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:gravity="center"
                             android:text="Top "
                             android:textColor="@color/color_center_1"
@@ -324,11 +294,9 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_3"
                             android:gravity="center"
                             android:text="热卖"
-                            android:textColor="@color/color_black"
                             android:textSize="@dimen/txt_size_18" />
 
                         <View
@@ -338,8 +306,7 @@
 
                         <Button
                             android:id="@+id/btn_center_4_top_sale"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:layout_gravity="right|center_vertical"
                             android:background="@android:color/transparent"
                             android:text="@string/center_more"
@@ -354,8 +321,7 @@
 
                     <ImageView
                         android:id="@+id/iv_center_4_top_sale"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:adjustViewBounds="true"
                         android:background="@drawable/bg_center_4_top_sale"
                         android:clickable="true"
@@ -365,8 +331,7 @@
                     <include layout="@layout/line_match" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+						style="@style/txt_style_base2"
                         android:gravity="center_vertical"
                         android:orientation="horizontal" >
 
@@ -384,8 +349,7 @@
 
                             <ImageView
                                 android:id="@+id/iv_center_4_left_bottom"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                style="@style/txt_style_base3"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_4_left_bottom"
                                 android:scaleType="fitXY" />
@@ -403,17 +367,15 @@
 
                             <RelativeLayout
                                 android:id="@+id/rlyt_center_4_right_top"
+                                style="@style/txt_style_base2"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:clickable="true"
                                 android:orientation="vertical" >
 
                                 <!-- 图片 -->
 
                                 <ImageView
                                     android:id="@+id/iv_center_4_right_top"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    style="@style/txt_style_base3"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_4_right_top"
                                     android:scaleType="fitXY" />
@@ -424,8 +386,7 @@
 
                             <RelativeLayout
                                 android:id="@+id/rlyt_center_4_right_bottom"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/txt_style_base2"
                                 android:background="@drawable/bg_center_4_right_bottom"
                                 android:clickable="true"
                                 android:orientation="vertical" >
@@ -434,9 +395,8 @@
 
                                 <ImageView
                                     android:id="@+id/iv_center_4_right_bottom"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
                                     android:adjustViewBounds="true"
+                                    style="@style/txt_style_base3"
                                     android:background="@drawable/bg_center_4_right_bottom"
                                     android:scaleType="fitXY" />
                             </RelativeLayout>
@@ -455,29 +415,24 @@
                 <!-- 模块5内衣 -->
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:background="@color/color_white"
+                    style="@style/txt_style_base2"
                     android:orientation="vertical" >
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="10dip" >
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_3"
                             android:gravity="center"
                             android:text="性"
-                            android:textColor="@color/color_black"
                             android:textSize="@dimen/txt_size_18" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:gravity="center"
                             android:text="随"
                             android:textColor="@color/color_center_1"
@@ -485,11 +440,9 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_1"
                             android:gravity="center"
                             android:text="衣动"
-                            android:textColor="@color/color_black"
                             android:textSize="@dimen/txt_size_18" />
 
                         <View
@@ -499,8 +452,7 @@
 
                         <Button
                             android:id="@+id/btn_center_5_top"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:layout_gravity="right|center_vertical"
                             android:background="@android:color/transparent"
                             android:text="@string/center_more"
@@ -514,9 +466,8 @@
 
                     <ImageView
                         android:id="@+id/iv_center_5_top"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
+                        style="@style/txt_style_base2"
                         android:background="@drawable/bg_center_5_shirt"
                         android:clickable="true"
                         android:scaleType="matrix" />
@@ -525,9 +476,8 @@
                     <!-- 具体产品 -->
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        style="@style/txt_style_base2"
                         android:orientation="horizontal" >
 
                         <!-- 热卖产品左下 -->
@@ -544,8 +494,7 @@
 
                             <ImageView
                                 android:id="@+id/iv_center_5_left_bottom"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                style="@style/txt_style_base3"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_5_left_bottom"
                                 android:scaleType="fitXY" />
@@ -563,17 +512,15 @@
 
                             <RelativeLayout
                                 android:id="@+id/rlyt_center_5_right_top"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                                 android:clickable="true"
+                                style="@style/txt_style_base2"
                                 android:orientation="vertical" >
 
                                 <!-- 图片 -->
 
                                 <ImageView
                                     android:id="@+id/iv_center_5_right_top"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    style="@style/txt_style_base3"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_5_right_top"
                                     android:scaleType="fitXY" />
@@ -584,8 +531,7 @@
 
                             <RelativeLayout
                                 android:id="@+id/rlyt_center_5_right_bottom"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/txt_style_base2"
                                 android:clickable="true"
                                 android:orientation="vertical" >
 
@@ -593,8 +539,7 @@
 
                                 <ImageView
                                     android:id="@+id/iv_center_5_right_bottom"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    style="@style/txt_style_base3"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_5_right_bottom"
                                     android:scaleType="fitXY" />
@@ -614,29 +559,24 @@
                 <!-- 模块6安全套 -->
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base2"
                     android:background="@color/color_white"
                     android:orientation="vertical" >
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        style="@style/txt_style_base2"
                         android:orientation="horizontal"
                         android:padding="10dip" >
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_1"
                             android:gravity="center"
                             android:text="放纵"
-                            android:textColor="@color/color_black"
                             android:textSize="@dimen/txt_size_18" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:gravity="center"
                             android:text="一夏"
                             android:textColor="@color/color_center_3"
@@ -650,8 +590,7 @@
 
                         <Button
                             android:id="@+id/btn_center_6_top"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:layout_gravity="right|center_vertical"
                             android:background="@android:color/transparent"
                             android:text="@string/center_more"
@@ -665,8 +604,7 @@
 
                     <ImageView
                         android:id="@+id/iv_center_6_top"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:adjustViewBounds="true"
                         android:background="@drawable/bg_center_6_top"
                         android:clickable="true"
@@ -676,9 +614,8 @@
                     <!-- 具体产品 -->
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        style="@style/txt_style_base2"
                         android:orientation="horizontal" >
 
                         <!-- 热卖产品左下 -->
@@ -695,8 +632,7 @@
 
                             <ImageView
                                 android:id="@+id/iv_center_6_left_bottom"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                style="@style/txt_style_base3"
                                 android:adjustViewBounds="true"
                                 android:background="@drawable/bg_center_6_left_bottom"
                                 android:scaleType="fitXY" />
@@ -714,8 +650,7 @@
 
                             <RelativeLayout
                                 android:id="@+id/rlyt_center_6_right_top"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/txt_style_base2"
                                 android:clickable="true"
                                 android:orientation="vertical" >
 
@@ -723,8 +658,7 @@
 
                                 <ImageView
                                     android:id="@+id/iv_center_6_right_top"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    style="@style/txt_style_base3"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_6_right_top"
                                     android:scaleType="fitXY" />
@@ -735,8 +669,7 @@
 
                             <RelativeLayout
                                 android:id="@+id/llyt_center_6_right_bottom"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/txt_style_base2"
                                 android:background="@drawable/bg_center_6_right_bottom"
                                 android:clickable="true"
                                 android:orientation="vertical" >
@@ -745,9 +678,8 @@
 
                                 <ImageView
                                     android:id="@+id/iv_center_6_right_bottom"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
                                     android:adjustViewBounds="true"
+                                    style="@style/txt_style_base3"
                                     android:background="@drawable/bg_center_6_right_bottom"
                                     android:scaleType="fitXY" />
                             </RelativeLayout>
@@ -766,33 +698,28 @@
                 <!-- 模块7道具 -->
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base2"
                     android:background="@color/color_white"
                     android:orientation="vertical" >
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="10dip" >
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:gravity="center"
+                            style="@style/txt_style_base1"
                             android:text="爱"
                             android:textColor="@color/color_center_4"
                             android:textSize="@dimen/txt_size_18"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="不释手"
-                            android:textColor="@color/color_black"
+                            style="@style/txt_style_1"
                             android:textSize="@dimen/txt_size_18" />
 
                         <View
@@ -802,8 +729,7 @@
 
                         <Button
                             android:id="@+id/btn_center_7_top"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:layout_gravity="right|center_vertical"
                             android:background="@android:color/transparent"
                             android:text="@string/center_more"
@@ -817,8 +743,7 @@
 
                     <ImageView
                         android:id="@+id/iv_center_7_top"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:adjustViewBounds="true"
                         android:background="@drawable/bg_center_7_top"
                         android:clickable="true"
@@ -828,8 +753,7 @@
                     <include layout="@layout/line_match" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:gravity="center_vertical"
                         android:orientation="horizontal" >
 
@@ -848,9 +772,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_center_7_left_bottom"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
                                 android:adjustViewBounds="true"
+                                style="@style/txt_style_base3"
                                 android:background="@drawable/bg_center_7_left_bottom"
                                 android:scaleType="fitXY" />
                         </RelativeLayout>
@@ -867,8 +790,7 @@
 
                             <RelativeLayout
                                 android:id="@+id/rlyt_center_7_right_top"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/txt_style_base2"
                                 android:background="@drawable/bg_center_7_right_top"
                                 android:clickable="true"
                                 android:orientation="vertical" >
@@ -877,8 +799,7 @@
 
                                 <ImageView
                                     android:id="@+id/iv_center_7_right_top"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    style="@style/txt_style_base3"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_7_right_top"
                                     android:scaleType="fitXY" />
@@ -889,8 +810,7 @@
 
                             <RelativeLayout
                                 android:id="@+id/rlyt_center_7_right_bottom"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/txt_style_base2"
                                 android:background="@drawable/bg_center_7_right_bottom"
                                 android:clickable="true"
                                 android:orientation="vertical" >
@@ -899,8 +819,7 @@
 
                                 <ImageView
                                     android:id="@+id/iv_center_7_right_bottom"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    style="@style/txt_style_base3"
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/bg_center_7_right_bottom"
                                     android:scaleType="fitXY" />

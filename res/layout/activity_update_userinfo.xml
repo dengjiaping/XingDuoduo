@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:background="@color/color_bg"
     android:orientation="vertical" >
 
@@ -10,14 +9,12 @@
     <include layout="@layout/include_title_common" />
 
     <com.xiuman.xingduoduo.view.StretchScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/txt_style_base3"
         android:fadingEdge="none"
         android:scrollbars="none" >
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:orientation="vertical" >
 
             <!-- 姓名 -->

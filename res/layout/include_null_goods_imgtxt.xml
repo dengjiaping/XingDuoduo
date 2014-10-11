@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llyt_goods_null_img"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:layout_gravity="center"
+    style="@style/txt_style_base3"
     android:background="@color/color_bg"
     android:orientation="vertical" >
 
@@ -17,13 +16,11 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:background="@drawable/bg_null" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:layout_marginTop="10dip"
             android:text="@string/null_goods_img"
             android:textSize="@dimen/txt_size_15" />

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:background="@color/color_bg"
     android:orientation="vertical" >
 
@@ -9,8 +8,6 @@
     <!-- 标题栏 -->
 
     <include
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         layout="@layout/include_title_common" />
 
     <com.xiuman.xingduoduo.view.StretchScrollView
@@ -21,16 +18,14 @@
         android:scrollbars="none" >
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:orientation="vertical" >
 
             <!-- 收货地址 -->
 
             <LinearLayout
                 android:id="@+id/llyt_submit_order_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:background="@drawable/bg_receive_address"
                 android:gravity="center_vertical"
                 android:minHeight="50dip"
@@ -38,8 +33,7 @@
                 android:padding="10dip" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base1"
                     android:layout_marginRight="10dip"
                     android:src="@drawable/ic_order_address" />
                 <!-- 收货地址信息 -->
@@ -55,31 +49,26 @@
 
                     <LinearLayout
                         android:id="@+id/llyt_submit_order_null"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:layout_gravity="center_vertical"
                         android:orientation="vertical" >
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="@string/order_submit_please_set_address"
-                            android:textColor="@color/color_black3"
+                            style="@style/txt_style_3"
                             android:textSize="@dimen/txt_size_15" />
                     </LinearLayout>
                     <!-- view2 -->
 
                     <LinearLayout
                         android:id="@+id/llyt_submit_order_not_null"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:orientation="vertical" >
 
                         <!-- 姓名，电话 -->
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base2"
                             android:orientation="horizontal" >
 
                             <TextView
@@ -93,42 +82,35 @@
 
                             <TextView
                                 android:id="@+id/tv_submit_order_taker_phone"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/color_black3"
+                                style="@style/txt_style_3"
                                 android:textSize="@dimen/txt_size_15" />
                         </LinearLayout>
                         <!-- 详细地址 -->
 
                         <TextView
                             android:id="@+id/tv_submit_order_address_detail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:layout_marginTop="10dip"
                             android:text="@string/order_submit_taker_address"
-                            android:textColor="@color/color_black3"
+                            style="@style/txt_style_3"
                             android:textSize="@dimen/txt_size_12" />
                     </LinearLayout>
                 </FrameLayout>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base1"
                     android:layout_marginLeft="10dip"
                     android:src="@drawable/ic_right_red" />
             </LinearLayout>
             <!-- 包邮信息 -->
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="15dip" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base1"
                     android:background="@color/color_green"
                     android:paddingBottom="5dip"
                     android:paddingLeft="15dip"
@@ -139,12 +121,10 @@
                     android:textSize="@dimen/txt_size_15" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginLeft="5dip"
                     android:singleLine="true"
                     android:text="@string/goods_baoyou_tip"
-                    android:textColor="@color/color_black3"
+                    style="@style/txt_style_3"
                     android:textSize="@dimen/txt_size_14" />
             </LinearLayout>
 
@@ -152,8 +132,7 @@
             <!-- 支付方式 -->
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:background="@color/color_white"
                 android:drawableLeft="@drawable/icon_pay_way"
                 android:drawablePadding="10dip"
@@ -178,8 +157,7 @@
                 android:padding="10dip" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/icon_pay_zhifubao" />
@@ -192,20 +170,16 @@
                     android:paddingLeft="15dip" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_1"
                         android:minWidth="100dip"
                         android:text="@string/order_pay_way_zhifubao"
-                        android:textColor="@color/color_black"
                         android:textSize="@dimen/txt_size_15" />
 
                     <TextView
                         android:id="@+id/tv_order_pay_zhifubao_tag"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_1"
                         android:layout_marginTop="5dip"
                         android:text="@string/order_pay_way_zhifubao_preferential"
-                        android:textColor="@color/color_black"
                         android:textSize="@dimen/txt_size_12" />
                 </LinearLayout>
 
@@ -226,8 +200,7 @@
 
             <LinearLayout
                 android:id="@+id/llyt_order_pay_way_daofu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:background="@drawable/horizontal_mid_bg_selector"
                 android:clickable="true"
                 android:gravity="center_vertical"
@@ -235,8 +208,7 @@
                 android:padding="10dip" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+					style="@style/txt_style_base1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/icon_pay_daofu" />
@@ -249,20 +221,16 @@
                     android:paddingLeft="15dip" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:minWidth="100dip"
+                        style="@style/txt_style_1"
                         android:text="@string/order_pay_way_daofu"
-                        android:textColor="@color/color_black"
                         android:textSize="@dimen/txt_size_15" />
 
                     <TextView
                         android:id="@+id/tv_order_pay_daofu_tag"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_1"
                         android:layout_marginTop="5dip"
                         android:text="@string/order_pay_way_daofu_preferential"
-                        android:textColor="@color/color_black"
                         android:textSize="@dimen/txt_size_12" />
                 </LinearLayout>
                 <!-- 选择框 -->
@@ -292,11 +260,9 @@
                 android:visibility="invisible" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_1"
                     android:minWidth="100dip"
                     android:text="@string/order_pay_way_yinlian"
-                    android:textColor="@color/color_black"
                     android:textSize="@dimen/txt_size_15" />
 
                 <TextView
@@ -333,11 +299,9 @@
                 android:visibility="invisible" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_1"
                     android:minWidth="100dip"
                     android:text="@string/order_pay_way_caifutong"
-                    android:textColor="@color/color_black"
                     android:textSize="@dimen/txt_size_15" />
 
                 <TextView
@@ -364,11 +328,9 @@
             <!-- 结算清单 -->
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_21"
                 android:padding="10dip"
                 android:text="@string/order_submit_balance_list"
-                android:textColor="@color/color_black"
                 android:textSize="@dimen/txt_size_14" />
 
             <include layout="@layout/line_match" />
@@ -376,8 +338,7 @@
 
             <LinearLayout
                 android:id="@+id/llyt_order_submit_goods_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:background="@drawable/horizontal_mid_bg_selector"
                 android:clickable="true"
                 android:gravity="center_vertical"
@@ -385,10 +346,8 @@
                 android:padding="10dip" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_3"
                     android:text="@string/order_submit_goods_list"
-                    android:textColor="@color/color_black3"
                     android:textSize="@dimen/txt_size_15" />
                 <!-- 商品件数，总价 -->
 
@@ -400,45 +359,37 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="共"
-                        android:textColor="@color/color_black"
+                        style="@style/txt_style_1"
                         android:textSize="@dimen/txt_size_12" />
 
                     <TextView
                         android:id="@+id/tv_order_submit_goods_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:textColor="@color/color_red"
                         android:textSize="@dimen/txt_size_12" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="件商品,总计"
-                        android:textColor="@color/color_black"
+                        style="@style/txt_style_1"
                         android:textSize="@dimen/txt_size_12" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:text="￥"
                         android:textColor="@color/color_red"
                         android:textSize="@dimen/txt_size_12" />
 
                     <TextView
                         android:id="@+id/tv_order_submit_goods_total"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_1"
                         android:textColor="@color/color_red"
                         android:textSize="@dimen/txt_size_12" />
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/iv_order_list_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base1"
                     android:layout_marginLeft="10dip"
                     android:src="@drawable/ic_right_red" />
             </LinearLayout>
@@ -471,26 +422,22 @@
             <!-- 运费 -->
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:background="@drawable/horizontal_mid_bg_selector"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 				
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_3"
                     android:drawableLeft="@drawable/icon_order_trans"
                     android:text="@string/order_submit_freight"
-                    android:textColor="@color/color_black3"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/txt_size_15" />
 
                 <TextView
+                    style="@style/txt_style_base1"
                     android:id="@+id/tv_order_submit_freight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="@string/order_submit_freight_price"
                     android:textColor="@color/color_red"
@@ -501,26 +448,22 @@
             <!-- 优惠 -->
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:background="@drawable/horizontal_mid_bg_selector"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="10dip" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/order_submit_preferential"
                     android:drawableLeft="@drawable/icon_order_trans"
                     android:gravity="center_vertical"
-                    android:textColor="@color/color_black3"
+                    style="@style/txt_style_3"
                     android:textSize="@dimen/txt_size_15" />
 
                 <TextView
                     android:id="@+id/tv_order_submit_preferential"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base2"
                     android:gravity="right"
                     android:text="@string/order_submit_preferential_info"
                     android:textColor="@color/color_red"
@@ -531,19 +474,16 @@
             <!-- 留言 -->
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:background="@drawable/horizontal_mid_bg_selector"
                 android:orientation="vertical"
                 android:padding="10dip" >
 
                 <EditText
                     android:id="@+id/et_order_submit_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:background="@drawable/bt_et_liuyan"
                     android:hint="@string/order_submit_message"
-                    android:textColor="@color/color_black"
+                    style="@style/txt_style_21"
                     android:textSize="@dimen/txt_size_12" />
             </LinearLayout>
 
@@ -571,15 +511,13 @@
             <!-- 商品订单合计 -->
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base1"
                 android:text="合计："
                 android:textColor="@color/color_red"
                 android:textSize="@dimen/txt_size_12" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base1"
                 android:text="￥"
                 android:textColor="@color/color_red"
                 android:textSize="@dimen/txt_size_15"
@@ -587,17 +525,14 @@
 
             <TextView
                 android:id="@+id/tv_order_submit_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base1"
                 android:textColor="@color/color_red"
                 android:textSize="@dimen/txt_size_15"
                 android:textStyle="bold" />
             <!-- 有活动商品时的提示 -->
             <TextView 
                 android:id="@+id/tv_order_submit_total_tip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_black3"
+                style="@style/txt_style_3"
                 android:visibility="invisible"
                 android:text="@string/order_submit_activity_tip"
                 android:textSize="@dimen/txt_size_12"/>

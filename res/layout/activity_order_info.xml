@@ -29,7 +29,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <!-- 收货地址 -->
@@ -73,20 +73,16 @@
 
                         <TextView
                             android:id="@+id/tv_order_info_taker_phone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/color_black3"
+                             style="@style/txt_style_3"
                             android:textSize="@dimen/txt_size_15" />
                     </LinearLayout>
                     <!-- 详细地址 -->
 
                     <TextView
                         android:id="@+id/tv_order_info_address_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:layout_marginTop="8dip"
                         android:text="@string/order_submit_taker_address"
-                        android:textColor="@color/color_black3"
+                         style="@style/txt_style_3"
                         android:textSize="@dimen/txt_size_12" />
                 </LinearLayout>
             </LinearLayout>
@@ -109,10 +105,8 @@
                 <!-- 订单状态 -->
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_2"
                     android:text="@string/order_info_state"
-                    android:textColor="@color/color_black2"
                     android:textSize="@dimen/txt_size_16"
                     android:textStyle="bold" />
 
@@ -153,17 +147,13 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_3"
                         android:text="@string/order_info_time"
-                        android:textColor="@color/color_black3"
                         android:textSize="@dimen/txt_size_14" />
 
                     <TextView
                         android:id="@+id/tv_order_info_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_black3"
+                        style="@style/txt_style_3"
                         android:textSize="@dimen/txt_size_14" />
                 </LinearLayout>
                 <!-- 订单号 -->
@@ -175,17 +165,13 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_3"
                         android:text="@string/order_info_id"
-                        android:textColor="@color/color_black3"
                         android:textSize="@dimen/txt_size_14" />
 
                     <TextView
                         android:id="@+id/tv_order_info_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_black3"
+                        style="@style/txt_style_3"
                         android:textSize="@dimen/txt_size_14" />
                 </LinearLayout>
                 <!-- 付款方式 -->
@@ -197,17 +183,13 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_3"
                         android:text="@string/order_info_pay_way"
-                        android:textColor="@color/color_black3"
                         android:textSize="@dimen/txt_size_14" />
 
                     <TextView
                         android:id="@+id/tv_order_info_payway"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_black3"
+                        style="@style/txt_style_3"
                         android:textSize="@dimen/txt_size_14" />
                 </LinearLayout>
             </LinearLayout>
@@ -268,18 +250,14 @@
                             android:textSize="@dimen/txt_size_14" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="￥"
-                            android:textColor="@color/color_black3"
+                            style="@style/txt_style_3"
                             android:textSize="@dimen/txt_size_14"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tv_order_info_trans_pay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/color_black3"
+                            style="@style/txt_style_3"
                             android:textSize="@dimen/txt_size_14"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -301,9 +279,7 @@
 
                         <TextView
                             android:id="@+id/tv_order_info_preferential"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/color_black3"
+                            style="@style/txt_style_3"
                             android:textSize="@dimen/txt_size_14"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -400,18 +376,14 @@
                     <!-- 买家留言 -->
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_3"
                         android:text="@string/order_info_words"
-                        android:textColor="@color/color_black3"
                         android:textSize="@dimen/txt_size_14" />
 
                     <TextView
                         android:id="@+id/tv_order_info_order_words"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_3"
                         android:layout_marginTop="8dip"
-                        android:textColor="@color/color_black3"
                         android:textSize="@dimen/txt_size_12" />
                 </LinearLayout>
             </LinearLayout>
@@ -451,10 +423,8 @@
                 android:id="@+id/btn_order_info_delete_order"
                 android:layout_width="wrap_content"
                 android:layout_height="40dip"
-                android:layout_marginRight="5dip"
                 android:background="@drawable/btn_color_selector"
                 android:focusable="false"
-                android:minWidth="100dip"
                 android:paddingBottom="5dip"
                 android:paddingLeft="15dip"
                 android:paddingRight="15dip"
@@ -463,13 +433,17 @@
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/txt_size_15" />
 
+            <View
+                android:id="@+id/view"
+                android:layout_width="10dip"
+                android:layout_height="match_parent" />
+
             <Button
                 android:id="@+id/btn_order_info_take_order"
                 android:layout_width="wrap_content"
                 android:layout_height="40dip"
                 android:background="@drawable/btn_color_selector"
                 android:focusable="false"
-                android:minWidth="100dip"
                 android:paddingBottom="5dip"
                 android:paddingLeft="15dip"
                 android:paddingRight="15dip"

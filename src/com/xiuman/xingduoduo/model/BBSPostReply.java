@@ -23,9 +23,9 @@ public class BBSPostReply implements Serializable {
 	// id
 	private String id;
 	//
-	private int postTypeId;
+	private String postTypeId;
 
-	private int editCount;
+	private String editCount;
 	// 性别
 	private boolean sex;
 	// 头像
@@ -33,8 +33,10 @@ public class BBSPostReply implements Serializable {
 	// 用户名
 	private String username;
 
+
+
 	public BBSPostReply(String content, String createTime, String title,
-			String nickname, String id, int postTypeId, int editCount,
+			String nickname, String id, String postTypeId, String editCount,
 			boolean sex, String avatar, String username) {
 		super();
 		this.content = content;
@@ -113,20 +115,22 @@ public class BBSPostReply implements Serializable {
 		this.title = title;
 	}
 
-	public int getPostTypeId() {
+	public String getPostTypeId() {
 		return postTypeId;
 	}
 
-	public void setPostTypeId(int postTypeId) {
+	public void setPostTypeId(String postTypeId) {
 		this.postTypeId = postTypeId;
 	}
 
-	public int getEditCount() {
+	public String getEditCount() {
 		return editCount;
 	}
 
-	public void setEditCount(int editCount) {
+	public void setEditCount(String editCount) {
 		this.editCount = editCount;
 	}
+
+	
 
 }

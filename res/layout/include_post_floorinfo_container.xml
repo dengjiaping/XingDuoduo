@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:orientation="vertical" >
 
     <!-- 回复层主的信息包裹 -->
     <!-- 层主信息 -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:orientation="horizontal"
         android:padding="10dip" >
 
@@ -23,13 +21,11 @@
             android:src="@drawable/bg_head" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -43,18 +39,14 @@
 
                     <TextView
                         android:id="@+id/tv_floorinfo_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_black2"
+                        style="@style/txt_style_2"
                         android:textSize="@dimen/txt_size_14" />
                     <!-- 时间 -->
 
                     <TextView
                         android:id="@+id/tv_floorinfo_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dip"
-                        android:textColor="@color/color_black3"
+                        style="@style/txt_style_3"
                         android:textSize="10sp" />
                 </LinearLayout>
                 <!-- 回复层主 -->
@@ -70,10 +62,8 @@
 
             <TextView
                 android:id="@+id/tv_floorinfo_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
-                android:textColor="@color/color_black3"
+                style="@style/txt_style_3"
                 android:textSize="@dimen/txt_size_14" />
         </LinearLayout>
     </LinearLayout>
@@ -81,9 +71,8 @@
     <include layout="@layout/line_match_drawable" />
 	<!-- 回复层主的信息 -->
     <com.xiuman.xingduoduo.view.MyListView
+        style="@style/txt_style_base3"
         android:id="@+id/lv_floorinfo_replys"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:paddingLeft="50dip"
         android:divider="@drawable/line_small"
         android:listSelector="@drawable/whole_bg_selector2"

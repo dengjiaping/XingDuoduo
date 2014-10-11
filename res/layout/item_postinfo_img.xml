@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!-- 帖子详情的图片 -->
-
     <ImageView
         android:id="@+id/iv_item_postinfo_img_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="200dip"
-        android:scaleType="centerCrop" />
+        android:contentDescription="@string/pull_to_refresh_header_hint_loading"
+        android:scaleType="fitXY" />
+
+    <!-- 帖子详情的图片 -->
 
 </LinearLayout>

@@ -122,7 +122,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		public void run() {
 			if (cunhuan) {
 				viewpager_bbs_ad.setCurrentItem(page_id);
-				tv_bbs_ad_name.setText(bbspost.get(page_id).getTitle());
+//				tv_bbs_ad_name.setText(bbspost.get(page_id).getTitle());
 
 				page_id++;
 				if (page_id >= bbspost.size()) {
@@ -231,12 +231,6 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	protected void initUI() {
 		initFirstData();
 		tv_title.setText("圈套");
-		// // 以父布局为准
-		// RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-		//
-		// screenWidth, (int) (screenWidth * 185 / 720));
-		//
-		// mypost_ll.setLayoutParams(params);
 		// 设置板块
 		plate_adapter = new BBSPlateListViewAdapter(getActivity(), plates);
 		lv_bbs_plates.setAdapter(plate_adapter);
@@ -256,8 +250,9 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 					@Override
 					public void onPageSelected(int position) {
 						super.onPageSelected(position);
-						tv_bbs_ad_name.setText(Test.addTestCommunicationAd()
-								.get(position).getAd_content());
+//						tv_bbs_ad_name.setText(Test.addTestCommunicationAd()
+//								.get(position).getAd_content());
+						tv_bbs_ad_name.setText(bbspost.get(position).getTitle());
 						mIndicator.setCurrentItem(position);
 						page_id = position;
 					}

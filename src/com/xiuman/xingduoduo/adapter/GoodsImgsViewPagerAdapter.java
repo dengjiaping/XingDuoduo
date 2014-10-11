@@ -28,7 +28,6 @@ public class GoodsImgsViewPagerAdapter extends PagerAdapter {
 	private ArrayList<ImagePath> img_urls;// 图片地址
 	private List<ImageView> img_ivs;// IamgeViews
 	private ImageView iv_img;
-	private Context context;
 	public DisplayImageOptions options;// 配置图片加载及显示选项
 	public ImageLoader imageLoader;
 
@@ -47,7 +46,6 @@ public class GoodsImgsViewPagerAdapter extends PagerAdapter {
 		super();
 		this.img_urls = img_urls;
 		this.img_ivs = img_ivs;
-		this.context = context;
 		this.options = options;
 		this.imageLoader = imageLoader;
 	}

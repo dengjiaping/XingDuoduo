@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:background="@color/bbs_title_back"
     android:orientation="horizontal"
     android:weightSum="3" >
@@ -25,8 +24,7 @@
 
         <TextView
             android:id="@+id/tv_bbs_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:gravity="center_horizontal"
             android:text="@string/bbs_mypost_login"
             android:textColor="@color/color_white"
@@ -43,15 +41,13 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:layout_marginTop="10dip"
             android:src="@drawable/mypost_image" />
 
         <TextView
             android:id="@+id/tv_bbs_user_post"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:gravity="center_horizontal"
             android:text="@string/bbs_mypost_send"
             android:textColor="@color/color_white"
@@ -67,15 +63,13 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:layout_marginTop="10dip"
             android:src="@drawable/mypost_reply" />
 
         <TextView
             android:id="@+id/tv_bbs_user_reply"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:gravity="center_horizontal"
             android:text="@string/bbs_mypost_back"
             android:textColor="@color/color_white"

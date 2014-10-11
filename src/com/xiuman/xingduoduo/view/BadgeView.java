@@ -254,8 +254,8 @@ public class BadgeView extends TextView {
 			if (badgeBg == null) {
 				badgeBg = getDefaultBackground();
 			}
-			setBackgroundDrawable(badgeBg);
-			//setBackground(badgeBg);
+//			setBackgroundDrawable(badgeBg);
+			setBackground(badgeBg);
 		}
 		applyLayoutParams();
 		

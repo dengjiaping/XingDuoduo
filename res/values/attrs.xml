@@ -33,9 +33,10 @@
         <attr name="headerVisibleHeight" format="dimension" />
     </declare-styleable>
     <!-- ScrollView上带图 -->
-	 <declare-styleable name="PullToZoomScrollView">
+    <declare-styleable name="PullToZoomScrollView">
         <attr name="scrollHeadView" format="reference" />
         <attr name="scrollContentView" format="reference" />
         <attr name="scrollZoomView" format="reference" />
     </declare-styleable>
+
 </resources>

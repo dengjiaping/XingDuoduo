@@ -170,11 +170,12 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 						// 上拉刷新完成
 						pulllv_postinfo.onPullUpRefreshComplete();
 					}
-
+					pulllv_postinfo.setHasMoreData(true);
 				} else {
 					ToastUtil.ToastView(PostInfoActivity.this, "没有更多回复！");
 					// 上拉刷新完成
 					pulllv_postinfo.onPullUpRefreshComplete();
+					pulllv_postinfo.setHasMoreData(false);
 				}
 				loadingdialog.dismiss();
 				llyt_network_error.setVisibility(View.INVISIBLE);
@@ -199,7 +200,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 							.toString(), createTime,
 							postinfo_starter.getTitle(), user.getNickname(),
 							postinfo_starter.getId() + "",
-							postinfo_starter.getPostTypeId(), 1, sex,
+							postinfo_starter.getPostTypeId(), 1+"", sex,
 							user.getHead_image(), user.getName());
 
 					bbsReply.add(bps);
@@ -223,6 +224,10 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			case AppConfig.BBS_REPLY_FAILD:
 				ToastUtil.ToastView(PostInfoActivity.this, "回复失败请重试!");
 				break;
+			case AppConfig.FLUSH_IMG_ADAPTER:// 刷新图片
+				adapter_img.notifyDataSetChanged();
+				setListViewHeight(lv_postinfo_starter_imgs);
+				break;
 			}
 		}
 	};
@@ -241,8 +246,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
-				// .showStubImage(R.drawable.onloadong_post) //
-				// .showImageOnLoading(R.drawable.onloadong_post)
+//				 .showImageOnLoading(R.drawable.onloadong_post)
 				.showImageForEmptyUri(R.drawable.onloadong_post)
 				// image连接地址为空时
 				.showImageOnFail(R.drawable.onloadong_post)
@@ -308,6 +312,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				.findViewById(R.id.btn_postinfo_starter_reply);
 		lv_postinfo_starter_imgs = (ListView) view
 				.findViewById(R.id.lv_postinfo_starter_imgs);
+
 		lv_postinfo_replys.addHeaderView(view);
 	}
 
@@ -340,6 +345,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				getReply(currentPage);
 			}
 		});
+		//预览图片
 		lv_postinfo_starter_imgs
 				.setOnItemClickListener(new OnItemClickListener() {
 
@@ -362,6 +368,14 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					}
 				});
 
+	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (MyApplication.getInstance().isUserLogin()) {
+			user = MyApplication.getInstance().getUserInfo();
+			userId = user.getUser_id();
+		}
 	}
 
 	/**
@@ -418,10 +432,9 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				new Date()));
 		//
 		adapter_img = new PostInfoImgsListViewAdapter(this, options,
-				imageLoader, postinfo_starter.getImgList());
-		System.out.println("图片数量" + postinfo_starter.getImgList().size());
+				imageLoader, postinfo_starter.getImgList(), handler);
 		lv_postinfo_starter_imgs.setAdapter(adapter_img);
-		// setListViewHeight(lv_postinfo_starter_imgs);
+		setListViewHeight(lv_postinfo_starter_imgs);
 		loadingdialog.show(PostInfoActivity.this);
 		// 获取列表
 		getReply(currentPage);
@@ -500,7 +513,11 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();
 	}
-
+	/**
+	 * @描述：设置ListView的高度
+	 * @日期：2014-10-11
+	 * @param listView
+	 */
 	public void setListViewHeight(ListView listView) {
 		ListAdapter listAdapter = listView.getAdapter(); // 根据传入ListView的adapter的getView方法获取每个item的高度，然后叠加就得到ListView的高度
 		if (listAdapter == null) {

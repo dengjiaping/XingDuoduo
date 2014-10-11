@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:background="@color/color_bg"
     android:orientation="vertical" >
 
@@ -9,14 +8,12 @@
     <!-- 用户登录之后可打开的用户信息界面 -->
 
     <com.xiuman.xingduoduo.view.StretchScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:fadingEdge="none"
         android:scrollbars="none" >
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:orientation="vertical" >
 
             <!-- 头像 -->
@@ -69,19 +66,15 @@
                 android:paddingRight="15dip" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_1"
                     android:text="@string/user_name"
-                    android:textColor="@color/color_black"
                     android:textSize="@dimen/txt_size_14" />
 
                 <TextView
                     android:id="@+id/tv_userinfo_user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_1"
                     android:layout_alignParentRight="true"
                     android:text="@string/test_login_name"
-                    android:textColor="@color/color_black"
                     android:textSize="@dimen/txt_size_14" />
             </RelativeLayout>
 
@@ -97,19 +90,15 @@
                 android:paddingRight="15dip" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/user_rank"
-                    android:textColor="@color/color_black"
+                    style="@style/txt_style_1"
                     android:textSize="@dimen/txt_size_14" />
 
                 <TextView
                     android:id="@+id/tv_userinfo_user_rank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="@string/test_user_name"
-                    android:textColor="@color/color_black"
+                    style="@style/txt_style_1"
                     android:textSize="@dimen/txt_size_14" />
             </RelativeLayout>
 
@@ -126,19 +115,15 @@
                 android:paddingRight="15dip" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/user_create"
-                    android:textColor="@color/color_black"
+                    style="@style/txt_style_1"
                     android:textSize="@dimen/txt_size_14" />
 
                 <TextView
                     android:id="@+id/tv_userinfo_user_createdate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="@string/test_user_name"
-                    android:textColor="@color/color_black"
+                    style="@style/txt_style_1"
                     android:textSize="@dimen/txt_size_14" />
             </RelativeLayout>
 
@@ -156,21 +141,17 @@
                 android:paddingRight="15dip" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    style="@style/txt_style_1"
                     android:text="@string/user_sex"
-                    android:textColor="@color/color_black"
                     android:textSize="@dimen/txt_size_14" />
 
                 <TextView
                     android:id="@+id/tv_userinfo_user_sex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    style="@style/txt_style_1"
                     android:text="@string/test_sex"
-                    android:textColor="@color/color_black"
                     android:textSize="@dimen/txt_size_14" />
 
             </RelativeLayout>

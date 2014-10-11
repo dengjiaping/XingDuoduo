@@ -30,8 +30,6 @@
 
             <TextView
                 android:id="@+id/tv_discuss_order_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dip"
                 android:layout_marginTop="10dip"
@@ -41,7 +39,7 @@
                 android:paddingRight="30dip"
                 android:paddingTop="5dip"
                 android:text="@string/test_login_name"
-                android:textColor="@color/color_black3"
+                style="@style/txt_style_3"
                 android:textSize="@dimen/txt_size_14" />
 
             <com.xiuman.xingduoduo.view.MyListView

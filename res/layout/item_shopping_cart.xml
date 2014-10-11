@@ -14,14 +14,12 @@
         android:layout_height="130dip" >
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/txt_style_base3"
             android:orientation="vertical" >
 
             <LinearLayout
                 android:id="@+id/llyt_item_shopping_cart_view1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/txt_style_base3"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -38,13 +36,11 @@
                     android:focusable="false" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/txt_style_base3"
                     android:orientation="vertical" >
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        style="@style/txt_style_base3"
                         android:orientation="vertical" >
 
                         <LinearLayout
@@ -71,9 +67,8 @@
 
                                 <ImageView
                                     android:id="@+id/iv_item_shopping_cart_goods_isActivity"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
+                                    style="@style/txt_style_base1"
                                     android:layout_alignParentTop="true"
                                     android:src="@drawable/icon_gift"
                                     android:visibility="invisible" />
@@ -100,25 +95,20 @@
                                     android:textSize="@dimen/txt_size_14" />
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    style="@style/txt_style_base1"
                                     android:orientation="horizontal" >
 
                                     <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
                                         android:gravity="bottom"
                                         android:text="规格："
-                                        android:textColor="@color/color_black"
+                                        style="@style/txt_style_1"
                                         android:textSize="@dimen/txt_size_14" />
                                     <!-- 商品规格 -->
 
                                     <TextView
                                         android:id="@+id/tv_item_shopping_cart_goods_size"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
                                         android:layout_gravity="bottom"
-                                        android:textColor="@color/color_black"
+                                        style="@style/txt_style_1"
                                         android:textSize="@dimen/txt_size_14" />
                                 </LinearLayout>
                             </LinearLayout>
@@ -133,46 +123,37 @@
                                 <!-- 单价 -->
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    style="@style/txt_style_base1"
                                     android:orientation="horizontal" >
 
                                     <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
                                         android:text="￥"
-                                        android:textColor="@color/color_black2"
+                                        style="@style/txt_style_2"
                                         android:textSize="@dimen/txt_size_14" />
 
                                     <TextView
                                         android:id="@+id/tv_item_shopping_cart_goods_price"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/color_black2"
+                                        style="@style/txt_style_2"
                                         android:textSize="@dimen/txt_size_14" />
                                 </LinearLayout>
 
                                 <!-- 数量 -->
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    style="@style/txt_style_base1"
                                     android:gravity="right"
                                     android:orientation="horizontal" >
 
                                     <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
                                         android:text="×"
-                                        android:textColor="@color/color_black2"
+                                        style="@style/txt_style_2"
                                         android:textSize="@dimen/txt_size_18" />
 
                                     <TextView
                                         android:id="@+id/tv_item_shopping_cart_goods_number2"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/color_black2"
+                                        style="@style/txt_style_2"
                                         android:textSize="@dimen/txt_size_14" />
+                                    
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
@@ -221,8 +202,7 @@
                             <!-- 商品总价 -->
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                style="@style/txt_style_base1"
                                 android:text="小计：￥"
                                 android:textColor="@color/color_red"
                                 android:textSize="@dimen/txt_size_15" />
@@ -239,13 +219,11 @@
 
                             <Button
                                 android:id="@+id/btn_item_shopping_cart_update"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:layout_margin="10dip"
                                 android:background="@drawable/button_narrow_gray"
                                 android:focusable="false"
                                 android:text="@string/cart_update"
-                                android:textColor="@color/color_black"
+                                style="@style/txt_style_1"
                                 android:textSize="@dimen/txt_size_12" />
                         </LinearLayout>
                     </LinearLayout>
@@ -264,9 +242,8 @@
             android:visibility="invisible" >
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="30dip"
+                style="@style/txt_style_base2"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal" >
 

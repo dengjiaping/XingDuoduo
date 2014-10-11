@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@color/color_bg"
+    style="@style/txt_style_base3"
     android:orientation="vertical" >
 
     <!-- 个人中心界面 -->
@@ -19,24 +18,20 @@
 
     <com.xiuman.xingduoduo.view.PullScrollView
         android:id="@+id/sv_me"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/txt_style_base3"
         android:fadingEdge="none"
         android:scrollbars="none" >
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base2"
                     android:orientation="vertical"
                     android:paddingBottom="10dip"
                     android:paddingTop="50dip" >
@@ -47,8 +42,7 @@
                     <!-- 头像 -->
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:gravity="center" >
 
                         <com.xiuman.xingduoduo.view.CircleImageView
@@ -63,8 +57,7 @@
 
                     <TextView
                         android:id="@+id/tv_me_user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dip"
                         android:text="@string/me_please_login"
@@ -72,8 +65,7 @@
                         android:textSize="@dimen/txt_size_25" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dip"
                         android:textColor="@color/color_bg"
@@ -82,8 +74,7 @@
                 <!-- 横向菜单栏 -->
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base2"
                     android:background="@drawable/bg_me_menu"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -99,9 +90,8 @@
 
                         <Button
                             android:id="@+id/btn_me_my_order"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:background="@null"
+                            style="@style/txt_style_base1"
                             android:drawableLeft="@drawable/bg_btn_me_order"
                             android:text="@string/order_history_title"
                             android:textColor="@color/color_white"
@@ -119,9 +109,8 @@
 
                         <Button
                             android:id="@+id/btn_me_my_collection"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:background="@null"
+                            style="@style/txt_style_base1"
                             android:drawableLeft="@drawable/bg_btn_me_collection"
                             android:text="@string/me_clooection"
                             android:textColor="@color/color_white"
@@ -139,8 +128,7 @@
 
                         <Button
                             android:id="@+id/btn_me_my_app_msg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:background="@null"
                             android:drawableLeft="@drawable/bg_btn_me_app_msg"
                             android:text="@string/me_system_msg"
@@ -152,8 +140,7 @@
             <!-- 纵向菜单(帮助信息反馈等) -->
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:background="@color/color_white"
                 android:orientation="vertical" >
 
@@ -170,8 +157,7 @@
                     android:paddingLeft="8dip" >
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:scaleType="fitXY"
                         android:src="@drawable/bg_me_menu_protect" />
 
@@ -187,8 +173,7 @@
 
                     <com.xiuman.xingduoduo.view.SlidingButton
                         android:id="@+id/mSliderBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:layout_marginRight="10dip" />
                 </LinearLayout>
 
@@ -206,8 +191,7 @@
                     android:paddingLeft="8dip" >
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:scaleType="fitXY"
                         android:src="@drawable/bg_me_menu_feedback" />
 
@@ -221,8 +205,7 @@
                         android:textSize="@dimen/txt_size_18" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+						style="@style/txt_style_base1"
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_me_menu_right" />
                 </LinearLayout>
@@ -242,8 +225,7 @@
                     android:paddingLeft="8dip" >
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:scaleType="fitXY"
                         android:src="@drawable/bg_me_menu_help" />
 
@@ -257,8 +239,7 @@
                         android:textSize="@dimen/txt_size_18" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_me_menu_right" />
                 </LinearLayout>
@@ -277,8 +258,7 @@
                     android:paddingLeft="8dip" >
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:scaleType="fitXY"
                         android:src="@drawable/bg_me_menu_call" />
 
@@ -290,23 +270,19 @@
                         android:paddingLeft="8dip" >
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:text="@string/me_menu_kefu"
                             android:textColor="@color/color_red_tel"
                             android:textSize="@dimen/txt_size_18" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_1"
                             android:text="@string/me_menu_kefu_tip"
-                            android:textColor="@color/color_black"
                             android:textSize="@dimen/txt_size_14" />
                     </LinearLayout>
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_me_menu_right" />
                 </LinearLayout>
@@ -325,8 +301,7 @@
                     android:paddingLeft="8dip" >
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:scaleType="fitXY"
                         android:src="@drawable/bg_setting_app_recommend" />
 
@@ -340,8 +315,7 @@
                         android:textSize="@dimen/txt_size_18" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_me_menu_right" />
                 </LinearLayout>
@@ -360,8 +334,7 @@
                     android:visibility="invisible" >
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:scaleType="fitXY"
                         android:src="@drawable/bg_me_menu_weibo" />
 
@@ -375,8 +348,7 @@
                         android:textSize="@dimen/txt_size_18" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_me_menu_right" />
                 </LinearLayout>
@@ -386,21 +358,18 @@
     <!-- 顶部标题栏 -->
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:orientation="horizontal"
         android:padding="10dip" >
 
         <Button
             android:id="@+id/btn_me_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:background="@drawable/bg_me_register" />
 
         <Button
             android:id="@+id/btn_me_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:layout_alignParentRight="true"
             android:background="@drawable/bg_me_setting" />
     </RelativeLayout>

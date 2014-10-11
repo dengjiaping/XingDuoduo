@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/txt_style_base2"
     android:orientation="vertical"
     android:padding="10dip" >
 
     <!-- 用户收货地址管理item -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:orientation="horizontal" >
 
         <!-- 收货人 -->
@@ -37,10 +35,8 @@
 
     <TextView
         android:id="@+id/tv_item_address_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
-        android:textColor="@color/color_black3"
+        style="@style/txt_style_23"
         android:textSize="@dimen/txt_size_15" />
 
 </LinearLayout>

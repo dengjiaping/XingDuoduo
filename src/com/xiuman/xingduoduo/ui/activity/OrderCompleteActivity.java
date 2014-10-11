@@ -271,6 +271,7 @@ public class OrderCompleteActivity extends Base2Activity implements
 			startActivity(intent);
 			overridePendingTransition(R.anim.translate_horizontal_start_in,
 					R.anim.translate_horizontal_start_out);
+			finish();
 			break;
 		}
 

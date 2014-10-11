@@ -1,10 +1,3 @@
-/**
- * @ClassName: TaskReplySendBack
- * @Description: TODO
- * @author Andrew Lee
- * @date 2014-9-16 下午4:26:45
- */
-
 package com.xiuman.xingduoduo.callback;
 
 import android.os.Handler;
@@ -14,14 +7,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.model.ActionValue;
-import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
-
 /**
+ * @描述：回帖返回
  * @名称：TaskReplySendBack.java
- * @描述：
- * @author Andrew Lee
- * 2014-9-16下午4:26:45
+ * @author CSX
+ * @日期：2014-10-11
  */
 public class TaskReplySendBack implements HttpTaskListener {
 
@@ -34,7 +25,6 @@ public class TaskReplySendBack implements HttpTaskListener {
 
 	@Override
 	public void dataSucced(String result) {
-		System.out.println("帖子回复返回"+result);
 		ActionValue<?> value = new Gson().fromJson(result,
 				new TypeToken<ActionValue<?>>() {
 				}.getType());

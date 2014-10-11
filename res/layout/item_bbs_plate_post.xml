@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/txt_style_base2"
     android:orientation="vertical" >
 
     <!-- 交流区帖子列表 -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
+        style="@style/txt_style_base2"
         android:layout_marginRight="10dip"
         android:background="@drawable/whole_bg_normal_selector2"
         android:orientation="vertical"
@@ -18,8 +16,7 @@
         <!-- 用户头像 -->
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+			style="@style/txt_style_base2"	
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -32,24 +29,20 @@
                 android:src="@drawable/ic_male" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:layout_marginLeft="10dip"
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base2"
                     android:orientation="horizontal" >
 
                     <!-- 用户名 -->
 
                     <TextView
                         android:id="@+id/tv_item_bbs_plate_post_user"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:drawablePadding="5dip"
-                        android:textColor="@color/color_black2"
+                        style="@style/txt_style_2"
                         android:textSize="@dimen/txt_size_15" />
 
                     <ImageView
@@ -62,11 +55,9 @@
 
                 <TextView
                     android:id="@+id/tv_item_bbs_plate_post_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:gravity="right"
                     android:paddingRight="10dip"
-                    android:textColor="@color/color_black3"
+                    style="@style/txt_style_3"
                     android:textSize="@dimen/txt_size_12" />
             </LinearLayout>
         </LinearLayout>
@@ -74,27 +65,22 @@
 
         <TextView
             android:id="@+id/tv_item_bbs_plate_post_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="5dip"
-            android:textColor="@color/color_black2"
+            style="@style/txt_style_22"
             android:textSize="@dimen/txt_size_14" />
         <!-- 内容 -->
 
         <TextView
             android:id="@+id/tv_item_bbs_plate_post_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:paddingTop="5dip"
             android:singleLine="true"
-            android:textColor="@color/color_black"
+            style="@style/txt_style_21"
             android:textSize="@dimen/txt_size_12" />
         <!-- 图片列表(3张) -->
 
         <LinearLayout
             android:id="@+id/llyt_item_bbs_plate_post_img_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:orientation="horizontal"
             android:paddingTop="5dip"
             android:visibility="invisible" >
@@ -131,8 +117,7 @@
 
                 <TextView
                     android:id="@+id/tv_item_bbs_plate_post_img_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_1"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:background="@color/color_black3"
@@ -143,8 +128,7 @@
         <!-- 楼主及回复信息 -->
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:layout_marginTop="5dip"
             android:gravity="center_vertical" >
 
@@ -155,8 +139,7 @@
 
             <TextView
                 android:id="@+id/tv_item_bbs_plate_post_reply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base1"
                 android:drawableLeft="@drawable/icon_reply_count"
                 android:drawablePadding="5dip"
                 android:gravity="center_vertical"

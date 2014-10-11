@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rlyt_null_cart"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:background="@color/color_white"
+    android:layout_gravity="center"
     android:gravity="center" >
 
     <!-- 空的购物车 -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        style="@style/txt_style_base2"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:background="@drawable/bg_null_cart"
             android:scaleType="matrix" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
             android:text="@string/cart_tip1"
-            android:textColor="@color/color_black"
+            style="@style/txt_style_1"
             android:textSize="@dimen/txt_size_25" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
             android:text="@string/cart_tip2"
-            android:textColor="@color/color_black"
+            style="@style/txt_style_1"
             android:textSize="@dimen/txt_size_18" />
 
         <Button

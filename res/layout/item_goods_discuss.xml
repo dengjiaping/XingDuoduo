@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:minHeight="80dip"
+    style="@style/txt_style_base3"
     android:orientation="vertical"
     android:padding="5dip" >
 
@@ -24,9 +23,7 @@
 
         <TextView
             android:id="@+id/tv_item_discuss_index"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/color_black3"
+            style="@style/txt_style_3"
             android:textSize="@dimen/txt_size_12" />
 
         <TextView
@@ -39,20 +36,16 @@
 
         <TextView
             android:id="@+id/tv_item_discuss_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:paddingRight="10dip"
-            android:textColor="@color/color_black"
+            style="@style/txt_style_1"
             android:textSize="@dimen/txt_size_12" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv_item_discuss_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:paddingLeft="40dip"
         android:paddingRight="10dip"
-        android:textColor="@color/color_black3"
+        style="@style/txt_style_23"
         android:textSize="@dimen/txt_size_12" />
 
 </LinearLayout>

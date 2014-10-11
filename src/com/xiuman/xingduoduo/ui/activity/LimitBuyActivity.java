@@ -33,12 +33,13 @@ import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.GoodsOne;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
-import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
 
 /**
  * @名称：LimitBuyActivity.java
@@ -56,9 +57,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 	private Button btn_right;
 
 	// 下拉刷新sv
-	private PullToRefreshScrollView pullsv_limitbuy;
-	// 可刷新的sv
-	private ScrollView sv_limitbuy;
+	private PullToRefreshListView pulllv_limitbuy;
 	// ListView
 	private ListView lv_limitbuy_container;
 	// 网络连接失败显示的布局
@@ -114,14 +113,14 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 								LimitBuyActivity.this, goods_current, options,
 								imageLoader);
 						// 下拉加载完成
-						pullsv_limitbuy.onPullDownRefreshComplete();
+						pulllv_limitbuy.onPullDownRefreshComplete();
 						lv_limitbuy_container.setAdapter(adapter);
 					} else {// 上拉
 						goods_current.addAll(goods_get);
 						adapter.notifyDataSetChanged();
 
 						// 上拉刷新完成
-						pullsv_limitbuy.onPullUpRefreshComplete();
+						pulllv_limitbuy.onPullUpRefreshComplete();
 						// 设置是否有更多的数据
 						if (currentPage < value.getTotalpage()) {
 							// pullsv_limitbuy
@@ -131,7 +130,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 							// .setHasMoreData(false);
 						}
 					}
-					TimeUtil.setLastUpdateTime3(pullsv_limitbuy);
+					TimeUtil.setLastUpdateTime(pulllv_limitbuy);
 					
 					llyt_null_goods.setVisibility(View.INVISIBLE);
 				}
@@ -163,6 +162,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		options = new DisplayImageOptions.Builder()
 		// .showStubImage(R.drawable.weiboitem_pic_loading) //
 		// 在ImageView加载过程中显示图片
+		.showImageOnLoading(R.drawable.onloading_goods_poster)
 				.showImageForEmptyUri(R.drawable.onloading_goods_poster) // image连接地址为空时
 				.showImageOnFail(R.drawable.onloading_goods_poster) // image加载失败
 				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
@@ -189,18 +189,19 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		llyt_null_goods = (LinearLayout) findViewById(R.id.llyt_goods_null);
 		
 
-		pullsv_limitbuy = (PullToRefreshScrollView) findViewById(R.id.pullsv_limtbuy);
-		pullsv_limitbuy.setScrollLoadEnabled(true);
-		pullsv_limitbuy.setPullLoadEnabled(true);
-		sv_limitbuy = pullsv_limitbuy.getRefreshableView();
-
+		pulllv_limitbuy = (PullToRefreshListView) findViewById(R.id.pulllv_limtbuy);
+		pulllv_limitbuy.setScrollLoadEnabled(true);
+		pulllv_limitbuy.setPullLoadEnabled(true);
+		lv_limitbuy_container = pulllv_limitbuy.getRefreshableView();
+		lv_limitbuy_container.setDividerHeight(0);
+		lv_limitbuy_container.setSelector(getResources().getDrawable(R.drawable.drawable_transparent));
 		View view = View.inflate(this, R.layout.include_limitbuy_container,
 				null);
-		lv_limitbuy_container = (ListView) view
-				.findViewById(R.id.lv_limitbuy_container);
+//		lv_limitbuy_container = (ListView) view
+//				.findViewById(R.id.lv_limitbuy_container);
 		tv_center_daojishi = (TextView) view.findViewById(R.id.tv_center_daojishi);
 
-		sv_limitbuy.addView(view);
+		lv_limitbuy_container.addHeaderView(view);
 	}
 
 	@Override
@@ -211,7 +212,7 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		// 加载数据，测试数据，添加操作
 		initFirstData(currentPage);
 		// 设置刷新时间
-		TimeUtil.setLastUpdateTime3(pullsv_limitbuy);
+		TimeUtil.setLastUpdateTime(pulllv_limitbuy);
 		//设置倒计时
 		startDaojishi();
 	}
@@ -222,37 +223,36 @@ public class LimitBuyActivity extends Base2Activity implements OnClickListener {
 		llyt_network_error.setOnClickListener(this);
 
 		// 下拉刷新，上拉加载
-		pullsv_limitbuy
-				.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
+		pulllv_limitbuy.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
-					@Override
-					public void onPullDownToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
-						isUp = true;
-						currentPage = 1;
-						initFirstData(currentPage);
-					}
+			@Override
+			public void onPullDownToRefresh(
+					PullToRefreshBase<ListView> refreshView) {
+				isUp = true;
+				currentPage = 1;
+				initFirstData(currentPage);
+			}
 
-					@Override
-					public void onPullUpToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
-						isUp = false;
-						if (value.getPage() < value.getTotalpage()) {
-							currentPage += 1;
-							initFirstData(currentPage);
-						} else {
-							ToastUtil.ToastView(LimitBuyActivity.this,
-									getResources().getString(R.string.no_more));
-							// 下拉加载完成
-							pullsv_limitbuy.onPullDownRefreshComplete();
-							// 上拉刷新完成
-							pullsv_limitbuy.onPullUpRefreshComplete();
-							// 设置是否有更多的数据
-							// pullsv_limitbuy
-							// .setHasMoreData(false);
-						}
-					}
-				});
+			@Override
+			public void onPullUpToRefresh(
+					PullToRefreshBase<ListView> refreshView) {
+				isUp = false;
+				if (value.getPage() < value.getTotalpage()) {
+					currentPage += 1;
+					initFirstData(currentPage);
+				} else {
+					ToastUtil.ToastView(LimitBuyActivity.this,
+							getResources().getString(R.string.no_more));
+					// 下拉加载完成
+					pulllv_limitbuy.onPullDownRefreshComplete();
+					// 上拉刷新完成
+					pulllv_limitbuy.onPullUpRefreshComplete();
+					// 设置是否有更多的数据
+					// pullsv_limitbuy
+					// .setHasMoreData(false);
+				}
+			}
+		});
 
 		lv_limitbuy_container.setOnItemClickListener(new OnItemClickListener() {
 

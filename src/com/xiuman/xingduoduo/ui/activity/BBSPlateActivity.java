@@ -246,6 +246,8 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				new TaskTopPostBack(handler), plate.getPlate_id(), 1, 10);
 		
 		lv_posts.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), true, false));
+		
+		llyt_null_post.setVisibility(View.INVISIBLE);
 	}
 
 	@Override

@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -25,7 +21,6 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.BBSPostReply;
-import com.xiuman.xingduoduo.ui.activity.FloorReplyInfoActivity;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 

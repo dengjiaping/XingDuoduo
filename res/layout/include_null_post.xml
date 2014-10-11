@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llyt_plate_null_post"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:gravity="center"
+    style="@style/txt_style_base3"
     android:background="@color/color_bg"
     android:orientation="vertical" >
 
     <!-- 交流区空的板块 -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:background="@drawable/bg_null"
             android:scaleType="matrix" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="15dip"
             android:gravity="center"
             android:text="@string/bbs_plate_null_post"
-            android:textColor="@color/color_black"
+            style="@style/txt_style_1"
             android:textSize="@dimen/txt_size_18" />
 
         <Button

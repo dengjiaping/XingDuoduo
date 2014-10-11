@@ -14,15 +14,13 @@
     <!-- 购物车结算 -->
 
     <ImageView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        style="@style/txt_style_base1"
         android:src="@drawable/icon_cart_total"/>
 
     <TextView
         android:id="@+id/tv_balance_total_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base1"
         android:layout_marginLeft="10dip"
         android:text="@string/cart_account_all"
         android:textColor="@color/color_yellow"

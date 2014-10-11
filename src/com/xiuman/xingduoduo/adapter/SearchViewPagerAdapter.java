@@ -12,23 +12,20 @@ import android.view.ViewGroup;
 
 /**
  * 
- * 名称：SearchViewPagerAdapter.java
- * 描述：搜索界面(热门、最近搜索切换)
+ * 名称：SearchViewPagerAdapter.java 描述：搜索界面(热门、最近搜索切换)
+ * 
  * @author danding
- * @version
- * 2014-6-10
+ * @version 2014-6-10
  */
 public class SearchViewPagerAdapter extends PagerAdapter {
 
 	private List<Fragment> fragments;
-	private Context context;
 	private FragmentManager fragmentManager;
 
 	public SearchViewPagerAdapter(List<Fragment> fragments, Context context,
 			FragmentManager fragmentManager) {
 		super();
 		this.fragments = fragments;
-		this.context = context;
 		this.fragmentManager = fragmentManager;
 	}
 
@@ -42,11 +39,11 @@ public class SearchViewPagerAdapter extends PagerAdapter {
 		return arg0 == arg1;
 	}
 
-	
 	@Override
 	public int getItemPosition(Object object) {
 		return POSITION_NONE;
 	}
+
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
 		Fragment fragment = fragments.get(position);

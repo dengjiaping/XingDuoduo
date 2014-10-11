@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:background="@color/color_bg"
     android:orientation="vertical" >
 
@@ -29,8 +28,7 @@
 
             <TextView
                 android:id="@+id/tv_search_recently"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:gravity="center"
                 android:text="@string/search_recently"
                 android:textSize="@dimen/txt_size_15" />
@@ -47,8 +45,7 @@
 
             <TextView
                 android:id="@+id/tv_search_hot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:gravity="center"
                 android:text="@string/search_hot"
                 android:textSize="@dimen/txt_size_15" />
@@ -74,8 +71,7 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_search_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base1"
         android:layout_gravity="center"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />

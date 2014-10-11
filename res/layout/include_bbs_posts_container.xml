@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llyt_posts_container"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/txt_style_base2"
     android:orientation="vertical" >
 
     <!-- 板块信息 -->
 
     <LinearLayout
         android:id="@+id/bbs_sort_title_ll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/txt_style_base3"
         android:background="@color/color_white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -26,26 +24,22 @@
         <!-- 板块名，介绍 -->
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:layout_marginLeft="15dip"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/tv_bbs_plate_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:textColor="@color/color_mian"
                 android:textSize="@dimen/txt_size_20" />
 
             <TextView
                 android:id="@+id/tv_bbs_plate_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_23"
                 android:layout_marginTop="8dip"
                 android:lines="3"
                 android:paddingRight="10dip"
-                android:textColor="@color/color_black3"
                 android:textSize="@dimen/txt_size_15" />
         </LinearLayout>
     </LinearLayout>
@@ -55,8 +49,7 @@
 
     <com.xiuman.xingduoduo.view.MyListView
         android:id="@+id/lv_stick_posts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:background="@color/color_white"
         android:divider="@drawable/line_small"
         android:dividerHeight="0.1dip"

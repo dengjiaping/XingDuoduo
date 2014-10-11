@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llyt_item_order_history"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:background="@drawable/whole_bg_normal_selector"
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical"
@@ -11,8 +10,7 @@
     <!-- 我的订单历史(item) -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:gravity="center_vertical"
         android:paddingBottom="10dip"
         android:orientation="horizontal" >
@@ -20,11 +18,9 @@
         <!-- 订单号 -->
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:focusable="false"
             android:text="@string/order_history_id"
-            android:textColor="@color/color_black3"
+            style="@style/txt_style_3"
             android:textSize="@dimen/txt_size_14" />
 
         <TextView
@@ -39,8 +35,7 @@
 
         <TextView
             android:id="@+id/tv_item_order_history_order_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:focusable="false"
             android:textColor="@color/color_yellow"
             android:textSize="@dimen/txt_size_14" />
@@ -50,8 +45,7 @@
     <!-- 订单总价，数量 -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:gravity="center_vertical"
         android:paddingTop="10dip"
         android:orientation="horizontal" >
@@ -64,78 +58,65 @@
             android:scaleType="fitXY" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
+            style="@style/txt_style_base2"
             android:orientation="vertical"
             android:padding="5dip" >
 
             <!-- 生成时间 -->
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:focusable="false"
                     android:text="订单生成时间："
-                    android:textColor="@color/color_black3"
+                    style="@style/txt_style_3"
                     android:textSize="@dimen/txt_size_14" />
 
                 <TextView
                     android:id="@+id/tv_item_order_history_create_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:focusable="false"
-                    android:textColor="@color/color_black3"
+                    style="@style/txt_style_3"
                     android:textSize="@dimen/txt_size_14" />
+                
             </LinearLayout>
             <!-- 商品数量 -->
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:layout_marginTop="5dip"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:focusable="false"
                     android:text="数量："
-                    android:textColor="@color/color_black3"
+                    style="@style/txt_style_3"
                     android:textSize="@dimen/txt_size_14" />
 
                 <TextView
                     android:id="@+id/tv_item_order_history_goods_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:focusable="false"
-                    android:textColor="@color/color_black3"
+                    style="@style/txt_style_3"
                     android:textSize="@dimen/txt_size_14" />
             </LinearLayout>
             <!-- 订单总金额 -->
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:layout_marginTop="5dip"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base1"
                     android:focusable="false"
                     android:text="订单总金额："
                     android:textColor="@color/color_yellow"
                     android:textSize="@dimen/txt_size_14" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base1"
                     android:focusable="false"
                     android:text="￥"
                     android:textColor="@color/color_yellow"
@@ -144,8 +125,7 @@
 
                 <TextView
                     android:id="@+id/tv_item_order_history_goods_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base1"
                     android:focusable="false"
                     android:textColor="@color/color_yellow"
                     android:textSize="@dimen/txt_size_14"

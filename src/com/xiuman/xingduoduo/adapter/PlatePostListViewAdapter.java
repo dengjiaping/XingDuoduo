@@ -5,7 +5,6 @@ import java.util.Date;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;

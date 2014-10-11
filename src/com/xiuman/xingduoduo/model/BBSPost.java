@@ -1,16 +1,7 @@
-/**
- * @ClassName: BBSnormalPost
- * @Description: TODO
- * @author Andrew Lee
- * @date 2014-9-15 下午3:00:36
- */
-
 package com.xiuman.xingduoduo.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import com.xiuman.xingduoduo.util.HtmlTag;
 
 /**
  * @名称：BBSnormalPost.java
@@ -36,12 +27,12 @@ public class BBSPost implements Serializable {
 	// 性别
 	private boolean sex;
 	// id
-	private int id;
+	private String id;
 	// 用户名
 	private String username;
-	private int postTypeId;
+	private String postTypeId;
 	// 回复数
-	private int replyCount;
+	private String replyCount;
 	// 头像地址
 	private String avatar;
 	// 所属板块id
@@ -50,7 +41,7 @@ public class BBSPost implements Serializable {
 
 	public BBSPost(String content, ArrayList<String> imgList,
 			String createTime, String title, String nickname, boolean sex,
-			int id, String username, int postTypeId, int replyCount,
+			String id, String username, String postTypeId, String replyCount,
 			String avatar, int forumId, String primeLevel) {
 		super();
 		this.content = content;
@@ -148,41 +139,41 @@ public class BBSPost implements Serializable {
 		this.title = title;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public int getPostTypeId() {
+	public String getPostTypeId() {
 		return postTypeId;
 	}
 
-	public void setPostTypeId(int postTypeId) {
+	public void setPostTypeId(String postTypeId) {
 		this.postTypeId = postTypeId;
 	}
 
-	public int getReplyCount() {
+	public String getReplyCount() {
 		return replyCount;
 	}
 
-	public void setReplyCount(int replyCount) {
+	public void setReplyCount(String replyCount) {
 		this.replyCount = replyCount;
 	}
 
-//	public ArrayList<String> getPostImgs() {
-//		ArrayList<String> post_imgs = new ArrayList<String>();
-//		post_imgs = HtmlTag.match(contentHtml, "img", "src");
-//		if (post_imgs.size() > 0) {
-//			for (int i = 0; i < post_imgs.size(); i++) {
-//				if (post_imgs.get(i).endsWith(".gif")) {
-//					post_imgs.remove(i);
-//				}
-//			}
-//		}
-//		return post_imgs;
-//	}
+	// public ArrayList<String> getPostImgs() {
+	// ArrayList<String> post_imgs = new ArrayList<String>();
+	// post_imgs = HtmlTag.match(contentHtml, "img", "src");
+	// if (post_imgs.size() > 0) {
+	// for (int i = 0; i < post_imgs.size(); i++) {
+	// if (post_imgs.get(i).endsWith(".gif")) {
+	// post_imgs.remove(i);
+	// }
+	// }
+	// }
+	// return post_imgs;
+	// }
 
 }

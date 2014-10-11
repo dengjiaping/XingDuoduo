@@ -8,7 +8,12 @@ import java.io.IOException;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
-
+/**
+ * @描述：图片工具类
+ * @名称：FileUtils.java
+ * @author CSX
+ * @日期：2014-10-11
+ */
 public class FileUtils {
 	
 	public static String SDPATH = Environment.getExternalStorageDirectory()

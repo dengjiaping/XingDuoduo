@@ -73,7 +73,6 @@ public class PostImgsGridViewAdapter extends BaseAdapter {
 	 * ListView Item设置
 	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final int coord = position;
 		ViewHolder holder = null;
 		if (convertView == null) {
 

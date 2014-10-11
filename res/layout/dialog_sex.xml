@@ -17,8 +17,7 @@
 
     <RadioGroup
         android:id="@+id/sex_type_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:background="@color/color_white"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical" >

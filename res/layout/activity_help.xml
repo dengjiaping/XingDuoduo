@@ -22,10 +22,8 @@
 
             <TextView
                 android:id="@+id/tv_help_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_23"
                 android:padding="10dip"
-                android:textColor="@color/color_black3"
                 android:textSize="@dimen/txt_size_15" />
         </LinearLayout>
     </com.xiuman.xingduoduo.view.StretchScrollView>

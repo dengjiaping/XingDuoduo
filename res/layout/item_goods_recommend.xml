@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/txt_style_base2"
     android:background="@drawable/whole_bg_selector"
     android:orientation="vertical"
     android:clickable="true"
@@ -20,23 +19,19 @@
 
     <TextView
         android:id="@+id/tv_item_goods_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:textColor="@color/color_black2"
+        android:singleLine="true"
+        style="@style/txt_style_22"
         android:textSize="@dimen/txt_size_12" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:gravity="center_vertical" >
 
         <!-- 价格 -->
 
         <TextView
             android:id="@+id/tv_item_goods_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:textColor="@color/color_red"
             android:textSize="@dimen/txt_size_12" />
     </RelativeLayout>

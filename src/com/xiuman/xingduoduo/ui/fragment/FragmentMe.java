@@ -125,6 +125,7 @@ public class FragmentMe extends BaseFragment implements OnClickListener,
 	/**
 	 * 数据初始化
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()

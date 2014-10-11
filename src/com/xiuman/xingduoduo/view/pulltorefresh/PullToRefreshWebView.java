@@ -1,5 +1,6 @@
 package com.xiuman.xingduoduo.view.pulltorefresh;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.FloatMath;
@@ -62,7 +63,9 @@ public class PullToRefreshWebView extends PullToRefreshBase<WebView> {
     /**
      * @see com.nj1s.lib.pullrefresh.PullToRefreshBase#isReadyForPullUp()
      */
-    @Override
+    @SuppressWarnings("deprecation")
+	@SuppressLint("FloatMath")
+	@Override
     protected boolean isReadyForPullUp() {
         float exactContentHeight = FloatMath.floor(mRefreshableView.getContentHeight() * mRefreshableView.getScale());
         return mRefreshableView.getScrollY() >= (exactContentHeight - mRefreshableView.getHeight());

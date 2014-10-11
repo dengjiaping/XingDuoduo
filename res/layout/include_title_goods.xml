@@ -24,16 +24,14 @@
 
         <TextView
             android:id="@+id/tv_goods_title_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base1"
             android:text="@string/good_title"
             android:textColor="@color/color_white"
             android:textSize="@dimen/txt_size_18" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base1"
         android:layout_alignParentRight="true"
         android:orientation="vertical" >
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:background="@drawable/whole_bg_normal_selector"
     android:orientation="vertical" >
 
@@ -9,14 +8,10 @@
 
     <TextView
         android:id="@+id/tv_lg_goods_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:background="@drawable/bg_lg_name"
         android:gravity="left"
-        android:paddingBottom="5dip"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:paddingTop="5dip"
+        android:padding="5dip"
         android:singleLine="true"
         android:textColor="@color/color_mian"
         android:textSize="@dimen/txt_size_18" />

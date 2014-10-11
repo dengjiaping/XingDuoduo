@@ -91,8 +91,7 @@
 
                     <TextView
                         android:id="@+id/tv_goods_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:textColor="@color/color_black"
                         android:textSize="@dimen/txt_size_18" />
 
@@ -106,8 +105,7 @@
 
                         <TextView
                             android:id="@+id/tv_goods_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:textColor="@color/color_mian"
                             android:textSize="@dimen/txt_size_20"
                             android:textStyle="bold" />
@@ -115,8 +113,7 @@
 
                         <TextView
                             android:id="@+id/tv_goods_cost_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:layout_marginLeft="5dip"
                             android:textColor="@color/color_mian"
                             android:textSize="@dimen/txt_size_14" />
@@ -124,8 +121,7 @@
 
                         <TextView
                             android:id="@+id/tv_goods_zhekou"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:layout_marginLeft="5dip"
                             android:background="@color/color_green"
                             android:paddingBottom="5dip"
@@ -138,10 +134,8 @@
 
                         <TextView
                             android:id="@+id/tv_goods_sales"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_1"
                             android:layout_marginLeft="10dip"
-                            android:textColor="@color/color_black"
                             android:textSize="@dimen/txt_size_15" />
                     </LinearLayout>
                 </LinearLayout>
@@ -158,8 +152,7 @@
                     android:padding="10dip" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base1"
                         android:background="@color/color_green"
                         android:paddingBottom="5dip"
                         android:paddingLeft="15dip"
@@ -177,8 +170,7 @@
                         android:paddingLeft="5dip" >
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_base1"
                             android:layout_marginLeft="5dip"
                             android:singleLine="true"
                             android:text="@string/goods_baoyou_tip"
@@ -186,13 +178,11 @@
                             android:textSize="@dimen/txt_size_14" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/txt_style_1"
                             android:layout_marginLeft="5dip"
                             android:layout_marginTop="10dip"
                             android:singleLine="true"
                             android:text="@string/goods_phone_top"
-                            android:textColor="@color/color_black"
                             android:textSize="@dimen/txt_size_14" />
                     </LinearLayout>
                 </LinearLayout>
@@ -308,10 +298,8 @@
 
                     <TextView
                         android:id="@+id/tv_goods_params"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_1"
                         android:padding="10dip"
-                        android:textColor="@color/color_black"
                         android:textSize="@dimen/txt_size_14"
                         android:visibility="invisible" />
                 </LinearLayout>
@@ -331,11 +319,9 @@
                     android:orientation="vertical" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:padding="10dip"
+                        style="@style/txt_style_1"
                         android:text="@string/goods_recommend"
-                        android:textColor="@color/color_black"
                         android:textSize="@dimen/txt_size_12" />
                     <!-- 商品推荐(横向) -->
 

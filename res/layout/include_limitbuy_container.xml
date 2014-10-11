@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:orientation="vertical" >
 
     <!-- 限时抢购container -->
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        style="@style/txt_style_base2">
 
         <ImageView
             android:id="@+id/iv_limitbuy_container_logo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:src="@drawable/bg_limitbuy_logo" />
 
         <TextView
             android:id="@+id/tv_center_daojishi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="15dip"
             android:layout_marginRight="30dip"
@@ -32,13 +28,12 @@
             android:textColor="@color/color_white"
             android:textSize="@dimen/txt_size_18" />
     </RelativeLayout>
-
+	<!-- 
     <com.xiuman.xingduoduo.view.MyListView
         android:id="@+id/lv_limitbuy_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/txt_style_base3"
         android:divider="@drawable/drawable_transparent"
         android:dividerHeight="1dip"
         android:listSelector="@drawable/whole_bg_normal_selector" />
-
+ -->
 </LinearLayout>

@@ -7,30 +7,28 @@
 
     <ImageView
         android:id="@+id/iv_classify_poster"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:adjustViewBounds="true"
         android:scaleType="centerInside" />
     <!-- 分类名与描述 -->
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dip"
-        android:orientation="vertical">
-        <TextView 
+        android:orientation="vertical"
+        android:padding="5dip" >
+
+        <TextView
             android:id="@+id/tv_classify_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/txt_size_18"
-            android:textColor="@color/color_black2"
-            android:paddingLeft="5dip"/>
-        <TextView 
-            android:id="@+id/tv_classify_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
+            style="@style/txt_style_22"
             android:paddingLeft="5dip"
-            android:textColor="@color/color_black3"/>
+            android:textSize="@dimen/txt_size_18" />
+
+        <TextView
+            android:id="@+id/tv_classify_description"
+            style="@style/txt_style_23"
+            android:paddingLeft="5dip"
+            android:textSize="10sp" />
     </LinearLayout>
 
 </RelativeLayout>

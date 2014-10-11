@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:background="@color/color_bg" >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/txt_style_base3"
         android:orientation="vertical" >
 
         <!-- 帖子详情container -->
@@ -15,15 +13,13 @@
         <!-- 楼主 -->
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:background="@color/color_white"
             android:orientation="vertical"
             android:padding="10dip" >
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_base2"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -43,18 +39,15 @@
                     android:orientation="vertical" >
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:orientation="horizontal" >
 
                         <!-- 用户名 -->
 
                         <TextView
                             android:id="@+id/tv_postinfo_starter_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:drawablePadding="5dip"
-                            android:textColor="@color/color_black2"
+                            style="@style/txt_style_2"
                             android:textSize="@dimen/txt_size_15" />
                         <!-- 性别 -->
 
@@ -68,11 +61,9 @@
 
                     <TextView
                         android:id="@+id/tv_postinfo_starter_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:gravity="right"
                         android:paddingRight="10dip"
-                        android:textColor="@color/color_black3"
+                        style="@style/txt_style_3"
                         android:textSize="@dimen/txt_size_12" />
                 </LinearLayout>
                 <!-- 回复按钮 -->
@@ -87,35 +78,30 @@
 
             <TextView
                 android:id="@+id/tv_postinfo_starter_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
-                android:textColor="@color/color_black2"
+                style="@style/txt_style_2"
                 android:textSize="@dimen/txt_size_15" />
             <!-- 内容 -->
 
             <TextView
                 android:id="@+id/tv_postinfo_starter_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:paddingTop="5dip"
-                android:textColor="@color/color_black"
+                style="@style/txt_style_21"
                 android:textSize="@dimen/txt_size_14" />
             <!-- 图片 -->
-
+            
             <com.xiuman.xingduoduo.view.MyListView
                 android:id="@+id/lv_postinfo_starter_imgs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/txt_style_base3"
                 android:background="@color/color_white"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="8dip"
                 android:fadingEdge="none"
                 android:listSelector="@android:color/transparent"
                 android:scrollbars="none" />
+            
         </LinearLayout>
 
-        <include layout="@layout/line_match_drawable" />
     </LinearLayout>
     <!-- 帖子标签(精化啥的) -->
 

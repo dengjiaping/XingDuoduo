@@ -954,7 +954,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 *            2014-9-25
 	 */
 	public void getPostReply(Context mContext,
-			HttpTaskListener httpTaskListener, int topicId, int pageNo) {
+			HttpTaskListener httpTaskListener, String topicId, int pageNo) {
 		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_REPLY_LIST_IP;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");

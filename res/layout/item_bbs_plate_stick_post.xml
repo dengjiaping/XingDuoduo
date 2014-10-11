@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="10dip" >
 	<!-- 置顶帖子 -->
     <ImageView
         android:id="@+id/iv_item_bbs_plate_stick_post_poster"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base1"
         android:src="@drawable/icon_stick_post" />
 
     <TextView
         android:id="@+id/tv_item_bbs_plate_stick_post_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:singleLine="true"
-        android:textColor="@color/color_black3"
+        style="@style/txt_style_23"
         android:textSize="@dimen/txt_size_14" />
 
 </LinearLayout>

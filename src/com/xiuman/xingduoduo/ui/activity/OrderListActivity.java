@@ -315,6 +315,9 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 			if (resultCode == AppConfig.RESULT_CODE_OK) {// 删除刷新
 				orders_current.remove(check_position);
 				adapter.notifyDataSetChanged();
+				if(orders_current.size()==0){
+					llyt_order_null.setVisibility(View.VISIBLE);
+				}
 			} else if (resultCode == AppConfig.RESULT_CODE_OK_2) {//评价成功
 				pulllistview.doPullRefreshing(true, 500);
 				TimeUtil.setLastUpdateTime(pulllistview);

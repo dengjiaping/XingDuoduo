@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@color/color_bg"
+    style="@style/txt_style_base3"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical" >
@@ -22,13 +21,11 @@
 
         <LinearLayout
             android:id="@+id/llyt_communication"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:orientation="vertical" >
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                style="@style/txt_style_base2">
 
                 <!-- 论坛图片 -->
 
@@ -40,8 +37,7 @@
                 <!-- 指示器 -->
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base2"
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/bg_communication_indicator"
                     android:orientation="vertical"
@@ -49,8 +45,7 @@
 
                     <TextView
                         android:id="@+id/tv_bbs_ad_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/txt_style_base2"
                         android:gravity="center|left"
                         android:paddingTop="5dip"
                         android:textColor="@color/color_white"
@@ -58,9 +53,8 @@
 
                     <com.xiuman.xingduoduo.view.indicator.CirclePageIndicator
                         android:id="@+id/indicator_bbs_ad"
-                        android:layout_width="match_parent"
+                        style="@style/txt_style_base2"
                         android:gravity="center"
-                        android:layout_height="wrap_content"
                         android:padding="5dip" />
                 </LinearLayout>
             </RelativeLayout>
@@ -69,11 +63,9 @@
             <include layout="@layout/line_match" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/txt_style_22"
                 android:padding="10dip"
                 android:text="@string/communication_plate"
-                android:textColor="@color/color_black3"
                 android:textSize="@dimen/txt_size_18" />
 
             <include layout="@layout/line_match" />
@@ -81,15 +73,13 @@
 
             <LinearLayout
                 android:id="@+id/llyt_bbs_pate_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/txt_style_base3"
                 android:background="@color/color_white"
                 android:orientation="vertical" >
 
                 <com.xiuman.xingduoduo.view.MyListView
                     android:id="@+id/lv_bbs_plates"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/txt_style_base3"
                     android:cacheColorHint="@android:color/transparent"
                     android:divider="@color/color_black_line"
                     android:dividerHeight="0.2dip"

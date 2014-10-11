@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import com.xiuman.xingduoduo.model.Order;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.pay.alipay.Result;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.CustomDialog;
 import com.xiuman.xingduoduo.view.LoadingDialog;
@@ -85,6 +87,8 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 	private Button btn_order_info_delte;
 	// 确认收货
 	private Button btn_order_info_take_order;
+	//view
+	private View view;
 
 	// 删除订单弹出对话框
 	private CustomDialog dialog_delete;
@@ -287,7 +291,8 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 		lv_order_info_goods_list = (ListView) findViewById(R.id.lv_order_info_goods_list);
 		btn_order_info_delte = (Button) findViewById(R.id.btn_order_info_delete_order);
 		btn_order_info_take_order = (Button) findViewById(R.id.btn_order_info_take_order);
-
+		view = findViewById(R.id.view);
+		
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		sv_order_info = (ScrollView) findViewById(R.id.sv_order_info);
 		llyt_order_info_bottom = (LinearLayout) findViewById(R.id.llyt_order_info_bottom);
@@ -372,7 +377,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 				btn_order_info_delte.setVisibility(View.INVISIBLE);
 			} else if (pay_status.equals("待评价")) {
 				btn_order_info_take_order.setVisibility(View.VISIBLE);
-				btn_order_info_take_order.setText("去评价");
+				btn_order_info_take_order.setText("去  评  价");
 				btn_order_info_delte.setVisibility(View.INVISIBLE);
 			} else if (pay_status.equals("已完成")) {
 				btn_order_info_take_order.setVisibility(View.INVISIBLE);
@@ -388,12 +393,12 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 			if (pay_status.equals("待付款")) {
 				btn_order_info_delte.setText("取消订单");
 				btn_order_info_delte.setVisibility(View.VISIBLE);
-				btn_order_info_take_order.setText("去支付");
+				btn_order_info_take_order.setText("去  支  付");
 			} else if (pay_status.equals("待收货")) {
 				btn_order_info_delte.setVisibility(View.INVISIBLE);
 				btn_order_info_take_order.setText("确认收货");
 			} else if (pay_status.equals("待评价")) {
-				btn_order_info_take_order.setText("去评价");
+				btn_order_info_take_order.setText("去  评  价");
 				btn_order_info_delte.setVisibility(View.INVISIBLE);
 			} else if (pay_status.equals("已完成")) {
 				btn_order_info_take_order.setVisibility(View.INVISIBLE);
@@ -405,8 +410,37 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 				btn_order_info_delte.setText("删除订单");
 			}
 		}
+		setBtnLayoutParams();
 	}
 
+	/**
+	 * @描述：设置按钮参数
+	 * @日期：2014-10-11
+	 */
+	private void setBtnLayoutParams(){
+		LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, SizeUtil.dip2px(this, 40));
+		LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(0, 0);
+		if(btn_order_info_delte.getVisibility()==View.VISIBLE){
+			btn_order_info_delte.setLayoutParams(params1);
+		}else{
+			btn_order_info_delte.setLayoutParams(params2);
+		}
+		
+		if(btn_order_info_take_order.getVisibility()==View.VISIBLE){
+			btn_order_info_take_order.setLayoutParams(params1);
+		}else{
+			btn_order_info_take_order.setLayoutParams(params2);
+		}
+		
+		if(btn_order_info_delte.getVisibility()==View.VISIBLE&&btn_order_info_take_order.getVisibility()==View.VISIBLE){
+			view.setLayoutParams(new LayoutParams(SizeUtil.dip2px(this, 10), LayoutParams.MATCH_PARENT));
+		}else{
+			view.setLayoutParams(new LayoutParams(0, 0));
+		}
+		btn_order_info_delte.setPadding(SizeUtil.dip2px(this, 15), SizeUtil.dip2px(this, 5), SizeUtil.dip2px(this, 15), SizeUtil.dip2px(this, 5));
+		btn_order_info_take_order.setPadding(SizeUtil.dip2px(this, 15), SizeUtil.dip2px(this, 5), SizeUtil.dip2px(this, 15), SizeUtil.dip2px(this, 5));
+	}
+	
 	/**
 	 * 点击事件
 	 */

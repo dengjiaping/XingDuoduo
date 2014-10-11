@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="horizontal"
+    style="@style/txt_style_base3"
     android:paddingBottom="10dip"
     android:paddingRight="10dip"
     android:paddingTop="10dip" >
@@ -11,42 +10,33 @@
 
     <TextView
         android:id="@+id/tv_item_replyinfo_reply_floor_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/color_black3"
+        style="@style/txt_style_3"
         android:textSize="@dimen/txt_size_14" />
     <!-- 楼主标记 -->
 
     <ImageView
         android:id="@+id/iv_item_replyinfo_reply_floor_starter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        style="@style/txt_style_base1"
         android:scaleType="fitXY"
         android:visibility="invisible" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="："
-        android:textColor="@color/color_black3"
+        style="@style/txt_style_3"
         android:textSize="@dimen/txt_size_14" />
     <!-- 回复内容 -->
 
     <TextView
         android:id="@+id/tv_item_replyinfo_reply_floor_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/color_black2"
+        style="@style/txt_style_2"
         android:textSize="@dimen/txt_size_14" />
     <!-- 时间 -->
 
     <TextView
         android:id="@+id/tv_item_replyinfo_reply_floor_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
-        android:textColor="@color/color_black3"
+        style="@style/txt_style_3"
         android:textSize="@dimen/txt_size_12" />
 
 </LinearLayout>

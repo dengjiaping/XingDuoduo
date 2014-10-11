@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/txt_style_base3"
     android:orientation="horizontal"
     android:padding="10dip" >
 
@@ -15,13 +14,11 @@
         android:src="@drawable/ic_male" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/txt_style_base2"
         android:orientation="vertical" >
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/txt_style_base2"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -35,16 +32,14 @@
                 <!-- 用户名 -->
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base2"
                     android:orientation="horizontal" >
+                    
 
                     <TextView
                         android:id="@+id/tv_item_postinfo_reply_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:drawablePadding="5dip"
-                        android:textColor="@color/color_black2"
+                        style="@style/txt_style_2"
                         android:textSize="@dimen/txt_size_15" />
 
                     <ImageView
@@ -55,26 +50,21 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/txt_style_base2"
                     android:orientation="horizontal" >
 
                     <!-- 楼层 -->
 
                     <TextView
                         android:id="@+id/tv_item_postinfo_reply_floor "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_black3"
+                        style="@style/txt_style_3"
                         android:textSize="@dimen/txt_size_12" />
                     <!-- 发表时间 -->
 
                     <TextView
                         android:id="@+id/tv_item_postinfo_reply_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:paddingLeft="10dip"
-                        android:textColor="@color/color_black3"
+                        style="@style/txt_style_3"
                         android:textSize="@dimen/txt_size_12" />
                 </LinearLayout>
             </LinearLayout>
@@ -92,12 +82,10 @@
 
         <TextView
             android:id="@+id/tv_item_postinfo_reply_content "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:paddingBottom="10dip"
+            style="@style/txt_style_3"
             android:paddingLeft="10dip"
             android:paddingTop="10dip"
-            android:textColor="@color/color_black3"
             android:textSize="@dimen/txt_size_14" />
         <!-- 楼层回复 -->
 
