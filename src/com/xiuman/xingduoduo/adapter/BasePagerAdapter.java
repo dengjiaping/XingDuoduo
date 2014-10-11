@@ -15,7 +15,12 @@ import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.ui.activity.MainActivity;
 import com.xiuman.xingduoduo.util.SharedPreUtils;
 
-//引导页使用的pageview适配器
+/**
+ * @名称：BasePagerAdapter.java
+ * @描述：引导页适配器
+ * @author danding
+ * 2014-10-11
+ */
 public class BasePagerAdapter extends PagerAdapter{
 	private List<View> views=new ArrayList<View>();
 	private Context context;

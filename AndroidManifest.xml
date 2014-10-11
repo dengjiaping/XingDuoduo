@@ -238,6 +238,12 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize|adjustUnspecified" >
         </activity>
+        <!-- 帖子图片预览 -->
+        <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.PostImgViewActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Transparent" >
+        </activity>
         <!-- 楼层信息 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.FloorReplyInfoActivity"

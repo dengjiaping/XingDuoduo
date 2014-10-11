@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true"><shape>
+            <corners android:bottomLeftRadius="2dip" android:bottomRightRadius="2dip" android:topLeftRadius="2dip" android:topRightRadius="2dip" />
+
+            <gradient android:endColor="@color/color_bg" android:startColor="@color/color_bg" />
+
+            <stroke android:width="0.2dip" android:color="@color/color_black_line" />
+        </shape></item>
+    <!-- 正常 -->
+    <item><shape>
+            <corners android:bottomLeftRadius="2dip" android:bottomRightRadius="2dip" android:topLeftRadius="2dip" android:topRightRadius="2dip" />
+
+            <gradient android:endColor="@color/color_white" android:startColor="@color/color_white" />
+
+            <stroke android:width="0.2dip" android:color="@color/color_black_line" />
+        </shape></item>
+
+</selector>

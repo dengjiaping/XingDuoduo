@@ -183,11 +183,11 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.onloadong_post) //
-				.showImageOnLoading(R.drawable.onloading_goods_poster)
+				.showImageOnLoading(R.drawable.onloadong_post)
 				// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloading_goods_poster)
+				.showImageForEmptyUri(R.drawable.onloadong_post)
 				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloading_goods_poster)
+				.showImageOnFail(R.drawable.onloadong_post)
 				// image加载失败
 				// .resetViewBeforeLoading(false)
 				.cacheInMemory(false)
@@ -217,8 +217,8 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		lv_posts = pullsv_post.getRefreshableView();
 
 		lv_posts.setDivider(getResources().getDrawable(R.drawable.drawable_transparent));
-		lv_posts.setDividerHeight(SizeUtil.dip2px(this, 10));
-		
+		lv_posts.setDividerHeight(SizeUtil.dip2px(this, 8));
+		lv_posts.setSelector(getResources().getDrawable(R.drawable.drawable_transparent));
 		
 		// container
 		View view = View.inflate(this, R.layout.include_bbs_posts_container,
@@ -244,6 +244,8 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		// 获取置顶帖子
 		HttpUrlProvider.getIntance().getTopPost(BBSPlateActivity.this,
 				new TaskTopPostBack(handler), plate.getPlate_id(), 1, 10);
+		
+		lv_posts.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), true, false));
 	}
 
 	@Override
@@ -368,7 +370,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		// 请求数据
 		HttpUrlProvider.getIntance().getPost(BBSPlateActivity.this,
 				new TaskPostListBack(handler), plate.getPlate_id(),
-				currentPage, 8);
+				currentPage, 15);
 
 		loadingdialog.show(BBSPlateActivity.this);
 	}

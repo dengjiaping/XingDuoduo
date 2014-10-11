@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -186,11 +187,10 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		// View view = View.inflate(this, R.layout.include_my_posts_container,
 		// null);
 		// lv_posts = (ListView) view.findViewById(R.id.lv_posts);
-		lv_posts.setDividerHeight(SizeUtil.dip2px(this, 20));
+		lv_posts.setDividerHeight(SizeUtil.dip2px(this, 8));
 		lv_posts.setDivider(getResources().getDrawable(
 				R.drawable.drawable_transparent));
-		lv_posts.setSelector(getResources().getDrawable(
-				R.drawable.whole_bg_normal_selector));
+		lv_posts.setSelector(getResources().getDrawable(R.drawable.drawable_transparent));
 
 		// sv_posts.addView(view);
 	}

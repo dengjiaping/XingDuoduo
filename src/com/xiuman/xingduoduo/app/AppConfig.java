@@ -206,4 +206,12 @@ public class AppConfig {
 	// key
 	public static final String KEY_SWCRRENWIDTH = "key_screenwidth";
 	public static final String KEY_SWCRRENHEIGHT = "key_screenheight";
+	
+	//应用版本(用于判断应用是否升级)--------------------------------------------------------------------
+	//file
+	public static final String FILE_VERSION = "file_version";
+	//key
+	public static final String KEY_VERSION_NAME = "key_version_name";
+	public static final String KEY_VERSION_CODE = "key_version_code";
+	
 }

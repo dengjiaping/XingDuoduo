@@ -15,13 +15,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -48,9 +49,8 @@ import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
-import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
-import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshScrollView;
+import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
 
 /**
  * @名称：PostInfoActivity.java
@@ -243,9 +243,9 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.onloadong_post) //
 				// .showImageOnLoading(R.drawable.onloadong_post)
-				.showImageForEmptyUri(R.drawable.onloading_goods_poster)
+				.showImageForEmptyUri(R.drawable.onloadong_post)
 				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloading_goods_poster)
+				.showImageOnFail(R.drawable.onloadong_post)
 				// image加载失败
 				.cacheInMemory(true)
 				// 加载图片时会在内存中加载缓存
@@ -282,13 +282,13 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		pulllv_postinfo.setPullLoadEnabled(true);
 		pulllv_postinfo.setScrollLoadEnabled(true);
 		lv_postinfo_replys = pulllv_postinfo.getRefreshableView();
-		
+
 		lv_postinfo_replys.setCacheColorHint(Color.TRANSPARENT);
 		lv_postinfo_replys.setBackgroundColor(Color.WHITE);
-		lv_postinfo_replys.setDivider(getResources().getDrawable(R.drawable.line_small));
+		lv_postinfo_replys.setDivider(getResources().getDrawable(
+				R.drawable.line_small));
 		lv_postinfo_replys.setSelector(R.color.color_white);
-		
-		
+
 		View view = View.inflate(this, R.layout.include_postinfo_container,
 				null);
 		iv_postinfo_starter_head = (CircleImageView) view
@@ -340,6 +340,27 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				getReply(currentPage);
 			}
 		});
+		lv_postinfo_starter_imgs
+				.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Intent intent = new Intent(PostInfoActivity.this,
+								PostImgViewActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putInt("current", position);
+						bundle.putStringArrayList("imgs",
+								postinfo_starter.getImgList());
+						intent.putExtras(bundle);
+
+						startActivity(intent);
+						overridePendingTransition(
+								R.anim.translate_horizontal_start_in,
+								R.anim.translate_horizontal_start_out);
+
+					}
+				});
 
 	}
 

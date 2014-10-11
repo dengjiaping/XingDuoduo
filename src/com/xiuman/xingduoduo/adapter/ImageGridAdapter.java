@@ -16,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.MyApplication;
@@ -92,12 +91,6 @@ public class ImageGridAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		return position;
-	}
-
-	class Holder {
-		private ImageView iv;
-		private ImageView selected;
-		private TextView text;
 	}
 
 	@Override
@@ -184,4 +177,9 @@ public class ImageGridAdapter extends BaseAdapter {
 		return map;
 	}
 
+	static class Holder {
+		private ImageView iv;
+		private ImageView selected;
+		private TextView text;
+	}
 }

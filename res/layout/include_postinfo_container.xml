@@ -109,22 +109,13 @@
                 android:layout_height="match_parent"
                 android:background="@color/color_white"
                 android:divider="@android:color/transparent"
-                android:dividerHeight="5dip"
-                android:listSelector="@android:color/transparent" />
+                android:dividerHeight="8dip"
+                android:fadingEdge="none"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none" />
         </LinearLayout>
 
         <include layout="@layout/line_match_drawable" />
-        <!-- 回帖列表 -->
-		<!-- 
-        <com.xiuman.xingduoduo.view.MyListView
-            android:id="@+id/lv_postinfo_replys"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_white"
-            android:divider="@drawable/line_small"
-            android:dividerHeight="0.1dip"
-            android:listSelector="@color/color_white" />
-             -->
     </LinearLayout>
     <!-- 帖子标签(精化啥的) -->
 
@@ -132,9 +123,9 @@
         android:id="@+id/iv_postinfo_tag"
         android:layout_width="30dip"
         android:layout_height="30dip"
-        android:visibility="invisible"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/ic_bbs_plate_hot" />
+        android:src="@drawable/ic_bbs_plate_hot"
+        android:visibility="invisible" />
 
 </RelativeLayout>

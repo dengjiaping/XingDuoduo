@@ -7,13 +7,6 @@ import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.model.Ad;
 import com.xiuman.xingduoduo.model.AdBBS;
 import com.xiuman.xingduoduo.model.BBSPlate;
-import com.xiuman.xingduoduo.model.GoodsCart;
-import com.xiuman.xingduoduo.model.GoodsOne;
-import com.xiuman.xingduoduo.model.GoodsTwo;
-import com.xiuman.xingduoduo.model.PostReply;
-import com.xiuman.xingduoduo.model.PostStarter;
-import com.xiuman.xingduoduo.model.User;
-import com.xiuman.xingduoduo.model.UserAddress;
 
 /**
  * 
@@ -192,20 +185,20 @@ public class Test {
 		BBSPlate palte_9 = new BBSPlate(plate_id_9, palte_name_9,
 				plate_description_9, plate_tag_9, plate_icon_9);
 
-//		String plate_id_11 = "11";
-//		String palte_name_11 = "二次元狂热";
-//		String plate_description_11 = "一入宅腐深似海，从此节操是路人。";
-//		String plate_tag_11 = "new";
-//		int plate_icon_11 = R.drawable.ic_plate_11_erciyuan;
-//		BBSPlate palte_11 = new BBSPlate(plate_id_11, palte_name_11,
-//				plate_description_11, plate_tag_11, plate_icon_11);
-//		String plate_id_12 = "12";
-//		String palte_name_12 = "不能说的秘密";
-//		String plate_description_12 = "快来吐槽、爆尿和八卦吧，这是一个大树洞哦！";
-//		String plate_tag_12 = "new";
-//		int plate_icon_12 = R.drawable.ic_plate_12_mimi;
-//		BBSPlate palte_12 = new BBSPlate(plate_id_12, palte_name_12,
-//				plate_description_12, plate_tag_12, plate_icon_12);
+		String plate_id_11 = "11";
+		String palte_name_11 = "二次元狂热";
+		String plate_description_11 = "一入宅腐深似海，从此节操是路人。";
+		String plate_tag_11 = "new";
+		int plate_icon_11 = R.drawable.ic_plate_11_erciyuan;
+		BBSPlate palte_11 = new BBSPlate(plate_id_11, palte_name_11,
+				plate_description_11, plate_tag_11, plate_icon_11);
+		String plate_id_12 = "12";
+		String palte_name_12 = "不能说的秘密";
+		String plate_description_12 = "快来吐槽、爆尿和八卦吧，这是一个大树洞哦！";
+		String plate_tag_12 = "new";
+		int plate_icon_12 = R.drawable.ic_plate_12_mimi;
+		BBSPlate palte_12 = new BBSPlate(plate_id_12, palte_name_12,
+				plate_description_12, plate_tag_12, plate_icon_12);
 		plates.add(palte_1);
 		plates.add(palte_2);
 		plates.add(palte_3);
@@ -215,8 +208,8 @@ public class Test {
 		plates.add(palte_7);
 		plates.add(palte_8);
 //		plates.add(palte_9);
-//		plates.add(palte_11);
-//		plates.add(palte_12);
+		plates.add(palte_11);
+		plates.add(palte_12);
 
 		return plates;
 
