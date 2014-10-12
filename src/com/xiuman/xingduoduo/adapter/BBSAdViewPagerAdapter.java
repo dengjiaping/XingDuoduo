@@ -77,7 +77,7 @@ public class BBSAdViewPagerAdapter extends PagerAdapter {
 		// List<String> post_imgs = new ArrayList<String>();
 		// post_imgs = HtmlTag.match(post.contentHtml, "img", "src");
 		// Mylog.i("广告图片地址", post_imgs.get(0));
-		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0), iv_ad, options);
+		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0).getImgurl(), iv_ad, options);
 		// iv_ad.setImageResource(R.drawable.bg_center_ad_loading);
 		container.addView(iv_ad);
 

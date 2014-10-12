@@ -122,7 +122,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		public void run() {
 			if (cunhuan) {
 				viewpager_bbs_ad.setCurrentItem(page_id);
-//				tv_bbs_ad_name.setText(bbspost.get(page_id).getTitle());
+				tv_bbs_ad_name.setText(bbspost.get(page_id).getTitle());
 
 				page_id++;
 				if (page_id >= bbspost.size()) {
@@ -146,8 +146,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				value = (ActionValue<BBSPost>) msg.obj;
 				if (value.isSuccess()) {
 					bbspost = value.getDatasource();
-//					setAdData();
-					ToastUtil.ToastView(getActivity(), "请求成功");
+					setAdData();
 					MyApplication.getInstance().saveBBSAds(value);
 				}
 
@@ -157,8 +156,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				value = MyApplication.getInstance().getBBSAds();
 				if (value != null) {
 					bbspost = value.getDatasource();
-//					setAdData();
-					ToastUtil.ToastView(getActivity(), "请求失败");
+					setAdData();
 				}
 				break;
 			}
@@ -253,6 +251,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 //						tv_bbs_ad_name.setText(Test.addTestCommunicationAd()
 //								.get(position).getAd_content());
 						tv_bbs_ad_name.setText(bbspost.get(position).getTitle());
+						ToastUtil.ToastView(getActivity(), bbspost.get(position).getTitle());
 						mIndicator.setCurrentItem(position);
 						page_id = position;
 					}
@@ -442,7 +441,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		pop.setAnimationStyle(R.style.PopupAnimation2);
 		// 设置pop 的位置
 		pop.showAtLocation(view, Gravity.TOP, 0,
-				SizeUtil.dip2px(getActivity(), 50)
+				SizeUtil.dip2px(getActivity(), 46)
 						+ getStatusHeight(getActivity()));
 	}
 

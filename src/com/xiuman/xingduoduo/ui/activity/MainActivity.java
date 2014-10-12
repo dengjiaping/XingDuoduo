@@ -61,6 +61,9 @@ public class MainActivity extends BaseActivity implements
 	// 退出;
 	private CustomDialog2 dialog_cancel;
 
+	//当前页面
+	private int current_index = 0;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -148,6 +151,7 @@ public class MainActivity extends BaseActivity implements
 	 * @param index
 	 */
 	public void selectTab(int index) {
+		current_index = index;
 		// 开启事物
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		// 隐藏当前显示的Fragment
@@ -234,7 +238,18 @@ public class MainActivity extends BaseActivity implements
 	private void cancelDialog() {
 		dialog_cancel = new CustomDialog2(this, "确认退出性多多？");
 		dialog_cancel.show();
+		dialog_cancel.btn_custom_dialog_cancel.setText("确定");
+		dialog_cancel.btn_custom_dialog_sure.setText("取消");
 		dialog_cancel.btn_custom_dialog_sure
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						dialog_cancel.dismiss();
+						
+					}
+				});
+		dialog_cancel.btn_custom_dialog_cancel
 				.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -246,14 +261,6 @@ public class MainActivity extends BaseActivity implements
 								R.anim.translate_horizontal_finish_out);
 					}
 				});
-		dialog_cancel.btn_custom_dialog_cancel
-				.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						dialog_cancel.dismiss();
-					}
-				});
 	}
 
 	/**
@@ -262,7 +269,11 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) { // 返回键
-			cancelDialog();
+			if(current_index==0){
+				cancelDialog();
+			}else{
+				selectTab(0);
+			}
 		}
 		return true;
 	}

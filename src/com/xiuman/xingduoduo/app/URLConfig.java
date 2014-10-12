@@ -28,11 +28,11 @@ public class URLConfig {
 	// 发帖
 	public static final String POST_PUBLISH__IP = "appPostNote.jhtml?";
 	// 我的发帖
-	public static final String MY_POST__IP = "appMyTopicList.jhtml?";
+	public static final String MY_POST__IP = "appMyTopicAndroidList.jhtml?";
 	// 我的回帖
-	public static final String MY_REPLY_POST_IP = "appMyPostReply.jhtml?";
+	public static final String MY_REPLY_POST_IP = "appMyReplyAndroidList.jhtml?";
 	// 我的广告贴
-	public static final String MY_AD_POST_IP = "appUpTopForumList.jhtml?";
+	public static final String MY_AD_POST_IP = "appUpTopForumAndroidList.jhtml?";
 	
 	//上传头像
 	public static final String UPLOAD_HEAD = "/member!updateHeadImage.action?";

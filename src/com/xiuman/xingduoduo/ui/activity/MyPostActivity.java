@@ -183,15 +183,14 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		pulllv_my_post.setScrollLoadEnabled(true);
 		lv_posts = pulllv_my_post.getRefreshableView();
 
-		// View view = View.inflate(this, R.layout.include_my_posts_container,
-		// null);
-		// lv_posts = (ListView) view.findViewById(R.id.lv_posts);
+		 View view = View.inflate(this, R.layout.include_my_posts_container,
+		 null);
 		lv_posts.setDividerHeight(SizeUtil.dip2px(this, 8));
 		lv_posts.setDivider(getResources().getDrawable(
 				R.drawable.drawable_transparent));
 		lv_posts.setSelector(getResources().getDrawable(R.drawable.drawable_transparent));
-
-		// sv_posts.addView(view);
+		
+		lv_posts.addHeaderView(view);
 	}
 
 	@Override

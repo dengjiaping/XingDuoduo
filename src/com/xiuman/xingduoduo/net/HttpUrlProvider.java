@@ -1091,8 +1091,6 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setHttpMethod("get");
 
 		url += httpDataTask.jointToUrl("forumId", forumId);
-		url += httpDataTask.jointToUrl("pageNo", pageNo);
-		url += httpDataTask.jointToUrl("pageSize", pageSize);
 		httpDataTask.execute(url);
 	}
 

@@ -562,7 +562,8 @@ public class FragmentShoppingCart extends BaseFragment implements
 			}
 		}
 		if (isReFresh) {
-			mPullListView.doPullRefreshing(true, 500);
+			currentPage = 1;
+			initShopingCart2(currentPage);
 		}
 		isShowNull();
 	}
@@ -578,6 +579,18 @@ public class FragmentShoppingCart extends BaseFragment implements
 					new TaskShoppingCartBack(handler), URLConfig.GOODS_CART,
 					currentPage, user.getUserId());
 			loadingdialog.show(getActivity());
+		}
+	}
+	/**
+	 * @描述：加载购物车数据
+	 * @param currentPage
+	 *            2014-8-18
+	 */
+	private void initShopingCart2(int currentPage) {
+		if (MyApplication.getInstance().isUserLogin()) {
+			HttpUrlProvider.getIntance().getShoppingCart(getActivity(),
+					new TaskShoppingCartBack(handler), URLConfig.GOODS_CART,
+					currentPage, user.getUserId());
 		}
 	}
 
@@ -651,4 +664,5 @@ public class FragmentShoppingCart extends BaseFragment implements
 		}
 		return list_checked_get;
 	}
+	
 }

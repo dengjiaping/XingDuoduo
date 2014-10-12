@@ -24,7 +24,7 @@
             android:background="@drawable/et_input_login_usernamepsw_bg"
             android:gravity="center"
             android:hint="@string/login_hint_user_name"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:textColor="@color/color_mian"
             android:textSize="@dimen/txt_size_15" />
         <!-- 密码 -->

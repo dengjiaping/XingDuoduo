@@ -33,4 +33,5 @@ public abstract class BaseFragment extends Fragment {
 	 * 描述：设置监听
 	 */
 	protected abstract void setListener();
+	
 }

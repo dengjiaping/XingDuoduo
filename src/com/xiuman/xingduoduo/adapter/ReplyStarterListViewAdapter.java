@@ -148,7 +148,9 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 			PostInfoImgsListViewAdapter adapter_img = new PostInfoImgsListViewAdapter(
 					context, options, imageLoader,
 					postinfo_starter.getImgList());
-			lv_postinfo_starter_imgs.setAdapter(adapter_img);
+			if(postinfo_starter.getImgList()!=null){
+				lv_postinfo_starter_imgs.setAdapter(adapter_img);
+			}
 
 			
 			lv_postinfo_starter_imgs
@@ -257,7 +259,7 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 			if (reply.getNickname() == null) {
 				holder.tv_item_postinfo_reply_name.setText(reply.getUsername());
 			}
-			holder.tv_item_postinfo_reply_floor.setText(position + 1 + "楼");
+			holder.tv_item_postinfo_reply_floor.setText(position + "楼");
 			holder.tv_item_postinfo_reply_time.setText(TimeUtil.getTimeStr(
 					TimeUtil.strToDate(reply.getCreateTime()), new Date()));
 			holder.tv_item_postinfo_reply_content.setText(Html.fromHtml(reply
