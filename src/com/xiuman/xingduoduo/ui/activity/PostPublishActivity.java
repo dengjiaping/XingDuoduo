@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,7 +24,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.text.format.DateFormat;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,8 +89,6 @@ public class PostPublishActivity extends Base2Activity implements
 	private Button btn_pop_photo_camera;
 	// 取消
 	private Button btn_pop_photo_cancel;
-	// 屏幕宽高
-	private int screenWidth, screenHeight;
 
 	// 夹在数据时显示的Dialog
 	private LoadingDialog loadingdialog;
@@ -125,6 +123,7 @@ public class PostPublishActivity extends Base2Activity implements
 	private static final String PATH = Environment
 			.getExternalStorageDirectory() + "/DCIM";
 
+	@SuppressLint("HandlerLeak")
 	private Handler handlerMain = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -228,13 +227,6 @@ public class PostPublishActivity extends Base2Activity implements
 
 	@Override
 	protected void initData() {
-		// 获取屏幕宽高
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-		// 获取屏幕宽度
-		screenWidth = dm.widthPixels;
-		screenHeight = dm.heightPixels;
-
 		imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
 		forumId = getIntent().getExtras().getString("forumId");
@@ -311,7 +303,7 @@ public class PostPublishActivity extends Base2Activity implements
 		// 设置pop动画
 		pop.setAnimationStyle(R.style.PopupAnimation);
 		// 设置pop 的位置
-		pop.showAtLocation(view, Gravity.TOP, 0, (int) (screenHeight * 3 / 4));
+		pop.showAtLocation(view, Gravity.TOP, 0, (int) (MyApplication.getInstance().getScreenHeight() * 3 / 4));
 	}
 
 	/**
@@ -446,7 +438,6 @@ public class PostPublishActivity extends Base2Activity implements
 		}
 
 		public View getView(int position, View convertView, ViewGroup parent) {
-			final int coord = position;
 			ViewHolder holder = null;
 			if (convertView == null) {
 
@@ -483,6 +474,7 @@ public class PostPublishActivity extends Base2Activity implements
 		}
 
 		// 消息处理
+		@SuppressLint("HandlerLeak")
 		Handler handler = new Handler() {
 			public void handleMessage(Message msg) {
 				switch (msg.what) {

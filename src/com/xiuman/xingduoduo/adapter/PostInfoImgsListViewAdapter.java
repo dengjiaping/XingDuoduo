@@ -1,15 +1,10 @@
 package com.xiuman.xingduoduo.adapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -21,7 +16,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
-import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.PostImg;
@@ -38,24 +32,19 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 	public DisplayImageOptions options;// 配置图片加载及显示选项
 	public ImageLoader imageLoader;
 	private ArrayList<PostImg> imgs;
-	private Handler handler;
 	// 屏幕宽度
 	int width;
-	//高度
-	private HashMap<Integer, Integer> totalHeight;
 
 	@SuppressLint("UseSparseArrays")
 	public PostInfoImgsListViewAdapter(Context context,
 			DisplayImageOptions options, ImageLoader imageLoader,
-			ArrayList<PostImg> imgs, Handler handler) {
+			ArrayList<PostImg> imgs) {
 		super();
 		this.context = context;
 		this.options = options;
 		this.imageLoader = imageLoader;
 		this.imgs = imgs;
-		this.handler = handler;
 		width = MyApplication.getInstance().getScreenWidth();
-		totalHeight = new HashMap<Integer, Integer>();
 	}
 
 	@Override
@@ -78,7 +67,6 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 		convertView = View.inflate(context, R.layout.item_postinfo_img, null);
 		final ImageView iv_item_postinfo_img_item = (ImageView) convertView
 				.findViewById(R.id.iv_item_postinfo_img_item);
-		totalHeight.put(position, 0);
 		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP + imgs.get(position).getImgurl(),
 				iv_item_postinfo_img_item, options, new ImageLoadingListener() {
 
@@ -105,14 +93,6 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 							LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 									img_width, img_height);
 							iv_item_postinfo_img_item.setLayoutParams(params);
-							totalHeight.put(position, img_height+SizeUtil.dip2px(context, 8));
-						}else{
-							totalHeight.put(position, arg2.getHeight()+SizeUtil.dip2px(context, 8));
-						}
-						if (position == imgs.size() - 1) {
-							Message msg = Message.obtain();
-							msg.obj = AppConfig.FLUSH_IMG_ADAPTER;
-							handler.sendMessage(msg);
 						}
 					}
 
@@ -123,33 +103,5 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 				});
 
 		return convertView;
-	}
-	/**
-	 * @描述：获取adapter的高度
-	 * @日期：2014-10-12
-	 * @return
-	 */
-	public HashMap<Integer, Integer> getTotalHeight() {
-		return totalHeight;
-	}
-
-	public void setTotalHeight(HashMap<Integer, Integer> totalHeight) {
-		this.totalHeight = totalHeight;
-	}
-	/**
-	 * @描述：获取Adapter高度
-	 * @日期：2014-10-12
-	 * @param map
-	 * @return
-	 */
-	public int getListViewHeight(){
-		int height = 0;
-		Set<Integer> mapSet =  totalHeight.keySet();	//获取所有的key值 为set的集合
-		Iterator<Integer> itor =  mapSet.iterator();//获取key的Iterator便利
-		while(itor.hasNext()){//存在下一个值
-			Integer key = itor.next();//当前key值
-			height += totalHeight.get(key);
-		}
-		return height;
 	}
 }

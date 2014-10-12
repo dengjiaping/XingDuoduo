@@ -17,7 +17,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -106,8 +105,6 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 	// 配置图片加载及显示选项
 	public DisplayImageOptions options;
 	/*---------------------------------数据变量-----------------------------------*/
-	// 屏幕宽高
-	private int screenWidth, screenHeight;
 	// 获取头像工具类
 	private ImageCropUtils cropUtils;
 	// 用户头像(Bitmap)
@@ -160,13 +157,6 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.imageScaleType(ImageScaleType.NONE).build();
-		// 获取屏幕宽高
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-		// 获取屏幕宽度
-		screenWidth = dm.widthPixels;
-		screenHeight = dm.heightPixels;
-
 		cropUtils = new ImageCropUtils(this);
 
 	}
@@ -417,7 +407,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		// 设置pop动画
 		pop.setAnimationStyle(R.style.PopupAnimation);
 		// 设置pop 的位置
-		pop.showAtLocation(view, Gravity.TOP, 0, (int) (screenHeight * 3 / 4));
+		pop.showAtLocation(view, Gravity.TOP, 0, (int) (MyApplication.getInstance().getScreenHeight() * 3 / 4));
 	}
 
 	/**

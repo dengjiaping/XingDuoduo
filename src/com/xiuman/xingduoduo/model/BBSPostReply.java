@@ -1,6 +1,7 @@
 package com.xiuman.xingduoduo.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @名称：BBSPostReply.java
@@ -32,12 +33,13 @@ public class BBSPostReply implements Serializable {
 	private String avatar;
 	// 用户名
 	private String username;
-
-
+	// 图片列表
+	private ArrayList<PostImg> imgList;
 
 	public BBSPostReply(String content, String createTime, String title,
 			String nickname, String id, String postTypeId, String editCount,
-			boolean sex, String avatar, String username) {
+			boolean sex, String avatar, String username,
+			ArrayList<PostImg> imgList) {
 		super();
 		this.content = content;
 		this.createTime = createTime;
@@ -49,6 +51,15 @@ public class BBSPostReply implements Serializable {
 		this.sex = sex;
 		this.avatar = avatar;
 		this.username = username;
+		this.imgList = imgList;
+	}
+
+	public ArrayList<PostImg> getImgList() {
+		return imgList;
+	}
+
+	public void setImgList(ArrayList<PostImg> imgList) {
+		this.imgList = imgList;
 	}
 
 	public String getContent() {
@@ -130,7 +141,5 @@ public class BBSPostReply implements Serializable {
 	public void setEditCount(String editCount) {
 		this.editCount = editCount;
 	}
-
-	
 
 }
