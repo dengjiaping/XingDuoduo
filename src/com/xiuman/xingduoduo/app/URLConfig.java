@@ -10,7 +10,7 @@ package com.xiuman.xingduoduo.app;
  */
 public class URLConfig {
 	// 内网图片ip
-	public static final String PRIVATE_IMG_IP = "http://110.81.238.163:8080";
+	public static final String PRIVATE_IMG_IP = "http://110.81.238.163:8080/bbs3";
 	// bbs内网测试地址
 	public static final String PRIVATE_IP = "http://110.81.238.163:8080/bbs3/app/";
 	// 内网图片ip

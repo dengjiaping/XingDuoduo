@@ -14,6 +14,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.URLConfig;
+import com.xiuman.xingduoduo.model.PostImg;
 import com.xiuman.xingduoduo.view.OnlyImageView;
 /**
  * @名称：ImageViewPagerAdapter.java
@@ -21,13 +22,13 @@ import com.xiuman.xingduoduo.view.OnlyImageView;
  * @author danding
  * 2014-10-11
  */
-public class ImageViewPagerAdapter extends PagerAdapter {
+public class PostImageViewPagerAdapter extends PagerAdapter {
 	/**
 	 * 图片列表
 	 */
 	private Context context;
 	//分集图片地址
-	private ArrayList<String> imgs;
+	private ArrayList<PostImg> imgs;
 	
 
 	public DisplayImageOptions options;// 配置图片加载及显示选项
@@ -36,7 +37,7 @@ public class ImageViewPagerAdapter extends PagerAdapter {
 	public Bitmap bitmap;
 	
 
-	public ImageViewPagerAdapter(Context context, ArrayList<String> imgs,
+	public PostImageViewPagerAdapter(Context context, ArrayList<PostImg> imgs,
 			DisplayImageOptions options, ImageLoader imageLoader) {
 		super();
 		this.context = context;
@@ -62,7 +63,7 @@ public class ImageViewPagerAdapter extends PagerAdapter {
 				.findViewById(R.id.image_view);
 
 		//ImageLoader 加载图片
-		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+imgs.get(position), imageview,options,new ImageLoadingListener() {
+		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+imgs.get(position).getImgurl(), imageview,options,new ImageLoadingListener() {
 			
 			@Override
 			public void onLoadingStarted(String arg0, View arg1) {

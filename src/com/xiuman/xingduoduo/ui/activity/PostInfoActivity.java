@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -226,6 +227,8 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				break;
 			case AppConfig.FLUSH_IMG_ADAPTER:// 刷新图片
 				adapter_img.notifyDataSetChanged();
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, adapter_img.getListViewHeight());
+				lv_postinfo_starter_imgs.setLayoutParams(params);
 				setListViewHeight(lv_postinfo_starter_imgs);
 				break;
 			}
@@ -246,7 +249,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
-//				 .showImageOnLoading(R.drawable.onloadong_post)
+				 .showImageOnLoading(R.drawable.onloadong_post)
 				.showImageForEmptyUri(R.drawable.onloadong_post)
 				// image连接地址为空时
 				.showImageOnFail(R.drawable.onloadong_post)
@@ -356,7 +359,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 								PostImgViewActivity.class);
 						Bundle bundle = new Bundle();
 						bundle.putInt("current", position);
-						bundle.putStringArrayList("imgs",
+						bundle.putSerializable("imgs",
 								postinfo_starter.getImgList());
 						intent.putExtras(bundle);
 
@@ -368,6 +371,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					}
 				});
 
+		iv_postinfo_starter_head.setOnClickListener(this);
 	}
 	@Override
 	protected void onResume() {
@@ -501,6 +505,17 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		case R.id.llyt_network_error:// 重新加载
 			currentPage = 1;
 			initPostInfo();
+			break;
+		case R.id.iv_postinfo_starter_head://查看楼主头像
+			Intent intent = new Intent(PostInfoActivity.this,HeadImgViewActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putString("user_head", postinfo_starter.getAvatar());
+			bundle.putBoolean("user_sex", postinfo_starter.isSex());
+			intent.putExtras(bundle);
+			startActivity(intent);
+			overridePendingTransition(
+					R.anim.translate_horizontal_start_in,
+					R.anim.translate_horizontal_start_out);			
 			break;
 		}
 	}

@@ -3,8 +3,11 @@ package com.xiuman.xingduoduo.adapter;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +24,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.BBSPostReply;
+import com.xiuman.xingduoduo.ui.activity.HeadImgViewActivity;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 
@@ -148,6 +152,22 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 					}
 				});
 
+		holder.iv_item_postinfo_reply_head.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context,HeadImgViewActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putString("user_head", reply.getAvatar());
+				bundle.putBoolean("user_sex", reply.isSex());
+				intent.putExtras(bundle);
+				context.startActivity(intent);
+				((Activity) context).overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
+			}
+		});
+		
 		return convertView;
 	}
 

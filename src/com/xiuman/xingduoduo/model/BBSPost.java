@@ -17,7 +17,7 @@ public class BBSPost implements Serializable {
 	// 内容
 	private String content;
 	// 图片地址
-	private ArrayList<String> imgList;
+	private ArrayList<PostImg> imgList;
 	// 发帖时间
 	private String createTime;
 	// 帖子标题
@@ -39,7 +39,7 @@ public class BBSPost implements Serializable {
 	private int forumId;
 	private String primeLevel;
 
-	public BBSPost(String content, ArrayList<String> imgList,
+	public BBSPost(String content, ArrayList<PostImg> imgList,
 			String createTime, String title, String nickname, boolean sex,
 			String id, String username, String postTypeId, String replyCount,
 			String avatar, int forumId, String primeLevel) {
@@ -59,11 +59,11 @@ public class BBSPost implements Serializable {
 		this.primeLevel = primeLevel;
 	}
 
-	public ArrayList<String> getImgList() {
+	public ArrayList<PostImg> getImgList() {
 		return imgList;
 	}
 
-	public void setImgList(ArrayList<String> imgList) {
+	public void setImgList(ArrayList<PostImg> imgList) {
 		this.imgList = imgList;
 	}
 

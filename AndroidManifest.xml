@@ -244,6 +244,13 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
+        <!-- 用户头像预览 -->
+        <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.HeadImgViewActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparent" >
+        </activity>
         <!-- 楼层信息 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.FloorReplyInfoActivity"

@@ -3,9 +3,13 @@ package com.xiuman.xingduoduo.adapter;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -19,6 +23,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.BBSPost;
+import com.xiuman.xingduoduo.ui.activity.HeadImgViewActivity;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 
@@ -149,7 +154,9 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 
 		// 图片数
 		int number = 0;
-		number = post.getImgList().size();
+		if(post.getImgList()!=null){
+			number = post.getImgList().size();
+		}
 		if (number > 3) {
 			holder.tv_item_bbs_plate_post_img_number
 					.setText("共" + number + "张");
@@ -171,13 +178,13 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 			holder.iv_item_bbs_plate_post_img_1.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.INVISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.INVISIBLE);
-			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0),
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0).getImgurl(),
 					holder.iv_item_bbs_plate_post_img_1, options);
 		} else if (number == 2) {
 			holder.iv_item_bbs_plate_post_img_1.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.INVISIBLE);
-			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0),
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0).getImgurl(),
 					holder.iv_item_bbs_plate_post_img_1, options,
 					new ImageLoadingListener() {
 
@@ -195,7 +202,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 						@Override
 						public void onLoadingComplete(String arg0, View arg1,
 								Bitmap arg2) {
-							imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(1),
+							imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(1).getImgurl(),
 									holder.iv_item_bbs_plate_post_img_2,
 									options);
 						}
@@ -211,7 +218,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.VISIBLE);
 			// 加载第一章图片结束加载第二张
-			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0),
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0).getImgurl(),
 					holder.iv_item_bbs_plate_post_img_1, options,
 					new ImageLoadingListener() {
 
@@ -230,7 +237,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 						public void onLoadingComplete(String arg0, View arg1,
 								Bitmap arg2) {
 							// 加载第二章完成之后加载第三张
-							imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(1),
+							imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(1).getImgurl(),
 									holder.iv_item_bbs_plate_post_img_2,
 									options, new ImageLoadingListener() {
 
@@ -254,7 +261,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 											imageLoader
 													.displayImage(
 															URLConfig.PRIVATE_IMG_IP+post.getImgList()
-																	.get(2),
+																	.get(2).getImgurl(),
 															holder.iv_item_bbs_plate_post_img_3,
 															options);
 										}
@@ -275,6 +282,22 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 
 		}
 
+		holder.iv_item_post_plate_post_head.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context,HeadImgViewActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putString("user_head", post.getAvatar());
+				bundle.putBoolean("user_sex", post.isSex());
+				intent.putExtras(bundle);
+				context.startActivity(intent);
+				((Activity) context).overridePendingTransition(
+						R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
+			}
+		});
+		
 		return convertView;
 	}
 
