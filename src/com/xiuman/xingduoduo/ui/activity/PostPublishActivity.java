@@ -501,7 +501,6 @@ public class PostPublishActivity extends Base2Activity implements
 						} else {
 							try {
 								String path = Bimp.drr.get(Bimp.max);
-								System.out.println(path);
 								Bitmap bm = Bimp.revitionImageSize(path);
 								Bimp.bmp.add(bm);
 								String newStr = path.substring(
@@ -596,7 +595,6 @@ public class PostPublishActivity extends Base2Activity implements
 		String scode = "";
 		for (int i = 0; i < Bimp.drr.size(); i++) {
 			scode += ((i + 1) + ",");
-			System.out.println("图片地址" + Bimp.drr.get(i));
 		}
 		if (scode.length() > 0) {
 

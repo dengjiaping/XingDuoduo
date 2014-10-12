@@ -53,7 +53,6 @@ import com.xiuman.xingduoduo.ui.activity.UserLoginActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
 import com.xiuman.xingduoduo.util.SizeUtil;
-import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 import com.xiuman.xingduoduo.view.indicator.CirclePageIndicator;
 
@@ -77,8 +76,10 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	// 广告名
 	private TextView tv_bbs_ad_name;
 
+	// 请求广告贴返回
 	private ActionValue<BBSPost> value;
-	private List<BBSPost> bbspost;
+	// 广告贴列表
+	private List<BBSPost> bbspost = new ArrayList<BBSPost>();
 
 	// 头像工具类
 	private ImageCropUtils cropUtils;
@@ -118,19 +119,17 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	// ViewPager 循环播放---------------------------------------------------
 	boolean cunhuan = false;
 	private int page_id = 0;
-	private Runnable switchTask = new Runnable() {
+	private Thread switchTask = new Thread() {
 		public void run() {
 			if (cunhuan) {
 				viewpager_bbs_ad.setCurrentItem(page_id);
-				tv_bbs_ad_name.setText(bbspost.get(page_id).getTitle());
-
 				page_id++;
 				if (page_id >= bbspost.size()) {
 					page_id = 0;
 				}
 			}
 			cunhuan = true;
-			mHandler.postDelayed(switchTask, 3000);
+			mHandler.postDelayed(switchTask, 2000);
 		}
 	};
 	Handler mHandler = new Handler();
@@ -141,8 +140,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 
-			case AppConfig.BBS_POST_BACK:
-
+			case AppConfig.BBS_POST_BACK:// 获取广告贴返回
 				value = (ActionValue<BBSPost>) msg.obj;
 				if (value.isSuccess()) {
 					bbspost = value.getDatasource();
@@ -193,10 +191,14 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				// .showStubImage(R.drawable.weiboitem_pic_loading) //
 				// 在ImageView加载过程中显示图片
 				.showImageOnLoading(R.drawable.bg_center_ad_loading)
-				.showImageForEmptyUri(R.drawable.bg_center_ad_loading) // image连接地址为空时
-				.showImageOnFail(R.drawable.bg_center_ad_loading) // image加载失败
-				.cacheInMemory(false) // 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				.showImageForEmptyUri(R.drawable.bg_center_ad_loading)
+				// image连接地址为空时
+				.showImageOnFail(R.drawable.bg_center_ad_loading)
+				// image加载失败
+				.cacheInMemory(false)
+				// 加载图片时会在内存中加载缓存
+				.cacheOnDisc(true)
+				// 加载图片时会在磁盘中加载缓存
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.NONE).build();
 
@@ -227,6 +229,9 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	 */
 	@Override
 	protected void initUI() {
+		// 加在上一次保存的广告贴数据
+		setLastAdData();
+		// 请求加载数据
 		initFirstData();
 		tv_title.setText("圈套");
 		// 设置板块
@@ -248,10 +253,10 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 					@Override
 					public void onPageSelected(int position) {
 						super.onPageSelected(position);
-//						tv_bbs_ad_name.setText(Test.addTestCommunicationAd()
-//								.get(position).getAd_content());
-						tv_bbs_ad_name.setText(bbspost.get(position).getTitle());
-						ToastUtil.ToastView(getActivity(), bbspost.get(position).getTitle());
+						// tv_bbs_ad_name.setText(Test.addTestCommunicationAd()
+						// .get(position).getAd_content());
+						tv_bbs_ad_name
+								.setText(bbspost.get(position).getTitle());
 						mIndicator.setCurrentItem(position);
 						page_id = position;
 					}
@@ -299,7 +304,22 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		viewpager_bbs_ad.setAdapter(ad_adapter);
 		tv_bbs_ad_name.setText(bbspost.get(0).getTitle());
 		mIndicator.setViewPager(viewpager_bbs_ad);
-		switchTask.run();
+
+		if (switchTask.getState() == Thread.State.NEW) {
+			switchTask.start();
+		}
+	}
+
+	/**
+	 * @描述：设置首页商品数据刚打开时为上次请求的数据 2014-9-21
+	 */
+	private void setLastAdData() {
+		value = MyApplication.getInstance().getBBSAds();
+		if (value != null) {
+			bbspost = value.getDatasource();
+			// 设置广告数据
+			setAdData();
+		}
 	}
 
 	/**

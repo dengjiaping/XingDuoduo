@@ -26,7 +26,6 @@ public class TaskAddOrderBack implements HttpTaskListener {
 
 	@Override
 	public void dataSucced(String result) {
-		System.out.println("添加订单"+result);
 		ActionValue<OrderId> value = new Gson().fromJson(result,
 				new TypeToken<ActionValue<OrderId>>() {
 				}.getType());

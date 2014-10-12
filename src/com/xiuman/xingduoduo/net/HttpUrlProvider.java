@@ -424,7 +424,6 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("pageSizeApp", 40);
 		url += httpDataTask.jointToUrl("UID", UID);
 
-		System.out.println("收藏接口" + url);
 		httpDataTask.execute(url);
 	}
 
@@ -471,7 +470,6 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("categoryId", categoryId);
 		url += httpDataTask.jointToUrl("sorting", sorting);
 		httpDataTask.execute(url);
-		System.out.println("分类商品列表" + url);
 	}
 
 	/**
@@ -491,7 +489,6 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("goodId", goodId);
 
 		httpDataTask.execute(url);
-		System.out.println("商品详情" + url);
 	}
 
 	/**
@@ -716,7 +713,6 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setHttpMethod("get");
 		url += httpDataTask.jointToUrl("orderId", orderId);
 		httpDataTask.execute(url);
-		System.out.println("取消订单" + url);
 	}
 
 	/**
@@ -808,7 +804,6 @@ public class HttpUrlProvider extends HttpConnWorker {
 		}
 
 		httpDataTask.execute(url);
-		System.out.println("商品评价" + url);
 	}
 
 	/**
@@ -1107,7 +1102,6 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setHttpMethod("get");
 
 		httpDataTask.execute(url);
-		System.out.println("应用推荐" + url);
 	}
 
 }

@@ -35,7 +35,6 @@ public class TaskShoppingCartBack implements HttpTaskListener {
 	 */
 	@Override
 	public void dataSucced(String result) {
-		System.out.println("购物车"+result);
 		ActionValue<GoodsCart> goods = new Gson().fromJson(result,
 				new TypeToken<ActionValue<GoodsCart>>() {
 				}.getType());

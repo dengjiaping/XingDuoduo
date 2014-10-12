@@ -184,8 +184,6 @@ public class OrderCompleteActivity extends Base2Activity implements
 		order_poster = bundle.getString("order_poster");
 		orderId = bundle.getString("orderId");
 	
-		System.out.println("订单id"+orderId);
-		
 	}
 
 	@Override

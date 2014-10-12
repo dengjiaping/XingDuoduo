@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -75,7 +74,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private PullScrollView sv_shopping_center;
 
 	// 屏幕宽高
-	private int screenHeight, screenWidth;
+	private int screenWidth;
 
 	/*------------------------------------商城主界面-----------------------*/
 	// 限时抢购
@@ -170,7 +169,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	// ViewPager 循环播放
 	boolean cunhuan = false;
 	private int page_id = 1;
-	private Runnable switchTask = new Runnable() {
+	private Thread switchTask = new Thread() {
 		public void run() {
 			if (cunhuan) {
 				viewpager_shoppingcenter_ad.setCurrentItem(page_id);
@@ -180,7 +179,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				}
 			}
 			cunhuan = true;
-			mHandler.postDelayed(switchTask, 3000);
+			mHandler.postDelayed(switchTask, 2000);
 		}
 	};
 	Handler mHandler = new Handler();
@@ -309,12 +308,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.imageScaleType(ImageScaleType.NONE).build();
 
-		// 获取屏幕宽高
-		DisplayMetrics dm = new DisplayMetrics();
-		getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-		// 获取屏幕宽度
-		screenHeight = dm.heightPixels;
-		screenWidth = dm.widthPixels;
+		screenWidth = MyApplication.getInstance().getScreenWidth();
 
 		classifyes_ids = getResources().getStringArray(R.array.classify_id);
 
@@ -550,7 +544,9 @@ public class FragmentShoppingCenter extends BaseFragment implements
 				getActivity(), options, imageLoader);
 		viewpager_shoppingcenter_ad.setAdapter(ad_adapter);
 		mIndicator.setViewPager(viewpager_shoppingcenter_ad);
-		switchTask.run();
+		if(switchTask.getState()==Thread.State.NEW){
+			switchTask.start();
+		}
 	}
 
 	/**

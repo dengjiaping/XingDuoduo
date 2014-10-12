@@ -34,7 +34,6 @@ public class TaskTopPostBack implements HttpTaskListener {
 
 	@Override
 	public void dataSucced(String result) {
-		System.out.println("置顶帖子列表返回"+result);
 		ActionValue<BBSPost> value = new Gson().fromJson(result,
 				new TypeToken<ActionValue<BBSPost>>() {
 				}.getType());

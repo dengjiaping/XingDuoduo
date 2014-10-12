@@ -33,7 +33,6 @@ public class TaskPostPublishBack implements HttpTaskListener {
 
 	@Override
 	public void dataSucced(String result) {
-		System.out.println("发帖返回"+result);
 		ActionValue<?> value = new Gson().fromJson(result,
 				new TypeToken<ActionValue<?>>() {
 				}.getType());

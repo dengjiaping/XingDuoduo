@@ -122,8 +122,6 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				if (value.isSuccess()) {
 					if (isUp) {
 						bbsReply = value.getDatasource();
-						System.out.println(bbsReply.size()+"长度");
-						ToastUtil.ToastView(PostInfoActivity.this, bbsReply.size()+"长度");
 						// 回复楼层
 						adapter = new ReplyStarterListViewAdapter(
 								PostInfoActivity.this, bbsReply, options,

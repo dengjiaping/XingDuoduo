@@ -115,7 +115,6 @@ public class PostImgsGridViewAdapter extends BaseAdapter {
 					} else {
 						try {
 							String path = Bimp.drr.get(Bimp.max);
-							System.out.println(path);
 							Bitmap bm = Bimp.revitionImageSize(path);
 							Bimp.bmp.add(bm);
 							String newStr = path.substring(

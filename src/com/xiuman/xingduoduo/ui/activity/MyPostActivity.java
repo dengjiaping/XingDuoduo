@@ -100,7 +100,6 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 			case AppConfig.BBS_POST_BACK:// 获取帖子列表
 				value = (ActionValue<BBSPost>) msg.obj;
 				bbspost_get = value.getDatasource();
-				System.out.println("获取我的帖子列表" + bbspost_get.size());
 				if (value.isSuccess()) {
 					if (isUp) {
 						bbspost = bbspost_get;

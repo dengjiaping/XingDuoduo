@@ -34,7 +34,6 @@ public class TaskAlipayBack implements HttpTaskListener {
 
 	@Override
 	public void dataSucced(String result) {
-		System.out.println("签名字串返回"+result);
 		ActionValuePay value = new Gson().fromJson(result,ActionValuePay.class);
 
 		Message msg = Message.obtain();
