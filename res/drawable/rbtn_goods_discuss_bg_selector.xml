@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<!-- 商品评价 -->
+    <!-- 按下 -->
+    <item android:state_pressed="true"><shape>
+            <corners android:bottomLeftRadius="0dip" android:bottomRightRadius="2dip" android:topLeftRadius="0dip" android:topRightRadius="2dip" />
+
+            <gradient android:endColor="@color/color_white" android:startColor="@color/color_white" />
+
+        </shape></item>
+    <!-- 正常 -->
+    <item><shape>
+            <corners android:bottomLeftRadius="0dip" android:bottomRightRadius="2dip" android:topLeftRadius="0dip" android:topRightRadius="2dip" />
+
+            <gradient android:endColor="@color/color_mian" android:startColor="@color/color_mian" />
+
+        </shape></item>
+
+</selector>

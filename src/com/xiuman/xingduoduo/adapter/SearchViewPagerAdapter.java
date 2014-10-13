@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 /**
  * 
- * 名称：SearchViewPagerAdapter.java 描述：搜索界面(热门、最近搜索切换)
- * 
+ * @名称：SearchViewPagerAdapter.java 
+ * @描述：搜索界面(热门、最近搜索切换)
  * @author danding
  * @version 2014-6-10
  */

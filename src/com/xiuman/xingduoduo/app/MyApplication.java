@@ -241,23 +241,23 @@ public class MyApplication extends Application {
 			info = new PackageInfo();
 		return info;
 	}
+
 	/**
 	 * @描述：获取应用版本
-	 * @return
-	 * 2014-10-11
+	 * @return 2014-10-11
 	 */
-	public String getVersionName(){
+	public String getVersionName() {
 		return getPackageInfo().versionName;
 	}
+
 	/**
 	 * @描述：获取应用版本号
-	 * @return
-	 * 2014-10-11
+	 * @return 2014-10-11
 	 */
-	public int getVersionCode(){
+	public int getVersionCode() {
 		return getPackageInfo().versionCode;
 	}
-	
+
 	/*-----------------------------------------json数据缓存--------------------------------------*/
 	/**
 	 * 获取数据缓存
@@ -507,9 +507,9 @@ public class MyApplication extends Application {
 	 *            2014-9-20
 	 */
 	public void saveBBSAds(ActionValue<BBSPost> ads) {
-		String json_ads = new Gson().toJson(ads).toString();
-		SharedPreUtils.setString(this, json_ads, AppConfig.FILE_SAVE_BBS_ADS,
-				AppConfig.KEY_SAVE_BBS_ADS);
+			String json_ads = new Gson().toJson(ads).toString();
+			SharedPreUtils.setString(this, json_ads,
+					AppConfig.FILE_SAVE_BBS_ADS, AppConfig.KEY_SAVE_BBS_ADS);
 	}
 
 	/**
@@ -606,42 +606,43 @@ public class MyApplication extends Application {
 
 		return height;
 	}
+
 	/*--------------------------------------------保存应用版本信息--------------------------------------*/
 	/**
 	 * @描述：保存版本信息
 	 * @param version_name
 	 * @param version_cede
-	 * 2014-10-11
+	 *            2014-10-11
 	 */
-	public void saveVersion(String version_name,int version_cede){
-		SharedPreUtils.setString(this, version_name + "", AppConfig.FILE_VERSION,
-				AppConfig.KEY_VERSION_NAME);
-		SharedPreUtils.setString(this, version_cede + "", AppConfig.FILE_VERSION,
-				AppConfig.KEY_VERSION_CODE);
+	public void saveVersion(String version_name, int version_cede) {
+		SharedPreUtils.setString(this, version_name + "",
+				AppConfig.FILE_VERSION, AppConfig.KEY_VERSION_NAME);
+		SharedPreUtils.setString(this, version_cede + "",
+				AppConfig.FILE_VERSION, AppConfig.KEY_VERSION_CODE);
 	}
+
 	/**
 	 * @描述：获取保存的版本信息
-	 * @return
-	 * 2014-10-11
+	 * @return 2014-10-11
 	 */
-	public String getLocalVersionName(){
-		String versin_name = SharedPreUtils.getString(this, AppConfig.FILE_VERSION,
-				AppConfig.KEY_VERSION_NAME);
-		if(versin_name!=""){
+	public String getLocalVersionName() {
+		String versin_name = SharedPreUtils.getString(this,
+				AppConfig.FILE_VERSION, AppConfig.KEY_VERSION_NAME);
+		if (versin_name != "") {
 			return versin_name;
 		}
 		return "";
 	}
+
 	/**
 	 * @描述：获取保存的版本号
-	 * @return
-	 * 2014-10-11
+	 * @return 2014-10-11
 	 */
-	public int getLocalVersionCode(){
+	public int getLocalVersionCode() {
 		int version_code = 0;
 		String result = SharedPreUtils.getString(this, AppConfig.FILE_VERSION,
 				AppConfig.KEY_VERSION_CODE);
-		if(result!=""){
+		if (result != "") {
 			version_code = Integer.parseInt(result);
 		}
 		return version_code;

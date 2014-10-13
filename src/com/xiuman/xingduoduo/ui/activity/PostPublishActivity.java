@@ -136,8 +136,7 @@ public class PostPublishActivity extends Base2Activity implements
 							ActionValue.class);
 
 					if (value.isSuccess()) {
-						ToastUtil.ToastView(PostPublishActivity.this,
-								value.getMessage());
+						ToastUtil.ToastView(PostPublishActivity.this,"发帖成功，请等待小编审核！");
 						// Intent intent3 = new Intent(PostPublishActivity.this,
 						// PostInfoActivity.class);
 						// Bundle bundle = new Bundle();

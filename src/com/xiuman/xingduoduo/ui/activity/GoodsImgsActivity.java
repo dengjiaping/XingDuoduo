@@ -83,7 +83,7 @@ public class GoodsImgsActivity extends Base2Activity implements OnClickListener 
 		// WebView设置
 		WebSettings ws = webview_img.getSettings();
 		// 宽视图，默认false
-		ws.setUseWideViewPort(true);
+		ws.setUseWideViewPort(false);
 		ws.setLoadWithOverviewMode(true);
 		// 支持javaScript(一直刷新。。。。)
 		// ws.setJavaScriptEnabled(true);

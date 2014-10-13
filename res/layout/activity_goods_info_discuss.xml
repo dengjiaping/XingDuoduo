@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 商品图文加评论界面 -->
+    <!-- 标题栏 -->
+
+    <RelativeLayout
+        android:id="@+id/rlyt_title"
+        android:layout_width="match_parent"
+        android:layout_height="46dip"
+        android:background="@color/color_mian"
+        android:gravity="center_vertical"
+        android:padding="5dip" >
+
+        <Button
+            android:id="@+id/btn_back_goods"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:background="@drawable/bg_btn_back" />
+        <!-- 详情+评价 -->
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rbtn_goods_info_discuss_bg_selector"
+            android:orientation="horizontal"
+            android:padding="1dip" >
+
+            <RadioButton
+                android:id="@+id/rbtn_info"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/rbtn_goods_info_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:text="详情"
+                android:textColor="@color/rbtn_goods_info_discuss_color_selector"
+                android:textSize="@dimen/txt_size_12" />
+
+            <RadioButton
+                android:id="@+id/rbtn_discuss"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/rbtn_goods_discuss_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:text="评论"
+                android:textColor="@color/rbtn_goods_info_discuss_color_selector"
+                android:textSize="@dimen/txt_size_12" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llyt_contanier"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_goods_info_discuss"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation" />
+    </LinearLayout>
+
+    <include layout="@layout/line_match" />
+    <!-- 底部 购买按钮 -->
+
+    <LinearLayout
+        android:id="@+id/llyt_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:background="@color/color_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="4" >
+
+        <!-- 联系客服 -->
+
+        <Button
+            android:id="@+id/btn_call_kefu"
+            android:layout_width="0dip"
+            android:layout_height="44dip"
+            android:layout_margin="8dip"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableTop="@drawable/bg_call_kefu"
+            android:text="@string/goods_call_kefu"
+            android:textColor="@color/color_mian"
+            android:textSize="@dimen/txt_size_14" />
+        <!-- 加入购物车 -->
+
+        <Button
+            android:id="@+id/btn_goods_add2cart"
+            android:layout_width="0dip"
+            android:layout_height="44dip"
+            android:layout_margin="8dip"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableTop="@drawable/bg_add2cart"
+            android:text="@string/goods_add2cart"
+            android:textColor="@color/color_mian"
+            android:textSize="@dimen/txt_size_14" />
+
+        <!-- 立即购买 -->
+
+        <Button
+            android:id="@+id/btn_goods_buy_at_once"
+            android:layout_width="0dip"
+            android:layout_height="44dip"
+            android:layout_marginBottom="8dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="15dip"
+            android:layout_marginTop="8dip"
+            android:layout_weight="2"
+            android:background="@drawable/btn_color_selector"
+            android:text="@string/goods_buy_at_once"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/txt_size_14" />
+    </LinearLayout>
+
+</LinearLayout>

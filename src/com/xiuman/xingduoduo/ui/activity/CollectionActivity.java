@@ -111,7 +111,7 @@ public class CollectionActivity extends Base2Activity implements
 				collection_get = (ArrayList<GoodsOne>) value_collections
 						.getDatasource();
 
-				if (!value_collections.isSuccess()) {// 收藏列表为空
+				if (!value_collections.isSuccess()&&collection_current.size()==0) {// 收藏列表为空
 					llyt_collection_null_collection.setVisibility(View.VISIBLE);
 				} else {
 					if (isUp) {// 下拉
