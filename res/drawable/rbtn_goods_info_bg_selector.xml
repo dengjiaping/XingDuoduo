@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 	<!-- 商品图文详情 -->
     <!-- 按下 -->
-    <item android:state_pressed="true"><shape>
+    <item android:state_checked="true"><shape>
             <corners android:bottomLeftRadius="2dip" android:bottomRightRadius="0dip" android:topLeftRadius="2dip" android:topRightRadius="0dip" />
 
             <gradient android:endColor="@color/color_white" android:startColor="@color/color_white" />

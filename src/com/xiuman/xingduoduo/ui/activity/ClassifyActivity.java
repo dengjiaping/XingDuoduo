@@ -34,6 +34,7 @@ import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
+import com.xiuman.xingduoduo.view.floatbutton.FloatingActionButton;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshGridView;
@@ -49,6 +50,7 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 		android.widget.RadioGroup.OnCheckedChangeListener {
 
 	/*----------------------------------组件---------------------------------*/
+	private FloatingActionButton button_floating_action;
 	// 标题栏
 	// 返回
 	private Button btn_back;
@@ -253,6 +255,8 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 	 */
 	@Override
 	protected void findViewById() {
+		button_floating_action = (FloatingActionButton) findViewById(R.id.button_floating_action);
+		
 		// 标题栏
 		btn_back = (Button) findViewById(R.id.btn_back_3);
 		btn_refresh = (Button) findViewById(R.id.btn_refresh);
@@ -285,6 +289,8 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 		gridview_classify_goods_list.setScrollbarFadingEnabled(true);
 		gridview_classify_goods_list.setBackgroundColor(getResources()
 				.getColor(R.color.color_bg));
+		
+		button_floating_action.attachToListView(gridview_classify_goods_list);
 	}
 
 	/**
@@ -385,6 +391,7 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 
 					}
 				});
+		button_floating_action.setOnClickListener(this);
 	}
 
 	/**
@@ -407,6 +414,9 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 			isUp = true;
 			currentPage = 1;
 			initFirstData(sort_url, currentPage);
+			break;
+		case R.id.button_floating_action://滚动到顶部
+			gridview_classify_goods_list.smoothScrollToPosition(0);
 			break;
 
 		}

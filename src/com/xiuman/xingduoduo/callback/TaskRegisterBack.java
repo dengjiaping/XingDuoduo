@@ -31,10 +31,12 @@ public class TaskRegisterBack implements HttpTaskListener {
 		ActionValue<User> value = new Gson().fromJson(result,
 				new TypeToken<ActionValue<User>>() {
 				}.getType());
-		String user_info = new Gson().toJson(value.getDatasource().get(0));
+		if (value.isSuccess()) {
+			String user_info = new Gson().toJson(value.getDatasource().get(0));
 
-		// 保存用户登录信息
-		MyApplication.getInstance().saveUserInfo(user_info);
+			// 保存用户登录信息
+			MyApplication.getInstance().saveUserInfo(user_info);
+		}
 		Message msg = Message.obtain();
 		msg.what = AppConfig.NET_SUCCED;
 		msg.obj = value;

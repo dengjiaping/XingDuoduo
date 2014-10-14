@@ -69,17 +69,26 @@
         <item name="android:windowEnterAnimation">@anim/pop_set_in</item>
         <item name="android:windowExitAnimation">@anim/pop_set_out</item>
     </style>
-	
+
+    <!-- 评分条 -->
+    <style name="roomRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
+        <item name="android:minHeight">40dip</item>
+        <item name="android:maxHeight">40dip</item>
+    </style>
+
     <!-- ******************Text样式base***************** -->
     <style name="txt_style_base1">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="txt_style_base2">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-     <style name="txt_style_base3">
+
+    <style name="txt_style_base3">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
@@ -96,7 +105,7 @@
     <style name="txt_style_3" parent="txt_style_base1">
         <item name="android:textColor">@color/color_black3</item>
     </style>
-    
+
     <!-- ***************Base2**************** -->
     <!-- Text样式1(颜色一) -->
     <style name="txt_style_21" parent="txt_style_base2">

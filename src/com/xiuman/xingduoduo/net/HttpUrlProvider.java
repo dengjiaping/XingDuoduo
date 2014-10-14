@@ -88,6 +88,8 @@ public class HttpUrlProvider extends HttpConnWorker {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		//注册渠道标识
+		url += httpDataTask.jointToUrl("channel", "baoruan");
 		httpDataTask.execute(url);
 	}
 

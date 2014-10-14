@@ -24,8 +24,8 @@
         android:id="@+id/rlyt_goodsinfo_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_bg"
-        android:layout_below="@id/llyt_goodsinfo_title" >
+        android:layout_below="@id/llyt_goodsinfo_title"
+        android:background="@color/color_bg" >
 
         <com.xiuman.xingduoduo.view.StretchScrollView
             android:layout_width="match_parent"
@@ -319,8 +319,8 @@
                     android:orientation="vertical" >
 
                     <TextView
-                        android:padding="10dip"
                         style="@style/txt_style_1"
+                        android:padding="10dip"
                         android:text="@string/goods_recommend"
                         android:textSize="@dimen/txt_size_12" />
                     <!-- 商品推荐(横向) -->
@@ -351,55 +351,61 @@
     <LinearLayout
         android:id="@+id/llyt_bottom"
         android:layout_width="match_parent"
-        android:layout_height="60dip"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/color_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:weightSum="4" >
+        android:orientation="vertical" >
+		<include layout="@layout/line_match"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dip"
+            android:background="@color/color_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="4" >
 
-        <!-- 联系客服 -->
+            <!-- 联系客服 -->
 
-        <Button
-            android:id="@+id/btn_call_kefu"
-            android:layout_width="0dip"
-            android:layout_height="44dip"
-            android:layout_margin="8dip"
-            android:layout_weight="1"
-            android:background="@null"
-            android:drawableTop="@drawable/bg_call_kefu"
-            android:text="@string/goods_call_kefu"
-            android:textColor="@color/color_mian"
-            android:textSize="@dimen/txt_size_14" />
-        <!-- 加入购物车 -->
+            <Button
+                android:id="@+id/btn_call_kefu"
+                android:layout_width="0dip"
+                android:layout_height="44dip"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableTop="@drawable/bg_call_kefu"
+                android:text="@string/goods_call_kefu"
+                android:textColor="@color/color_mian"
+                android:textSize="@dimen/txt_size_14" />
+            <!-- 加入购物车 -->
 
-        <Button
-            android:id="@+id/btn_goods_add2cart"
-            android:layout_width="0dip"
-            android:layout_height="44dip"
-            android:layout_margin="8dip"
-            android:layout_weight="1"
-            android:background="@null"
-            android:drawableTop="@drawable/bg_add2cart"
-            android:text="@string/goods_add2cart"
-            android:textColor="@color/color_mian"
-            android:textSize="@dimen/txt_size_14" />
+            <Button
+                android:id="@+id/btn_goods_add2cart"
+                android:layout_width="0dip"
+                android:layout_height="44dip"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableTop="@drawable/bg_add2cart"
+                android:text="@string/goods_add2cart"
+                android:textColor="@color/color_mian"
+                android:textSize="@dimen/txt_size_14" />
 
-        <!-- 立即购买 -->
+            <!-- 立即购买 -->
 
-        <Button
-            android:id="@+id/btn_goods_buy_at_once"
-            android:layout_width="0dip"
-            android:layout_height="44dip"
-            android:layout_marginBottom="8dip"
-            android:layout_marginLeft="30dip"
-            android:layout_marginRight="15dip"
-            android:layout_marginTop="8dip"
-            android:layout_weight="2"
-            android:background="@drawable/btn_color_selector"
-            android:text="@string/goods_buy_at_once"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/txt_size_14" />
+            <Button
+                android:id="@+id/btn_goods_buy_at_once"
+                android:layout_width="0dip"
+                android:layout_height="44dip"
+                android:layout_marginBottom="8dip"
+                android:layout_marginLeft="30dip"
+                android:layout_marginRight="15dip"
+                android:layout_marginTop="8dip"
+                android:layout_weight="2"
+                android:background="@drawable/btn_color_selector"
+                android:text="@string/goods_buy_at_once"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/txt_size_14" />
+        </LinearLayout>
     </LinearLayout>
     <!-- 网络连接 -->
 

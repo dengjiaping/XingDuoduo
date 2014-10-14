@@ -311,7 +311,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 				} else {
 					ToastUtil.ToastView(GoodsActivity.this,
-							value_delete.getMessage());
+							value_add2cart.getMessage());
 				}
 
 				break;
@@ -612,23 +612,43 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 			break;
 		case R.id.btn_goods_details:// 查看图文详情
+//			Intent intent = new Intent(GoodsActivity.this,
+//					GoodsImgsActivity.class);
+//			Bundle bundle = new Bundle();
+//			bundle.putString("introduction", goods_id);
+//			intent.putExtras(bundle);
+//			startActivity(intent);
+//			overridePendingTransition(R.anim.translate_horizontal_start_in,
+//					R.anim.translate_horizontal_start_out);
+
 			Intent intent = new Intent(GoodsActivity.this,
-					GoodsImgsActivity.class);
+					GoodsInfoDiscussActivity.class);
 			Bundle bundle = new Bundle();
-			bundle.putString("introduction", goods_two.getId());
+			bundle.putString("goods_id", goods_id);
+			bundle.putSerializable("goods_two", goods_two);
+			bundle.putInt("current", 0);
 			intent.putExtras(bundle);
 			startActivity(intent);
 			overridePendingTransition(R.anim.translate_horizontal_start_in,
 					R.anim.translate_horizontal_start_out);
-
 			break;
 		case R.id.btn_goods_appraise:// 查看商品评价
+//			Intent intent_discuss = new Intent(GoodsActivity.this,
+//					GoodsDiscussActivity.class);
+//			Bundle bundle_discuss = new Bundle();
+//			bundle_discuss.putString("goods_id", goods_id);
+//			intent_discuss.putExtras(bundle_discuss);
+//			startActivity(intent_discuss);
 			Intent intent_discuss = new Intent(GoodsActivity.this,
-					GoodsDiscussActivity.class);
+					GoodsInfoDiscussActivity.class);
 			Bundle bundle_discuss = new Bundle();
 			bundle_discuss.putString("goods_id", goods_id);
+			bundle_discuss.putSerializable("goods_two", goods_two);
+			bundle_discuss.putInt("current", 1);
 			intent_discuss.putExtras(bundle_discuss);
 			startActivity(intent_discuss);
+			overridePendingTransition(R.anim.translate_horizontal_start_in,
+					R.anim.translate_horizontal_start_out);
 			break;
 		case R.id.btn_goods_params:// 查看商品参数
 			if (tv_goods_params.getVisibility() == View.VISIBLE) {
