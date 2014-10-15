@@ -1,26 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <RatingBar
-        android:id="@+id/ratingbar"
-        style="@style/roomRatingBar"
-        android:layout_width="wrap_content"
+    style="@style/txt_style_base2"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="10dip" >
+	<!-- 商品评价 -->
+    <LinearLayout
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:numStars="5"
-        android:rating="1.5"
-        android:stepSize="0.5" />
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
-    <RatingBar
-        android:id="@+id/ratingbar2"
-        style="@style/roomRatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:numStars="5"
-        android:rating="5"
-        android:stepSize="0.5" />
+        <TextView
+            style="@style/txt_style_base2"
+            android:gravity="center"
+            android:text="综合评分"
+            android:textColor="@color/color_black3"
+            android:textSize="@dimen/txt_size_15" />
+
+        <TextView
+            android:id="@+id/tv_goods_total_rating"
+            style="@style/txt_style_base2"
+            android:gravity="center"
+            android:text="@string/discuss_rating"
+            android:textColor="@color/color_mian"
+            android:textSize="@dimen/txt_size_25" />
+
+        <RatingBar
+            android:id="@+id/ratingbar"
+            style="@style/roomRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="4.5"
+            android:stepSize="0.5" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0.5dip"
+        android:layout_height="match_parent"
+        android:background="@color/color_mian" />
+    <!-- 详细评分 -->
+
+    <LinearLayout
+        style="@style/txt_style_base1"
+        android:orientation="vertical"
+        android:paddingLeft="10dip" >
+
+        <LinearLayout
+            style="@style/txt_style_base1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/txt_style_3"
+                android:text="@string/discuss_zhiliang"
+                android:textSize="@dimen/txt_size_12" />
+
+            <RatingBar
+                android:id="@+id/ratingbar_zhiliang"
+                style="@style/roomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="5"
+                android:stepSize="0.5" />
+
+            <TextView
+                style="@style/txt_style_base1"
+                android:text="@string/discuss_rating"
+                android:textColor="@color/color_mian"
+                android:textSize="@dimen/txt_size_14" />
+        </LinearLayout>
+        <!-- 服务态度 -->
+
+        <LinearLayout
+            style="@style/txt_style_base1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/txt_style_3"
+                android:text="@string/discuss_taidu"
+                android:textSize="@dimen/txt_size_12" />
+
+            <RatingBar
+                android:id="@+id/ratingbar_taidu"
+                style="@style/roomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="5"
+                android:stepSize="0.5" />
+
+            <TextView
+                style="@style/txt_style_base1"
+                android:text="@string/discuss_rating"
+                android:textColor="@color/color_mian"
+                android:textSize="@dimen/txt_size_14" />
+        </LinearLayout>
+        <!-- 发货速度 -->
+
+        <LinearLayout
+            style="@style/txt_style_base1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/txt_style_3"
+                android:text="@string/discuss_taidu"
+                android:textSize="@dimen/txt_size_12" />
+
+            <RatingBar
+                android:id="@+id/ratingbar_sudu"
+                style="@style/roomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="5"
+                android:stepSize="0.5" />
+
+            <TextView
+                style="@style/txt_style_base1"
+                android:text="@string/discuss_rating"
+                android:textColor="@color/color_mian"
+                android:textSize="@dimen/txt_size_14" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

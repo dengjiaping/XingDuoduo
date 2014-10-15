@@ -122,7 +122,7 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 						}
 					}
 					TimeUtil.setLastUpdateTime(pulllv_lipin);
-					
+
 					llyt_null_goods.setVisibility(View.INVISIBLE);
 				}
 				loadingdialog.dismiss();
@@ -151,12 +151,17 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
-		// .showStubImage(R.drawable.weiboitem_pic_loading) //
-		// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloading_goods_poster) // image连接地址为空时
-				.showImageOnFail(R.drawable.onloading_goods_poster) // image加载失败
-				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				// .showStubImage(R.drawable.weiboitem_pic_loading) //
+				// 在ImageView加载过程中显示图片
+				.showImageOnLoading(R.drawable.onloading)
+				.showImageForEmptyUri(R.drawable.onloading)
+				// image连接地址为空时
+				.showImageOnFail(R.drawable.onloading)
+				// image加载失败
+				.cacheInMemory(false)
+				// 加载图片时会在内存中加载缓存
+				.cacheOnDisc(true)
+				// 加载图片时会在磁盘中加载缓存
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.NONE).build();
 
@@ -177,11 +182,11 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 		loadingdialog = new LoadingDialog(this);
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		llyt_null_goods = (LinearLayout) findViewById(R.id.llyt_goods_null);
-		
+
 		pulllv_lipin = (PullToRefreshListView) findViewById(R.id.pulllv_lipin);
 		pulllv_lipin.setPullLoadEnabled(false);
 		pulllv_lipin.setPullRefreshEnabled(false);
-		
+
 		lv_lipin = pulllv_lipin.getRefreshableView();
 		lv_lipin.setDividerHeight(1);
 		lv_lipin.setScrollBarSize(0);
@@ -203,7 +208,7 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void setListener() {
 		btn_back.setOnClickListener(this);
-		
+
 		pulllv_lipin.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
@@ -222,36 +227,32 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 					currentPage += 1;
 					initFirstData(currentPage);
 				} else {
-					ToastUtil.ToastView(ActivityActivity.this,
-							getResources().getString(R.string.no_more));
+					ToastUtil.ToastView(ActivityActivity.this, getResources()
+							.getString(R.string.no_more));
 					// 下拉加载完成
 					pulllv_lipin.onPullDownRefreshComplete();
 					// 上拉刷新完成
 					pulllv_lipin.onPullUpRefreshComplete();
 					// 设置是否有更多的数据
-					 pulllv_lipin
-					 .setHasMoreData(false);
+					pulllv_lipin.setHasMoreData(false);
 				}
 			}
 		});
-		
+
 		lv_lipin.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Object obj = lv_lipin
-						.getItemAtPosition(position);
+				Object obj = lv_lipin.getItemAtPosition(position);
 				// 将商品数据传递给
 				if (obj instanceof GoodsOne) {
 					GoodsOne goods_one = (GoodsOne) obj;
-					Intent intent = new Intent(
-							ActivityActivity.this,
+					Intent intent = new Intent(ActivityActivity.this,
 							GoodsActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("goods_one", goods_one);
-					bundle.putSerializable("goods_id",
-							goods_one.getId());
+					bundle.putSerializable("goods_id", goods_one.getId());
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(
@@ -261,6 +262,7 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 			}
 		});
 	}
+
 	/**
 	 * 点击事件
 	 */
@@ -272,7 +274,7 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 			overridePendingTransition(R.anim.translate_horizontal_finish_in,
 					R.anim.translate_horizontal_finish_out);
 			break;
-		case R.id.llyt_network_error://重新加载
+		case R.id.llyt_network_error:// 重新加载
 			currentPage = 1;
 			isUp = true;
 			initFirstData(currentPage);
@@ -291,6 +293,7 @@ public class ActivityActivity extends Base2Activity implements OnClickListener {
 				URLConfig.CENTER_HOME_PLATE, currentPage, classify_url);
 		loadingdialog.show(ActivityActivity.this);
 	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

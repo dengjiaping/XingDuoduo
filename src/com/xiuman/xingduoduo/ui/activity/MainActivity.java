@@ -156,7 +156,7 @@ public class MainActivity extends BaseActivity implements
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		// 隐藏当前显示的Fragment
 		hideFragment(transaction);
-
+//		transaction.setCustomAnimations(R.anim.fragment_horizontal_start_in, R.anim.fragment_horizontal_start_out);
 		// Fragment切换
 		switch (index) {
 		case 0:// 商城

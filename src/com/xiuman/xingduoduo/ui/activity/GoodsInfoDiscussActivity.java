@@ -242,9 +242,10 @@ public class GoodsInfoDiscussActivity extends BaseActivity implements
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.weiboitem_pic_loading) //
 				// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloading_goods_poster)
+		.showImageOnLoading(R.drawable.onloading)
+				.showImageForEmptyUri(R.drawable.onloading)
 				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloading_goods_poster)
+				.showImageOnFail(R.drawable.onloading)
 				// image加载失败
 				.cacheInMemory(true)
 				// 加载图片时会在内存中加载缓存

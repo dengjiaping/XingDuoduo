@@ -116,9 +116,10 @@ public class DisucssOrderActivity extends Base2Activity implements
 		options = new DisplayImageOptions.Builder()
 		// .showStubImage(R.drawable.weiboitem_pic_loading) //
 		// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloading_goods_poster) // image连接地址为空时
-				.showImageOnFail(R.drawable.onloading_goods_poster) // image加载失败
-				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
+		.showImageOnLoading(R.drawable.onloading)
+				.showImageForEmptyUri(R.drawable.onloading) // image连接地址为空时
+				.showImageOnFail(R.drawable.onloading) // image加载失败
+				.cacheInMemory(false) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.NONE).build();

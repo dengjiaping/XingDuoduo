@@ -190,10 +190,10 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.weiboitem_pic_loading) //
 				// 在ImageView加载过程中显示图片
-				.showImageOnLoading(R.drawable.bg_center_ad_loading)
-				.showImageForEmptyUri(R.drawable.bg_center_ad_loading)
+				.showImageOnLoading(R.drawable.onloading)
+				.showImageForEmptyUri(R.drawable.onloading)
 				// image连接地址为空时
-				.showImageOnFail(R.drawable.bg_center_ad_loading)
+				.showImageOnFail(R.drawable.onloading)
 				// image加载失败
 				.cacheInMemory(false)
 				// 加载图片时会在内存中加载缓存

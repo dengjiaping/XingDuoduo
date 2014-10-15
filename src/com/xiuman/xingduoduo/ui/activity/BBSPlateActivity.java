@@ -36,6 +36,7 @@ import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
+import com.xiuman.xingduoduo.view.floatbutton.FloatingActionButton;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
@@ -48,6 +49,8 @@ import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
 public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 
 	/*---------------------------------组件-----------------------------------*/
+	//滚动到顶部
+	private FloatingActionButton button_floating_action;
 	// 返回
 	private Button btn_back;
 	// 发帖
@@ -183,11 +186,11 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.onloadong_post) //
-				.showImageOnLoading(R.drawable.onloadong_post)
+				.showImageOnLoading(R.drawable.onloading)
 				// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloadong_post)
+				.showImageForEmptyUri(R.drawable.onloading)
 				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloadong_post)
+				.showImageOnFail(R.drawable.onloading)
 				// image加载失败
 				// .resetViewBeforeLoading(false)
 				.cacheInMemory(false)
@@ -203,6 +206,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 
 	@Override
 	protected void findViewById() {
+		button_floating_action = (FloatingActionButton) findViewById(R.id.button_floating_action);
 		loadingdialog = new LoadingDialog(this);
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		llyt_null_post = (LinearLayout) findViewById(R.id.llyt_plate_null_post);
@@ -230,11 +234,12 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		iv_plate_icon = (ImageView) view.findViewById(R.id.iv_bbs_plate_icon);
 
 		lv_posts.addHeaderView(view);
+		button_floating_action.attachToListView(lv_posts);
 	}
 
 	@Override
 	protected void initUI() {
-		tv_title.setText("最新帖子");
+		tv_title.setText(plate.getPlate_name());
 		iv_plate_icon.setImageResource(plate.getPlate_icon());
 		tv_plate_name.setText(plate.getPlate_name());
 		tv_plate_description.setText(plate.getPlate_description());
@@ -268,7 +273,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 					Intent intent = new Intent(BBSPlateActivity.this,
 							PostInfoActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putSerializable("postinfo_starter", postinfo);
+					bundle.putString("postinfo_starter", postinfo.getId());
 					bundle.putString("forumId", plate.getPlate_id());
 					intent.putExtras(bundle);
 					startActivity(intent);
@@ -290,7 +295,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 					Intent intent = new Intent(BBSPlateActivity.this,
 							PostInfoActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putSerializable("postinfo_starter", postinfo);
+					bundle.putString("postinfo_starter", postinfo.getId());
 					// 版块id
 					bundle.putString("forumId", plate.getPlate_id());
 					intent.putExtras(bundle);
@@ -333,6 +338,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		// 滑动时不加载图片
 		lv_posts.setOnScrollListener(new PauseOnScrollListener(imageLoader,
 				true, false));
+		button_floating_action.setOnClickListener(this);
 	}
 
 	/**
@@ -360,6 +366,11 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 			currentPage = 1;
 			initFirstData(currentPage);
 
+			break;
+		case R.id.button_floating_action://滚动到顶部
+//			lv_posts.smoothScrollToPosition(0);
+			lv_posts.requestFocusFromTouch();
+			lv_posts.setSelection(0);
 			break;
 		}
 	}

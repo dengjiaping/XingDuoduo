@@ -31,6 +31,7 @@ import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
+import com.xiuman.xingduoduo.view.floatbutton.FloatingActionButton;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshGridView;
@@ -46,6 +47,8 @@ import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshGridView;
 public class CenterClassifyActivity extends Base2Activity implements
 		OnClickListener {
 	/*----------------------------------组件---------------------------------*/
+	// 滚动到顶部
+	private FloatingActionButton button_floating_action;
 	// 标题栏
 	// 返回
 	private Button btn_back;
@@ -159,12 +162,17 @@ public class CenterClassifyActivity extends Base2Activity implements
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
-		// .showStubImage(R.drawable.weiboitem_pic_loading) //
-		// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloading_goods_poster) // image连接地址为空时
-				.showImageOnFail(R.drawable.onloading_goods_poster) // image加载失败
-				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				// .showStubImage(R.drawable.weiboitem_pic_loading) //
+				// 在ImageView加载过程中显示图片
+				.showImageOnLoading(R.drawable.onloading)
+				.showImageForEmptyUri(R.drawable.onloading)
+				// image连接地址为空时
+				.showImageOnFail(R.drawable.onloading)
+				// image加载失败
+				.cacheInMemory(false)
+				// 加载图片时会在内存中加载缓存
+				.cacheOnDisc(true)
+				// 加载图片时会在磁盘中加载缓存
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.NONE).build();
 
@@ -178,6 +186,7 @@ public class CenterClassifyActivity extends Base2Activity implements
 
 	@Override
 	protected void findViewById() {
+		button_floating_action = (FloatingActionButton) findViewById(R.id.button_floating_action);
 		// 标题栏
 		btn_back = (Button) findViewById(R.id.btn_common_back);
 		btn_right = (Button) findViewById(R.id.btn_common_right);
@@ -207,6 +216,8 @@ public class CenterClassifyActivity extends Base2Activity implements
 		gridview_classify_goods_list.setScrollbarFadingEnabled(true);
 		gridview_classify_goods_list.setBackgroundColor(getResources()
 				.getColor(R.color.color_bg));
+
+		button_floating_action.attachToListView(gridview_classify_goods_list);
 	}
 
 	@Override
@@ -296,6 +307,8 @@ public class CenterClassifyActivity extends Base2Activity implements
 
 					}
 				});
+
+		button_floating_action.setOnClickListener(this);
 	}
 
 	@Override
@@ -318,7 +331,10 @@ public class CenterClassifyActivity extends Base2Activity implements
 			currentPage = 1;
 			initFirstData(currentPage);
 			break;
-		default:
+		case R.id.button_floating_action:// 滚动到顶部
+			// gridview_classify_goods_list.smoothScrollToPosition(0);
+			gridview_classify_goods_list.requestFocusFromTouch();
+			gridview_classify_goods_list.setSelection(0);
 			break;
 		}
 	}
@@ -334,6 +350,7 @@ public class CenterClassifyActivity extends Base2Activity implements
 				URLConfig.CENTER_HOME_PLATE, currentPage, classify_url);
 		loadingdialog.show(CenterClassifyActivity.this);
 	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

@@ -986,7 +986,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setParams("userId", userId);
 		httpDataTask.setParams("title", title);
 		httpDataTask.setParams("content", content);
-
+		System.out.println("回帖链接"+url+forumId);
 		httpDataTask.execute(url);
 	}
 

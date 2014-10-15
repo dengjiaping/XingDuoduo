@@ -10,6 +10,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -189,7 +190,8 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	public ImageLoader imageLoader = ImageLoader.getInstance();
 	// 配置图片加载及显示选项
 	public DisplayImageOptions options;
-
+	// 配置图片加载及显示选项
+	public DisplayImageOptions options2;
 	// 无网络时读取配置文件里的分类Id
 	private String[] classifyes_ids;
 
@@ -235,8 +237,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 					// 设置广告数据
 					setAdData(ads);
 				} else {
-					viewpager_shoppingcenter_ad
-							.setBackgroundResource(R.drawable.onloading_goods_poster);
 				}
 				break;
 			case AppConfig.STICK_SUCCED:// 获取置顶商品
@@ -271,8 +271,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 			// 设置广告数据
 			setAdData(ads);
 		} else {
-			viewpager_shoppingcenter_ad
-					.setBackgroundResource(R.drawable.onloading_goods_poster);
 		}
 		value_stick = MyApplication.getInstance().getStcik();
 		if (value_stick != null) {
@@ -303,11 +301,23 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	@Override
 	protected void initData() {
 		// 配置图片加载及显示选项（还有一些其他的配置，查阅doc文档吧）
-		options = new DisplayImageOptions.Builder()
-				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
+		options = new DisplayImageOptions.Builder().cacheInMemory(true) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.imageScaleType(ImageScaleType.NONE).build();
-
+		options2 = new DisplayImageOptions.Builder()
+				// .showStubImage(R.drawable.weiboitem_pic_loading) //
+				// 在ImageView加载过程中显示图片
+				.showImageOnLoading(R.drawable.onloading)
+				.showImageForEmptyUri(R.drawable.onloading)
+				// image连接地址为空时
+				.showImageOnFail(R.drawable.onloading)
+				// image加载失败
+				.cacheInMemory(false)
+				// 加载图片时会在内存中加载缓存
+				.cacheOnDisc(true)
+				// 加载图片时会在磁盘中加载缓存
+				.bitmapConfig(Bitmap.Config.RGB_565)
+				.imageScaleType(ImageScaleType.NONE).build();
 		screenWidth = MyApplication.getInstance().getScreenWidth();
 
 		classifyes_ids = getResources().getStringArray(R.array.classify_id);
@@ -541,10 +551,10 @@ public class FragmentShoppingCenter extends BaseFragment implements
 			ad_ivs.add(iv_ad);
 		}
 		ad_adapter = new ShoppingCenterAdViewPagerAdapter(ads, ad_ivs,
-				getActivity(), options, imageLoader);
+				getActivity(), options2, imageLoader);
 		viewpager_shoppingcenter_ad.setAdapter(ad_adapter);
 		mIndicator.setViewPager(viewpager_shoppingcenter_ad);
-		if(switchTask.getState()==Thread.State.NEW){
+		if (switchTask.getState() == Thread.State.NEW) {
 			switchTask.start();
 		}
 	}

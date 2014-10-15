@@ -93,19 +93,22 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 
 	/*--------------------------------数据-------------------------------------*/
 	// 从上级界面接收到的帖子信息(主要是楼主)
-	private BBSPost postinfo_starter;
+	private BBSPostReply postinfo_starter;
 	// 获取恢复列表返回结果
 	private ActionValue<BBSPostReply> value;
 	// 回复列表
 	private ArrayList<BBSPostReply> bbsReply = new ArrayList<BBSPostReply>();
 	// 发表恢复返回结果
 	private ActionValue<?> valueSend;
-	//
+	//板块id
 	private String forumId;
-
+	//用户id
 	private String userId;
+	//用户信息
 	private User user;
-
+	//帖子id
+	private String post_id;
+	
 	// 当前请求页
 	private int currentPage = 1;
 
@@ -122,6 +125,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				if (value.isSuccess()) {
 					if (isUp) {
 						bbsReply = value.getDatasource();
+						postinfo_starter = bbsReply.get(0);
 						// 回复楼层
 						adapter = new ReplyStarterListViewAdapter(
 								PostInfoActivity.this, bbsReply, options,
@@ -163,10 +167,11 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 							sex = true;
 						}
 					}
+					//擦擦擦
 					BBSPostReply bps = new BBSPostReply(et_reply.getText()
 							.toString(), createTime,
 							postinfo_starter.getTitle(), user.getNickname(),
-							postinfo_starter.getId() + "",
+							post_id + "",
 							postinfo_starter.getPostTypeId(), 1+"", sex,
 							user.getHead_image(), user.getName(),null);
 
@@ -209,10 +214,10 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
-				 .showImageOnLoading(R.drawable.onloadong_post)
-				.showImageForEmptyUri(R.drawable.onloadong_post)
+				 .showImageOnLoading(R.drawable.onloading)
+				.showImageForEmptyUri(R.drawable.onloading)
 				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloadong_post)
+				.showImageOnFail(R.drawable.onloading)
 				// image加载失败
 				.cacheInMemory(true)
 				// 加载图片时会在内存中加载缓存
@@ -222,8 +227,9 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		// 从上级界面接收到的帖子
-		postinfo_starter = (BBSPost) getIntent().getExtras().getSerializable(
-				"postinfo_starter");
+//		BBSPost postinfo_starte = (BBSPost) getIntent().getExtras().getSerializable(
+//				"postinfo_starter");
+		post_id = getIntent().getExtras().getString("postinfo_starter");				
 		forumId = getIntent().getExtras().getString("forumId");
 		if (MyApplication.getInstance().isUserLogin()) {
 			user = MyApplication.getInstance().getUserInfo();
@@ -333,8 +339,9 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	 */
 	private void getReply(int currentPage) {
 		// 请求获取回复列表
+		//擦擦擦
 		HttpUrlProvider.getIntance().getPostReply(PostInfoActivity.this,
-				new TaskPostReplyBack(handler), postinfo_starter.getId(),
+				new TaskPostReplyBack(handler), post_id,
 				currentPage);
 	}
 
@@ -364,12 +371,12 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				if ((et_reply.getText().toString().trim()).length() < 2) {
 					ToastUtil.ToastView(PostInfoActivity.this, "回复不能少于2个字");
 				} else {
-
+					//擦擦擦
 					HttpUrlProvider.getIntance().getPostReplySend(
 							PostInfoActivity.this,
 							new TaskReplySendBack(handler), forumId,
 							"" + postinfo_starter.getPostTypeId(),
-							"" + postinfo_starter.getId(),
+							"" + post_id,
 							postinfo_starter.getTitle(),
 							et_reply.getText().toString(), userId);
 

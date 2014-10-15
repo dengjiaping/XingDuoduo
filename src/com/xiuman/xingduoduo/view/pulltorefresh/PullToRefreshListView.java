@@ -133,7 +133,7 @@ public class PullToRefreshListView extends PullToRefreshBase<ListView> implement
             }
             
 //            if (null == mLoadMoreFooterLayout.getParent()) {
-//                mListView.addFooterView(mLoadMoreFooterLayout, null, false);
+////                mListView.addFooterView(mLoadMoreFooterLayout, null, false);
 //            }
             mLoadMoreFooterLayout.show(true);
         } else {

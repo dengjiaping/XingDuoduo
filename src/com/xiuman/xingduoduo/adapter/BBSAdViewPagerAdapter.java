@@ -90,7 +90,7 @@ public class BBSAdViewPagerAdapter extends PagerAdapter {
 					BBSPost postinfo = (BBSPost) obj;
 					Intent intent = new Intent(context, PostInfoActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putSerializable("postinfo_starter", postinfo);
+					bundle.putString("postinfo_starter", postinfo.getId());
 					// 版块id
 					bundle.putString("forumId", "10");
 					intent.putExtras(bundle);

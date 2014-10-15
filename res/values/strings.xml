@@ -236,6 +236,10 @@
     <!-- 订单评价界面-->
     <string name="discuss_order">提交评论</string>
     <string name="hint_discuss">亲，您的评价对其他卖家有很大帮助</string>
+    <string name="discuss_zhiliang">商品质量:</string>
+    <string name="discuss_taidu">服务态度:</string>
+    <string name="discuss_sudu">发货速度:</string>
+    <string name="discuss_rating">5</string>
     
     <!-- 论坛界面 -->
     <string name="communication_plate">版块</string>

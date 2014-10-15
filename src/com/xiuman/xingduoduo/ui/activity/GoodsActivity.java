@@ -353,9 +353,10 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.weiboitem_pic_loading) //
 				// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloading_goods_poster)
+				.showImageOnLoading(R.drawable.onloading)
+				.showImageForEmptyUri(R.drawable.onloading)
 				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloading_goods_poster)
+				.showImageOnFail(R.drawable.onloading)
 				// image加载失败
 				.cacheInMemory(true)
 				// 加载图片时会在内存中加载缓存
@@ -612,14 +613,14 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 			break;
 		case R.id.btn_goods_details:// 查看图文详情
-//			Intent intent = new Intent(GoodsActivity.this,
-//					GoodsImgsActivity.class);
-//			Bundle bundle = new Bundle();
-//			bundle.putString("introduction", goods_id);
-//			intent.putExtras(bundle);
-//			startActivity(intent);
-//			overridePendingTransition(R.anim.translate_horizontal_start_in,
-//					R.anim.translate_horizontal_start_out);
+			// Intent intent = new Intent(GoodsActivity.this,
+			// GoodsImgsActivity.class);
+			// Bundle bundle = new Bundle();
+			// bundle.putString("introduction", goods_id);
+			// intent.putExtras(bundle);
+			// startActivity(intent);
+			// overridePendingTransition(R.anim.translate_horizontal_start_in,
+			// R.anim.translate_horizontal_start_out);
 
 			Intent intent = new Intent(GoodsActivity.this,
 					GoodsInfoDiscussActivity.class);
@@ -633,12 +634,12 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 					R.anim.translate_horizontal_start_out);
 			break;
 		case R.id.btn_goods_appraise:// 查看商品评价
-//			Intent intent_discuss = new Intent(GoodsActivity.this,
-//					GoodsDiscussActivity.class);
-//			Bundle bundle_discuss = new Bundle();
-//			bundle_discuss.putString("goods_id", goods_id);
-//			intent_discuss.putExtras(bundle_discuss);
-//			startActivity(intent_discuss);
+			// Intent intent_discuss = new Intent(GoodsActivity.this,
+			// GoodsDiscussActivity.class);
+			// Bundle bundle_discuss = new Bundle();
+			// bundle_discuss.putString("goods_id", goods_id);
+			// intent_discuss.putExtras(bundle_discuss);
+			// startActivity(intent_discuss);
 			Intent intent_discuss = new Intent(GoodsActivity.this,
 					GoodsInfoDiscussActivity.class);
 			Bundle bundle_discuss = new Bundle();
@@ -844,8 +845,8 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 			llyt_goodsinfo_title.startAnimation(mTranOutAnimation);
 			rlyt_goodsinfo_content.startAnimation(mScalInAnimation1);
 
-			 pop.setOnDismissListener(new OnDismissListener() {
-				
+			pop.setOnDismissListener(new OnDismissListener() {
+
 				@Override
 				public void onDismiss() {
 					llyt_goodsinfo_title.startAnimation(mTranInAnimation);
