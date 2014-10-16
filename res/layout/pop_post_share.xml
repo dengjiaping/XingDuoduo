@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <!-- 弹出窗（分享） -->
+
+    <LinearLayout
+        android:id="@+id/llyt_pop_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8.0dip"
+        android:layout_marginRight="8.0dip"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+		<!-- 微信 -->
+        <Button
+            android:id="@+id/btn_weixin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/whole_bg_normal_selector2"
+            android:text="@string/pop_weixin"
+            android:padding="10dip"
+            android:textColor="@color/color_red"
+            android:textSize="@dimen/txt_size_18" />
+
+		<!-- 朋友圈 -->
+        <Button
+            android:id="@+id/btn_weixin_circle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:background="@drawable/whole_bg_normal_selector2"
+            android:text="@string/pop_weixin_circle"
+            android:textColor="@color/color_red"
+            android:textSize="@dimen/txt_size_18" />
+		<!-- 取消 -->
+        <Button
+            android:id="@+id/btn_pop_post_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10.0dip"
+            android:layout_marginTop="10.0dip"
+            android:padding="10dip"
+            android:background="@drawable/whole_bg_normal_selector2"
+            android:text="@string/pop_cancel"
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/txt_size_18" />
+    </LinearLayout>
+
+</RelativeLayout>

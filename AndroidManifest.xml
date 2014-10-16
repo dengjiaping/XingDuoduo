@@ -273,13 +273,6 @@
             android:name="com.xiuman.xingduoduo.ui.activity.PhotoActivity"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
-        <!-- 二维码扫描界面 -->
-        <activity
-            android:name="com.xiuman.xingduoduo.zxing.ui.SweepActivty"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
-        </activity>
-
         <!-- 图案密码绘制 -->
         <activity
             android:name="com.xiuman.xingduoduo.lock.ui.CreateGesturePasswordActivity"
@@ -351,6 +344,21 @@
             android:screenOrientation="portrait" >
         </activity>
 
+        <!-- 分享到微信 -->
+        <activity
+            android:name="com.xiuman.xingduoduo.api.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.umeng.socialize.view.ShareActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:theme="@style/Theme.UMDialog"
+            android:windowSoftInputMode="stateVisible|adjustResize" >
+        </activity>
         <!-- 友盟 -->
         <!-- 反馈 -->
         <activity

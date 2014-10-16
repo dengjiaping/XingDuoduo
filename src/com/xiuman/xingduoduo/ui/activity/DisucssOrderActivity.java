@@ -160,6 +160,14 @@ public class DisucssOrderActivity extends Base2Activity implements
 		btn_submit_discuss.setOnClickListener(this);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
+	}
+	
 	/**
 	 * 点击事件
 	 */
@@ -195,3 +203,4 @@ public class DisucssOrderActivity extends Base2Activity implements
 		imageLoader.stop();
 	}
 }
+

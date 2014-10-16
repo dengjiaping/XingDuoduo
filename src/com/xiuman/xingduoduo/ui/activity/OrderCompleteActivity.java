@@ -221,6 +221,13 @@ public class OrderCompleteActivity extends Base2Activity implements
 		btn_order_complete_go2pay.setOnClickListener(this);
 		btn_order_complete_order_info.setOnClickListener(this);
 	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
+	}
 
 	/**
 	 * @描述：设置界面信息

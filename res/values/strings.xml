@@ -298,7 +298,9 @@
     <string name="pop_cancel">取  消</string>
     <string name="pop_over">完  成</string>
     <string name="pop_sure">确  定</string>
-
+	<string name="pop_weixin">微信好友</string>
+	<string name="pop_weixin_circle">微信朋友圈</string>
+    
     <!-- 测试数据 -->
     <string name="cart_test_money">0</string>
     <string name="test_countdown">56s</string>

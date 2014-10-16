@@ -61,6 +61,7 @@ import com.xiuman.xingduoduo.ui.fragment.FragmentGoodsInfo;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.BadgeView;
 import com.xiuman.xingduoduo.view.CustomDialog;
+import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.SingleSelectCheckBoxs;
 import com.xiuman.xingduoduo.view.SingleSelectCheckBoxs.OnSelectListener;
 

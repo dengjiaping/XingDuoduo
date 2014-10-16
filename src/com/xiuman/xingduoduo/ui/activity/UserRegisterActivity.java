@@ -169,6 +169,14 @@ public class UserRegisterActivity extends Base2Activity implements
 		llyt_register_read_protocol.setOnClickListener(this);
 		llyt_register_sex.setOnClickListener(this);
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
+	}
 
 	/**
 	 * 
@@ -311,3 +319,4 @@ public class UserRegisterActivity extends Base2Activity implements
 		loadingdialog = null;
 	}
 }
+

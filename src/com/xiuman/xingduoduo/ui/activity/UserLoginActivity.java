@@ -135,6 +135,14 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 		btn_login_back.setOnClickListener(this);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
+	}
+	
 	/**
 	 * 点击事件
 	 */

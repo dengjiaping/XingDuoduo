@@ -273,6 +273,13 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 		llyt_update_user_info_birth.setOnClickListener(this);
 		llyt_update_user_info_sex.setOnClickListener(this);
 	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
+	}
 
 	/**
 	 * 点击事件

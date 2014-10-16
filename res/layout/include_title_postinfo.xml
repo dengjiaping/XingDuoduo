@@ -23,11 +23,11 @@
         android:textSize="@dimen/txt_size_18" />
 
     <Button
-        android:id="@+id/btn_postinfo_starter"
+        android:id="@+id/btn_share"
         android:layout_width="40dip"
         android:layout_height="40dip"
         android:layout_alignParentRight="true"
         android:layout_margin="3dip"
-        android:visibility="invisible" />
+        android:background="@drawable/bg_btn_share"/>
 
 </RelativeLayout>

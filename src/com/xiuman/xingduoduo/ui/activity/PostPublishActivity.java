@@ -537,6 +537,9 @@ public class PostPublishActivity extends Base2Activity implements
 		adapter = new GridAdapter(this);
 		adapter.update();
 		gv_post_imgs.setAdapter(adapter);
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
 	}
 
 	@Override

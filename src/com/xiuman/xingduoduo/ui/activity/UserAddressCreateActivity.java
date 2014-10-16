@@ -226,6 +226,14 @@ public class UserAddressCreateActivity extends Base2Activity implements
 		btn_create_user_delete_address.setOnClickListener(this);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
+	}
+	
 	/**
 	 * 点击事件
 	 */

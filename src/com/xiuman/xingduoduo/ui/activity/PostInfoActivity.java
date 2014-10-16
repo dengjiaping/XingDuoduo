@@ -9,8 +9,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -18,13 +21,26 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.umeng.socialize.bean.RequestType;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
+import com.umeng.socialize.weixin.media.CircleShareContent;
+import com.umeng.socialize.weixin.media.WeiXinShareContent;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.ReplyStarterListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
@@ -32,7 +48,6 @@ import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.callback.TaskPostReplyBack;
 import com.xiuman.xingduoduo.callback.TaskReplySendBack;
 import com.xiuman.xingduoduo.model.ActionValue;
-import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.model.BBSPostReply;
 import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
@@ -54,7 +69,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	// 返回
 	private Button btn_postinfo_back;
 	// 只看楼主
-	private Button btn_postinfo_starter;
+	private Button btn_share;
 	// 标题栏
 	private TextView tv_postinfo_title;
 	// 下拉刷新ScrollView
@@ -100,15 +115,15 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	private ArrayList<BBSPostReply> bbsReply = new ArrayList<BBSPostReply>();
 	// 发表恢复返回结果
 	private ActionValue<?> valueSend;
-	//板块id
+	// 板块id
 	private String forumId;
-	//用户id
+	// 用户id
 	private String userId;
-	//用户信息
+	// 用户信息
 	private User user;
-	//帖子id
+	// 帖子id
 	private String post_id;
-	
+
 	// 当前请求页
 	private int currentPage = 1;
 
@@ -167,13 +182,13 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 							sex = true;
 						}
 					}
-					//擦擦擦
+					// 擦擦擦
 					BBSPostReply bps = new BBSPostReply(et_reply.getText()
 							.toString(), createTime,
 							postinfo_starter.getTitle(), user.getNickname(),
-							post_id + "",
-							postinfo_starter.getPostTypeId(), 1+"", sex,
-							user.getHead_image(), user.getName(),null);
+							post_id + "", postinfo_starter.getPostTypeId(),
+							1 + "", sex, user.getHead_image(), user.getName(),
+							null);
 
 					bbsReply.add(bps);
 					et_reply.setText("");
@@ -214,7 +229,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
-				 .showImageOnLoading(R.drawable.onloading)
+				.showImageOnLoading(R.drawable.onloading)
 				.showImageForEmptyUri(R.drawable.onloading)
 				// image连接地址为空时
 				.showImageOnFail(R.drawable.onloading)
@@ -227,21 +242,24 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		// 从上级界面接收到的帖子
-//		BBSPost postinfo_starte = (BBSPost) getIntent().getExtras().getSerializable(
-//				"postinfo_starter");
-		post_id = getIntent().getExtras().getString("postinfo_starter");				
+		// BBSPost postinfo_starte = (BBSPost)
+		// getIntent().getExtras().getSerializable(
+		// "postinfo_starter");
+		post_id = getIntent().getExtras().getString("postinfo_starter");
 		forumId = getIntent().getExtras().getString("forumId");
 		if (MyApplication.getInstance().isUserLogin()) {
 			user = MyApplication.getInstance().getUserInfo();
 			userId = user.getUser_id();
 		}
-
+		
+		//初始化微信分享
+		initShare();
 	}
 
 	@Override
 	protected void findViewById() {
 		btn_postinfo_back = (Button) findViewById(R.id.btn_postinfo_back);
-		btn_postinfo_starter = (Button) findViewById(R.id.btn_postinfo_starter);
+		btn_share = (Button) findViewById(R.id.btn_share);
 		tv_postinfo_title = (TextView) findViewById(R.id.tv_postinfo_title);
 
 		et_reply = (EditText) findViewById(R.id.et_reply);
@@ -262,27 +280,28 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				R.drawable.line_small));
 		lv_postinfo_replys.setSelector(R.color.color_white);
 
-//		View view = View.inflate(this, R.layout.include_postinfo_container,
-//				null);
-//		iv_postinfo_starter_head = (CircleImageView) view
-//				.findViewById(R.id.iv_postinfo_starter_head);
-//		iv_postinfo_starter_sex = (ImageView) view
-//				.findViewById(R.id.iv_postinfo_starter_sex);
-//		iv_postinfo_tag = (ImageView) view.findViewById(R.id.iv_postinfo_tag);
-//		tv_postinfo_starter_name = (TextView) view
-//				.findViewById(R.id.tv_postinfo_starter_name);
-//		tv_postinfo_starter_time = (TextView) view
-//				.findViewById(R.id.tv_postinfo_starter_time);
-//		tv_postinfo_starter_content = (TextView) view
-//				.findViewById(R.id.tv_postinfo_starter_content);
-//		tv_postinfo_starter_title = (TextView) view
-//				.findViewById(R.id.tv_postinfo_starter_title);
-//		btn_postinfo_starter_reply = (Button) view
-//				.findViewById(R.id.btn_postinfo_starter_reply);
-//		lv_postinfo_starter_imgs = (ListView) view
-//				.findViewById(R.id.lv_postinfo_starter_imgs);
+		// View view = View.inflate(this, R.layout.include_postinfo_container,
+		// null);
+		// iv_postinfo_starter_head = (CircleImageView) view
+		// .findViewById(R.id.iv_postinfo_starter_head);
+		// iv_postinfo_starter_sex = (ImageView) view
+		// .findViewById(R.id.iv_postinfo_starter_sex);
+		// iv_postinfo_tag = (ImageView)
+		// view.findViewById(R.id.iv_postinfo_tag);
+		// tv_postinfo_starter_name = (TextView) view
+		// .findViewById(R.id.tv_postinfo_starter_name);
+		// tv_postinfo_starter_time = (TextView) view
+		// .findViewById(R.id.tv_postinfo_starter_time);
+		// tv_postinfo_starter_content = (TextView) view
+		// .findViewById(R.id.tv_postinfo_starter_content);
+		// tv_postinfo_starter_title = (TextView) view
+		// .findViewById(R.id.tv_postinfo_starter_title);
+		// btn_postinfo_starter_reply = (Button) view
+		// .findViewById(R.id.btn_postinfo_starter_reply);
+		// lv_postinfo_starter_imgs = (ListView) view
+		// .findViewById(R.id.lv_postinfo_starter_imgs);
 
-//		lv_postinfo_replys.addHeaderView(view);
+		// lv_postinfo_replys.addHeaderView(view);
 	}
 
 	@Override
@@ -294,7 +313,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void setListener() {
 		btn_postinfo_back.setOnClickListener(this);
-		btn_postinfo_starter.setOnClickListener(this);
+		btn_share.setOnClickListener(this);
 		btn_reply.setOnClickListener(this);
 		llyt_network_error.setOnClickListener(this);
 		pulllv_postinfo.setOnRefreshListener(new OnRefreshListener<ListView>() {
@@ -314,9 +333,13 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			}
 		});
 	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
 		if (MyApplication.getInstance().isUserLogin()) {
 			user = MyApplication.getInstance().getUserInfo();
 			userId = user.getUser_id();
@@ -339,10 +362,9 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	 */
 	private void getReply(int currentPage) {
 		// 请求获取回复列表
-		//擦擦擦
+		// 擦擦擦
 		HttpUrlProvider.getIntance().getPostReply(PostInfoActivity.this,
-				new TaskPostReplyBack(handler), post_id,
-				currentPage);
+				new TaskPostReplyBack(handler), post_id, currentPage);
 	}
 
 	/**
@@ -354,13 +376,8 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		case R.id.btn_postinfo_back:// 返回
 			finish();
 			break;
-		case R.id.btn_postinfo_starter:// 只看楼主
-			if (btn_postinfo_starter.isClickable()) {
-
-			} else {
-
-			}
-
+		case R.id.btn_share:// 分享
+			showPop(v);
 			break;
 		case R.id.btn_postinfo_starter_reply:// 回复楼主
 			et_reply.setFocusable(true);
@@ -371,13 +388,12 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				if ((et_reply.getText().toString().trim()).length() < 2) {
 					ToastUtil.ToastView(PostInfoActivity.this, "回复不能少于2个字");
 				} else {
-					//擦擦擦
+					// 擦擦擦
 					HttpUrlProvider.getIntance().getPostReplySend(
 							PostInfoActivity.this,
 							new TaskReplySendBack(handler), forumId,
 							"" + postinfo_starter.getPostTypeId(),
-							"" + post_id,
-							postinfo_starter.getTitle(),
+							"" + post_id, postinfo_starter.getTitle(),
 							et_reply.getText().toString(), userId);
 
 				}
@@ -395,18 +411,30 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			currentPage = 1;
 			initPostInfo();
 			break;
-		case R.id.iv_postinfo_starter_head://查看楼主头像
-			Intent intent = new Intent(PostInfoActivity.this,HeadImgViewActivity.class);
+		case R.id.iv_postinfo_starter_head:// 查看楼主头像
+			Intent intent = new Intent(PostInfoActivity.this,
+					HeadImgViewActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putString("user_head", postinfo_starter.getAvatar());
 			bundle.putBoolean("user_sex", postinfo_starter.isSex());
 			intent.putExtras(bundle);
 			startActivity(intent);
-			overridePendingTransition(
-					R.anim.translate_horizontal_start_in,
-					R.anim.translate_horizontal_start_out);			
+			overridePendingTransition(R.anim.translate_horizontal_start_in,
+					R.anim.translate_horizontal_start_out);
+			break;
+		case R.id.btn_weixin://分享到微信
+//			startShare(true);
+			dismissPop();
+			break;
+		case R.id.btn_weixin_circle://朋友圈
+//			startShare(false);
+			dismissPop();
+			break;
+		case R.id.btn_pop_post_cancel://取消分享
+			dismissPop();
 			break;
 		}
+
 	}
 
 	@Override
@@ -417,6 +445,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();
 	}
+
 	/**
 	 * @描述：设置ListView的高度
 	 * @日期：2014-10-11
@@ -438,4 +467,174 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1)); // 加上diverHeight
 		listView.setLayoutParams(params);
 	}
+
+	/*---------PopWindow----------*/
+	// 头像选择Pop
+	private PopupWindow pop;
+	// 头像选择View
+	private View popview;
+	// 相册选择
+	private Button btn_weixin;
+	// 拍照
+	private Button btn_weixin_circle;
+	// 取消
+	private Button btn_pop_post_cancel;
+	/*--------------------------友盟分享--------------------------*/
+	public static final String DESCRIPTOR = "com.umeng.share";
+	private UMSocialService mController = UMServiceFactory
+			.getUMSocialService(DESCRIPTOR,RequestType.SOCIAL);
+
+	/**
+	 * @描述：初始化微信分享
+	 * @时间 2014-10-16
+	 */
+	private void initShare() {
+		// wx967daebe835fbeac是你在微信开发平台注册应用的AppID, 这里需要替换成你注册的AppID
+		String appId = "wxbb84418b57740c4e";
+		String appSecret = "d0e79d1086c1f37138660420c8cdcb30";
+
+		// 添加微信平台
+		UMWXHandler wxHandler = new UMWXHandler(PostInfoActivity.this, appId,
+				appSecret);
+		wxHandler.addToSocialSDK();
+		// 添加微信朋友圈
+		UMWXHandler wxCircleHandler = new UMWXHandler(PostInfoActivity.this,
+				appId, appSecret);
+		wxCircleHandler.setToCircle(true);
+		wxCircleHandler.addToSocialSDK();
+	}
+	/**
+	 * @描述：设置分享内容
+	 * @时间 2014-10-16
+	 */
+	private void share(String content,String title,String imgUrl,String contentUrl) {
+		UMImage urlImage = new UMImage(PostInfoActivity.this,
+				"http://www.umeng.com/images/pic/home/social/img-1.png");
+		// 设置微信好友分享内容
+		WeiXinShareContent weixinContent = new WeiXinShareContent();
+		// 设置分享文字
+		weixinContent.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能，微信");
+		// 设置title
+		weixinContent.setTitle("友盟社会化分享组件-微信");
+		// 设置分享内容跳转URL
+		weixinContent.setTargetUrl("http://www.umeng.com");
+		// 设置分享图片
+		weixinContent.setShareImage(urlImage);
+		mController.setShareMedia(weixinContent);
+
+		// 设置微信朋友圈分享内容
+		CircleShareContent circleMedia = new CircleShareContent();
+		circleMedia.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能，朋友圈");
+		// 设置朋友圈title
+		circleMedia.setTitle("友盟社会化分享组件-朋友圈");
+		circleMedia.setShareImage(urlImage);
+		circleMedia.setTargetUrl("http://www.umeng.com");
+		mController.setShareMedia(circleMedia);
+	}
+
+	/**
+	 * 显示popupwindow
+	 * 
+	 * @param view
+	 */
+	private void showPop(View view) {
+		if (pop == null) {
+			popview = View.inflate(this, R.layout.pop_post_share, null);
+			pop = new PopupWindow(popview, LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT);
+		}
+
+		btn_weixin = (Button) popview
+				.findViewById(R.id.btn_weixin);
+		btn_weixin_circle = (Button) popview
+				.findViewById(R.id.btn_weixin_circle);
+		btn_pop_post_cancel = (Button) popview
+				.findViewById(R.id.btn_pop_post_cancel);
+
+		btn_weixin.setOnClickListener(this);
+		btn_weixin_circle.setOnClickListener(this);
+		btn_pop_post_cancel.setOnClickListener(this);
+
+		// 使其聚焦
+		pop.setFocusable(true);
+		// 设置允许在外点击消失
+		pop.setOutsideTouchable(true);
+		// 给pop设置背景
+		Drawable background = new ColorDrawable(Color.TRANSPARENT);
+		pop.setBackgroundDrawable(background);
+		// 设置pop动画
+		pop.setAnimationStyle(R.style.PopupAnimation);
+		// 设置pop 的位置
+		pop.showAtLocation(view, Gravity.TOP, 0, (int) (MyApplication
+				.getInstance().getScreenHeight() * 3 / 4));
+	}
+
+	/**
+	 * 
+	 * @描述：隐藏pop
+	 * @date：2014-6-19
+	 */
+	private void dismissPop() {
+		if (pop != null) {
+			pop.dismiss();
+		}
+	}
+	/**
+	 * @描述：开始分享
+	 * @param flag
+	 * @时间 2014-10-16
+	 */
+	private void startShare(boolean flag,String content,String title,String imgUrl,String contentUrl) {
+		share(content, title, imgUrl, contentUrl);
+		if (flag) {
+			// 分享到微信
+			mController.postShare(PostInfoActivity.this, SHARE_MEDIA.WEIXIN,
+					new SnsPostListener() {
+						@Override
+						public void onStart() {
+							// 分享
+							Toast.makeText(PostInfoActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+						}
+
+						@Override
+						public void onComplete(SHARE_MEDIA platform, int eCode,
+								SocializeEntity entity) {
+							if (eCode == 200) {
+							} else {
+								String eMsg = "";
+								if (eCode == -101) {
+									eMsg = "没有授权";
+								}
+								Toast.makeText(PostInfoActivity.this,
+										"分享失败[" + eCode + "] " + eMsg,
+										Toast.LENGTH_SHORT).show();
+							}
+						}
+					});
+		} else {
+			// 分享到朋友圈
+			mController.postShare(this, SHARE_MEDIA.WEIXIN_CIRCLE,
+					new SnsPostListener() {
+						@Override
+						public void onStart() {
+						}
+
+						@Override
+						public void onComplete(SHARE_MEDIA platform, int eCode,
+								SocializeEntity entity) {
+							if (eCode == 200) {
+							} else {
+								String eMsg = "";
+								if (eCode == -101) {
+									eMsg = "没有授权";
+								}
+								Toast.makeText(PostInfoActivity.this,
+										"分享失败[" + eCode + "] " + eMsg,
+										Toast.LENGTH_SHORT).show();
+							}
+						}
+					});
+		}
+	}
+
 }

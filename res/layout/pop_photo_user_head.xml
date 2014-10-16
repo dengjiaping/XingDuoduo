@@ -20,20 +20,19 @@
             android:id="@+id/btn_pop_photo_album"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/horizontal_mid_bg_selector"
+            android:background="@drawable/whole_bg_normal_selector2"
             android:text="@string/pop_album"
             android:padding="10dip"
             android:textColor="@color/color_red"
             android:textSize="@dimen/txt_size_18" />
 
-        <include layout="@layout/line_match"/>
 		<!-- 拍照 -->
         <Button
             android:id="@+id/btn_pop_photo_camera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dip"
-            android:background="@drawable/horizontal_mid_bg_selector"
+            android:background="@drawable/whole_bg_normal_selector2"
             android:text="@string/pop_camera"
             android:textColor="@color/color_red"
             android:textSize="@dimen/txt_size_18" />
@@ -45,7 +44,7 @@
             android:layout_marginBottom="10.0dip"
             android:layout_marginTop="10.0dip"
             android:padding="10dip"
-            android:background="@drawable/horizontal_mid_bg_selector"
+            android:background="@drawable/whole_bg_normal_selector2"
             android:text="@string/pop_cancel"
             android:textColor="@color/color_blue"
             android:textSize="@dimen/txt_size_18" />

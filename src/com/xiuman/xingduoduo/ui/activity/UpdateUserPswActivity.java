@@ -131,6 +131,13 @@ public class UpdateUserPswActivity extends Base2Activity implements
 		btn_submit.setVisibility(View.INVISIBLE);
 		btn_submit_update.setOnClickListener(this);
 	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
+	}
 
 	/**
 	 * 点击事件
@@ -252,3 +259,4 @@ public class UpdateUserPswActivity extends Base2Activity implements
 		loadingdialog = null;
 	}
 }
+

@@ -492,6 +492,9 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		if (MyApplication.getInstance().isUserLogin()) {
 			user = MyApplication.getInstance().getUserInfo();
 		}
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
 	}
 
 	/**

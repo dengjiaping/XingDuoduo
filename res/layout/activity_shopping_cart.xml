@@ -66,7 +66,7 @@
 
             <LinearLayout
                 android:id="@+id/llyt_cart_null"
-                style="@style/txt_style_base2"
+                style="@style/txt_style_base3"
                 android:orientation="vertical"
                 android:visibility="invisible" >
 

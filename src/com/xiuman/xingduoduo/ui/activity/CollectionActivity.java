@@ -318,6 +318,9 @@ public class CollectionActivity extends Base2Activity implements
 	@Override
 	public void onResume() {
 		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
 	}
 
 	/**

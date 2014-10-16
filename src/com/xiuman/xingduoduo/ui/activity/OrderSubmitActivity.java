@@ -533,6 +533,9 @@ public class OrderSubmitActivity extends Base2Activity implements
 			overridePendingTransition(R.anim.translate_vertical_start_in,
 					R.anim.translate_vertical_start_out);
 		}
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
 	}
 
 	/**

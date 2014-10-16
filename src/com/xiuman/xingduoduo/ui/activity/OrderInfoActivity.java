@@ -316,6 +316,14 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 		llyt_network_error.setOnClickListener(this);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
+	}
+	
 	/**
 	 * @描述：设置订单信息 2014-9-18
 	 */
@@ -643,3 +651,4 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 		imageLoader.clearMemoryCache();
 	}
 }
+

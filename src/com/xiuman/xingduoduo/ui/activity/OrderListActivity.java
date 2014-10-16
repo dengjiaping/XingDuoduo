@@ -280,6 +280,9 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
 
 	}
 

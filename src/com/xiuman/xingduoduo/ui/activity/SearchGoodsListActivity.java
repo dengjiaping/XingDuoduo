@@ -305,6 +305,14 @@ public class SearchGoodsListActivity extends Base2Activity implements
 		button_floating_action.setOnClickListener(this);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
+	}
+	
 	/**
 	 * 点击事件
 	 */

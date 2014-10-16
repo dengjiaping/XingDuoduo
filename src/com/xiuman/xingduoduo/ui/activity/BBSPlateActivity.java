@@ -374,7 +374,13 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 			break;
 		}
 	}
-
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(BBSPlateActivity.this);
+		}
+	}
 	/**
 	 * @描述：加载数据(首次加载)--测试数据，添加操作
 	 * @date：2014-6-25

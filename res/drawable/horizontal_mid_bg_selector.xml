@@ -7,14 +7,14 @@
             <corners android:bottomLeftRadius="0dip" android:bottomRightRadius="0dip" android:topLeftRadius="0dip" android:topRightRadius="0dip" />
 
             <gradient android:endColor="@android:color/darker_gray" android:startColor="@android:color/darker_gray" />
-
+			<stroke android:width="0.1dip" android:color="@color/color_black_line" />
         </shape></item>
     <!-- 正常 -->
     <item><shape>
             <corners android:bottomLeftRadius="0dip" android:bottomRightRadius="0dip" android:topLeftRadius="0dip" android:topRightRadius="0dip" />
 
             <gradient android:endColor="@color/color_white" android:startColor="@color/color_white" />
-
+			<stroke android:width="0.1dip" android:color="@color/color_black_line" />
         </shape></item>
 
 </selector>

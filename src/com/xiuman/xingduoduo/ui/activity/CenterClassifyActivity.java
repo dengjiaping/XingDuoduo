@@ -314,6 +314,9 @@ public class CenterClassifyActivity extends Base2Activity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
 	}
 
 	/**

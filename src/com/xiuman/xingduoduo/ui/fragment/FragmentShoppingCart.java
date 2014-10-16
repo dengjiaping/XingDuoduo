@@ -567,6 +567,9 @@ public class FragmentShoppingCart extends BaseFragment implements
 			initShopingCart2(currentPage);
 		}
 		isShowNull();
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(getActivity());
+		}
 	}
 
 	/**

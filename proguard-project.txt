@@ -103,7 +103,7 @@
 -keep class com.google.gson.examples.android.model.** { *; }
 -keep class com.google.gson.** { *;}
 
-#com.google.gson
+#umeng
 -libraryjars libs/umeng-analytics-v5.2.3.jar
 -libraryjars libs/umeng-fb-v4.3.2.jar
 -libraryjars libs/umeng-update-v2.4.2.jar
@@ -113,3 +113,26 @@
 -keep class com.alipay.android.app.IAliPay{*;}
 -keep class com.alipay.android.app.IAlixPay{*;}
 -keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+
+#weixin
+-libraryjars libs/SocialSDK_WeiXin_1.jar
+-libraryjars libs/SocialSDK_WeiXin_2.jar
+-keep class com.tencent.mm.** { *; }
+-dontwarn com.tencent.mm.**
+-keep class com.umeng.socialize.weixin.** { *; }
+-dontwarn com.umeng.socialize.weixin.**
+
+#umeng.social
+-libraryjars libs/umeng_social_sdk.jar
+-keep class com.umeng.socialize.** { *; }
+-dontwarn com.umeng.socialize.**
+
+#sina
+-libraryjars libs/SocialSDK_Sina.jar
+-keep class com.umeng.socialize.sso.** { *; }
+-dontwarn com.umeng.socialize.sso.**
+
+#httpmime
+-libraryjars libs/httpmime-4.1.3.jar
+-keep class org.apache.http.entity.mime.** { *; }
+-dontwarn org.apache.http.entity.mime.**

@@ -488,6 +488,9 @@ public class ShoppingCartActivity extends Base2Activity implements
 		if (isReFresh) {
 			mPullListView.doPullRefreshing(true, 500);
 		}
+		if(loadingdialog==null){
+			loadingdialog = new LoadingDialog(this);
+		}
 	}
 
 	/**
