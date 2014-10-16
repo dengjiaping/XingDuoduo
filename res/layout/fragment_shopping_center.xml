@@ -37,8 +37,8 @@
                 <!-- 广告1 -->
 
                 <RelativeLayout
-                    style="@style/txt_style_base2"
-                    android:background="@drawable/onloading">
+                    android:layout_width="match_parent"
+                    android:layout_height="150dip">
 
                     <!-- ViewPager -->
 

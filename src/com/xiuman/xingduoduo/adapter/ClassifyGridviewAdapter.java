@@ -22,7 +22,7 @@ public class ClassifyGridviewAdapter extends BaseAdapter {
 	private Context context;
 	//分类名
 	private String[] names;
-	//藐视
+	//描述
 	private String [] descriptions; 
 	/**
 	 * @param classies
@@ -80,7 +80,7 @@ public class ClassifyGridviewAdapter extends BaseAdapter {
 	 * @version
 	 * 2014-6-6
 	 */
-	static class ViewHolder{
+	public static class ViewHolder{
 		//分类海报
 		ImageView iv_classify_poster;
 		//名

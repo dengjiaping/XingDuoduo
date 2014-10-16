@@ -11,7 +11,7 @@
 
     <include layout="@layout/include_title_2" />
 
-    <ScrollView
+    <com.xiuman.xingduoduo.view.StretchScrollView
         android:id="@+id/sv_bbs"
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -88,6 +88,6 @@
                     android:scrollbars="none" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </com.xiuman.xingduoduo.view.StretchScrollView>
 
 </LinearLayout>
