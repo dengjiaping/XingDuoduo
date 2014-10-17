@@ -215,7 +215,6 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		tv_title = (TextView) findViewById(R.id.tv_bbs_title);
 
 		pullsv_post = (PullToRefreshListView) findViewById(R.id.pulllv_posts);
-		pullsv_post.setPullRefreshEnabled(true);
 		pullsv_post.setPullLoadEnabled(true);
 		pullsv_post.setScrollLoadEnabled(true);
 		lv_posts = pullsv_post.getRefreshableView();

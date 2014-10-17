@@ -15,9 +15,11 @@
         android:weightSum="4" >
 
         <RelativeLayout
+            android:id="@+id/rlyt_left_container"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:background="@drawable/bg_classify"
+            android:layout_weight="0" >
 
             <ListView
                 android:id="@+id/lv_goods_classify"
@@ -26,6 +28,8 @@
                 android:background="@color/color_white"
                 android:divider="@android:color/transparent"
                 android:fadingEdge="none"
+                android:dividerHeight="0dip"
+                android:layout_marginRight="15dip"
                 android:listSelector="@android:color/transparent"
                 android:scrollbars="none" />
 
@@ -39,32 +43,33 @@
 
         <!-- 商品分类界面 -->
 
-        <com.xiuman.xingduoduo.view.StretchScrollView
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:fadingEdge="none"
-            android:scrollbars="none" >
 
-            <LinearLayout
-                style="@style/txt_style_base2"
-                android:orientation="vertical"
-                android:padding="10dip" >
+            <com.xiuman.xingduoduo.view.StretchScrollView
+                android:layout_width="0dip"
+                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:fadingEdge="none"
+                android:scrollbars="none" >
 
-                <com.xiuman.xingduoduo.view.MyGridView
-                    android:id="@+id/gridview_good_classify"
+                <LinearLayout
                     style="@style/txt_style_base2"
-                    android:cacheColorHint="@android:color/transparent"
-                    android:fadingEdge="none"
-                    android:gravity="center"
-                    android:horizontalSpacing="10dip"
-                    android:listSelector="@android:color/transparent"
-                    android:numColumns="2"
-                    android:scrollbars="none"
-                    android:verticalSpacing="10dip" >
-                </com.xiuman.xingduoduo.view.MyGridView>
-            </LinearLayout>
-        </com.xiuman.xingduoduo.view.StretchScrollView>
+                    android:orientation="vertical"
+                    android:padding="15dip" >
+
+                    <com.xiuman.xingduoduo.view.MyGridView
+                        android:id="@+id/gridview_good_classify"
+                        style="@style/txt_style_base2"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:fadingEdge="none"
+                        android:gravity="center"
+                        android:horizontalSpacing="20dip"
+                        android:listSelector="@android:color/transparent"
+                        android:numColumns="2"
+                        android:scrollbars="none"
+                        android:verticalSpacing="20dip" >
+                    </com.xiuman.xingduoduo.view.MyGridView>
+                </LinearLayout>
+            </com.xiuman.xingduoduo.view.StretchScrollView>
     </LinearLayout>
 
 </LinearLayout>

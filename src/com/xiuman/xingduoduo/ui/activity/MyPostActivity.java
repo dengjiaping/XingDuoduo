@@ -119,6 +119,8 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 				} else {
 					ToastUtil.ToastView(MyPostActivity.this, "没有更多帖子！");
 					pulllv_my_post.setHasMoreData(false);
+					// 上拉刷新完成
+					pulllv_my_post.onPullUpRefreshComplete();
 					flag = false;
 					if (currentPage == 1) {// 第一次请求返回结果为空
 						llyt_null_post.setVisibility(View.VISIBLE);

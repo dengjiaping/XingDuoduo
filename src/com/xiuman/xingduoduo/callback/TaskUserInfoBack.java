@@ -29,10 +29,12 @@ public class TaskUserInfoBack implements HttpTaskListener {
 	public void dataSucced(String result) {
 		ActionValue<User> value = new Gson().fromJson(result, new TypeToken<ActionValue<User>>() {
 		}.getType());
-		String user_info = new Gson().toJson(value.getDatasource().get(0));
-		
-		// 保存用户登录信息
-		MyApplication.getInstance().saveUserInfo(user_info);
+		if (value.isSuccess()) {
+			String user_info = new Gson().toJson(value.getDatasource().get(0));
+
+			// 保存用户登录信息
+			MyApplication.getInstance().saveUserInfo(user_info);
+		}
 		Message msg = Message.obtain();
 		msg.what = AppConfig.SUCCESS_USER_INFO;
 		handler.sendMessage(msg);

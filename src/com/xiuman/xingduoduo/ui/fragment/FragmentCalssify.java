@@ -6,6 +6,8 @@ import java.util.Hashtable;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -23,15 +25,19 @@ import android.widget.TextView;
 
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.ClassifyGridviewAdapter;
+import com.xiuman.xingduoduo.adapter.ClassifyListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
+import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.callback.TaskClassifyBack;
+import com.xiuman.xingduoduo.constants.ConstantParameter;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.Classify;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.activity.ClassifyActivity;
 import com.xiuman.xingduoduo.ui.activity.SearchActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
+import com.xiuman.xingduoduo.util.SizeUtil;
 
 /**
  * 
@@ -52,6 +58,8 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	private ListView lv_goods_classify;
 	// ImageView indicator
 	private ImageView iv_classify_indicator;
+	//一级分类Adapter
+	private ClassifyListViewAdapter adapter_aCategory;
 	// 进度加载
 	// private LoadingDialog loadingdialog;
 
@@ -140,13 +148,24 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	protected void initUI() {
 		// initClassify();
 		tv_title.setText("分类");
+		
 		classify_adapter = new ClassifyGridviewAdapter(getActivity());
 		gridview_good_classify.setAdapter(classify_adapter);
-
 		isNet = false;
-
-		lv_goods_classify.setAdapter(classify_adapter);
+		
+		//一级分类
+		adapter_aCategory = new ClassifyListViewAdapter(getActivity(), ConstantParameter.aCategory);
+		lv_goods_classify.setAdapter(adapter_aCategory);
 		initLayout(lv_goods_classify);
+		
+		//设置滑块的初始位置
+		double currentWdith = MyApplication.getInstance().getScreenWidth()/4*1.1-SizeUtil.dip2px(getActivity(), 15);
+		int currentHeight = (int) (currentWdith/128*149);
+		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon_classify_indicator);
+		int width = bmp.getHeight();
+		bmp.recycle();
+		iv_classify_indicator.setY(currentHeight/2-width/2);
+		lv_goods_classify.setSelection(0);
 	}
 
 	/**
@@ -202,12 +221,16 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 					}
 
 				});
+		//一级分类点击事件
 		lv_goods_classify.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				startSildingInAnimation(position);
+				lv_goods_classify.smoothScrollToPosition(position);
+				lv_goods_classify.requestFocusFromTouch();
+				lv_goods_classify.setSelection(position);
 			}
 		});
 	}

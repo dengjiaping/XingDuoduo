@@ -79,6 +79,8 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	// 回复帖子列表
 	private ListView lv_postinfo_replys;
 
+	//回复container
+	private LinearLayout llyt_reply_container;
 	// 回复输入框
 	private EditText et_reply;
 	// 发送回复
@@ -158,13 +160,14 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					}
 					pulllv_postinfo.setHasMoreData(true);
 				} else {
-					ToastUtil.ToastView(PostInfoActivity.this, "没有更多回复！");
+//					ToastUtil.ToastView(PostInfoActivity.this, "没有更多回复！");
 					// 上拉刷新完成
 					pulllv_postinfo.onPullUpRefreshComplete();
 					pulllv_postinfo.setHasMoreData(false);
 				}
 				loadingdialog.dismiss();
 				llyt_network_error.setVisibility(View.INVISIBLE);
+				llyt_reply_container.setVisibility(View.VISIBLE);
 				break;
 			case AppConfig.BBS_REPLY_SEND_BACK:// 获取回复成功
 				valueSend = (ActionValue<?>) msg.obj;
@@ -207,6 +210,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
 				loadingdialog.dismiss();
 				llyt_network_error.setVisibility(View.VISIBLE);
+				llyt_reply_container.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.BBS_REPLY_FAILD:
 				ToastUtil.ToastView(PostInfoActivity.this, "回复失败请重试!");
@@ -264,6 +268,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 
 		et_reply = (EditText) findViewById(R.id.et_reply);
 		btn_reply = (Button) findViewById(R.id.btn_reply);
+		llyt_reply_container = (LinearLayout) findViewById(R.id.llyt_reply_container);
 		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
 		loadingdialog = new LoadingDialog(PostInfoActivity.this);
 
