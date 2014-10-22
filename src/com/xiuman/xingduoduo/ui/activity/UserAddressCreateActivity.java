@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -149,7 +150,7 @@ public class UserAddressCreateActivity extends Base2Activity implements
 
 	// 请求添加新地址---------------------------------------------
 	// 请求返回结果
-	private ActionValue<?> value_add;
+	private ActionValue<?> value_add = new ActionValue<T>();
 
 	// 消息处理
 	@SuppressLint("HandlerLeak")
@@ -167,12 +168,12 @@ public class UserAddressCreateActivity extends Base2Activity implements
 					setResult(AppConfig.RESULT_CODE_ADD_ADDRESS);
 					finish();
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UserAddressCreateActivity.this);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 连接失败
 				ToastUtil.ToastView(UserAddressCreateActivity.this,
 						"网络连接失败，请检查网络后重试");
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UserAddressCreateActivity.this);
 				break;
 			}
 		}
@@ -491,7 +492,7 @@ public class UserAddressCreateActivity extends Base2Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(UserAddressCreateActivity.this);
 		loadingdialog = null;
 	}
 }

@@ -1,5 +1,6 @@
 package com.xiuman.xingduoduo.ui.activity;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -58,7 +59,7 @@ public class UpdateUserPswActivity extends Base2Activity implements
 	// 从上级界面接收到的用户信息
 	private User user;
 	// 修改结果
-	private ActionValue<?> value;
+	private ActionValue<?> value = new ActionValue<T>();
 
 	// Handler
 	@SuppressLint("HandlerLeak")
@@ -76,16 +77,16 @@ public class UpdateUserPswActivity extends Base2Activity implements
 				} else {
 					ToastUtil.ToastView(UpdateUserPswActivity.this,
 							value.getMessage());
-					loadingdialog.dismiss();
+					loadingdialog.dismiss(UpdateUserPswActivity.this);
 				}
 
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UpdateUserPswActivity.this);
 				ToastUtil.ToastView(UpdateUserPswActivity.this, "网络连接失败，请重试");
 				break;
 			case AppConfig.SUCCESS_USER_INFO:// 获取用户信息成功
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UpdateUserPswActivity.this);
 				finish();
 				break;
 			}
@@ -255,7 +256,7 @@ public class UpdateUserPswActivity extends Base2Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(UpdateUserPswActivity.this);
 		loadingdialog = null;
 	}
 }

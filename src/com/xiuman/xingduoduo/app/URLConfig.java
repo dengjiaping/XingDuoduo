@@ -13,27 +13,32 @@ public class URLConfig {
 	public static final String PRIVATE_IMG_IP = "http://110.81.238.163:8080/bbs3";
 	// bbs内网测试地址
 	public static final String PRIVATE_IP = "http://110.81.238.163:8080/bbs3/app/";
+	//板块图片
+	public static final String PLATE_IMG_IP = "http://110.81.238.163:8080";
 	// 内网图片ip
 //	public static final String PRIVATE_IMG_IP = "http://192.168.16.50:8080";
 	// bbs内网测试地址
 //	public static final String PRIVATE_IP = "http://192.168.16.50:8080/bbs/app/";
 	// 普通帖子
-	public static final String FORUM_LIST_IP = "appTopForumAndroidList.jhtml?";
+	public static final String FORUM_LIST_IP = "/new/appTopForumList.jhtml?";
 	// 置顶帖子
-	public static final String FORUM_TOP_LIST_IP = "appUpTopForumAndroidList.jhtml?";
-	// 帖子详情回复
-	public static final String FORUM_REPLY_LIST_IP = "appPostAndroidInfo.jhtml?";
+	public static final String FORUM_TOP_LIST_IP = "/new/appUpTopForumList.jhtml?";
+	//精化帖子列表
+	public static final String FORUM_JINGHUA = "/new/appTopForumJingList.jhtml?";
+	// 帖子详情
+	public static final String FORUM_REPLY_LIST_IP = "/new/appPostInfo.jhtml?";
 	// 回帖
-	public static final String POST_REPLY__IP = "appPostReply.jhtml?";
+	public static final String POST_REPLY__IP = "/new/appPostReply.jhtml?";
 	// 发帖
-	public static final String POST_PUBLISH__IP = "appPostNote.jhtml?";
+	public static final String POST_PUBLISH__IP = "/new/appPostNote.jhtml?";
 	// 我的发帖
-	public static final String MY_POST__IP = "appMyTopicAndroidList.jhtml?";
+	public static final String MY_POST__IP = "/new/appMyTopicList.jhtml?";
 	// 我的回帖
-	public static final String MY_REPLY_POST_IP = "appMyReplyAndroidList.jhtml?";
+	public static final String MY_REPLY_POST_IP = "/new/appMyReplyList.jhtml?";
 	// 我的广告贴
-	public static final String MY_AD_POST_IP = "appUpTopForumAndroidList.jhtml?";
-	
+	public static final String MY_AD_POST_IP = "/new/appUpTopForumList.jhtml?";
+	//论坛板块
+	public static final String BBS_PLATE = "new/appForumList.jhtml";
 	//上传头像
 	public static final String UPLOAD_HEAD = "/member!updateHeadImage.action?";
 	
@@ -123,6 +128,8 @@ public class URLConfig {
 	//传递支付结果到服务端
 	public static final String PAY_STATUS_CODE = "/member!payorderApp.action?";
 	
+	//商城首页广告
+	public static final String CENTER_AD = "/goods!getHomeAd.action?";
 	//商城首页板块
 	public static final String CENTER_HOME_PLATE = "/goods!getGoodsAppByIt.action?";
 	//置顶商品

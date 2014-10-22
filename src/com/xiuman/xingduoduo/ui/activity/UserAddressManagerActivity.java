@@ -64,7 +64,7 @@ public class UserAddressManagerActivity extends Base2Activity implements
 
 	/*-----------------------------请求数据-------------------------------*/
 	// 收货地址列表
-	private ActionValue<UserAddress> value_address;
+	private ActionValue<UserAddress> value_address = new ActionValue<UserAddress>();
 	// 请求获取的用户收货地址列表
 	private ArrayList<UserAddress> addresses = new ArrayList<UserAddress>();
 
@@ -89,13 +89,13 @@ public class UserAddressManagerActivity extends Base2Activity implements
 					lv_user_addresses.setAdapter(adapter);
 					llyt_null_address.setVisibility(View.INVISIBLE);
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UserAddressManagerActivity.this);
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 请求无网络
 				llyt_network_error.setVisibility(View.VISIBLE);
 				llyt_null_address.setVisibility(View.INVISIBLE);
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UserAddressManagerActivity.this);
 			default:
 				break;
 			}
@@ -243,7 +243,7 @@ public class UserAddressManagerActivity extends Base2Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(UserAddressManagerActivity.this);
 		loadingdialog = null;
 	}
 }

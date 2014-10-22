@@ -32,7 +32,7 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener
 	private ImageView[] indicators = null;
 	//引导图
 	private int[] images = new int[] { R.drawable.guide_1, R.drawable.guide_2,
-			R.drawable.guide_3,R.drawable.guide_4,R.drawable.guide_5 };
+			R.drawable.guide_3,R.drawable.guide_4};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

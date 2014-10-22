@@ -82,7 +82,7 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 
 	/*-----------------------------------请求接口-------------------------------*/
 	// 消息返回（订单列表）
-	private ActionValue<OrderSimple> value_order;
+	private ActionValue<OrderSimple> value_order = new ActionValue<OrderSimple>();
 	// 当前显示的订单列表
 	private ArrayList<OrderSimple> orders_current = new ArrayList<OrderSimple>();
 	// 请求得到的订单列表
@@ -133,11 +133,11 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 					llyt_order_null.setVisibility(View.INVISIBLE);
 				}
 
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderListActivity.this);
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderListActivity.this);
 				llyt_network_error.setVisibility(View.VISIBLE);
 				break;
 			}
@@ -336,7 +336,7 @@ public class OrderListActivity extends Base2Activity implements OnClickListener 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(OrderListActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();

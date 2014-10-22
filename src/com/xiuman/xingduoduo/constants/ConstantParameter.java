@@ -17,8 +17,8 @@ public class ConstantParameter {
 			R.drawable.classify_item_6, R.drawable.classify_item_7,
 			R.drawable.classify_item_8 };
 	public static int[] guides = new int[] { R.drawable.guide_1,
-			R.drawable.guide_2, R.drawable.guide_3, R.drawable.guide_4,
-			R.drawable.guide_5 };
+			R.drawable.guide_2, R.drawable.guide_3, R.drawable.guide_4
+			};
 	public static int[] aCategory = new int[] { R.drawable.icon_acatogory_1,
 			R.drawable.icon_acatogory_2, R.drawable.icon_acatogory_3,
 			R.drawable.icon_acatogory_4, R.drawable.icon_acatogory_5,

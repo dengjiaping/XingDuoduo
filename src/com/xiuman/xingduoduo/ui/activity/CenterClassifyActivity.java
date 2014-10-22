@@ -80,7 +80,7 @@ public class CenterClassifyActivity extends Base2Activity implements
 	// 接收到的分类地址后缀
 	private String classify_url;
 	// 请求接口得到的商品数据
-	private ActionValue<GoodsOne> value;
+	private ActionValue<GoodsOne> value = new ActionValue<GoodsOne>();
 	// （商品列表）
 	private ArrayList<GoodsOne> goods_get = new ArrayList<GoodsOne>();
 	// 当前现实的商品列表
@@ -136,11 +136,11 @@ public class CenterClassifyActivity extends Base2Activity implements
 
 					llyt_null_goods.setVisibility(View.INVISIBLE);
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(CenterClassifyActivity.this);
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(CenterClassifyActivity.this);
 				llyt_network_error.setVisibility(View.VISIBLE);
 				llyt_null_goods.setVisibility(View.INVISIBLE);
 				break;
@@ -357,7 +357,7 @@ public class CenterClassifyActivity extends Base2Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(CenterClassifyActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();

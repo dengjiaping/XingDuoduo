@@ -21,7 +21,7 @@
                 android:layout_width="70dip"
                 android:layout_height="70dip"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY" />
+                android:scaleType="centerCrop" />
             <!-- 板块名，介绍 -->
 
             <LinearLayout

@@ -22,6 +22,7 @@ import com.xiuman.xingduoduo.ui.fragment.FragmentCalssify;
 import com.xiuman.xingduoduo.ui.fragment.FragmentMe;
 import com.xiuman.xingduoduo.ui.fragment.FragmentShoppingCart;
 import com.xiuman.xingduoduo.ui.fragment.FragmentShoppingCenter;
+import com.xiuman.xingduoduo.ui.fragment.FragmentShoppingCenter2;
 import com.xiuman.xingduoduo.util.NetUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.CustomDialog2;
@@ -37,7 +38,7 @@ public class MainActivity extends BaseActivity implements
 		OnCheckedChangeListener {
 
 	// 商城
-	private FragmentShoppingCenter fragmentShoppingCenter;
+	private FragmentShoppingCenter2 fragmentShoppingCenter;
 	// 分类
 	private FragmentCalssify fragmentClassiyf;
 	// 购物车
@@ -53,6 +54,8 @@ public class MainActivity extends BaseActivity implements
 	private RadioGroup radiogroup_main_bottom_menu;
 	// 商城
 	private RadioButton rbtn_shopping_center;
+	//全套
+	private RadioButton rbtn_bbs;
 
 	Timer timer = new Timer();
 
@@ -98,6 +101,7 @@ public class MainActivity extends BaseActivity implements
 	protected void findViewById() {
 		radiogroup_main_bottom_menu = (RadioGroup) findViewById(R.id.radiogroup_main_bottom_menu);
 		rbtn_shopping_center = (RadioButton) findViewById(R.id.rbtn_shopping_center);
+		rbtn_bbs = (RadioButton) findViewById(R.id.rbtn_communication);
 	}
 
 	/**
@@ -161,7 +165,7 @@ public class MainActivity extends BaseActivity implements
 		switch (index) {
 		case 0:// 商城
 			if (fragmentShoppingCenter == null) {
-				fragmentShoppingCenter = new FragmentShoppingCenter();
+				fragmentShoppingCenter = new FragmentShoppingCenter2();
 				transaction.add(R.id.content, fragmentShoppingCenter);
 			} else {
 				transaction.show(fragmentShoppingCenter);
@@ -192,6 +196,7 @@ public class MainActivity extends BaseActivity implements
 			} else {
 				transaction.show(fragmentCommunication);
 			}
+			rbtn_bbs.setChecked(true);
 			break;
 		case 4:// 个人中心
 			if (fragmentMe == null) {

@@ -6,6 +6,7 @@ import java.util.List;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -61,7 +62,6 @@ import com.xiuman.xingduoduo.ui.fragment.FragmentGoodsInfo;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.BadgeView;
 import com.xiuman.xingduoduo.view.CustomDialog;
-import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.SingleSelectCheckBoxs;
 import com.xiuman.xingduoduo.view.SingleSelectCheckBoxs.OnSelectListener;
 
@@ -184,7 +184,7 @@ public class GoodsInfoDiscussActivity extends BaseActivity implements
 
 	/*--------------------------------消息返回--------------------*/
 	// 添加商品到购物车
-	private ActionValue<?> value_add2cart;
+	private ActionValue<?> value_add2cart = new ActionValue<T>();
 
 	// 消息处理
 	@SuppressLint("HandlerLeak")

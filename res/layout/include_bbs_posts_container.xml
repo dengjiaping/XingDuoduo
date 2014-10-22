@@ -20,7 +20,7 @@
             android:layout_width="80dip"
             android:layout_height="80dip"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY" />
+            android:scaleType="centerCrop" />
         <!-- 板块名，介绍 -->
 
         <LinearLayout

@@ -104,30 +104,6 @@
 
             <include layout="@layout/line_match" />
 
-            <!-- 创建时间 -->
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dip"
-                android:background="@drawable/horizontal_mid_bg_selector"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dip"
-                android:paddingRight="15dip" >
-
-                <TextView
-                    android:text="@string/user_create"
-                    style="@style/txt_style_1"
-                    android:textSize="@dimen/txt_size_14" />
-
-                <TextView
-                    android:id="@+id/tv_userinfo_user_createdate"
-                    android:layout_alignParentRight="true"
-                    android:text="@string/test_user_name"
-                    style="@style/txt_style_1"
-                    android:textSize="@dimen/txt_size_14" />
-            </RelativeLayout>
-
-            <include layout="@layout/line_match" />
             
             <!-- 性别 -->
 

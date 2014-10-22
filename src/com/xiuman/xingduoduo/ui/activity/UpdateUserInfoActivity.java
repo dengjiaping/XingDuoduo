@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -163,7 +164,7 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 	private User user;
 
 	// 修改消息返回
-	private ActionValue<?> value_update;
+	private ActionValue<?> value_update = new ActionValue<T>();
 	// 消息处理
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
@@ -174,7 +175,7 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 				if (value_update.isSuccess()) {
 					getUserInfo();
 				} else {
-					loadingdialog.dismiss();
+					loadingdialog.dismiss(UpdateUserInfoActivity.this);
 					ToastUtil.ToastView(UpdateUserInfoActivity.this,
 							value_update.getMessage());
 				}
@@ -187,7 +188,7 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 				bundle.putSerializable("user", user);
 				intent.putExtras(bundle);
 				setResult(AppConfig.RESULT_CODE_OK, intent);
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UpdateUserInfoActivity.this);
 				finish();
 				overridePendingTransition(
 						R.anim.translate_horizontal_finish_in,
@@ -668,7 +669,7 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(UpdateUserInfoActivity.this);
 		loadingdialog = null;
 	}
 }

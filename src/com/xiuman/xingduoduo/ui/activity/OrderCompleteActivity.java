@@ -79,7 +79,7 @@ public class OrderCompleteActivity extends Base2Activity implements
 	//订单商品数量
 	private String goods_number;
 	//支付宝状态返回
-	private ActionValue<AliPayStatus> get_pay_status;
+	private ActionValue<AliPayStatus> get_pay_status = new ActionValue<AliPayStatus>();
 	//订单poster
 	private String order_poster;
 	
@@ -87,9 +87,9 @@ public class OrderCompleteActivity extends Base2Activity implements
 
 	/*----------------------------去支付----------------------------*/
 	// 请求支付宝私钥
-	private ActionValuePay value_alipay;
+	private ActionValuePay value_alipay = new ActionValuePay();
 	// 传递支付结果
-	private ActionValue<AliPayStatus> value_pay_status;
+	private ActionValue<AliPayStatus> value_pay_status = new ActionValue<AliPayStatus>();
 
 	// 支付宝线程返回 值类型
 	private static final int RQF_PAY = 1;
@@ -104,7 +104,7 @@ public class OrderCompleteActivity extends Base2Activity implements
 			switch (msg.what) {
 			case AppConfig.NET_ERROR_NOTNET:// 网络连接失败
 
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderCompleteActivity.this);
 				break;
 			case AppConfig.ALIPAY_BACK:
 				value_alipay = (ActionValuePay) msg.obj;
@@ -117,7 +117,7 @@ public class OrderCompleteActivity extends Base2Activity implements
 					ToastUtil.ToastView(OrderCompleteActivity.this,
 							value_alipay.getMessage());
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderCompleteActivity.this);
 
 				break;
 			case RQF_PAY:// 支付结果返回

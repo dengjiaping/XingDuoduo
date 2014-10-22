@@ -25,6 +25,7 @@ import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.PlatePostListViewAdapter;
 import com.xiuman.xingduoduo.adapter.PlateStickPostListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
+import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.callback.TaskPostListBack;
 import com.xiuman.xingduoduo.callback.TaskTopPostBack;
 import com.xiuman.xingduoduo.model.ActionValue;
@@ -97,13 +98,13 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	// 置顶帖子
 	private PlateStickPostListViewAdapter adapter_stick;
 	// 返回结果(普通帖子)
-	private ActionValue<BBSPost> value_normal;
+	private ActionValue<BBSPost> value_normal = new ActionValue<BBSPost>();
 	// 普通帖子列表
 	private ArrayList<BBSPost> bbspost = new ArrayList<BBSPost>();
 	// 普通帖子列表
 	private ArrayList<BBSPost> bbspost_get = new ArrayList<BBSPost>();
 	// 返回结果置顶帖子
-	private ActionValue<BBSPost> value_top;
+	private ActionValue<BBSPost> value_top = new ActionValue<BBSPost>();
 	// 置顶帖子列表
 	private ArrayList<BBSPost> bbspostTop;
 
@@ -114,7 +115,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 获取数据成功
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(BBSPlateActivity.this);
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 
@@ -139,7 +140,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 						adapter.notifyDataSetChanged();
 						pullsv_post.onPullUpRefreshComplete();
 						TimeUtil.setLastUpdateTime(pullsv_post);
-						loadingdialog.dismiss();
+						loadingdialog.dismiss(BBSPlateActivity.this);
 					}
 					pullsv_post.setHasMoreData(true);
 				} else {
@@ -147,9 +148,9 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 					// 上拉刷新完成
 					pullsv_post.onPullUpRefreshComplete();
 					pullsv_post.setHasMoreData(false);
-					loadingdialog.dismiss();
+					loadingdialog.dismiss(BBSPlateActivity.this);
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(BBSPlateActivity.this);
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.BBS_TOP_POST_BACK:// 获取置顶帖子
@@ -164,7 +165,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(BBSPlateActivity.this);
 				llyt_network_error.setVisibility(View.VISIBLE);
 				break;
 			}
@@ -238,16 +239,17 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 
 	@Override
 	protected void initUI() {
-		tv_title.setText(plate.getPlate_name());
-		iv_plate_icon.setImageResource(plate.getPlate_icon());
-		tv_plate_name.setText(plate.getPlate_name());
-		tv_plate_description.setText(plate.getPlate_description());
+		tv_title.setText(plate.getTitle());
+//		iv_plate_icon.setImageResource(plate.getPlate_icon());
+		imageLoader.displayImage(URLConfig.PLATE_IMG_IP+plate.getLogo(), iv_plate_icon, options);
+		tv_plate_name.setText(plate.getTitle());
+		tv_plate_description.setText(plate.getDescription());
 
 		// 获取普通帖子列表
 		initFirstData(currentPage);
 		// 获取置顶帖子
 		HttpUrlProvider.getIntance().getTopPost(BBSPlateActivity.this,
-				new TaskTopPostBack(handler), plate.getPlate_id(), 1, 10);
+				new TaskTopPostBack(handler), plate.getId(), 1, 10);
 		
 		lv_posts.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), true, false));
 		
@@ -273,7 +275,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 							PostInfoActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("postinfo_starter", postinfo.getId());
-					bundle.putString("forumId", plate.getPlate_id());
+					bundle.putString("forumId", plate.getId());
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(
@@ -296,7 +298,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 					Bundle bundle = new Bundle();
 					bundle.putString("postinfo_starter", postinfo.getId());
 					// 版块id
-					bundle.putString("forumId", plate.getPlate_id());
+					bundle.putString("forumId", plate.getId());
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(
@@ -353,7 +355,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 					PostPublishActivity.class);
 			Bundle bundle = new Bundle();
 			// 版块id
-			bundle.putString("forumId", plate.getPlate_id());
+			bundle.putString("forumId", plate.getId());
 			intent_publish.putExtras(bundle);
 			startActivity(intent_publish);
 			break;
@@ -387,7 +389,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	private void initFirstData(int currentPage) {
 		// 请求数据
 		HttpUrlProvider.getIntance().getPost(BBSPlateActivity.this,
-				new TaskPostListBack(handler), plate.getPlate_id(),
+				new TaskPostListBack(handler), plate.getId(),
 				currentPage, 15);
 
 		loadingdialog.show(BBSPlateActivity.this);
@@ -396,7 +398,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(BBSPlateActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();

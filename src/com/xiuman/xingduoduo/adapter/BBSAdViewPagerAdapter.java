@@ -31,11 +31,10 @@ import com.xiuman.xingduoduo.ui.activity.PostInfoActivity;
 public class BBSAdViewPagerAdapter extends PagerAdapter {
 
 	private List<BBSPost> ads = new ArrayList<BBSPost>();
-	private List<ImageView> ad_ivs;
-	private ImageView iv_ad;
 	private Context context;
 	public DisplayImageOptions options;// 配置图片加载及显示选项
 	public ImageLoader imageLoader;
+	private ArrayList<View> views;
 
 	/**
 	 * @param ads
@@ -44,15 +43,18 @@ public class BBSAdViewPagerAdapter extends PagerAdapter {
 	 * @param options
 	 * @param imageLoader
 	 */
-	public BBSAdViewPagerAdapter(List<BBSPost> ads, List<ImageView> ad_ivs,
-			Context context, DisplayImageOptions options,
-			ImageLoader imageLoader) {
+	public BBSAdViewPagerAdapter(List<BBSPost> ads, Context context,
+			DisplayImageOptions options, ImageLoader imageLoader) {
 		super();
 		this.ads = ads;
-		this.ad_ivs = ad_ivs;
 		this.context = context;
 		this.options = options;
 		this.imageLoader = imageLoader;
+		views = new ArrayList<View>();
+		for (int i = 0; i < ads.size(); i++) {
+			View view = new View(context);
+			views.add(view);
+		}
 	}
 
 	@Override
@@ -67,19 +69,15 @@ public class BBSAdViewPagerAdapter extends PagerAdapter {
 
 	@Override
 	public Object instantiateItem(ViewGroup container, final int position) {
-		iv_ad = ad_ivs.get(position);
-		iv_ad.setAdjustViewBounds(true);
-		iv_ad.setScaleType(ImageView.ScaleType.CENTER_CROP);
-		iv_ad.setTag(position);
+		View view = View.inflate(context, R.layout.item_ad_img, null);
+		ImageView iv_ad = (ImageView) view.findViewById(R.id.iv_ad);
+
+		views.set(position, view);
 		// 切换
 		BBSPost post = ads.get(position);
-
-		// List<String> post_imgs = new ArrayList<String>();
-		// post_imgs = HtmlTag.match(post.contentHtml, "img", "src");
-		// Mylog.i("广告图片地址", post_imgs.get(0));
-		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0).getImgurl(), iv_ad, options);
-		// iv_ad.setImageResource(R.drawable.bg_center_ad_loading);
-		container.addView(iv_ad);
+		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP
+				+ post.getImgList().get(0).getImgurl(), iv_ad, options);
+		container.addView(view);
 
 		iv_ad.setOnClickListener(new OnClickListener() {
 
@@ -103,15 +101,15 @@ public class BBSAdViewPagerAdapter extends PagerAdapter {
 			}
 		});
 
-		return iv_ad;
+		return view;
 	}
 
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 
-		iv_ad = ad_ivs.get(position);
+		// iv_ad = ad_ivs.get(position);
 
-		container.removeView(iv_ad);
+		container.removeView(views.get(position));
 	}
 
 }

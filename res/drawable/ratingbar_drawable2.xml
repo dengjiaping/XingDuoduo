@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 自定义评分条 -->
+    <item
+        android:id="@+android:id/background"
+        android:drawable="@drawable/unselect_2">
+    </item>
+    <item
+        android:id="@+android:id/secondaryProgress"
+        android:drawable="@drawable/unselect_2">
+    </item>
+    <item
+        android:id="@+android:id/progress"
+        android:drawable="@drawable/selected_2">
+    </item>
+
+</layer-list>

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -111,7 +112,7 @@ public class PostPublishActivity extends Base2Activity implements
 	// 版块id
 	private String forumId;
 
-	private ActionValue<?> value;
+	private ActionValue<?> value = new ActionValue<T>();
 
 	private String title;
 
@@ -137,36 +138,13 @@ public class PostPublishActivity extends Base2Activity implements
 
 					if (value.isSuccess()) {
 						ToastUtil.ToastView(PostPublishActivity.this,"发帖成功，请等待小编审核！");
-						// Intent intent3 = new Intent(PostPublishActivity.this,
-						// PostInfoActivity.class);
-						// Bundle bundle = new Bundle();
-						// SimpleDateFormat format = new SimpleDateFormat(
-						// "yyyy-MM-dd HH:mm:ss");
-						// Date date = new Date();
-						// String createTime = format.format(date);
-						// BBSPost post = new BBSPost(et_post_content.getText()
-						// .toString(), et_post_content.getText()
-						// .toString(), createTime, et_post_title
-						// .getText().toString(), "" + 9, 0, 2, 0);
-						// bundle.putSerializable("postinfo_starter", post);
-						// // 版块id
-						// bundle.putString("forumId", forumId);
-						// intent3.putExtras(bundle);
-						// Bimp.drr.clear();
-						// Bimp.bmp.clear();
-						// Bimp.max = 0;
-						// loadingdialog.dismiss();
-						// startActivity(intent3);
-						// overridePendingTransition(
-						// R.anim.translate_horizontal_start_in,
-						// R.anim.translate_horizontal_start_out);
 						finish();
 
 					} else {
 						Bimp.drr.clear();
 						Bimp.bmp.clear();
 						Bimp.max = 0;
-						loadingdialog.dismiss();
+						loadingdialog.dismiss(PostPublishActivity.this);
 						ToastUtil.ToastView(PostPublishActivity.this, "帖子发表失败");
 					}
 
@@ -174,7 +152,7 @@ public class PostPublishActivity extends Base2Activity implements
 					Bimp.drr.clear();
 					Bimp.bmp.clear();
 					Bimp.max = 0;
-					loadingdialog.dismiss();
+					loadingdialog.dismiss(PostPublishActivity.this);
 					ToastUtil.ToastView(PostPublishActivity.this, "帖子发表失败");
 				}
 				break;
@@ -184,25 +162,6 @@ public class PostPublishActivity extends Base2Activity implements
 				if (value.isSuccess()) {
 					ToastUtil.ToastView(PostPublishActivity.this,
 							value.getMessage());
-					// Intent intent = new Intent(PostPublishActivity.this,
-					// PostInfoActivity.class);
-					// Bundle bundle = new Bundle();
-					// SimpleDateFormat format = new SimpleDateFormat(
-					// "yyyy-MM-dd HH:mm:ss");
-					// Date date = new Date();
-					// String createTime = format.format(date);
-					// BBSPost post = new BBSPost(et_post_content.getText()
-					// .toString(), et_post_content.getText().toString(),
-					// createTime, et_post_title.getText().toString(),
-					// userName, 0, 2, 0);
-					// bundle.putSerializable("postinfo_starter", post);
-					// // 版块id
-					// bundle.putString("forumId", forumId);
-					// intent.putExtras(bundle);
-					// startActivity(intent);
-					// overridePendingTransition(
-					// R.anim.translate_horizontal_start_in,
-					// R.anim.translate_horizontal_start_out);
 					finish();
 				}
 				break;

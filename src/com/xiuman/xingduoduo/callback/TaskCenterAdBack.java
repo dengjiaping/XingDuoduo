@@ -4,8 +4,10 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.model.ActionValue;
+import com.xiuman.xingduoduo.model.Ad;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 
 /**
@@ -30,16 +32,19 @@ public class TaskCenterAdBack implements HttpTaskListener {
 
 	@Override
 	public void dataSucced(String result) {
-		ActionValue<?> value = new Gson().fromJson(result, ActionValue.class);
+		ActionValue<Ad> value = new Gson().fromJson(result, new TypeToken<ActionValue<Ad>>() {
+		}.getType());
 		Message msg = Message.obtain();
-		msg.what = AppConfig.CANCEL_ORDER;
+		msg.what = AppConfig.NET_SUCCED;
 		msg.obj = value;
 		handler.sendMessage(msg);
 	}
 
 	@Override
 	public void dataError(String result) {
-
+		Message msg = Message.obtain();
+		msg.what = AppConfig.NET_ERROR_NOTNET;
+		handler.sendMessage(msg);
 	}
 
 }

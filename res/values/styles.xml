@@ -70,11 +70,17 @@
         <item name="android:windowExitAnimation">@anim/pop_set_out</item>
     </style>
 
-    <!-- 评分条 -->
+    <!-- 评分条（小） -->
     <style name="roomRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
         <item name="android:minHeight">20dip</item>
         <item name="android:maxHeight">20dip</item>
+    </style>
+     <!-- 评分条（大） -->
+    <style name="roomRatingBar2" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_drawable2</item>
+        <item name="android:minHeight">40dip</item>
+        <item name="android:maxHeight">40dip</item>
     </style>
 
     <!-- ******************Text样式base***************** -->

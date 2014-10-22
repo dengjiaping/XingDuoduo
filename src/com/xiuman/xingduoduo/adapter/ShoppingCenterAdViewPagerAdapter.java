@@ -1,7 +1,6 @@
 package com.xiuman.xingduoduo.adapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,11 +16,12 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.URLConfig;
-import com.xiuman.xingduoduo.model.GoodsOne;
+import com.xiuman.xingduoduo.model.Ad;
+import com.xiuman.xingduoduo.ui.activity.ClassifyActivity;
 import com.xiuman.xingduoduo.ui.activity.GoodsActivity;
+import com.xiuman.xingduoduo.ui.activity.PostInfoActivity;
 
 /**
- * 
  * @名称：ShoppingCenterAdViewPagerAdapter.java
  * @描述：商城界面广告Adapter
  * @author danding
@@ -29,31 +29,31 @@ import com.xiuman.xingduoduo.ui.activity.GoodsActivity;
  */
 public class ShoppingCenterAdViewPagerAdapter extends PagerAdapter {
 
-	private ArrayList<GoodsOne> ads;
-	private List<ImageView> ad_ivs;
-	private ImageView iv_ad;
+	private ArrayList<Ad> ads;
 	private Context context;
 	public DisplayImageOptions options;// 配置图片加载及显示选项
 	public ImageLoader imageLoader;
-
+	private ArrayList<View> views;
 	/**
 	 * 构造函数
-	 * 
 	 * @param ads
 	 * @param ad_ivs
 	 * @param context
 	 * @param options
 	 * @param imageLoader
 	 */
-	public ShoppingCenterAdViewPagerAdapter(ArrayList<GoodsOne> ads,
-			List<ImageView> ad_ivs, Context context,
+	public ShoppingCenterAdViewPagerAdapter(ArrayList<Ad> ads, Context context,
 			DisplayImageOptions options, ImageLoader imageLoader) {
 		super();
 		this.ads = ads;
-		this.ad_ivs = ad_ivs;
 		this.context = context;
 		this.options = options;
 		this.imageLoader = imageLoader;
+		views = new ArrayList<View>();
+		for (int i = 0; i < ads.size(); i++) {
+			View view = new View(context);
+			views.add(view);
+		}
 	}
 
 	@Override
@@ -68,43 +68,59 @@ public class ShoppingCenterAdViewPagerAdapter extends PagerAdapter {
 
 	@Override
 	public Object instantiateItem(ViewGroup container, final int position) {
-		iv_ad = ad_ivs.get(position);
-		iv_ad.setAdjustViewBounds(true);
+		View view = View.inflate(context, R.layout.item_ad_img, null);
+		ImageView iv_ad = (ImageView) view.findViewById(R.id.iv_ad);
 		iv_ad.setScaleType(ImageView.ScaleType.FIT_XY);
-		iv_ad.setTag(position);
+		views.set(position, view);
 		// 切换
 		imageLoader.displayImage(URLConfig.IMG_IP
-				+ ads.get(position).getSourceImagePath(), iv_ad, options);
-		container.addView(iv_ad);
+				+ ads.get(position).getLogoPath(), iv_ad, options);
+		container.addView(view);
 
 		iv_ad.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				GoodsOne goods_one = ads.get(position);
-				Intent intent = new Intent(
-						context,
-						GoodsActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("goods_one", goods_one);
-				bundle.putSerializable("goods_id",
-						goods_one.getId());
-				intent.putExtras(bundle);
-				context.startActivity(intent);
-				((Activity) context).overridePendingTransition(
-						R.anim.translate_horizontal_start_in,
-						R.anim.translate_horizontal_start_out);
+				Ad ad = ads.get(position);
+				if (ad.getGdCategory().equals("1")) {
+					Intent intent = new Intent(context, GoodsActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("goods_id", ad.getHomeId());
+					intent.putExtras(bundle);
+					context.startActivity(intent);
+					((Activity) context).overridePendingTransition(
+							R.anim.translate_horizontal_start_in,
+							R.anim.translate_horizontal_start_out);
+				}else if(ad.getGdCategory().equals("2")){
+					Intent intent = new Intent(context,ClassifyActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("classify_id", ad.getHomeId());
+					bundle.putSerializable("classify_name", ad.getName());
+					intent.putExtras(bundle);
+					context.startActivity(intent);
+					((Activity) context).overridePendingTransition(
+							R.anim.translate_horizontal_start_in,
+							R.anim.translate_horizontal_start_out);
+				}else if(ad.getGdCategory().equals("3")){
+					Intent intent = new Intent(context,PostInfoActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("postinfo_starter", ad.getHomeId());
+					bundle.putSerializable("forumId", ad.getIntroduction());
+					intent.putExtras(bundle);
+					context.startActivity(intent);
+					((Activity) context).overridePendingTransition(
+							R.anim.translate_horizontal_start_in,
+							R.anim.translate_horizontal_start_out);
+				}
 			}
 		});
 
-		return iv_ad;
+		return view;
 	}
 
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 
-		iv_ad = ad_ivs.get(position);
-
-		container.removeView(iv_ad);
+		container.removeView(views.get(position));
 	}
 }

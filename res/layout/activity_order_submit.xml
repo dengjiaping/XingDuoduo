@@ -436,7 +436,7 @@
                     android:textSize="@dimen/txt_size_15" />
 
                 <TextView
-                    style="@style/txt_style_base1"
+                    style="@style/txt_style_base2"
                     android:id="@+id/tv_order_submit_freight"
                     android:gravity="right"
                     android:text="@string/order_submit_freight_price"

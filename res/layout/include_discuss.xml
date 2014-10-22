@@ -28,13 +28,13 @@
             android:textSize="@dimen/txt_size_25" />
 
         <RatingBar
-            android:id="@+id/ratingbar"
+            android:id="@+id/ratingbar_total"
             style="@style/roomRatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:isIndicator="true"
             android:numStars="5"
-            android:rating="4.5"
+            android:rating="5"
             android:stepSize="0.5" />
     </LinearLayout>
 
@@ -71,6 +71,7 @@
                 android:stepSize="0.5" />
 
             <TextView
+                android:id="@+id/tv_total_zhiliang"
                 style="@style/txt_style_base1"
                 android:text="@string/discuss_rating"
                 android:textColor="@color/color_mian"
@@ -80,6 +81,7 @@
 
         <LinearLayout
             style="@style/txt_style_base1"
+            android:layout_marginTop="5dip"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -101,6 +103,7 @@
                 android:stepSize="0.5" />
 
             <TextView
+                android:id="@+id/tv_total_taidu"
                 style="@style/txt_style_base1"
                 android:text="@string/discuss_rating"
                 android:textColor="@color/color_mian"
@@ -111,11 +114,12 @@
         <LinearLayout
             style="@style/txt_style_base1"
             android:gravity="center_vertical"
+            android:layout_marginTop="5dip"
             android:orientation="horizontal" >
 
             <TextView
                 style="@style/txt_style_3"
-                android:text="@string/discuss_taidu"
+                android:text="@string/discuss_sudu"
                 android:textSize="@dimen/txt_size_12" />
 
             <RatingBar
@@ -131,6 +135,7 @@
                 android:stepSize="0.5" />
 
             <TextView
+                android:id="@+id/tv_total_sudu"
                 style="@style/txt_style_base1"
                 android:text="@string/discuss_rating"
                 android:textColor="@color/color_mian"

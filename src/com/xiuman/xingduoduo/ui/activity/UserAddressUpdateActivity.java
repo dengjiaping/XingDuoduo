@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -158,9 +159,9 @@ public class UserAddressUpdateActivity extends Base2Activity implements
 
 	// 请求修改或删除地址---------------------------------------------
 	// 请求返回结果
-	private ActionValue<?> value_update;
+	private ActionValue<?> value_update = new ActionValue<T>();
 	// 删除返回结果
-	private ActionValue<?> value_delete;
+	private ActionValue<?> value_delete = new ActionValue<T>();
 
 	// 消息处理
 	@SuppressLint("HandlerLeak")
@@ -178,7 +179,7 @@ public class UserAddressUpdateActivity extends Base2Activity implements
 					setResult(AppConfig.RESULT_CODE_UPDATE_ADDRESS);
 					finish();
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UserAddressUpdateActivity.this);
 				break;
 			case AppConfig.GET_DELETE_ADDRESS:// 删除
 				value_delete = (ActionValue<?>) msg.obj;
@@ -191,12 +192,12 @@ public class UserAddressUpdateActivity extends Base2Activity implements
 					setResult(AppConfig.RESULT_CODE_UPDATE_ADDRESS);
 					finish();
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UserAddressUpdateActivity.this);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 连接失败
 				ToastUtil.ToastView(UserAddressUpdateActivity.this,
 						"网络连接失败，请检查网络后重试");
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UserAddressUpdateActivity.this);
 				break;
 			}
 		}
@@ -558,7 +559,7 @@ public class UserAddressUpdateActivity extends Base2Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(UserAddressUpdateActivity.this);
 		loadingdialog = null;
 	}
 }

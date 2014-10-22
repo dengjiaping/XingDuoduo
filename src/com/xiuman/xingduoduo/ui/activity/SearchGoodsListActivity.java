@@ -77,7 +77,7 @@ public class SearchGoodsListActivity extends Base2Activity implements
 	// 从上级界面接收到的搜索关键字
 	private String keyword;
 	// 请求接口得到的商品数据
-	private ActionValue<GoodsOne> value;
+	private ActionValue<GoodsOne> value = new ActionValue<GoodsOne>();
 	// （商品列表）
 	private ArrayList<GoodsOne> goods_get = new ArrayList<GoodsOne>();
 	// 当前现实的商品列表
@@ -135,11 +135,11 @@ public class SearchGoodsListActivity extends Base2Activity implements
 
 					llyt_goods_null.setVisibility(View.INVISIBLE);
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(SearchGoodsListActivity.this);
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(SearchGoodsListActivity.this);
 				llyt_network_error.setVisibility(View.VISIBLE);
 				break;
 			}
@@ -352,7 +352,7 @@ public class SearchGoodsListActivity extends Base2Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(SearchGoodsListActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();

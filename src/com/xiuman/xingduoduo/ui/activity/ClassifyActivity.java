@@ -102,7 +102,7 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 	// 请求得来的商品(各种排序)
 	private List<GoodsOne> goods_get = new ArrayList<GoodsOne>();
 	// 请求接口接收到的商品数据
-	private ActionValue<GoodsOne> value;
+	private ActionValue<GoodsOne> value = new ActionValue<GoodsOne>();
 
 	/*-----------------------------------数据请求相关--------------------------*/
 	// 当前请求的接口的后缀(默认为综合接口后缀)
@@ -200,12 +200,12 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 				}else{
 					llyt_goods_null.setVisibility(View.VISIBLE);
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(ClassifyActivity.this);
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 请求数据失败(网络)
 
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(ClassifyActivity.this);
 				llyt_network_error.setVisibility(View.VISIBLE);
 				break;
 			default:
@@ -561,7 +561,7 @@ public class ClassifyActivity extends Base2Activity implements OnClickListener,
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(ClassifyActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();

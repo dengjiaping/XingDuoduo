@@ -5,6 +5,7 @@
     android:layout_gravity="center"
     android:background="@color/color_bg"
     android:gravity="center"
+    android:visibility="invisible"
     android:orientation="vertical" >
 
     <!-- 评论为空 -->

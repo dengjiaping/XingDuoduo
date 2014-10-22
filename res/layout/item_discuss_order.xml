@@ -4,8 +4,9 @@
     android:orientation="vertical" >
 
     <!-- 评价订单 -->
-	<LinearLayout
-	    style="@style/txt_style_base2"
+
+    <LinearLayout
+        style="@style/txt_style_base2"
         android:layout_gravity="left"
         android:gravity="left"
         android:orientation="horizontal"
@@ -37,33 +38,33 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
-            android:gravity="center_vertical"
             android:layout_weight="1"
+            android:gravity="center_vertical"
             android:orientation="vertical" >
 
             <!-- 商品名称 -->
 
             <TextView
                 android:id="@+id/tv_item_order_submit_goods_name"
+                style="@style/txt_style_22"
                 android:ellipsize="end"
                 android:maxLines="2"
-                style="@style/txt_style_22"
                 android:textSize="@dimen/txt_size_14" />
 
             <!-- 商品规格 -->
 
             <TextView
                 android:id="@+id/tv_item_order_submit_goods_size"
+                style="@style/txt_style_1"
                 android:layout_gravity="bottom"
                 android:gravity="bottom"
-                style="@style/txt_style_1"
                 android:textSize="@dimen/txt_size_14" />
         </LinearLayout>
         <!-- 商品单价、数量 -->
 
         <LinearLayout
-            android:gravity="right"
             style="@style/txt_style_base1"
+            android:gravity="right"
             android:orientation="vertical" >
 
             <!-- 单价 -->
@@ -73,8 +74,8 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:text="￥"
                     style="@style/txt_style_2"
+                    android:text="￥"
                     android:textSize="@dimen/txt_size_14" />
 
                 <TextView
@@ -86,13 +87,13 @@
             <!-- 数量 -->
 
             <LinearLayout
-                android:gravity="right"
                 style="@style/txt_style_base1"
+                android:gravity="right"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:text="×"
                     style="@style/txt_style_2"
+                    android:text="×"
                     android:textSize="@dimen/txt_size_18" />
 
                 <TextView
@@ -126,17 +127,92 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        style="@style/txt_style_base1"
+        android:orientation="vertical"
+        android:paddingLeft="10dip" >
+
+        <LinearLayout
+            style="@style/txt_style_base1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/txt_style_3"
+                android:text="@string/discuss_zhiliang"
+                android:textSize="@dimen/txt_size_14" />
+
+            <RatingBar
+                android:id="@+id/ratingbar_zhiliang"
+                style="@style/roomRatingBar2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:numStars="5"
+                android:rating="5"
+                android:stepSize="0.5" />
+        </LinearLayout>
+        <!-- 服务态度 -->
+
+        <LinearLayout
+            style="@style/txt_style_base1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/txt_style_3"
+                android:text="@string/discuss_taidu"
+                android:textSize="@dimen/txt_size_14" />
+
+            <RatingBar
+                android:id="@+id/ratingbar_taidu"
+                style="@style/roomRatingBar2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:numStars="5"
+                android:rating="5"
+                android:stepSize="0.5" />
+        </LinearLayout>
+        <!-- 发货速度 -->
+
+        <LinearLayout
+            style="@style/txt_style_base1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/txt_style_3"
+                android:text="@string/discuss_taidu"
+                android:textSize="@dimen/txt_size_14" />
+
+            <RatingBar
+                android:id="@+id/ratingbar_sudu"
+                style="@style/roomRatingBar2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:numStars="5"
+                android:rating="5"
+                android:stepSize="0.5" />
+        </LinearLayout>
+    </LinearLayout>
     <!-- 评价内容 -->
-    <EditText 
-        android:layout_margin="10dip"
+
+    <EditText
         android:id="@+id/et_item_discuss_goods_content"
         style="@style/txt_style_base2"
+        android:layout_margin="10dip"
         android:background="@drawable/bg_grey"
-        android:padding="5dip"
-        android:minLines="2"
         android:gravity="top"
         android:hint="@string/hint_discuss"
+        android:minLines="2"
+        android:padding="5dip"
         android:textColor="@color/color_black3"
-        android:textSize="@dimen/txt_size_14"/>
-    
+        android:textSize="@dimen/txt_size_14" />
+
 </LinearLayout>

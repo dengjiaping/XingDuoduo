@@ -74,7 +74,7 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	// adapter(帖子列表)
 	private PlatePostListViewAdapter adapter;
 	// 请求帖子返回结果
-	private ActionValue<BBSPost> value;
+	private ActionValue<BBSPost> value = new ActionValue<BBSPost>();
 	// 当前显示的帖子列表
 	private ArrayList<BBSPost> bbspost = new ArrayList<BBSPost>();
 	// 请求获取的帖子列表
@@ -93,7 +93,7 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 获取数据成功
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(MyPostActivity.this);
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 
@@ -127,10 +127,10 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 					}
 				}
 				llyt_network_error.setVisibility(View.INVISIBLE);
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(MyPostActivity.this);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(MyPostActivity.this);
 				llyt_network_error.setVisibility(View.VISIBLE);
 				break;
 			}
@@ -317,8 +317,9 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(MyPostActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
+		imageLoader.clearMemoryCache();
 	}
 }

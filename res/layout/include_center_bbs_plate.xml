@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <!-- 商城首页的热门话题 -->
+
+    <LinearLayout
+        android:id="@+id/llyt_center_plate_1"
+        android:layout_width="0dip"
+        android:layout_height="100dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            style="@style/txt_style_base1"
+            android:src="@drawable/ic_plate_3_baozhao" />
+
+        <TextView
+            style="@style/txt_style_base1"
+            android:layout_marginTop="5dip"
+            android:textSize="@dimen/txt_size_14"
+            android:textColor="@color/color_black3"
+            android:text="爆照区" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llyt_center_plate_2"
+        android:layout_width="0dip"
+        android:layout_height="100dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            style="@style/txt_style_base1"
+            android:src="@drawable/ic_plate_8_baifumei" />
+
+        <TextView
+            style="@style/txt_style_base1"
+            android:layout_marginTop="5dip"
+            android:textSize="@dimen/txt_size_14"
+            android:textColor="@color/color_black3"
+            android:text="白富美" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llyt_center_plate_3"
+        android:layout_width="0dip"
+        android:layout_height="100dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            style="@style/txt_style_base1"
+            android:src="@drawable/ic_plate_1_zhangzishi" />
+
+        <TextView
+            style="@style/txt_style_base1"
+            android:layout_marginTop="5dip"
+            android:textSize="@dimen/txt_size_14"
+            android:textColor="@color/color_black3"
+            android:text="涨姿势" />
+    </LinearLayout>
+
+</LinearLayout>

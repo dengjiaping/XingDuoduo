@@ -92,6 +92,17 @@ public class HttpDataTask extends AsyncTask<String, Integer, String> {
 		String urlGetStr = methor + "=" + val + "&";
 		return urlGetStr;
 	}
+	/**
+	 * @描述：设置请求参数
+	 * @param methor
+	 * @param val
+	 * @return
+	 * @时间 2014-10-20
+	 */
+	public String jointToUrl(String methor, float val) {
+		String urlGetStr = methor + "=" + val + "&";
+		return urlGetStr;
+	}
 
 	@Override
 	protected String doInBackground(String... params) {

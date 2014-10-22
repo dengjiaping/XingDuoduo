@@ -2,6 +2,8 @@ package com.xiuman.xingduoduo.ui.activity;
 
 import java.util.ArrayList;
 
+import u.aly.T;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -88,9 +90,9 @@ public class CollectionActivity extends Base2Activity implements
 	// 请求页码
 	private int currentPage = 1;
 	// 请求收藏列表
-	private ActionValue<GoodsOne> value_collections;
+	private ActionValue<GoodsOne> value_collections = new ActionValue<GoodsOne>();
 	// 请求删除收藏
-	private ActionValue<?> value_delete;
+	private ActionValue<?> value_delete = new ActionValue<T>();
 	// 请求得到的（商品列表）
 	private ArrayList<GoodsOne> collection_get = new ArrayList<GoodsOne>();
 	// 当前显示的收藏
@@ -140,11 +142,11 @@ public class CollectionActivity extends Base2Activity implements
 					llyt_collection_null_collection
 							.setVisibility(View.INVISIBLE);
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(CollectionActivity.this);
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(CollectionActivity.this);
 				llyt_network_error.setVisibility(View.VISIBLE);
 				llyt_collection_null_collection.setVisibility(View.INVISIBLE);
 				break;
@@ -181,7 +183,7 @@ public class CollectionActivity extends Base2Activity implements
 							value_delete.getMessage());
 				}
 
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(CollectionActivity.this);
 
 				break;
 			}
@@ -382,7 +384,7 @@ public class CollectionActivity extends Base2Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(CollectionActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 	}

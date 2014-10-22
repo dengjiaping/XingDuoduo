@@ -10,6 +10,10 @@ package com.xiuman.xingduoduo.app;
 public class AppConfig {
 
 	// bbs参数------------------------------------------
+	// 板块列表返回
+	public final static int BBS_PLATE_BACK_SUCCESSED = 9011;
+	// 失败
+	public final static int BBS_PLATE_BACK_FAILD = 9012;
 	// 帖子列表返回
 	public final static int BBS_POST_BACK = 9001;
 	// 帖子列表返回
@@ -18,7 +22,7 @@ public class AppConfig {
 	public final static int BBS_REPLY_POST_BACK = 9003;
 	// 帖子回复返回
 	public final static int BBS_REPLY_SEND_BACK = 9004;
-	//回复帖子失败
+	// 回复帖子失败
 	public final static int BBS_REPLY_FAILD = 9009;
 	// 帖子发表返回
 	public final static int BBS_PUBLISH_BACK = 9005;
@@ -26,9 +30,8 @@ public class AppConfig {
 	public final static int BBS_PUBLISH_RUN = 9006;
 	// 上传头像线程
 	public final static int UPLOAD_PORAIT_RUN = 9007;
-	//帖子图片刷新**************
+	// 帖子图片刷新**************
 	public final static int FLUSH_IMG_ADAPTER = 9010;
-	
 
 	// 购物车Fragment Activity请求码与返回码-----------------------------
 	public final static int REQUEST_CODE = 1;
@@ -69,6 +72,18 @@ public class AppConfig {
 	public static final int STICK_SUCCED = 11;
 	// 失败
 	public static final int STICK_FAILD = 12;
+
+	/*----------------------------首页---------------------------*/
+	// 首页商品
+	// 获取首页置顶成功
+	public static final int CENTER_GOODS_SUCCED = 13;
+	// 失败
+	public static final int CENTER_GOODS_FAILD = 14;
+	// 首页专区
+	// 获取首页置顶成功
+	public static final int CENTER_CATEGORY_SUCCED = 15;
+	// 失败
+	public static final int CENTER_CATEGORY_FAILD = 16;
 
 	// 商品详情页的相关推荐成功
 	public static final int GOODS_RECOMMEND_SUCCESS = 8001;
@@ -186,16 +201,32 @@ public class AppConfig {
 	// key
 	public static final String KEY_IS_FRESH_CART = "key_is_fresh_cart";
 
-	// 保存广告------------------------------------------------------------
+	// 保存广告------------------------首页------------------------------------
 	// file
 	public static final String FILE_SAVE_ADS = "file_ads";
 	// key
 	public static final String KEY_SAVE_ADS = "key_ads";
+	// 保存商品------------------------首页------------------------------------
+	// file
+	public static final String FILE_SAVE_GOODS = "file_center_goods";
+	// key
+	public static final String KEY_SAVE_GOODS = "key_center_goods";
+	// 保存专区------------------------首页------------------------------------
+	// file
+	public static final String FILE_SAVE_CATEGORY = "file_center_category";
+	// key
+	public static final String KEY_SAVE_CATEGORY = "key_center_category";
+
 	// 保存论坛广告------------------------------------------------------------
 	// file
 	public static final String FILE_SAVE_BBS_ADS = "file_bbs_ads";
 	// key
 	public static final String KEY_SAVE_BBS_ADS = "key_bbs_ads";
+	// 保存论坛板块-----------------------------------------------------------
+	// file
+	public static final String FILE_SAVE_BBS_PLATE = "file_bbs_plates";
+	// key
+	public static final String KEY_SAVE_BBS_PLATE = "key_bbs_plates";
 
 	// 保存首页置顶商品------------------------------------------------------------
 	// file
@@ -209,12 +240,12 @@ public class AppConfig {
 	// key
 	public static final String KEY_SWCRRENWIDTH = "key_screenwidth";
 	public static final String KEY_SWCRRENHEIGHT = "key_screenheight";
-	
-	//应用版本(用于判断应用是否升级)--------------------------------------------------------------------
-	//file
+
+	// 应用版本(用于判断应用是否升级)--------------------------------------------------------------------
+	// file
 	public static final String FILE_VERSION = "file_version";
-	//key
+	// key
 	public static final String KEY_VERSION_NAME = "key_version_name";
 	public static final String KEY_VERSION_CODE = "key_version_code";
-	
+
 }

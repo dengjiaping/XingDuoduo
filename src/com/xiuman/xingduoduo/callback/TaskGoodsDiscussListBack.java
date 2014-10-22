@@ -6,7 +6,7 @@ import android.os.Message;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xiuman.xingduoduo.app.AppConfig;
-import com.xiuman.xingduoduo.model.ActionValue;
+import com.xiuman.xingduoduo.model.ActionValueDiscuss;
 import com.xiuman.xingduoduo.model.GoodsDiscuss;
 import com.xiuman.xingduoduo.net.HttpTaskListener;
 
@@ -32,8 +32,8 @@ public class TaskGoodsDiscussListBack implements HttpTaskListener {
 
 	@Override
 	public void dataSucced(String result) {
-		ActionValue<GoodsDiscuss> value = new Gson().fromJson(result,
-				new TypeToken<ActionValue<GoodsDiscuss>>() {
+		ActionValueDiscuss<GoodsDiscuss> value = new Gson().fromJson(result,
+				new TypeToken<ActionValueDiscuss<GoodsDiscuss>>() {
 				}.getType());
 		Message msg = Message.obtain();
 		msg.what = AppConfig.NET_SUCCED;

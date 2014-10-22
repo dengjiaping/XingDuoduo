@@ -59,7 +59,7 @@ public class AppRecommendActivity extends Base2Activity implements
 	private AppRecommendListViewAdapter adapter;
 
 	// 请求返回结果
-	private ActionValue<AppRecommend> value_app;
+	private ActionValue<AppRecommend> value_app = new ActionValue<AppRecommend>();
 	// 列表
 	private ArrayList<AppRecommend> apps = new ArrayList<AppRecommend>();
 
@@ -76,10 +76,10 @@ public class AppRecommendActivity extends Base2Activity implements
 						AppRecommendActivity.this, options, imageLoader, apps);
 				lv_app_recommend.setAdapter(adapter);
 
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(AppRecommendActivity.this);
 				break;
 			case AppConfig.NET_ERROR_NOTNET://
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(AppRecommendActivity.this);
 				break;
 			}
 		}

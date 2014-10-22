@@ -74,7 +74,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	// 网络连接情况
 	private boolean isNet = true;
 	// 请求接口返回的数据
-	private ActionValue<Classify> value;
+	private ActionValue<Classify> value = new ActionValue<Classify>();
 	// 返回的分类列表
 	private ArrayList<Classify> classies = new ArrayList<Classify>();
 	// Handler

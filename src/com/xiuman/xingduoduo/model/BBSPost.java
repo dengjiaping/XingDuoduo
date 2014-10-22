@@ -20,6 +20,10 @@ public class BBSPost implements Serializable {
 	private ArrayList<PostImg> imgList;
 	// 发帖时间
 	private String createTime;
+	// 最后回复时间
+	private String lastTime;
+	// 是否精化贴(0非精化，1精化)
+	private int jinghua;
 	// 帖子标题
 	private String title;
 	// 昵称
@@ -40,13 +44,16 @@ public class BBSPost implements Serializable {
 	private String primeLevel;
 
 	public BBSPost(String content, ArrayList<PostImg> imgList,
-			String createTime, String title, String nickname, boolean sex,
-			String id, String username, String postTypeId, String replyCount,
-			String avatar, int forumId, String primeLevel) {
+			String createTime, String lastTime, int jinghua, String title,
+			String nickname, boolean sex, String id, String username,
+			String postTypeId, String replyCount, String avatar, int forumId,
+			String primeLevel) {
 		super();
 		this.content = content;
 		this.imgList = imgList;
 		this.createTime = createTime;
+		this.lastTime = lastTime;
+		this.jinghua = jinghua;
 		this.title = title;
 		this.nickname = nickname;
 		this.sex = sex;
@@ -57,6 +64,22 @@ public class BBSPost implements Serializable {
 		this.avatar = avatar;
 		this.forumId = forumId;
 		this.primeLevel = primeLevel;
+	}
+
+	public String getLastTime() {
+		return lastTime;
+	}
+
+	public void setLastTime(String lastTime) {
+		this.lastTime = lastTime;
+	}
+
+	public int getJinghua() {
+		return jinghua;
+	}
+
+	public void setJinghua(int jinghua) {
+		this.jinghua = jinghua;
 	}
 
 	public ArrayList<PostImg> getImgList() {

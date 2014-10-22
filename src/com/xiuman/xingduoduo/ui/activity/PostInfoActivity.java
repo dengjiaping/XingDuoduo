@@ -1,9 +1,8 @@
 package com.xiuman.xingduoduo.ui.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -112,11 +111,11 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	// 从上级界面接收到的帖子信息(主要是楼主)
 	private BBSPostReply postinfo_starter;
 	// 获取恢复列表返回结果
-	private ActionValue<BBSPostReply> value;
+	private ActionValue<BBSPostReply> value = new ActionValue<BBSPostReply>();
 	// 回复列表
 	private ArrayList<BBSPostReply> bbsReply = new ArrayList<BBSPostReply>();
 	// 发表恢复返回结果
-	private ActionValue<?> valueSend;
+	private ActionValue<?> valueSend = new ActionValue<T>();
 	// 板块id
 	private String forumId;
 	// 用户id
@@ -165,7 +164,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					pulllv_postinfo.onPullUpRefreshComplete();
 					pulllv_postinfo.setHasMoreData(false);
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(PostInfoActivity.this);
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				llyt_reply_container.setVisibility(View.VISIBLE);
 				break;
@@ -175,27 +174,6 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					imm.hideSoftInputFromWindow(et_reply.getWindowToken(), 0);
 					ToastUtil.ToastView(PostInfoActivity.this,
 							valueSend.getMessage());
-					SimpleDateFormat format = new SimpleDateFormat(
-							"yyyy-MM-dd HH:mm:ss");
-					Date date = new Date();
-					String createTime = format.format(date);
-					boolean sex = false;
-					if (user.getGender() != null) {
-						if (user.getGender() == "male") {
-							sex = true;
-						}
-					}
-					// 擦擦擦
-					BBSPostReply bps = new BBSPostReply(et_reply.getText()
-							.toString(), createTime,
-							postinfo_starter.getTitle(), user.getNickname(),
-							post_id + "", postinfo_starter.getPostTypeId(),
-							1 + "", sex, user.getHead_image(), user.getName(),
-							null);
-
-					bbsReply.add(bps);
-					et_reply.setText("");
-					adapter.notifyDataSetChanged();
 					llyt_network_error.setVisibility(View.INVISIBLE);
 					// 回复楼层
 					// adapter = new ReplyStarterListViewAdapter(
@@ -208,7 +186,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				}
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(PostInfoActivity.this);
 				llyt_network_error.setVisibility(View.VISIBLE);
 				llyt_reply_container.setVisibility(View.INVISIBLE);
 				break;
@@ -284,29 +262,6 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		lv_postinfo_replys.setDivider(getResources().getDrawable(
 				R.drawable.line_small));
 		lv_postinfo_replys.setSelector(R.color.color_white);
-
-		// View view = View.inflate(this, R.layout.include_postinfo_container,
-		// null);
-		// iv_postinfo_starter_head = (CircleImageView) view
-		// .findViewById(R.id.iv_postinfo_starter_head);
-		// iv_postinfo_starter_sex = (ImageView) view
-		// .findViewById(R.id.iv_postinfo_starter_sex);
-		// iv_postinfo_tag = (ImageView)
-		// view.findViewById(R.id.iv_postinfo_tag);
-		// tv_postinfo_starter_name = (TextView) view
-		// .findViewById(R.id.tv_postinfo_starter_name);
-		// tv_postinfo_starter_time = (TextView) view
-		// .findViewById(R.id.tv_postinfo_starter_time);
-		// tv_postinfo_starter_content = (TextView) view
-		// .findViewById(R.id.tv_postinfo_starter_content);
-		// tv_postinfo_starter_title = (TextView) view
-		// .findViewById(R.id.tv_postinfo_starter_title);
-		// btn_postinfo_starter_reply = (Button) view
-		// .findViewById(R.id.btn_postinfo_starter_reply);
-		// lv_postinfo_starter_imgs = (ListView) view
-		// .findViewById(R.id.lv_postinfo_starter_imgs);
-
-		// lv_postinfo_replys.addHeaderView(view);
 	}
 
 	@Override
@@ -445,7 +400,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(PostInfoActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();

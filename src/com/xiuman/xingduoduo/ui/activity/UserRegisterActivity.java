@@ -1,5 +1,6 @@
 package com.xiuman.xingduoduo.ui.activity;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -76,7 +77,7 @@ public class UserRegisterActivity extends Base2Activity implements
 
 	/*---------------------------------数据----------------------------------*/
 	// 注册结果
-	private ActionValue<?> value;
+	private ActionValue<?> value = new ActionValue<T>();
 
 	// Handler
 	@SuppressLint("HandlerLeak")
@@ -91,22 +92,22 @@ public class UserRegisterActivity extends Base2Activity implements
 							value.getMessage());
 					// 获取用户信息
 					// getUserInfo();
-					loadingdialog.dismiss();
+					loadingdialog.dismiss(UserRegisterActivity.this);
 					finish();
 
 				} else {
 					ToastUtil.ToastView(UserRegisterActivity.this,
 							value.getMessage());
-					loadingdialog.dismiss();
+					loadingdialog.dismiss(UserRegisterActivity.this);
 				}
 
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UserRegisterActivity.this);
 				ToastUtil.ToastView(UserRegisterActivity.this, "网络连接失败，请重试");
 				break;
 			case AppConfig.SUCCESS_USER_INFO:// 获取用户信息成功
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UserRegisterActivity.this);
 				finish();
 				break;
 			}
@@ -315,7 +316,7 @@ public class UserRegisterActivity extends Base2Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(UserRegisterActivity.this);
 		loadingdialog = null;
 	}
 }

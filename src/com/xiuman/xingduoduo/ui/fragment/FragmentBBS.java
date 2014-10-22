@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
@@ -40,12 +39,12 @@ import com.xiuman.xingduoduo.adapter.BBSPlateListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.app.URLConfig;
+import com.xiuman.xingduoduo.callback.TaskBBSPlateBack;
 import com.xiuman.xingduoduo.callback.TaskPostListBack;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
-import com.xiuman.xingduoduo.testdata.Test;
 import com.xiuman.xingduoduo.ui.activity.BBSPlateActivity;
 import com.xiuman.xingduoduo.ui.activity.MyPostActivity;
 import com.xiuman.xingduoduo.ui.activity.UserInfoActivity;
@@ -76,11 +75,6 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	// 广告名
 	private TextView tv_bbs_ad_name;
 
-	// 请求广告贴返回
-	private ActionValue<BBSPost> value;
-	// 广告贴列表
-	private List<BBSPost> bbspost = new ArrayList<BBSPost>();
-
 	// 头像工具类
 	private ImageCropUtils cropUtils;
 	// 头像(Bitmap)
@@ -103,18 +97,22 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	private LinearLayout llyt_bbs_user_post;
 	// 个人回复
 	private LinearLayout llyt_bbs_user_reply;
-	/*-------------------------------Adapter--------------------------------*/
 
+	/*-------------------------------Adapter--------------------------------*/
 	// 广告Adapter
 	private BBSAdViewPagerAdapter ad_adapter;
 	// 板块Adapter
 	private BBSPlateListViewAdapter plate_adapter;
 
-	/*----------------------------数据--------------------------------------*/
-	// 广告ImageView
-	private List<ImageView> ad_ivs = new ArrayList<ImageView>();
+	/*----------------------------请求数据返回--------------------------------------*/
+	// 板块返回
+	private ActionValue<BBSPlate> value_plates = new ActionValue<BBSPlate>();
 	// 板块列表
 	private ArrayList<BBSPlate> plates = new ArrayList<BBSPlate>();
+	// 请求广告贴返回
+	private ActionValue<BBSPost> value = new ActionValue<BBSPost>();
+	// 广告贴列表
+	private List<BBSPost> bbspost = new ArrayList<BBSPost>();
 
 	// ViewPager 循环播放---------------------------------------------------
 	boolean cunhuan = false;
@@ -157,6 +155,24 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 					setAdData();
 				}
 				break;
+			case AppConfig.BBS_PLATE_BACK_SUCCESSED:// 返回板块成功
+				value_plates = (ActionValue<BBSPlate>) msg.obj;
+				if (value_plates.isSuccess()) {
+					plates = value_plates.getDatasource();
+					// 设置板块
+					setPlateDate(plates);
+					MyApplication.getInstance().saveBBSPlate(value_plates);
+				}
+				break;
+			case AppConfig.BBS_PLATE_BACK_FAILD:// 返回失败
+				value_plates = MyApplication.getInstance().getBBSPlate();
+				if (value_plates != null) {
+					plates = value_plates.getDatasource();
+					// 设置板块
+					setPlateDate(plates);
+				}
+				break;
+
 			}
 		}
 	};
@@ -202,9 +218,6 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.NONE).build();
 
-		// 测试数据，板块
-		plates = Test.getBBSPlates();
-
 		cropUtils = new ImageCropUtils(getActivity());
 
 	}
@@ -234,9 +247,6 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		// 请求加载数据
 		initFirstData();
 		tv_title.setText("圈套");
-		// 设置板块
-		plate_adapter = new BBSPlateListViewAdapter(getActivity(), plates);
-		lv_bbs_plates.setAdapter(plate_adapter);
 
 	}
 
@@ -295,23 +305,40 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	 */
 	private void setAdData() {
 		// 添加广告,测试数据，添加操作
-		for (int i = 0; i < bbspost.size(); i++) {
-			ImageView iv_ad = new ImageView(getActivity());
-			ad_ivs.add(iv_ad);
-		}
-		ad_adapter = new BBSAdViewPagerAdapter(bbspost, ad_ivs, getActivity(),
-				options, imageLoader);
+		ad_adapter = new BBSAdViewPagerAdapter(bbspost, getActivity(), options,
+				imageLoader);
 		viewpager_bbs_ad.setAdapter(ad_adapter);
-		tv_bbs_ad_name.setText(bbspost.get(0).getTitle());
+
 		mIndicator.setViewPager(viewpager_bbs_ad);
 
-		if (switchTask.getState() == Thread.State.NEW) {
+		if (switchTask.getState() == Thread.State.NEW && bbspost.size() > 0) {
+			tv_bbs_ad_name.setText(bbspost.get(0).getTitle());
 			switchTask.start();
 		}
 	}
 
 	/**
-	 * @描述：设置首页商品数据刚打开时为上次请求的数据 2014-9-21
+	 * @描述：设置板块数据
+	 * @param plates
+	 * @时间 2014-10-22
+	 */
+	private void setPlateDate(ArrayList<BBSPlate> plates) {
+		if (plates.size() > 0) {
+			for (int i = 0; i < plates.size(); i++) {
+				if (plates.get(i).getIsShow()==1) {
+					plates.remove(i);
+				}
+			}
+			// 设置板块
+			plate_adapter = new BBSPlateListViewAdapter(getActivity(), plates, options, imageLoader);
+			lv_bbs_plates.setAdapter(plate_adapter);
+		}
+
+	}
+
+	/**
+	 * @描述：设置首页商品数据刚打开时为上次请求的数据 
+	 * @2014-9-21
 	 */
 	private void setLastAdData() {
 		value = MyApplication.getInstance().getBBSAds();
@@ -319,6 +346,13 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 			bbspost = value.getDatasource();
 			// 设置广告数据
 			setAdData();
+		}
+		value_plates = MyApplication.getInstance().getBBSPlate();
+		value = MyApplication.getInstance().getBBSAds();
+		if (value_plates != null) {
+			plates = value_plates.getDatasource();
+			// 设置板块数据
+			setPlateDate(plates);
 		}
 	}
 
@@ -338,9 +372,13 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 	 * @描述：加载数据 2014-9-25
 	 */
 	protected void initFirstData() {
-
+		// 获取广告贴
 		HttpUrlProvider.getIntance().getAdPost(getActivity(),
 				new TaskPostListBack(HandlerMain), "10", 1, 6);
+
+		// 获取板块
+		HttpUrlProvider.getIntance().getBBSPlate(getActivity(),
+				new TaskBBSPlateBack(HandlerMain));
 
 	}
 

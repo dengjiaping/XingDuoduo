@@ -169,11 +169,11 @@ public class OrderSubmitActivity extends Base2Activity implements
 
 	/*------------------------------------请求提交订单的返回结果-----------------------------*/
 	// 创建订单结果返回
-	private ActionValue<OrderId> value_create;
+	private ActionValue<OrderId> value_create = new ActionValue<OrderId>();
 	// 请求支付宝私钥
-	private ActionValuePay value_alipay;
+	private ActionValuePay value_alipay = new ActionValuePay();
 	// 传递支付结果
-	private ActionValue<AliPayStatus> value_pay_status;
+	private ActionValue<AliPayStatus> value_pay_status = new ActionValue<AliPayStatus>();
 
 	// 支付宝线程返回 值类型
 	private static final int RQF_PAY = 1;
@@ -239,11 +239,11 @@ public class OrderSubmitActivity extends Base2Activity implements
 					ToastUtil.ToastView(OrderSubmitActivity.this,
 							value_create.getMessage());
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderSubmitActivity.this);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 网络连接失败
 
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderSubmitActivity.this);
 				break;
 			case AppConfig.ALIPAY_BACK:
 				value_alipay = (ActionValuePay) msg.obj;
@@ -256,7 +256,7 @@ public class OrderSubmitActivity extends Base2Activity implements
 					ToastUtil.ToastView(OrderSubmitActivity.this,
 							value_alipay.getMessage());
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderSubmitActivity.this);
 
 				break;
 			case RQF_PAY:// 支付结果返回
@@ -717,7 +717,7 @@ public class OrderSubmitActivity extends Base2Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(OrderSubmitActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 	}

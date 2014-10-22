@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import u.aly.T;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -69,8 +71,6 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 	private TextView tv_userinfo_user_rank;
 	// 会员名
 	private TextView tv_userinfo_user_name;
-	// 注册时间
-	private TextView tv_userinfo_user_createdate;
 	// 性别
 	private RelativeLayout rlyt_userinfo_user_sex;
 	// 性别
@@ -112,7 +112,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 
 	// ----------------当前登录用户-----------------------
 	private User user;
-
+	private ActionValue<?> value = new ActionValue<T>();
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -120,13 +120,13 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 			case AppConfig.UPLOAD_PORAIT_RUN:
 				String result = (String) msg.obj;
 				if (result != null) {
-					ActionValue<?> value = new Gson().fromJson(result,
+					value = new Gson().fromJson(result,
 							ActionValue.class);
 					if (value.isSuccess()) {
 
 						ToastUtil.ToastView(getApplication(), "头像已经上传");
 						getUserInfo();
-					}else{
+					} else {
 						ToastUtil.ToastView(getApplication(), "头像上传失败，请重试！");
 					}
 				}
@@ -173,7 +173,6 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		rlyt_userinfo_user_sex = (RelativeLayout) findViewById(R.id.rlyt_userinfo_user_sex);
 		btn_userinfo_user_update_psw = (Button) findViewById(R.id.btn_userinfo_user_update_psw);
 		btn_userinfo_user_address = (Button) findViewById(R.id.btn_userinfo_user_address);
-		tv_userinfo_user_createdate = (TextView) findViewById(R.id.tv_userinfo_user_createdate);
 		btn_userinfo_user_update_info = (Button) findViewById(R.id.btn_userinfo_user_update_info);
 		btn_userinfo_exit = (Button) findViewById(R.id.btn_userinfo_exit);
 	}
@@ -222,8 +221,9 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 			user_head_bitmap = BitmapFactory.decodeFile(cropUtils
 					.createDirectory() + cropUtils.createNewPhotoName());
 			iv_userinfo_user_head.setImageBitmap(user_head_bitmap);
-		}else if(user.getHead_image()!=null){
-			imageLoader.displayImage(URLConfig.IMG_IP+user.getHead_image(), iv_userinfo_user_head, options);
+		} else if (user.getHead_image() != null) {
+			imageLoader.displayImage(URLConfig.IMG_IP + user.getHead_image(),
+					iv_userinfo_user_head, options);
 		}
 		// 测试数据
 		tv_userinfo_user_rank.setText(user.getRankNmae());
@@ -238,8 +238,6 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		} else if (user_sex.equals("female")) {
 			tv_userinfo_user_sex.setText("女");
 		}
-		tv_userinfo_user_createdate.setText(user.getCreateDate().subSequence(0,
-				10));
 	}
 
 	/**
@@ -407,7 +405,8 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		// 设置pop动画
 		pop.setAnimationStyle(R.style.PopupAnimation);
 		// 设置pop 的位置
-		pop.showAtLocation(view, Gravity.TOP, 0, (int) (MyApplication.getInstance().getScreenHeight() * 3 / 4));
+		pop.showAtLocation(view, Gravity.TOP, 0, (int) (MyApplication
+				.getInstance().getScreenHeight() * 3 / 4));
 	}
 
 	/**
@@ -484,11 +483,13 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		// return Upload.upload(URLConfig.BASE_IP + URLConfig.MY_HEAD_PHOTO_IP,
 		// filename, "usernameIdhead", userId);
 	}
+
 	/**
 	 * @描述：获取用户信息 2014-8-12
 	 */
 	public void getUserInfo() {
 		HttpUrlProvider.getIntance().getUserInfo(UserInfoActivity.this,
-				new TaskUserInfoBack(handler), URLConfig.USERINFO, user.getUserName());
+				new TaskUserInfoBack(handler), URLConfig.USERINFO,
+				user.getUserName());
 	}
 }

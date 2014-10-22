@@ -32,11 +32,11 @@ import com.xiuman.xingduoduo.adapter.ShoppingCenterAdViewPagerAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.app.URLConfig;
-import com.xiuman.xingduoduo.callback.TaskCenterClassifyGoodsBack;
+import com.xiuman.xingduoduo.callback.TaskCenterAdBack;
 import com.xiuman.xingduoduo.callback.TaskStickGoodsListBack;
 import com.xiuman.xingduoduo.model.ActionValue;
+import com.xiuman.xingduoduo.model.Ad;
 import com.xiuman.xingduoduo.model.BBSPlate;
-import com.xiuman.xingduoduo.model.GoodsOne;
 import com.xiuman.xingduoduo.model.GoodsStick;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.testdata.Test;
@@ -163,8 +163,6 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	private CirclePageIndicator mIndicator;
 	// 广告ViewPager
 	private ViewPager viewpager_shoppingcenter_ad;
-	// 广告ImageView
-	private List<ImageView> ad_ivs = new ArrayList<ImageView>();
 	// 广告Adapter
 	private ShoppingCenterAdViewPagerAdapter ad_adapter;
 	// ViewPager 循环播放
@@ -198,12 +196,12 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	/*------------------------------------请求数据---------------------*/
 
 	// 请求广告返回
-	private ActionValue<GoodsOne> value_ads;
+	private ActionValue<Ad> value_ads = new ActionValue<Ad>();
 	// 广告商品
-	private ArrayList<GoodsOne> ads = new ArrayList<GoodsOne>();
+	private ArrayList<Ad> ads = new ArrayList<Ad>();
 
 	// 请求置顶商品
-	private ActionValue<GoodsStick> value_stick;
+	private ActionValue<GoodsStick> value_stick = new ActionValue<GoodsStick>();
 	// 置顶商品
 	private ArrayList<GoodsStick> stick = new ArrayList<GoodsStick>();
 	// 置顶top
@@ -222,7 +220,7 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:
-				value_ads = (ActionValue<GoodsOne>) msg.obj;
+				value_ads = (ActionValue<Ad>) msg.obj;
 				if (value_ads.isSuccess()) {
 					ads = value_ads.getDatasource();
 					// 设置广告数据
@@ -544,17 +542,13 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 * 
 	 * 描述：设置广告数据
 	 */
-	private void setAdData(ArrayList<GoodsOne> ads) {
+	private void setAdData(ArrayList<Ad> ads) {
 		// 添加广告,测试数据，添加操作
-		for (int i = 0; i < ads.size(); i++) {
-			ImageView iv_ad = new ImageView(getActivity());
-			ad_ivs.add(iv_ad);
-		}
-		ad_adapter = new ShoppingCenterAdViewPagerAdapter(ads, ad_ivs,
+		ad_adapter = new ShoppingCenterAdViewPagerAdapter(ads,
 				getActivity(), options2, imageLoader);
 		viewpager_shoppingcenter_ad.setAdapter(ad_adapter);
 		mIndicator.setViewPager(viewpager_shoppingcenter_ad);
-		if (switchTask.getState() == Thread.State.NEW) {
+		if (switchTask.getState() == Thread.State.NEW&&ads.size()>0) {
 			switchTask.start();
 		}
 	}
@@ -742,16 +736,16 @@ public class FragmentShoppingCenter extends BaseFragment implements
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.llyt_center_zhangzishi:// 涨姿势
-				BBSPlate plate = Test.getBBSPlates().get(0);
-				Intent intent_plate = new Intent(getActivity(),
-						BBSPlateActivity.class);
-				Bundle bundle_plate = new Bundle();
-				bundle_plate.putSerializable("bbs_plate", plate);
-				intent_plate.putExtras(bundle_plate);
-				getActivity().startActivity(intent_plate);
-				getActivity().overridePendingTransition(
-						R.anim.translate_horizontal_start_in,
-						R.anim.translate_horizontal_start_out);
+//				BBSPlate plate = Test.getBBSPlates().get(0);
+//				Intent intent_plate = new Intent(getActivity(),
+//						BBSPlateActivity.class);
+//				Bundle bundle_plate = new Bundle();
+//				bundle_plate.putSerializable("bbs_plate", plate);
+//				intent_plate.putExtras(bundle_plate);
+//				getActivity().startActivity(intent_plate);
+//				getActivity().overridePendingTransition(
+//						R.anim.translate_horizontal_start_in,
+//						R.anim.translate_horizontal_start_out);
 				break;
 			case R.id.llyt_center_time_limit_by:// 限时抢购
 				classify_name = "限时抢购";
@@ -895,9 +889,9 @@ public class FragmentShoppingCenter extends BaseFragment implements
 	 * @描述：获取广告 2014-9-20
 	 */
 	private void getAds() {
-		HttpUrlProvider.getIntance().getCenterClassifyGoods(getActivity(),
-				new TaskCenterClassifyGoodsBack(handler),
-				URLConfig.CENTER_HOME_PLATE, 1, "isGadver");
+		HttpUrlProvider.getIntance().getCenterAd(getActivity(),
+				new TaskCenterAdBack(handler),
+				URLConfig.CENTER_AD, "1");
 	}
 
 	/**

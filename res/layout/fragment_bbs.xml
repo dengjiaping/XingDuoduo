@@ -48,6 +48,7 @@
                         style="@style/txt_style_base2"
                         android:gravity="center|left"
                         android:paddingTop="5dip"
+                        android:singleLine="true"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/txt_size_16"/>
 

@@ -1,5 +1,6 @@
 package com.xiuman.xingduoduo.ui.activity;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.callback.TaskDiscussGoodsBack;
 import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.Order;
+import com.xiuman.xingduoduo.model.OrderDiscuss;
 import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
@@ -73,7 +75,7 @@ public class DisucssOrderActivity extends Base2Activity implements
 	private int success_number = 0;
 
 	// 返回值
-	private ActionValue<?> value_discuss;
+	private ActionValue<?> value_discuss = new ActionValue<T>();
 
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
@@ -91,10 +93,10 @@ public class DisucssOrderActivity extends Base2Activity implements
 							R.anim.translate_horizontal_finish_in,
 							R.anim.translate_horizontal_finish_out);
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(DisucssOrderActivity.this);
 				break;
 			case AppConfig.NET_ERROR_NOTNET://
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(DisucssOrderActivity.this);
 				break;
 			}
 		}
@@ -146,8 +148,8 @@ public class DisucssOrderActivity extends Base2Activity implements
 
 		tv_discuss_order_time
 				.setText("成交时间："
-						+ TimeUtil.formatDateTime(Long.parseLong(order
-								.getCreate_date())));
+						+ order
+								.getCreate_date());
 
 		adapter = new DiscussOrderListViewAdapter(this,
 				order.getProductDetail(), options, imageLoader);
@@ -182,23 +184,25 @@ public class DisucssOrderActivity extends Base2Activity implements
 		case R.id.btn_submit_discuss:// 提交评论
 			if (adapter.getDiscuss_contents().size() > 0) {
 				loadingdialog.show(DisucssOrderActivity.this);
-				for (int i = 0; i < order.getProductDetail().size(); i++) {
+				for (int i = 0; i <adapter.getDiscuss_contents().size(); i++) {
+					OrderDiscuss discuss = adapter.getDiscuss_contents().get(i);
+					
 					HttpUrlProvider.getIntance().getDisCussGoods(this,
 							new TaskDiscussGoodsBack(handler),
 							URLConfig.DISCUSS_GOODS, user.getUserId(),
-							order.getProductDetail().get(i).getGoodId(),
-							adapter.getDiscuss_contents().get(i));
+							discuss.getId(),discuss.getContent(),discuss.getGoodsQuality(),discuss.getServiceAttitude(),discuss.getDeliverySpeed());
 				}
 			} else {
 				ToastUtil.ToastView(DisucssOrderActivity.this, "您还没有输入任何评论哦！");
 			}
+			
 			break;
 		}
 	}
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(DisucssOrderActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 	}

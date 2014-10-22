@@ -1,5 +1,6 @@
 package com.xiuman.xingduoduo.ui.activity;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,7 +48,7 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 	private Button btn_login_back;
 	/*---------------------------------数据----------------------------------*/
 	// 登录结果
-	private ActionValue<?> value;
+	private ActionValue<?> value = new ActionValue<T>();
 
 	// Handler
 	@SuppressLint("HandlerLeak")
@@ -62,22 +63,22 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 							value.getMessage());
 					// 获取用户信息
 					// getUserInfo();
-					loadingdialog.dismiss();
+					loadingdialog.dismiss(UserLoginActivity.this);
 					finish();
 				} else {
 					ToastUtil.ToastView(UserLoginActivity.this,
 							value.getMessage());
-					loadingdialog.dismiss();
+					loadingdialog.dismiss(UserLoginActivity.this);
 					et_login_user_name.setFocusable(true);
 				}
 
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UserLoginActivity.this);
 				ToastUtil.ToastView(UserLoginActivity.this, "网络连接失败，请重试");
 				break;
 			case AppConfig.SUCCESS_USER_INFO:// 获取用户信息成功
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(UserLoginActivity.this);
 				finish();
 				break;
 			}
@@ -205,7 +206,7 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(UserLoginActivity.this);
 		loadingdialog = null;
 	}
 }

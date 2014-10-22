@@ -3,6 +3,7 @@ package com.xiuman.xingduoduo.ui.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -109,7 +110,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 
 	/*------------------------------------请求数据----------------------------------------*/
 	// 购物车列表
-	private ActionValue<GoodsCart> value_goods;
+	private ActionValue<GoodsCart> value_goods = new ActionValue<GoodsCart>();
 	// 购物车商品列表get
 	private ArrayList<GoodsCart> cart_goods_get = new ArrayList<GoodsCart>();
 	// 当前显示
@@ -119,12 +120,12 @@ public class FragmentShoppingCart extends BaseFragment implements
 	// 设置购物车所有商品被选中
 	private List<Boolean> list_checked_current = new ArrayList<Boolean>();
 	// 移除购物车时返回的结果
-	private ActionValue<?> value_delete;
+	private ActionValue<?> value_delete = new ActionValue<T>();
 	// 传递而来的要移除的商品
 	private GoodsCart goods;
 
 	// 修改购物车数量----------------------------------
-	private ActionValue<?> value_update;
+	private ActionValue<?> value_update = new ActionValue<T>();
 	// 请求修改的桑普
 	private GoodsCart goods_update;
 	// 要修改的数量
@@ -200,14 +201,14 @@ public class FragmentShoppingCart extends BaseFragment implements
 					setBalanceInfo();
 				}
 				llyt_network_error.setVisibility(View.INVISIBLE);
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(getActivity());
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 网络连接失败
 				llyt_network_error.setVisibility(View.VISIBLE);
 				llyt_null_cart.setVisibility(View.INVISIBLE);
 				llyt_balance.setVisibility(View.INVISIBLE);
 				llyt_all.setVisibility(View.INVISIBLE);
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(getActivity());
 				break;
 			case AppConfig.UPDATE_SHOPPING_CART:// 请求更新购物车数据(更新总价，数量)
 				Bundle bundle = msg.getData();
@@ -237,7 +238,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 					adapter.notifyDataSetChanged();
 				}
 				setBalanceInfo();
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(getActivity());
 				break;
 			case AppConfig.UPDATE_SHOPPING_CART_SELECT:// 更新已选择的商品（结算），cb_balance的状态
 				for (int i = 0; i < adapter.getMap().size(); i++) {
@@ -265,7 +266,7 @@ public class FragmentShoppingCart extends BaseFragment implements
 					setBalanceInfo();
 					isShowNull();
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(getActivity());
 				break;
 			case AppConfig.UPDATE_SHOPPING_CART_GOODS:// 更新商品列表,请求移除商品接口
 				goods = (GoodsCart) msg.obj;

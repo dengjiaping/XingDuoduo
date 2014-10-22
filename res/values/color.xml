@@ -63,14 +63,14 @@
     
     
     <!-- 主页文字颜色(底部四大模块) -->
-    <!-- 热卖文字1，2  -->
-    <color name="color_center_1">#FFAEAD</color>
-    <!-- 模块3 -->
-    <color name="color_center_3">#FFA5F5</color>
-    <!-- 模块4 -->
-    <color name="color_center_4">#E86AE9</color>
-    
-    
+    <!-- 热门话题 -->
+    <color name="color_center_1">#FABA00</color>
+    <!-- 热卖 -->
+    <color name="color_center_2">#F45F14</color>
+    <!-- 主题活动 -->
+    <color name="color_center_3">#F03D3C</color>
+    <!-- 精品专区 -->
+    <color name="color_center_4">#FFE259</color>
     <!-- 论坛我的评论背景色 -->
     <color name="bbs_title_back">#7ff1337d</color>
 </resources>

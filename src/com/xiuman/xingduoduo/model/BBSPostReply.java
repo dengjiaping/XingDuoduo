@@ -13,6 +13,8 @@ public class BBSPostReply implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4812954585040231855L;
+	// 等级组别
+	private String groupName;
 	// 回复内容
 	private String content;
 	// 回复时间
@@ -36,11 +38,12 @@ public class BBSPostReply implements Serializable {
 	// 图片列表
 	private ArrayList<PostImg> imgList;
 
-	public BBSPostReply(String content, String createTime, String title,
-			String nickname, String id, String postTypeId, String editCount,
-			boolean sex, String avatar, String username,
+	public BBSPostReply(String groupName, String content, String createTime,
+			String title, String nickname, String id, String postTypeId,
+			String editCount, boolean sex, String avatar, String username,
 			ArrayList<PostImg> imgList) {
 		super();
+		this.groupName = groupName;
 		this.content = content;
 		this.createTime = createTime;
 		this.title = title;
@@ -52,6 +55,14 @@ public class BBSPostReply implements Serializable {
 		this.avatar = avatar;
 		this.username = username;
 		this.imgList = imgList;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 
 	public ArrayList<PostImg> getImgList() {

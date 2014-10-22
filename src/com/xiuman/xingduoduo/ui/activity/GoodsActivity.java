@@ -3,6 +3,7 @@ package com.xiuman.xingduoduo.ui.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -208,23 +209,23 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 	/*--------------------------------消息返回--------------------*/
 	// 商品信息
-	private ActionValue<GoodsTwo> value_goodsinfo;
+	private ActionValue<GoodsTwo> value_goodsinfo = new ActionValue<GoodsTwo>();
 	// 添加收藏
-	private ActionValue<?> value_add;
+	private ActionValue<?> value_add = new ActionValue<T>();
 	// 删除收藏
-	private ActionValue<?> value_delete;
+	private ActionValue<?> value_delete = new ActionValue<T>();
 	// 添加商品到购物车
-	private ActionValue<?> value_add2cart;
+	private ActionValue<?> value_add2cart = new ActionValue<T>();
 
 	// 相关推荐-------------------------------------------------------------
-	private ActionValue<GoodsOne> value_recommend;
+	private ActionValue<GoodsOne> value_recommend = new ActionValue<GoodsOne>();
 	// 相关推荐商品列表
 	private ArrayList<GoodsOne> goods_recommend;
 
 	// 数据处理Hanlder
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "unchecked", "deprecation" })
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 商品信息数据请求成功
@@ -242,42 +243,56 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 					getRecommend(value_goodsinfo.getDatasource().get(0)
 							.getGoodsCategoryId());
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(GoodsActivity.this);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 请求失败(网络)
 				llyt_network_error.setVisibility(View.VISIBLE);
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(GoodsActivity.this);
 				llyt_bottom.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.ADD_COLLECTION:// 添加收藏
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(GoodsActivity.this);
 				value_add = (ActionValue<?>) msg.obj;
 				if (value_add.isSuccess()) {// 收藏成功
 					ToastUtil.ToastView(GoodsActivity.this,
 							value_add.getMessage());
-					btn_collect
-							.setBackgroundResource(R.drawable.bg_btn_collect_p);
+					try {
+						btn_collect
+								.setBackgroundResource(R.drawable.bg_btn_collect_p);
+					} catch (Exception e) {
+						btn_collect.setBackgroundDrawable(getResources()
+								.getDrawable(R.drawable.bg_btn_collect_p));
+					}
 					MyApplication.getInstance().addCollection(goods_id);
 				} else {// 收藏失败
 					ToastUtil.ToastView(GoodsActivity.this,
 							value_add.getMessage());
 					if (value_add.getMessage().contains("您已经收藏过此商品")) {
-						btn_collect
-								.setBackgroundResource(R.drawable.bg_btn_collect_p);
-						MyApplication.getInstance().addCollection(goods_id);
+						try {
+							btn_collect
+									.setBackgroundResource(R.drawable.bg_btn_collect_p);
+						} catch (Exception e) {
+							btn_collect.setBackgroundDrawable(getResources()
+									.getDrawable(R.drawable.bg_btn_collect_p));
+						}
 					}
 				}
 
 				break;
 			case AppConfig.DELETE_COLLECTION:// 删除收藏
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(GoodsActivity.this);
 				value_delete = (ActionValue<?>) msg.obj;
 
 				if (value_delete.isSuccess()) {// 删除成功
 					ToastUtil.ToastView(GoodsActivity.this,
 							value_delete.getMessage());
-					btn_collect
-							.setBackgroundResource(R.drawable.bg_btn_collect_n);
+					try {
+						btn_collect
+								.setBackgroundResource(R.drawable.bg_btn_collect_n);
+					} catch (Exception e) {
+						btn_collect.setBackgroundDrawable(getResources()
+								.getDrawable(R.drawable.bg_btn_collect_n));
+					}
 					MyApplication.getInstance().deleteCollection(goods_id);
 					setResult(AppConfig.RESULT_CODE_OK);
 				} else {// 删除失败
@@ -287,7 +302,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 
 				break;
 			case AppConfig.ADD2Cart:// 添加商品到购物车成功
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(GoodsActivity.this);
 				value_add2cart = (ActionValue<?>) msg.obj;
 
 				if (value_add2cart.isSuccess()) {
@@ -492,7 +507,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		if (MyApplication.getInstance().isUserLogin()) {
 			user = MyApplication.getInstance().getUserInfo();
 		}
-		if(loadingdialog==null){
+		if (loadingdialog == null) {
 			loadingdialog = new LoadingDialog(this);
 		}
 	}
@@ -519,14 +534,27 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	 * @date：2014-6-26
 	 * @param goods_id
 	 */
+	@SuppressWarnings("deprecation")
 	private void setGoodsData(GoodsTwo goods_two) {
 		// 首次加在数据显示dialog
 		loadingdialog.show(GoodsActivity.this);
 		// 是否已经收藏
 		if (MyApplication.getInstance().isCollected(goods_id)) {
-			btn_collect.setBackgroundResource(R.drawable.bg_btn_collect_p);
+			try {
+				btn_collect.setBackgroundResource(R.drawable.bg_btn_collect_p);
+			} catch (Exception e) {
+				btn_collect.setBackgroundDrawable(getResources().getDrawable(
+						R.drawable.bg_btn_collect_p));
+			}
+
 		} else {
-			btn_collect.setBackgroundResource(R.drawable.bg_btn_collect_n);
+			try {
+				btn_collect.setBackgroundResource(R.drawable.bg_btn_collect_n);
+			} catch (Exception e) {
+				btn_collect.setBackgroundDrawable(getResources().getDrawable(
+						R.drawable.bg_btn_collect_n));
+			}
+
 		}
 
 		tv_goods_price.setText("￥" + goods_two.getGoods_price() + "");
@@ -568,12 +596,13 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		goods_img_urls = goods_two.getImagePath();
 
 		// 是否移除特殊图片
-		for (int i = 0; i < goods_img_urls.size(); i++) {
-			if (goods_img_urls.get(i).isGdFlag()) {
-				goods_img_urls.remove(i);
+		if (goods_two.getImagePath()!=null) {
+			for (int i = 0; i < goods_img_urls.size(); i++) {
+				if (goods_img_urls.get(i).isGdFlag()) {
+					goods_img_urls.remove(i);
+				}
 			}
 		}
-
 		if (goods_img_urls != null && goods_img_urls.size() > 0) {
 			for (int i = 0; i < goods_img_urls.size(); i++) {
 				ImageView iv_ad = new ImageView(GoodsActivity.this);
@@ -583,6 +612,8 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 					img_ivs, GoodsActivity.this, options, imageLoader);
 			viewpager_goods_imgs.setAdapter(adapter_img);
 			indicator_goods_imgs.setViewPager(viewpager_goods_imgs);
+		}else{
+			viewpager_goods_imgs.setBackgroundResource(R.drawable.default_small_goods_image);
 		}
 		// 商品推荐
 		// lv_goods_recommend.setAdapter(adapter_recommend);
@@ -932,7 +963,7 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(GoodsActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();

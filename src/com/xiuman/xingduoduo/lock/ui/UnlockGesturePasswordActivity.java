@@ -120,13 +120,15 @@ public class UnlockGesturePasswordActivity extends Base2Activity {
 				// 判断是解锁还是删除手势密码
 				if (cancel) {
 					showToast("解锁成功");
-					Intent intent = new Intent(UnlockGesturePasswordActivity.this,MainActivity.class);
+					Intent intent = new Intent(
+							UnlockGesturePasswordActivity.this,
+							MainActivity.class);
 					startActivity(intent);
 					overridePendingTransition(
 							R.anim.translate_horizontal_start_in,
 							R.anim.translate_horizontal_start_out);
 					finish();
-					
+
 				} else {
 
 					showToast("已取消");
@@ -214,12 +216,16 @@ public class UnlockGesturePasswordActivity extends Base2Activity {
 
 	@Override
 	protected void initUI() {
-		File head = new File(cropUtils.createDirectory()
-				+ cropUtils.createNewPhotoName());
-		if (head.exists()) {
-			Bitmap user_head_bitmap = BitmapFactory.decodeFile(cropUtils
-					.createDirectory() + cropUtils.createNewPhotoName());
-			iv_head.setImageBitmap(user_head_bitmap);
+		try {
+			File head = new File(cropUtils.createDirectory()
+					+ cropUtils.createNewPhotoName());
+			if (head.exists()) {
+				Bitmap user_head_bitmap = BitmapFactory.decodeFile(cropUtils
+						.createDirectory() + cropUtils.createNewPhotoName());
+				iv_head.setImageBitmap(user_head_bitmap);
+			}
+		} catch (Exception e) {
+			iv_head.setImageResource(R.drawable.bg_head);
 		}
 	}
 

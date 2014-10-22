@@ -14,7 +14,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,7 +25,8 @@ import com.xiuman.xingduoduo.adapter.GoodsDiscussListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.callback.TaskGoodsDiscussListBack;
-import com.xiuman.xingduoduo.model.ActionValue;
+import com.xiuman.xingduoduo.model.ActionValueDiscuss;
+import com.xiuman.xingduoduo.model.DiscussTotal;
 import com.xiuman.xingduoduo.model.GoodsDiscuss;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.activity.GoodsInfoDiscussActivity;
@@ -53,11 +55,24 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 	// 网络未连接显示的布局
 	private LinearLayout llyt_network_error;
 	// 评论为空的时候显示的布局
-	private RelativeLayout rlyt_discuss_null;
+	private LinearLayout llyt_goods_null;
 	// 请求数据时显示的diaolog
 	private LoadingDialog loadingdialog;
 	// 父
 	private GoodsInfoDiscussActivity activity;
+	// 商品的综合评分
+	private TextView tv_goods_total_rating;
+	private RatingBar ratingbar_total;
+	// 质量评分
+	private RatingBar ratingbar_zhiliang;
+	private TextView tv_total_zhiliang;
+	// 服务评分
+	private RatingBar ratingbar_taidu;
+	private TextView tv_total_taidu;
+	// 发货速度评分
+	private RatingBar ratingbar_sudu;
+	private TextView tv_total_sudu;
+
 	/*----------------------------------标记-------------------------------------*/
 	// 是上拉还是下拉
 	private boolean isUp = true;
@@ -78,7 +93,9 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 	// 当前显示的评价列表
 	private ArrayList<GoodsDiscuss> discusses_current = new ArrayList<GoodsDiscuss>();
 	// 请求结果
-	private ActionValue<GoodsDiscuss> value_discuss;
+	private ActionValueDiscuss<GoodsDiscuss> value_discuss = new ActionValueDiscuss<GoodsDiscuss>();
+	// 综合评分-------
+	private DiscussTotal discussTotal = new DiscussTotal();
 
 	/*-----------------------ImageLoader-----------------------------*/
 	// ImageLoader
@@ -94,11 +111,11 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 请求数据成功，设置数据
 
-				value_discuss = (ActionValue<GoodsDiscuss>) msg.obj;
+				value_discuss = (ActionValueDiscuss<GoodsDiscuss>) msg.obj;
 				discusses_get = (ArrayList<GoodsDiscuss>) value_discuss
 						.getDatasource();
 				if (!value_discuss.isSuccess()) {// 数据为空
-					rlyt_discuss_null.setVisibility(View.VISIBLE);
+					llyt_goods_null.setVisibility(View.VISIBLE);
 					// 下拉加载完成
 					pulllistview_discuss.onPullDownRefreshComplete();
 					// 上拉刷新完成
@@ -106,6 +123,11 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 				} else {
 					if (isUp) {// 下拉
 						discusses_current = discusses_get;
+						// 获取综合评分
+						discussTotal = value_discuss.getTotaldatasource()
+								.get(0);
+						setTotal(discussTotal);
+
 						adapter = new GoodsDiscussListViewAdapter(
 								getActivity(), discusses_current, options,
 								imageLoader);
@@ -127,15 +149,15 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 					}
 					TimeUtil.setLastUpdateTime(pulllistview_discuss);
 
-					rlyt_discuss_null.setVisibility(View.INVISIBLE);
+					llyt_goods_null.setVisibility(View.INVISIBLE);
 				}
 
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(getActivity());
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 请求数据失败(网络)
 
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(getActivity());
 				llyt_network_error.setVisibility(View.VISIBLE);
 				break;
 			}
@@ -161,6 +183,7 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 		options = new DisplayImageOptions.Builder()
 				// .showStubImage(R.drawable.weiboitem_pic_loading) //
 				// 在ImageView加载过程中显示图片
+				.showImageOnLoading(R.drawable.onloading)
 				.showImageForEmptyUri(R.drawable.ic_male)
 				// image连接地址为空时
 				.showImageOnFail(R.drawable.ic_male)
@@ -180,8 +203,8 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 		loadingdialog = new LoadingDialog(activity);
 		llyt_network_error = (LinearLayout) view
 				.findViewById(R.id.llyt_network_error);
-		rlyt_discuss_null = (RelativeLayout) view
-				.findViewById(R.id.rlyt_discuss_null_discuss);
+		llyt_goods_null = (LinearLayout) view
+				.findViewById(R.id.llyt_goods_null);
 
 		pulllistview_discuss = (PullToRefreshListView) view
 				.findViewById(R.id.pulllistview_discuss);
@@ -195,6 +218,24 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 		lv_discuss
 				.setDivider(getResources().getDrawable(R.drawable.line_small));
 		lv_discuss.setSelector(new ColorDrawable(Color.TRANSPARENT));
+
+		View headview = View.inflate(getActivity(), R.layout.include_discuss,
+				null);
+		tv_goods_total_rating = (TextView) headview
+				.findViewById(R.id.tv_goods_total_rating);
+		ratingbar_total = (RatingBar) headview
+				.findViewById(R.id.ratingbar_total);
+		ratingbar_zhiliang = (RatingBar) headview
+				.findViewById(R.id.ratingbar_zhiliang);
+		tv_total_zhiliang = (TextView) headview
+				.findViewById(R.id.tv_total_zhiliang);
+		ratingbar_taidu = (RatingBar) headview
+				.findViewById(R.id.ratingbar_taidu);
+		tv_total_taidu = (TextView) headview.findViewById(R.id.tv_total_taidu);
+		ratingbar_sudu = (RatingBar) headview.findViewById(R.id.ratingbar_sudu);
+		tv_total_sudu = (TextView) headview.findViewById(R.id.tv_total_sudu);
+
+		lv_discuss.addHeaderView(headview);
 	}
 
 	@Override
@@ -239,13 +280,30 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 				});
 	}
 
+	/**
+	 * @描述：设置综合评分
+	 * @param discussTotal
+	 * @时间 2014-10-21
+	 */
+	private void setTotal(DiscussTotal discussTotal) {
+		tv_goods_total_rating.setText(discussTotal.getComprScore() + "");
+		tv_total_zhiliang.setText(discussTotal.getGoodsQualityTotal() + "");
+		tv_total_taidu.setText(discussTotal.getServiceAttitudeTotal() + "");
+		tv_total_sudu.setText(discussTotal.getDeliverySpeedTotal() + "");
+		ratingbar_total.setRating(discussTotal.getComprScore());
+		ratingbar_zhiliang.setRating(discussTotal.getGoodsQualityTotal());
+		ratingbar_sudu.setRating(discussTotal.getDeliverySpeedTotal());
+		ratingbar_taidu.setRating(discussTotal.getServiceAttitudeTotal());
+	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(loadingdialog==null){
+		if (loadingdialog == null) {
 			loadingdialog = new LoadingDialog(getActivity());
 		}
 	}
+
 	/**
 	 * @描述：加载数据(首次加载)--测试数据，添加操作
 	 * @date：2014-6-25

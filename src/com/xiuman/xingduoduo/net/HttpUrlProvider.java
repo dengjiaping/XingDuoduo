@@ -88,7 +88,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		//注册渠道标识
+		// 注册渠道标识
 		url += httpDataTask.jointToUrl("channel", "nuannuan");
 		httpDataTask.execute(url);
 	}
@@ -629,6 +629,24 @@ public class HttpUrlProvider extends HttpConnWorker {
 	}
 
 	/**
+	 * @描述：获取首页广告（商品，专区）
+	 * @param context
+	 * @param httpTaskListener
+	 * @param singleurl
+	 * @param showAdress 1：广告，2：专区，3：商品
+	 * @时间 2014-10-18
+	 */
+	public void getCenterAd(Context context, HttpTaskListener httpTaskListener,
+			String singleurl, String showAdress) {
+		String url = URLConfig.BASE_IP + singleurl;
+		HttpDataTask httpDataTask = new HttpDataTask(context, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		// 设置请求参数
+		url += httpDataTask.jointToUrl("showAdress", showAdress);
+		httpDataTask.execute(url);
+	}
+
+	/**
 	 * @描述：获取置顶商品
 	 * @param mContext
 	 * @param httpTaskListener
@@ -792,7 +810,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 */
 	public void getDisCussGoods(Context mContext,
 			HttpTaskListener httpTaskListener, String singleurl,
-			String reviesUID, String reviesgoodsId, String contendApp) {
+			String reviesUID, String reviesgoodsId, String contendApp,float goodsQuality,float serviceAttitude,float deliverySpeed) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -804,6 +822,9 @@ public class HttpUrlProvider extends HttpConnWorker {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		url += httpDataTask.jointToUrl("goodsQuality", goodsQuality);
+		url += httpDataTask.jointToUrl("serviceAttitude", serviceAttitude);
+		url += httpDataTask.jointToUrl("deliverySpeed", deliverySpeed);
 
 		httpDataTask.execute(url);
 	}
@@ -986,7 +1007,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		httpDataTask.setParams("userId", userId);
 		httpDataTask.setParams("title", title);
 		httpDataTask.setParams("content", content);
-		System.out.println("回帖链接"+url+forumId);
+		System.out.println("回帖链接" + url + forumId);
 		httpDataTask.execute(url);
 	}
 
@@ -1090,7 +1111,19 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("forumId", forumId);
 		httpDataTask.execute(url);
 	}
+	/**
+	 * @描述：获取论坛板块
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @时间 2014-10-22
+	 */
+	public void getBBSPlate(Context mContext, HttpTaskListener httpTaskListener){
+		String url = URLConfig.PRIVATE_IP + URLConfig.BBS_PLATE;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
 
+		httpDataTask.execute(url);
+	}
 	/**
 	 * @描述：应用推荐
 	 * @param mContext

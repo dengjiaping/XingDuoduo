@@ -41,6 +41,7 @@ public class SplashActivity extends Activity {
 			MyApplication.getInstance().saveVersion(current_version_name, current_version_code);
 			SharedPreUtils.setBoolean(this, true, "guide", "first_start");
 			MyApplication.getInstance().saveBBSAds(null);
+			MyApplication.getInstance().saveAds(null);
 		}
 
 		// 打开界面之后判断是否是初次启动应用，如果是则直接进入应用，如果不是则进入引导页

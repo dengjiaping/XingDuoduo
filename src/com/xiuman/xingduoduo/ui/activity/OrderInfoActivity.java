@@ -1,5 +1,6 @@
 package com.xiuman.xingduoduo.ui.activity;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -118,17 +119,17 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 
 	/*------------------------------请求数据------------------------------*/
 	// 详情返回结果
-	private ActionValue<Order> value_order;
+	private ActionValue<Order> value_order = new ActionValue<Order>();
 	// 删除结果
-	private ActionValue<?> value_delete;
+	private ActionValue<?> value_delete = new ActionValue<T>();
 	// 取消结果
-	private ActionValue<?> value_cancel;
+	private ActionValue<?> value_cancel = new ActionValue<T>();
 
 	/*----------------------------去支付----------------------------*/
 	// 请求支付宝私钥
-	private ActionValuePay value_alipay;
+	private ActionValuePay value_alipay = new ActionValuePay();
 	// 传递支付结果
-	private ActionValue<AliPayStatus> value_pay_status;
+	private ActionValue<AliPayStatus> value_pay_status = new ActionValue<AliPayStatus>();
 
 	// 支付宝线程返回 值类型
 	private static final int RQF_PAY = 1;
@@ -154,7 +155,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				sv_order_info.setVisibility(View.VISIBLE);
 				llyt_order_info_bottom.setVisibility(View.VISIBLE);
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderInfoActivity.this);
 				break;
 			case AppConfig.UPDATE_ORDER:// 删除结果
 				value_delete = (ActionValue<?>) msg.obj;
@@ -167,7 +168,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 					ToastUtil.ToastView(OrderInfoActivity.this,
 							value_delete.getMessage());
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderInfoActivity.this);
 				break;
 			case AppConfig.CANCEL_ORDER:// 取消订单
 				value_cancel = (ActionValue<?>) msg.obj;
@@ -180,16 +181,16 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 					ToastUtil.ToastView(OrderInfoActivity.this,
 							value_cancel.getMessage());
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderInfoActivity.this);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
 				llyt_network_error.setVisibility(View.VISIBLE);
 				sv_order_info.setVisibility(View.INVISIBLE);
 				llyt_order_info_bottom.setVisibility(View.INVISIBLE);
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderInfoActivity.this);
 				break;
 			case AppConfig.NET_ERROR_COMMON:// 删除网络出错
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderInfoActivity.this);
 				break;
 			case AppConfig.ALIPAY_BACK:
 				value_alipay = (ActionValuePay) msg.obj;
@@ -202,7 +203,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 					ToastUtil.ToastView(OrderInfoActivity.this,
 							value_alipay.getMessage());
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(OrderInfoActivity.this);
 
 				break;
 			case RQF_PAY:// 支付结果返回
@@ -470,13 +471,13 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 			}
 			break;
 		case R.id.btn_order_info_take_order:// 确认收货
-			if (btn_order_info_take_order.getText().toString().equals("去支付")) {// 去支付
+			if (btn_order_info_take_order.getText().toString().equals("去  支  付")) {// 去支付
 				getAliPayParams();
 			} else if (btn_order_info_take_order.getText().toString()
 					.equals("确认收货")) {
 				takeOrder();
 			} else if (btn_order_info_take_order.getText().toString()
-					.equals("去评价")) {
+					.equals("去  评  价")) {
 				Intent intent = new Intent(OrderInfoActivity.this,
 						DisucssOrderActivity.class);
 				Bundle bundle = new Bundle();
@@ -645,7 +646,7 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(OrderInfoActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();

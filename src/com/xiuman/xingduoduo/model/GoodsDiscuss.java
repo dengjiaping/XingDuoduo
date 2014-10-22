@@ -30,7 +30,13 @@ public class GoodsDiscuss implements Serializable {
 	// 用户id
 	private String userid;
 	// 头像地址
-	private String imagehead;
+	private String head_image;
+	// 质量分
+	private float goodsQuality;
+	// 服务分
+	private float serviceAttitude;
+	// 发货速度分
+	private float deliverySpeed;
 
 	public GoodsDiscuss() {
 		super();
@@ -38,7 +44,8 @@ public class GoodsDiscuss implements Serializable {
 
 	public GoodsDiscuss(String id, String userName, String goodsname,
 			String createTime, String content, String contact, String nickname,
-			String userid, String imagehead) {
+			String userid, String head_image, float goodsQuality,
+			float serviceAttitude, float deliverySpeed) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -48,7 +55,42 @@ public class GoodsDiscuss implements Serializable {
 		this.contact = contact;
 		this.nickname = nickname;
 		this.userid = userid;
-		this.imagehead = imagehead;
+		this.head_image = head_image;
+		this.goodsQuality = goodsQuality;
+		this.serviceAttitude = serviceAttitude;
+		this.deliverySpeed = deliverySpeed;
+	}
+
+	public float getGoodsQuality() {
+		return goodsQuality;
+	}
+
+	public void setGoodsQuality(float goodsQuality) {
+		this.goodsQuality = goodsQuality;
+	}
+
+	public float getServiceAttitude() {
+		return serviceAttitude;
+	}
+
+	public void setServiceAttitude(float serviceAttitude) {
+		this.serviceAttitude = serviceAttitude;
+	}
+
+	public float getDeliverySpeed() {
+		return deliverySpeed;
+	}
+
+	public void setDeliverySpeed(float deliverySpeed) {
+		this.deliverySpeed = deliverySpeed;
+	}
+
+	public String getHead_image() {
+		return head_image;
+	}
+
+	public void setHead_image(String head_image) {
+		this.head_image = head_image;
 	}
 
 	public String getNickname() {
@@ -65,14 +107,6 @@ public class GoodsDiscuss implements Serializable {
 
 	public void setUserid(String userid) {
 		this.userid = userid;
-	}
-
-	public String getImagehead() {
-		return imagehead;
-	}
-
-	public void setImagehead(String imagehead) {
-		this.imagehead = imagehead;
 	}
 
 	public String getId() {

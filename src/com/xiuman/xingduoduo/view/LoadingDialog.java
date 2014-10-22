@@ -20,7 +20,7 @@ import com.xiuman.xingduoduo.R;
 public class LoadingDialog {
 	private Dialog mDialog;
 
-	public LoadingDialog(Context context) {
+	public LoadingDialog(final Context context) {
 
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View view = inflater.inflate(R.layout.loading, null);
@@ -33,7 +33,7 @@ public class LoadingDialog {
 			public boolean onKey(DialogInterface dialog, int keyCode,
 					KeyEvent event) {
 				if (keyCode == KeyEvent.KEYCODE_BACK) {
-					dismiss();
+					dismiss(context);
 					return true;
 				}
 				return false;
@@ -43,14 +43,16 @@ public class LoadingDialog {
 	}
 
 	public void show(Context context) {
-		if (mDialog != null) {
-			mDialog.show();
+		if (mDialog == null) {
+			mDialog = new Dialog(context);
 		}
+		mDialog.show();
 	}
 
-	public void dismiss() {
-		if (mDialog != null) {
-			mDialog.dismiss();
+	public void dismiss(Context context) {
+		if (mDialog == null) {
+			mDialog = new Dialog(context);
 		}
+		mDialog.dismiss();
 	}
 }

@@ -91,7 +91,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.iv_item_bbs_plate_post_img_3);
 			holder.llyt_item_bbs_plate_post_img_container = (LinearLayout) convertView
 					.findViewById(R.id.llyt_item_bbs_plate_post_img_container);
-			
+
 			holder.iv_item_post_plate_post_head = (CircleImageView) convertView
 					.findViewById(R.id.iv_item_post_plate_post_head);
 			holder.iv_item_post_plate_post_sex = (ImageView) convertView
@@ -101,7 +101,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		
+
 		final BBSPost post = posts.get(position);
 		// 性别
 		if (post.isSex()) {
@@ -142,30 +142,31 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					}
 				});
 		holder.tv_item_bbs_plate_post_title.setText(post.getTitle());
-		holder.tv_item_bbs_plate_post_content.setText(post
-				.getContent());
+		holder.tv_item_bbs_plate_post_content.setText(post.getContent());
 		holder.tv_item_bbs_plate_post_user.setText(post.getNickname());
 		if (post.getNickname() == null) {
 			holder.tv_item_bbs_plate_post_user.setText(post.getUsername());
 		}
 		holder.tv_item_bbs_plate_post_reply.setText(post.getReplyCount() + "");
 		holder.tv_item_bbs_plate_post_time.setText(TimeUtil.getTimeStr(
-				TimeUtil.strToDate(post.getCreateTime()), new Date()));
+				TimeUtil.strToDate(post.getLastTime()), new Date()));
 
 		// 图片数
 		int number = 0;
-		if(post.getImgList()!=null){
+		if (post.getImgList() != null) {
 			number = post.getImgList().size();
 		}
 		if (number > 3) {
 			holder.tv_item_bbs_plate_post_img_number
 					.setText("共" + number + "张");
-			holder.tv_item_bbs_plate_post_img_number.setVisibility(View.VISIBLE);
-		}else{
-			holder.tv_item_bbs_plate_post_img_number.setVisibility(View.INVISIBLE);
+			holder.tv_item_bbs_plate_post_img_number
+					.setVisibility(View.VISIBLE);
+		} else {
+			holder.tv_item_bbs_plate_post_img_number
+					.setVisibility(View.INVISIBLE);
 		}
-		
-//		// 图片
+
+		// // 图片
 		holder.llyt_item_bbs_plate_post_img_container
 				.setVisibility(View.VISIBLE);
 		if (number == 0) {
@@ -178,129 +179,58 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 			holder.iv_item_bbs_plate_post_img_1.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.INVISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.INVISIBLE);
-			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0).getImgurl(),
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP
+					+ post.getImgList().get(0).getImgurl(),
 					holder.iv_item_bbs_plate_post_img_1, options);
 		} else if (number == 2) {
 			holder.iv_item_bbs_plate_post_img_1.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.INVISIBLE);
-			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0).getImgurl(),
-					holder.iv_item_bbs_plate_post_img_1, options,
-					new ImageLoadingListener() {
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP
+					+ post.getImgList().get(0).getImgurl(),
+					holder.iv_item_bbs_plate_post_img_1, options);
 
-						@Override
-						public void onLoadingStarted(String arg0, View arg1) {
-
-						}
-
-						@Override
-						public void onLoadingFailed(String arg0, View arg1,
-								FailReason arg2) {
-
-						}
-
-						@Override
-						public void onLoadingComplete(String arg0, View arg1,
-								Bitmap arg2) {
-							imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(1).getImgurl(),
-									holder.iv_item_bbs_plate_post_img_2,
-									options);
-						}
-
-						@Override
-						public void onLoadingCancelled(String arg0, View arg1) {
-
-						}
-					});
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP
+					+ post.getImgList().get(1).getImgurl(),
+					holder.iv_item_bbs_plate_post_img_2, options);
 
 		} else if (number >= 3) {
 			holder.iv_item_bbs_plate_post_img_1.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_2.setVisibility(View.VISIBLE);
 			holder.iv_item_bbs_plate_post_img_3.setVisibility(View.VISIBLE);
 			// 加载第一章图片结束加载第二张
-			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(0).getImgurl(),
-					holder.iv_item_bbs_plate_post_img_1, options,
-					new ImageLoadingListener() {
-
-						@Override
-						public void onLoadingStarted(String arg0, View arg1) {
-
-						}
-
-						@Override
-						public void onLoadingFailed(String arg0, View arg1,
-								FailReason arg2) {
-
-						}
-
-						@Override
-						public void onLoadingComplete(String arg0, View arg1,
-								Bitmap arg2) {
-							// 加载第二章完成之后加载第三张
-							imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP+post.getImgList().get(1).getImgurl(),
-									holder.iv_item_bbs_plate_post_img_2,
-									options, new ImageLoadingListener() {
-
-										@Override
-										public void onLoadingStarted(
-												String arg0, View arg1) {
-
-										}
-
-										@Override
-										public void onLoadingFailed(
-												String arg0, View arg1,
-												FailReason arg2) {
-
-										}
-
-										@Override
-										public void onLoadingComplete(
-												String arg0, View arg1,
-												Bitmap arg2) {
-											imageLoader
-													.displayImage(
-															URLConfig.PRIVATE_IMG_IP+post.getImgList()
-																	.get(2).getImgurl(),
-															holder.iv_item_bbs_plate_post_img_3,
-															options);
-										}
-
-										@Override
-										public void onLoadingCancelled(
-												String arg0, View arg1) {
-
-										}
-									});
-						}
-
-						@Override
-						public void onLoadingCancelled(String arg0, View arg1) {
-
-						}
-					});
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP
+					+ post.getImgList().get(0).getImgurl(),
+					holder.iv_item_bbs_plate_post_img_1, options);
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP
+					+ post.getImgList().get(1).getImgurl(),
+					holder.iv_item_bbs_plate_post_img_2, options);
+			imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP
+					+ post.getImgList().get(2).getImgurl(),
+					holder.iv_item_bbs_plate_post_img_3, options);
 
 		}
 
-		holder.iv_item_post_plate_post_head.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(context,HeadImgViewActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putString("user_head", post.getAvatar());
-				bundle.putBoolean("user_sex", post.isSex());
-				intent.putExtras(bundle);
-				context.startActivity(intent);
-				((Activity) context).overridePendingTransition(
-						R.anim.translate_horizontal_start_in,
-						R.anim.translate_horizontal_start_out);
-			}
-		});
-		
+		holder.iv_item_post_plate_post_head
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(context,
+								HeadImgViewActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putString("user_head", post.getAvatar());
+						bundle.putBoolean("user_sex", post.isSex());
+						intent.putExtras(bundle);
+						context.startActivity(intent);
+						((Activity) context).overridePendingTransition(
+								R.anim.translate_horizontal_start_in,
+								R.anim.translate_horizontal_start_out);
+					}
+				});
+
 		return convertView;
 	}
-
 
 	static class ViewHolder {
 		// 用户头像

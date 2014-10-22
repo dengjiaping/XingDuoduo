@@ -3,6 +3,7 @@ package com.xiuman.xingduoduo.ui.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -78,9 +79,9 @@ public class ShoppingCartActivity extends Base2Activity implements
 	private LinearLayout llyt_null_cart;
 	// 去挑选
 	private Button btn_go2center;
-	//全选LinearLayout
+	// 全选LinearLayout
 	private LinearLayout llyt_all;
-	//选择数量
+	// 选择数量
 	private TextView tv_cart_numer;
 
 	// ---------------- 结算-------------------------
@@ -108,7 +109,7 @@ public class ShoppingCartActivity extends Base2Activity implements
 
 	/*------------------------------------请求数据----------------------------------------*/
 	// 购物车列表
-	private ActionValue<GoodsCart> value_goods;
+	private ActionValue<GoodsCart> value_goods = new ActionValue<GoodsCart>();
 	// 购物车商品列表get
 	private ArrayList<GoodsCart> cart_goods_get = new ArrayList<GoodsCart>();
 	// 当前显示
@@ -118,14 +119,14 @@ public class ShoppingCartActivity extends Base2Activity implements
 	// 设置购物车所有商品被选中
 	private List<Boolean> list_checked_current = new ArrayList<Boolean>();
 	// 移除购物车时返回的结果
-	private ActionValue<?> value_delete;
+	private ActionValue<?> value_delete = new ActionValue<T>();
 	// 传递而来的要移除的商品
 	private GoodsCart goods;
 	// 用于结算的商品列表
 	private ArrayList<GoodsCart> cart_goods_balance = new ArrayList<GoodsCart>();
 
 	// 修改购物车数量----------------------------------
-	private ActionValue<?> value_update;
+	private ActionValue<?> value_update = new ActionValue<T>();
 	// 请求修改的桑普
 	private GoodsCart goods_update;
 	// 要修改的数量
@@ -134,8 +135,7 @@ public class ShoppingCartActivity extends Base2Activity implements
 	private int goods_position = 0;
 	// 修改前的总价
 	private String goods_total = "";
-	
-	
+
 	/*----------------------------------标记----------------------------------*/
 	// 是上拉还是下拉
 	private boolean isUp = true;
@@ -199,40 +199,44 @@ public class ShoppingCartActivity extends Base2Activity implements
 					setBalanceInfo();
 				}
 				llyt_network_error.setVisibility(View.INVISIBLE);
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(ShoppingCartActivity.this);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 网络连接失败
 				llyt_network_error.setVisibility(View.VISIBLE);
 				llyt_null_cart.setVisibility(View.INVISIBLE);
 				llyt_balance.setVisibility(View.INVISIBLE);
 				llyt_all.setVisibility(View.INVISIBLE);
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(ShoppingCartActivity.this);
 				break;
 			case AppConfig.UPDATE_SHOPPING_CART:// 请求更新购物车数据(更新总价，数量)
 				Bundle bundle = msg.getData();
-				goods_update = (GoodsCart) bundle.getSerializable("goods_update");
+				goods_update = (GoodsCart) bundle
+						.getSerializable("goods_update");
 				goods_number = bundle.getInt("goods_number");
 				goods_position = bundle.getInt("goods_position");
 				goods_total = bundle.getString("goods_total");
-				HttpUrlProvider.getIntance().getUpdateShoppingCart(
-						ShoppingCartActivity.this,
-						new TaskUpdateCartGoodsNumberBack(handler),
-						URLConfig.UPDATE_GOODS_NUMBER,
-						goods_update.getCartItemId(), goods_update.getQuanity());
+				HttpUrlProvider.getIntance()
+						.getUpdateShoppingCart(ShoppingCartActivity.this,
+								new TaskUpdateCartGoodsNumberBack(handler),
+								URLConfig.UPDATE_GOODS_NUMBER,
+								goods_update.getCartItemId(),
+								goods_update.getQuanity());
 				loadingdialog.show(ShoppingCartActivity.this);
 				break;
 			case AppConfig.UPDATE_SHOPPING_CART_GOODS_NUMBER:// 请求更新接口
 				value_update = (ActionValue<?>) msg.obj;
 				if (value_update.isSuccess()) {// 修改成功
-				} else {//修改失败则改回原值
+				} else {// 修改失败则改回原值
 					ToastUtil.ToastView(ShoppingCartActivity.this,
 							value_update.getMessage());
-					cart_goods_current.get(goods_position).setQuanity(goods_number);
-					cart_goods_current.get(goods_position).setTotalPrice(goods_total);
+					cart_goods_current.get(goods_position).setQuanity(
+							goods_number);
+					cart_goods_current.get(goods_position).setTotalPrice(
+							goods_total);
 					adapter.notifyDataSetChanged();
 				}
 				setBalanceInfo();
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(ShoppingCartActivity.this);
 				break;
 			case AppConfig.UPDATE_SHOPPING_CART_SELECT:// 更新已选择的商品（结算），cb_balance的状态
 				for (int i = 0; i < adapter.getMap().size(); i++) {
@@ -260,7 +264,7 @@ public class ShoppingCartActivity extends Base2Activity implements
 					setBalanceInfo();
 					isShowNull();
 				}
-				loadingdialog.dismiss();
+				loadingdialog.dismiss(ShoppingCartActivity.this);
 				break;
 			case AppConfig.UPDATE_SHOPPING_CART_GOODS:// 更新商品列表,请求移除商品接口
 				goods = (GoodsCart) msg.obj;
@@ -288,13 +292,17 @@ public class ShoppingCartActivity extends Base2Activity implements
 	@Override
 	protected void initData() {
 		options = new DisplayImageOptions.Builder()
-		// .showStubImage(R.drawable.weiboitem_pic_loading) //
-		// 在ImageView加载过程中显示图片
-		.showImageOnLoading(R.drawable.onloading)
-				.showImageForEmptyUri(R.drawable.onloading) // image连接地址为空时
-				.showImageOnFail(R.drawable.onloading) // image加载失败
-				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+				// .showStubImage(R.drawable.weiboitem_pic_loading) //
+				// 在ImageView加载过程中显示图片
+				.showImageOnLoading(R.drawable.onloading)
+				.showImageForEmptyUri(R.drawable.onloading)
+				// image连接地址为空时
+				.showImageOnFail(R.drawable.onloading)
+				// image加载失败
+				.cacheInMemory(true)
+				// 加载图片时会在内存中加载缓存
+				.cacheOnDisc(true)
+				// 加载图片时会在磁盘中加载缓存
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.NONE).build();
 
@@ -488,9 +496,8 @@ public class ShoppingCartActivity extends Base2Activity implements
 		if (isReFresh) {
 			mPullListView.doPullRefreshing(true, 500);
 		}
-		if(loadingdialog==null){
-			loadingdialog = new LoadingDialog(this);
-		}
+		loadingdialog = null;
+		loadingdialog = new LoadingDialog(this);
 	}
 
 	/**
@@ -512,8 +519,7 @@ public class ShoppingCartActivity extends Base2Activity implements
 				Intent intent = new Intent(ShoppingCartActivity.this,
 						UserLoginActivity.class);
 				startActivity(intent);
-				overridePendingTransition(
-						R.anim.translate_vertical_start_in,
+				overridePendingTransition(R.anim.translate_vertical_start_in,
 						R.anim.translate_vertical_start_out);
 			} else {
 				Intent intent_order = new Intent(ShoppingCartActivity.this,
@@ -522,8 +528,7 @@ public class ShoppingCartActivity extends Base2Activity implements
 				bundle.putSerializable("balance_goods", cart_goods_balance);
 				intent_order.putExtras(bundle);
 				startActivity(intent_order);
-				overridePendingTransition(
-						R.anim.translate_horizontal_start_in,
+				overridePendingTransition(R.anim.translate_horizontal_start_in,
 						R.anim.translate_horizontal_start_out);
 			}
 			break;
@@ -563,7 +568,7 @@ public class ShoppingCartActivity extends Base2Activity implements
 			total += Double.valueOf(balance_goods.get(i).getTotalPrice());
 			number += balance_goods.get(i).getQuanity();
 		}
-		tv_cart_numer.setText("共"+number+"件");
+		tv_cart_numer.setText("共" + number + "件");
 		tv_prices.setText(total + "");
 		btn_balance.setText("结算(" + number + ")");
 		if (number > 0) {
@@ -616,14 +621,15 @@ public class ShoppingCartActivity extends Base2Activity implements
 		}
 		return list_checked_get;
 	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		loadingdialog.dismiss();
+		loadingdialog.dismiss(ShoppingCartActivity.this);
 		loadingdialog = null;
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();
-		
+
 	}
 
 }
