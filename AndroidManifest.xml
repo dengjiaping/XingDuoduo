@@ -140,29 +140,29 @@
         <!-- 分类商品展示界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.ClassifyActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 商城分类商品展示界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.CenterClassifyActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 限时抢购界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.LimitBuyActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 礼品专区界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.ActivityActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
         <!-- 商品详情界面 -->

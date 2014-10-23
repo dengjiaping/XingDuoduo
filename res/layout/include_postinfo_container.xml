@@ -57,7 +57,7 @@
                             android:id="@+id/iv_postinfo_starter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/icon_post_louzhu" />
+                            />
                     </LinearLayout>
                     <!-- 发表时间 -->
 

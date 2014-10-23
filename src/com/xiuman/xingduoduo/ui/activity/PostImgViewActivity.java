@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 
@@ -114,6 +115,7 @@ public class PostImgViewActivity extends Base2Activity implements
 					public boolean onSingleTapConfirmed(MotionEvent e) {
 
 						finish();
+						overridePendingTransition(R.anim.img_exit, R.anim.img_exit);
 						return false;
 					}
 
@@ -135,7 +137,14 @@ public class PostImgViewActivity extends Base2Activity implements
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();
 	}
-
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) { // 返回键
+			finish();
+			overridePendingTransition(R.anim.img_exit, R.anim.img_exit);
+		}
+		return true;
+	}
 	/**
 	 * 进行事件分发
 	 */

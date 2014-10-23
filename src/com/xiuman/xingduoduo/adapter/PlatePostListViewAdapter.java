@@ -145,7 +145,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 			holder.tv_item_bbs_plate_post_title
 					.setCompoundDrawablesRelativeWithIntrinsicBounds(
 							context.getResources().getDrawable(
-									R.drawable.icon_post_jinghua), null, null,
+									R.drawable.icon_center_tag_1), null, null,
 							null);
 		} else if (post.getJinghua() == 0) {
 			holder.tv_item_bbs_plate_post_title
@@ -235,8 +235,8 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 						intent.putExtras(bundle);
 						context.startActivity(intent);
 						((Activity) context).overridePendingTransition(
-								R.anim.translate_horizontal_start_in,
-								R.anim.translate_horizontal_start_out);
+								R.anim.img_start,
+								R.anim.img_exit);
 					}
 				});
 

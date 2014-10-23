@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -122,6 +123,7 @@ public class HeadImgViewActivity extends Base2Activity implements
 					public boolean onSingleTapConfirmed(MotionEvent e) {
 
 						finish();
+						overridePendingTransition(R.anim.img_exit, R.anim.img_exit);
 						return false;
 					}
 
@@ -135,6 +137,14 @@ public class HeadImgViewActivity extends Base2Activity implements
 						return false;
 					}
 				});
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) { // 返回键
+			finish();
+			overridePendingTransition(R.anim.img_exit, R.anim.img_exit);
+		}
+		return true;
 	}
 
 	/**

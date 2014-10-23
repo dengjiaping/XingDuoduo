@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:background="@drawable/bg_login">
+    android:background="@drawable/bg_login" >
 
     <!-- 登录界面 -->
 
@@ -96,12 +96,14 @@
             android:layout_width="match_parent"
             android:layout_height="30dip" />
     </LinearLayout>
-	<Button
+
+    <Button
         android:id="@+id/btn_login_back"
         android:layout_width="36dip"
         android:layout_height="36dip"
-        android:layout_margin="7dip"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="7dip"
         android:background="@drawable/bg_btn_back" />
+
 </RelativeLayout>

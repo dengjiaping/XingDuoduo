@@ -28,7 +28,6 @@ import com.xiuman.xingduoduo.lock.view.LockPatternView.Cell;
 import com.xiuman.xingduoduo.ui.activity.MainActivity;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.ImageCropUtils;
-import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 
 /**
@@ -260,7 +259,6 @@ public class UnlockGesturePasswordActivity extends Base2Activity {
 				iv_head.setImageResource(R.drawable.bg_head);
 			}
 		}
-
 	}
 
 	@Override

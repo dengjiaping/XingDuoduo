@@ -168,9 +168,7 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 					intent.putExtras(bundle);
 
 					context.startActivity(intent);
-					((Activity) context).overridePendingTransition(
-							R.anim.translate_horizontal_start_in,
-							R.anim.translate_horizontal_start_out);
+					((Activity) context).overridePendingTransition(R.anim.img_start, R.anim.img_exit);
 
 				}
 			});
@@ -187,9 +185,7 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 					bundle.putBoolean("user_sex", postinfo_starter.isSex());
 					intent.putExtras(bundle);
 					context.startActivity(intent);
-					((Activity) context).overridePendingTransition(
-							R.anim.translate_horizontal_start_in,
-							R.anim.translate_horizontal_start_out);
+					((Activity) context).overridePendingTransition(R.anim.img_start, R.anim.img_exit);
 				}
 			});
 			
@@ -286,9 +282,7 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 							bundle.putBoolean("user_sex", reply.isSex());
 							intent.putExtras(bundle);
 							context.startActivity(intent);
-							((Activity) context).overridePendingTransition(
-									R.anim.translate_horizontal_start_in,
-									R.anim.translate_horizontal_start_out);
+							((Activity) context).overridePendingTransition(R.anim.img_start, R.anim.img_exit);
 						}
 					});
 
