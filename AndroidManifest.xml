@@ -227,6 +227,12 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Transparent" >
         </activity>
+        <!-- 新帖子列表界面 -->
+        <activity
+            android:name="com.xiuman.xingduoduo.ui.activity.PostListActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Transparent" >
+        </activity>
         <!-- 帖子详情界面 -->
         <activity
             android:name="com.xiuman.xingduoduo.ui.activity.PostInfoActivity"

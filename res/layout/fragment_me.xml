@@ -34,7 +34,7 @@
                     style="@style/txt_style_base2"
                     android:orientation="vertical"
                     android:paddingBottom="10dip"
-                    android:paddingTop="50dip" >
+                    android:paddingTop="60dip" >
 
                     <!-- 顶部个人信息 -->
 
@@ -62,7 +62,7 @@
                         android:layout_marginTop="10dip"
                         android:text="@string/me_please_login"
                         android:textColor="@color/color_white"
-                        android:textSize="@dimen/txt_size_25" />
+                        android:textSize="@dimen/txt_size_20" />
 
                     <TextView
                         style="@style/txt_style_base1"

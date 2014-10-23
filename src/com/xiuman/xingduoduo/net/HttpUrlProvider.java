@@ -928,9 +928,9 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param httpTaskListener
 	 * @param forumId
 	 */
-	public void getPost(Context mContext, HttpTaskListener httpTaskListener,
+	public void getPost(Context mContext, HttpTaskListener httpTaskListener,String singleUrl,
 			String forumId, int pageNo, int pageSize) {
-		String url = URLConfig.PRIVATE_IP + URLConfig.FORUM_LIST_IP;
+		String url = URLConfig.PRIVATE_IP+singleUrl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 

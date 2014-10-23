@@ -136,7 +136,6 @@ public class HttpDataTask extends AsyncTask<String, Integer, String> {
 	@Override
 	protected void onPostExecute(String result) {
 		Log.d("thread", "结束");
-		Mylog.i("返回数据", ""+result);
 		if (result.equals(AppConfig.NET_ERROR_NOTNET + "")
 				|| result.equals(AppConfig.NET_ERROR_CONN + "")) {
 			httpTaskListener.dataError(result);

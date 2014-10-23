@@ -1,5 +1,7 @@
 package com.xiuman.xingduoduo.view;
 
+import com.xiuman.xingduoduo.app.MyApplication;
+
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -18,7 +20,7 @@ public class StretchScrollView extends ScrollView {
     private static final int MSG_REST_POSITION = 0x01;
 
     /** The max scroll height. */
-    private static final int MAX_SCROLL_HEIGHT = 400;
+    private static final int MAX_SCROLL_HEIGHT = MyApplication.getInstance().getScreenHeight();
     /** Damping, the smaller the greater the resistance */
     private static final float SCROLL_RATIO = 0.4f;
 
@@ -120,9 +122,6 @@ public class StretchScrollView extends ScrollView {
                         mTouchStop = false;
                     }
                 }
-                break;
-
-            default:
                 break;
         }
     }

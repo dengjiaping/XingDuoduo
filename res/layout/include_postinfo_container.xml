@@ -40,31 +40,46 @@
 
                     <LinearLayout
                         style="@style/txt_style_base2"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal" >
 
                         <!-- 用户名 -->
 
                         <TextView
                             android:id="@+id/tv_postinfo_starter_name"
-                            android:drawablePadding="5dip"
                             style="@style/txt_style_2"
+                            android:drawablePadding="5dip"
+                            android:layout_marginRight="5dip"
                             android:textSize="@dimen/txt_size_15" />
-                        <!-- 性别 -->
+                        <!-- 楼主 -->
+
+                        <ImageView
+                            android:id="@+id/iv_postinfo_starter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_post_louzhu" />
+                    </LinearLayout>
+                    <!-- 发表时间 -->
+
+                    <LinearLayout
+                        style="@style/txt_style_base2"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+						<!-- 性别 -->
 
                         <ImageView
                             android:id="@+id/iv_postinfo_starter_sex"
                             android:layout_width="20dip"
                             android:layout_height="20dip"
+                            android:layout_marginRight="5dip"
                             android:src="@drawable/sex_female" />
+                        <TextView
+                            android:id="@+id/tv_postinfo_starter_time"
+                            style="@style/txt_style_3"
+                            android:gravity="right"
+                            android:paddingRight="10dip"
+                            android:textSize="@dimen/txt_size_12" />
                     </LinearLayout>
-                    <!-- 发表时间 -->
-
-                    <TextView
-                        android:id="@+id/tv_postinfo_starter_time"
-                        android:gravity="right"
-                        android:paddingRight="10dip"
-                        style="@style/txt_style_3"
-                        android:textSize="@dimen/txt_size_12" />
                 </LinearLayout>
                 <!-- 回复按钮 -->
 
@@ -78,18 +93,18 @@
 
             <TextView
                 android:id="@+id/tv_postinfo_starter_title"
-                android:layout_marginTop="5dip"
                 style="@style/txt_style_2"
+                android:layout_marginTop="5dip"
                 android:textSize="@dimen/txt_size_15" />
             <!-- 内容 -->
 
             <TextView
                 android:id="@+id/tv_postinfo_starter_content"
-                android:paddingTop="5dip"
                 style="@style/txt_style_21"
+                android:paddingTop="5dip"
                 android:textSize="@dimen/txt_size_14" />
             <!-- 图片 -->
-            
+
             <com.xiuman.xingduoduo.view.MyListView
                 android:id="@+id/lv_postinfo_starter_imgs"
                 style="@style/txt_style_base3"
@@ -99,9 +114,7 @@
                 android:fadingEdge="none"
                 android:listSelector="@android:color/transparent"
                 android:scrollbars="none" />
-            
         </LinearLayout>
-
     </LinearLayout>
     <!-- 帖子标签(精化啥的) -->
 

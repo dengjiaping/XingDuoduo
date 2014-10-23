@@ -25,7 +25,7 @@
         android:background="@android:color/white"
         android:orientation="vertical" >
 
-        <include layout="@layout/line_match_drawable"/>
+        <include layout="@layout/line_match_drawable" />
 
         <RadioGroup
             android:id="@+id/radiogroup_main_bottom_menu"
@@ -48,14 +48,14 @@
                 android:background="@drawable/rbtn_bg_bottom_classify_selector" />
 
             <RadioButton
-                android:id="@+id/rbtn_shopping_cart"
-                style="@style/main_tab_bottom"
-                android:background="@drawable/rbtn_bg_bottom_menu_shopping_cart_selector" />
-
-            <RadioButton
                 android:id="@+id/rbtn_communication"
                 style="@style/main_tab_bottom"
                 android:background="@drawable/rbtn_bg_bottom_menu_communication_selector" />
+
+            <RadioButton
+                android:id="@+id/rbtn_shopping_cart"
+                style="@style/main_tab_bottom"
+                android:background="@drawable/rbtn_bg_bottom_menu_shopping_cart_selector" />
 
             <RadioButton
                 android:id="@+id/rbtn_me"

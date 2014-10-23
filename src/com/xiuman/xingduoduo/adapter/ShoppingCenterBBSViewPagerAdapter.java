@@ -17,8 +17,8 @@ import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.testdata.Test;
-import com.xiuman.xingduoduo.ui.activity.BBSPlateActivity;
 import com.xiuman.xingduoduo.ui.activity.MainActivity;
+import com.xiuman.xingduoduo.ui.activity.PostListActivity;
 
 /**
  * @名称：ShoppingCenterBBSViewPagerAdapter.java
@@ -102,7 +102,7 @@ public class ShoppingCenterBBSViewPagerAdapter extends PagerAdapter implements
 
 				@Override
 				public void onClick(View v) {
-					context.selectTab(3);
+					context.selectTab(2);
 				}
 			});
 		}
@@ -136,7 +136,7 @@ public class ShoppingCenterBBSViewPagerAdapter extends PagerAdapter implements
 			break;
 		}
 
-		Intent intent = new Intent(context, BBSPlateActivity.class);
+		Intent intent = new Intent(context, PostListActivity.class);
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("bbs_plate", plate);
 		intent.putExtras(bundle);

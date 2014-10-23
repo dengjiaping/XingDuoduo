@@ -45,6 +45,8 @@ import com.xiuman.xingduoduo.ui.activity.MainActivity;
 import com.xiuman.xingduoduo.ui.activity.SearchActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
 import com.xiuman.xingduoduo.util.SizeUtil;
+import com.xiuman.xingduoduo.view.PullScrollView;
+import com.xiuman.xingduoduo.view.PullScrollView.OnTurnListener;
 import com.xiuman.xingduoduo.view.indicator.CirclePageIndicator;
 
 /**
@@ -54,7 +56,7 @@ import com.xiuman.xingduoduo.view.indicator.CirclePageIndicator;
  * @时间 2014-10-21
  */
 public class FragmentShoppingCenter2 extends BaseFragment implements
-		OnClickListener {
+		OnClickListener, OnTurnListener {
 
 	/*--------------------------------------------------组件-------------------------------------------------*/
 	private MainActivity activity;
@@ -62,7 +64,11 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 	private TextView tv_title;
 	// 搜索
 	private Button btn_search;
-	//倒计时
+	// 顶部图
+	private ImageView iv_center_bg_img;
+	// sv
+	private PullScrollView sv_shopping_center;
+	// 倒计时
 	private TextView tv_center_daojishi;
 	// 第一块广告栏------------------------------------
 	// 广告栏ViewPager
@@ -100,6 +106,8 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 	private ImageView iv_center_5_4;
 
 	// 第六块主题活动-----------------------------------------
+	// 主题
+	private TextView tv_center_6_title;
 	// 主题more
 	private Button btn_center_6_topic_more;
 	// 套餐商品3（大）
@@ -164,7 +172,7 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 	/*------------------------------------------------Adapter-----------------------------------------------*/
 	// 广告Adapter
 	private ShoppingCenterAdViewPagerAdapter ad_adapter;
-	//热门画地adapter
+	// 热门画地adapter
 	private ShoppingCenterBBSViewPagerAdapter bbs_adapter;
 
 	// 消息处理-------------------------------------------------------------------------------------------------
@@ -220,7 +228,8 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 				}
 				break;
 			case AppConfig.CENTER_CATEGORY_FAILD:// 获取专区失败
-				values_category = MyApplication.getInstance().getCenterCategory();
+				values_category = MyApplication.getInstance()
+						.getCenterCategory();
 				if (values_category != null) {
 					categorys = values_category.getDatasource();
 					// 设置专区数据
@@ -272,7 +281,11 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 
 	@Override
 	protected void findViewById(View view) {
-		tv_center_daojishi = (TextView) view.findViewById(R.id.tv_center_2_daojishi);
+		iv_center_bg_img = (ImageView) view.findViewById(R.id.iv_center_bg_img);
+		sv_shopping_center = (PullScrollView) view
+				.findViewById(R.id.sv_shopping_center);
+		tv_center_daojishi = (TextView) view
+				.findViewById(R.id.tv_center_2_daojishi);
 		btn_search = (Button) view.findViewById(R.id.btn_search);
 		tv_title = (TextView) view.findViewById(R.id.tv_title);
 
@@ -302,6 +315,8 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 		iv_center_5_3 = (ImageView) view.findViewById(R.id.iv_center_5_3);
 		iv_center_5_4 = (ImageView) view.findViewById(R.id.iv_center_5_4);
 
+		tv_center_6_title = (TextView) view
+				.findViewById(R.id.tv_center_6_title);
 		btn_center_6_topic_more = (Button) view
 				.findViewById(R.id.btn_center_6_topic_more);
 		iv_center_6_right_3 = (ImageView) view
@@ -316,6 +331,9 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 		iv_center_7_3 = (ImageView) view.findViewById(R.id.iv_center_7_3);
 		iv_center_7_4 = (ImageView) view.findViewById(R.id.iv_center_7_4);
 
+		sv_shopping_center.setHeader(iv_center_bg_img);
+		sv_shopping_center.setOnTurnListener(this);
+		
 		// 设置控件LayoutParams---------------------------------------
 		int currentWidth = screenWidth - SizeUtil.dip2px(getActivity(), 20);
 
@@ -361,11 +379,13 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 	@Override
 	protected void initUI() {
 		tv_title.setText("商城");
+		// 加载上次请求的数据
+		setLastData();
 
 		// 请求数据
 		getCenterDate();
-		
-		//开始倒计时
+
+		// 开始倒计时
 		startDaojishi();
 	}
 
@@ -396,6 +416,36 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 		iv_center_7_2.setOnClickListener(new OnClickListener2());
 		iv_center_7_3.setOnClickListener(new OnClickListener2());
 		iv_center_7_4.setOnClickListener(new OnClickListener2());
+	}
+
+	/**
+	 * @描述：进入应用时加载上次保存的数据
+	 * @时间 2014-10-23
+	 */
+	private void setLastData() {
+
+		value_ads = MyApplication.getInstance().getAds();
+		if (value_ads != null) {
+			ads = value_ads.getDatasource();
+			// 设置广告数据
+			setAdData(ads);
+		} else {
+		}
+		values_goods = MyApplication.getInstance().getCenterGoods();
+		if (values_goods != null) {
+			goods_center = values_goods.getDatasource();
+			// 设置商品数据
+			setGoodsData(goods_center);
+		} else {
+		}
+		values_category = MyApplication.getInstance().getCenterCategory();
+		if (values_category != null) {
+			categorys = values_category.getDatasource();
+			// 设置专区数据
+			setCategoryDate(categorys);
+		} else {
+		}
+
 	}
 
 	/**
@@ -439,6 +489,7 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 			imageLoader.displayImage(URLConfig.IMG_IP
 					+ goods_center.get(4).getLogoPath(), iv_center_6_right_3,
 					options);
+			tv_center_6_title.setText(goods_center.get(4).getName());
 			imageLoader
 					.displayImage(URLConfig.IMG_IP
 							+ goods_center.get(5).getLogoPath(), iv_center_7_1,
@@ -464,29 +515,31 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 	 * @时间 2014-10-22
 	 */
 	private void setCategoryDate(ArrayList<Ad> categorys) {
-//		if (categorys.size() == 7) {
-			imageLoader.displayImage(URLConfig.IMG_IP
-					+ categorys.get(0).getLogoPath(), iv_center_2_limitbuy,
-					options);
-			imageLoader.displayImage(URLConfig.IMG_IP
-					+ categorys.get(1).getLogoPath(), iv_center_3_new, options);
-			imageLoader.displayImage(URLConfig.IMG_IP
-					+ categorys.get(2).getLogoPath(), iv_center_3_gaodashang,
-					options);
-			imageLoader.displayImage(URLConfig.IMG_IP
-					+ categorys.get(3).getLogoPath(), iv_center_3_tz, options);
-			// 设置热门话题
-			bbs_adapter = new ShoppingCenterBBSViewPagerAdapter(categorys.get(4).getLogoPath(), activity, options2, imageLoader);
-			viewpager_shoppingcenter_topic.setAdapter(bbs_adapter);
-			indicator_topic.setViewPager(viewpager_shoppingcenter_topic);
-			
-			imageLoader.displayImage(URLConfig.IMG_IP
-					+ categorys.get(5).getLogoPath(), iv_center_5_top_sale,
-					options);
-			imageLoader.displayImage(URLConfig.IMG_IP
-					+ categorys.get(6).getLogoPath(), iv_center_7_jingpin,
-					options);
-//		}
+		// if (categorys.size() == 7) {
+		imageLoader
+				.displayImage(
+						URLConfig.IMG_IP + categorys.get(0).getLogoPath(),
+						iv_center_2_limitbuy, options);
+		imageLoader.displayImage(URLConfig.IMG_IP
+				+ categorys.get(1).getLogoPath(), iv_center_3_new, options);
+		imageLoader.displayImage(URLConfig.IMG_IP
+				+ categorys.get(2).getLogoPath(), iv_center_3_gaodashang,
+				options);
+		imageLoader.displayImage(URLConfig.IMG_IP
+				+ categorys.get(3).getLogoPath(), iv_center_3_tz, options);
+		// 设置热门话题
+		bbs_adapter = new ShoppingCenterBBSViewPagerAdapter(categorys.get(4)
+				.getLogoPath(), activity, options2, imageLoader);
+		viewpager_shoppingcenter_topic.setAdapter(bbs_adapter);
+		indicator_topic.setViewPager(viewpager_shoppingcenter_topic);
+
+		imageLoader
+				.displayImage(
+						URLConfig.IMG_IP + categorys.get(5).getLogoPath(),
+						iv_center_5_top_sale, options);
+		imageLoader.displayImage(URLConfig.IMG_IP
+				+ categorys.get(6).getLogoPath(), iv_center_7_jingpin, options);
+		// }
 	}
 
 	/**
@@ -739,6 +792,7 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 		}
 		return txt;
 	}
+
 	/**
 	 * @描述：开始倒计时
 	 * @时间 2014-10-22
@@ -765,5 +819,10 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 			e.printStackTrace();
 		}
 		return interval;
+	}
+
+	@Override
+	public void onTurn() {
+		
 	}
 }

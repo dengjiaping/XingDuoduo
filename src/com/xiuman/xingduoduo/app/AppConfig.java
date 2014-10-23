@@ -248,4 +248,9 @@ public class AppConfig {
 	public static final String KEY_VERSION_NAME = "key_version_name";
 	public static final String KEY_VERSION_CODE = "key_version_code";
 
+	/*-----------------------------------商品分类-----------------------------------*/
+	// file
+	public static final String FILE_CATEGORY = "file_category";
+	// key
+	public static final String KEY_CATEGORY = "key_category";
 }

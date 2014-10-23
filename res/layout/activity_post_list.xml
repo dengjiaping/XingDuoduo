@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical" >
+
+    <!-- 帖子列表 -->
+
+    <RelativeLayout
+        android:id="@+id/rlyt_title"
+        android:layout_width="match_parent"
+        android:layout_height="46dip"
+        android:background="@color/color_mian"
+        android:gravity="center_vertical"
+        android:padding="5dip" >
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:background="@drawable/bg_btn_back" />
+        <!-- 详情+评价 -->
+
+        <RadioGroup
+            android:id="@+id/rg_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="3dip"
+            android:checkedButton="@+id/rbtn_post_new"
+            android:background="@drawable/rbtn_goods_info_discuss_bg_selector"
+            android:orientation="horizontal"
+            android:padding="1dip" >
+
+            <RadioButton
+                android:id="@+id/rbtn_post_new"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/rbtn_goods_info_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:text="最新帖子"
+                android:textColor="@color/rbtn_goods_info_discuss_color_selector"
+                android:textSize="@dimen/txt_size_14" />
+
+            <RadioButton
+                android:id="@+id/rbtn_post_jinghua"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/rbtn_goods_discuss_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:text="精华帖子"
+                android:textColor="@color/rbtn_goods_info_discuss_color_selector"
+                android:textSize="@dimen/txt_size_14" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_bbs_right"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_post_host_n" />
+    </RelativeLayout>
+    <!-- container -->
+
+    <FrameLayout
+        android:id="@+id/flyt_contanier"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

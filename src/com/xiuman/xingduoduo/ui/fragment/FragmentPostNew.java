@@ -1,4 +1,4 @@
-package com.xiuman.xingduoduo.ui.activity;
+package com.xiuman.xingduoduo.ui.fragment;
 
 import java.util.ArrayList;
 
@@ -7,11 +7,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -32,7 +33,9 @@ import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
-import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.ui.activity.PostInfoActivity;
+import com.xiuman.xingduoduo.ui.activity.PostListActivity;
+import com.xiuman.xingduoduo.ui.base.BaseFragment;
 import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
@@ -43,21 +46,17 @@ import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListe
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshListView;
 
 /**
- * @名称：BBSPlateActivity.java
- * @描述：交流板块帖子列表
- * @author danding 2014-8-8
+ * @名称：FragmentPostNew.java
+ * @描述：最新帖子
+ * @author danding
+ * @时间 2014-10-23
  */
-public class BBSPlateActivity extends Base2Activity implements OnClickListener {
-
-	/*---------------------------------组件-----------------------------------*/
+public class FragmentPostNew extends BaseFragment implements OnClickListener {
+	/*-------------------------------------组件----------------------------------*/
+	// 上下文
+	private PostListActivity activity;
 	// 滚动到顶部
 	private FloatingActionButton button_floating_action;
-	// 返回
-	private Button btn_back;
-	// 发帖
-	private Button btn_post;
-	// 标题栏
-	private TextView tv_title;
 	// 下拉刷新ScrollView
 	private PullToRefreshListView pullsv_post;
 	// ListView(帖子)
@@ -115,7 +114,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 获取数据成功
-				loadingdialog.dismiss(BBSPlateActivity.this);
+				loadingdialog.dismiss(getActivity());
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 
@@ -125,9 +124,8 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				if (value_normal.isSuccess()) {
 					if (isUp) {
 						bbspost = bbspost_get;
-						adapter = new PlatePostListViewAdapter(
-								BBSPlateActivity.this, options, imageLoader,
-								bbspost);
+						adapter = new PlatePostListViewAdapter(getActivity(),
+								options, imageLoader, bbspost);
 						lv_posts.setAdapter(adapter);
 						// 下拉加载完成
 						pullsv_post.onPullDownRefreshComplete();
@@ -140,17 +138,17 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 						adapter.notifyDataSetChanged();
 						pullsv_post.onPullUpRefreshComplete();
 						TimeUtil.setLastUpdateTime(pullsv_post);
-						loadingdialog.dismiss(BBSPlateActivity.this);
+						loadingdialog.dismiss(getActivity());
 					}
 					pullsv_post.setHasMoreData(true);
 				} else {
-					ToastUtil.ToastView(BBSPlateActivity.this, "没有更多帖子！");
+					ToastUtil.ToastView(getActivity(), "没有更多帖子！");
 					// 上拉刷新完成
 					pullsv_post.onPullUpRefreshComplete();
 					pullsv_post.setHasMoreData(false);
-					loadingdialog.dismiss(BBSPlateActivity.this);
+					loadingdialog.dismiss(getActivity());
 				}
-				loadingdialog.dismiss(BBSPlateActivity.this);
+				loadingdialog.dismiss(getActivity());
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.BBS_TOP_POST_BACK:// 获取置顶帖子
@@ -158,14 +156,14 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				if (value_top.isSuccess()) {
 					bbspostTop = value_top.getDatasource();
 					adapter_stick = new PlateStickPostListViewAdapter(
-							BBSPlateActivity.this, bbspostTop);
+							getActivity(), bbspostTop);
 
 					lv_stick_posts.setAdapter(adapter_stick);
 				}
 				llyt_network_error.setVisibility(View.INVISIBLE);
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络
-				loadingdialog.dismiss(BBSPlateActivity.this);
+				loadingdialog.dismiss(getActivity());
 				llyt_network_error.setVisibility(View.VISIBLE);
 				break;
 			}
@@ -173,13 +171,15 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_bbs_plate);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_post_new, container,
+				false);
 		initData();
-		findViewById();
+		findViewById(view);
 		initUI();
 		setListener();
+		return view;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -200,49 +200,47 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				// 加载图片时会在磁盘中加载缓存
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				.imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
-
-		// 从上级界面接收到的板块信息
-		plate = (BBSPlate) getIntent().getExtras().getSerializable("bbs_plate");
+		activity = (PostListActivity) getActivity();
+		plate = activity.getPlate();
 	}
 
 	@Override
-	protected void findViewById() {
-		button_floating_action = (FloatingActionButton) findViewById(R.id.button_floating_action);
-		loadingdialog = new LoadingDialog(this);
-		llyt_network_error = (LinearLayout) findViewById(R.id.llyt_network_error);
-		llyt_null_post = (LinearLayout) findViewById(R.id.llyt_plate_null_post);
-		btn_back = (Button) findViewById(R.id.btn_bbs_back);
-		btn_post = (Button) findViewById(R.id.btn_bbs_right);
-		tv_title = (TextView) findViewById(R.id.tv_bbs_title);
+	protected void findViewById(View view) {
+		button_floating_action = (FloatingActionButton) view
+				.findViewById(R.id.button_floating_action);
+		loadingdialog = new LoadingDialog(getActivity());
+		llyt_network_error = (LinearLayout) view
+				.findViewById(R.id.llyt_network_error);
+		llyt_null_post = (LinearLayout) view
+				.findViewById(R.id.llyt_plate_null_post);
 
-		pullsv_post = (PullToRefreshListView) findViewById(R.id.pulllv_posts);
+		pullsv_post = (PullToRefreshListView) view
+				.findViewById(R.id.pulllv_posts);
 		pullsv_post.setPullLoadEnabled(true);
 		pullsv_post.setScrollLoadEnabled(true);
 		lv_posts = pullsv_post.getRefreshableView();
 
 		lv_posts.setDivider(getResources().getDrawable(
 				R.drawable.drawable_transparent));
-		lv_posts.setDividerHeight(SizeUtil.dip2px(this, 8));
+		lv_posts.setDividerHeight(SizeUtil.dip2px(getActivity(), 8));
 		lv_posts.setSelector(getResources().getDrawable(
 				R.drawable.drawable_transparent));
 
 		// container
-		View view = View.inflate(this, R.layout.include_bbs_posts_container,
-				null);
-		lv_stick_posts = (ListView) view.findViewById(R.id.lv_stick_posts);
-		tv_plate_name = (TextView) view.findViewById(R.id.tv_bbs_plate_name);
-		tv_plate_description = (TextView) view
+		View view2 = View.inflate(getActivity(),
+				R.layout.include_bbs_posts_container, null);
+		lv_stick_posts = (ListView) view2.findViewById(R.id.lv_stick_posts);
+		tv_plate_name = (TextView) view2.findViewById(R.id.tv_bbs_plate_name);
+		tv_plate_description = (TextView) view2
 				.findViewById(R.id.tv_bbs_plate_description);
-		iv_plate_icon = (ImageView) view.findViewById(R.id.iv_bbs_plate_icon);
+		iv_plate_icon = (ImageView) view2.findViewById(R.id.iv_bbs_plate_icon);
 
-		lv_posts.addHeaderView(view);
+		lv_posts.addHeaderView(view2);
 		button_floating_action.attachToListView(lv_posts);
 	}
 
 	@Override
 	protected void initUI() {
-		tv_title.setText(plate.getTitle());
-		// iv_plate_icon.setImageResource(plate.getPlate_icon());
 		imageLoader.displayImage(URLConfig.PLATE_IMG_IP + plate.getLogo(),
 				iv_plate_icon, options);
 		tv_plate_name.setText(plate.getTitle());
@@ -251,7 +249,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 		// 获取普通帖子列表
 		initFirstData(currentPage);
 		// 获取置顶帖子
-		HttpUrlProvider.getIntance().getTopPost(BBSPlateActivity.this,
+		HttpUrlProvider.getIntance().getTopPost(getActivity(),
 				new TaskTopPostBack(handler), plate.getId(), 1, 10);
 
 		lv_posts.setOnScrollListener(new PauseOnScrollListener(ImageLoader
@@ -262,8 +260,6 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 
 	@Override
 	protected void setListener() {
-		btn_back.setOnClickListener(this);
-		btn_post.setOnClickListener(this);
 		llyt_network_error.setOnClickListener(this);
 
 		// 查看帖子详情
@@ -275,14 +271,14 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				Object obj = lv_posts.getItemAtPosition(position);
 				if (obj instanceof BBSPost) {
 					BBSPost postinfo = (BBSPost) obj;
-					Intent intent = new Intent(BBSPlateActivity.this,
+					Intent intent = new Intent(getActivity(),
 							PostInfoActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("postinfo_starter", postinfo.getId());
 					bundle.putString("forumId", plate.getId());
 					intent.putExtras(bundle);
 					startActivity(intent);
-					overridePendingTransition(
+					activity.overridePendingTransition(
 							R.anim.translate_horizontal_start_in,
 							R.anim.translate_horizontal_start_out);
 				}
@@ -297,7 +293,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 				Object obj = lv_stick_posts.getItemAtPosition(position);
 				if (obj instanceof BBSPost) {
 					BBSPost postinfo = (BBSPost) obj;
-					Intent intent = new Intent(BBSPlateActivity.this,
+					Intent intent = new Intent(getActivity(),
 							PostInfoActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("postinfo_starter", postinfo.getId());
@@ -305,7 +301,7 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 					bundle.putString("forumId", plate.getId());
 					intent.putExtras(bundle);
 					startActivity(intent);
-					overridePendingTransition(
+					activity.overridePendingTransition(
 							R.anim.translate_horizontal_start_in,
 							R.anim.translate_horizontal_start_out);
 				}
@@ -327,17 +323,8 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 			public void onPullUpToRefresh(
 					PullToRefreshBase<ListView> refreshView) {
 				isUp = false;
-				// if (value_normal.isSuccess()) {
 				currentPage += 1;
 				initFirstData(currentPage);
-				// } else {
-				// ToastUtil.ToastView(BBSPlateActivity.this, getResources()
-				// .getString(R.string.no_more));
-				// // 上拉刷新完成
-				// pullsv_post.onPullUpRefreshComplete();
-				// // 设置是否有更多的数据
-				// pullsv_post.setHasMoreData(false);
-				// }
 			}
 		});
 		// 滑动时不加载图片
@@ -347,66 +334,56 @@ public class BBSPlateActivity extends Base2Activity implements OnClickListener {
 	}
 
 	/**
-	 * 点击事件
-	 * 
-	 * @param v
-	 */
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btn_bbs_right:// 发表帖子
-			Intent intent_publish = new Intent(BBSPlateActivity.this,
-					PostPublishActivity.class);
-			Bundle bundle = new Bundle();
-			// 版块id
-			bundle.putString("forumId", plate.getId());
-			intent_publish.putExtras(bundle);
-			startActivity(intent_publish);
-			break;
-		case R.id.btn_bbs_back:// 返回按钮
-			finish();
-			break;
-		case R.id.llyt_network_error:// 刷新数据
-			isUp = true;
-			currentPage = 1;
-			initFirstData(currentPage);
-
-			break;
-		case R.id.button_floating_action:// 滚动到顶部
-			// lv_posts.smoothScrollToPosition(0);
-			lv_posts.requestFocusFromTouch();
-			lv_posts.setSelection(0);
-			break;
-		}
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		if (loadingdialog == null) {
-			loadingdialog = new LoadingDialog(BBSPlateActivity.this);
-		}
-	}
-
-	/**
 	 * @描述：加载数据(首次加载)--测试数据，添加操作
 	 * @date：2014-6-25
 	 */
 	private void initFirstData(int currentPage) {
 		// 请求数据
-		HttpUrlProvider.getIntance().getPost(BBSPlateActivity.this,
+		HttpUrlProvider.getIntance().getPost(getActivity(),
 				new TaskPostListBack(handler), URLConfig.FORUM_LIST_IP,
 				plate.getId(), currentPage, 15);
 
-		loadingdialog.show(BBSPlateActivity.this);
+		loadingdialog.show(getActivity());
 	}
 
 	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		loadingdialog.dismiss(BBSPlateActivity.this);
-		loadingdialog = null;
+	public void onResume() {
+		super.onResume();
+		if (loadingdialog == null) {
+			loadingdialog = new LoadingDialog(getActivity());
+		}
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
 		imageLoader.stop();
 		imageLoader.clearMemoryCache();
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		imageLoader.stop();
+		imageLoader.clearMemoryCache();
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.llyt_network_error:// 重新加载数据
+			isUp = true;
+			currentPage = 1;
+			initFirstData(currentPage);
+			// 获取置顶帖子
+			HttpUrlProvider.getIntance().getTopPost(getActivity(),
+					new TaskTopPostBack(handler), plate.getId(), 1, 10);
+
+			break;
+		case R.id.button_floating_action:// 滚动到顶部
+			lv_posts.requestFocusFromTouch();
+			lv_posts.setSelection(0);
+			break;
+		}
 	}
 }

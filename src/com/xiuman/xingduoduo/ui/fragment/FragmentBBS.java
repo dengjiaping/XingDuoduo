@@ -45,8 +45,8 @@ import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
-import com.xiuman.xingduoduo.ui.activity.BBSPlateActivity;
 import com.xiuman.xingduoduo.ui.activity.MyPostActivity;
+import com.xiuman.xingduoduo.ui.activity.PostListActivity;
 import com.xiuman.xingduoduo.ui.activity.UserInfoActivity;
 import com.xiuman.xingduoduo.ui.activity.UserLoginActivity;
 import com.xiuman.xingduoduo.ui.base.BaseFragment;
@@ -280,7 +280,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				if (obj instanceof BBSPlate) {
 					BBSPlate plate = (BBSPlate) obj;
 					Intent intent = new Intent(getActivity(),
-							BBSPlateActivity.class);
+							PostListActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("bbs_plate", plate);
 					intent.putExtras(bundle);

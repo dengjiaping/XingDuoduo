@@ -40,6 +40,7 @@ import com.xiuman.xingduoduo.model.ActionValue;
 import com.xiuman.xingduoduo.model.Ad;
 import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.model.BBSPost;
+import com.xiuman.xingduoduo.model.Classify;
 import com.xiuman.xingduoduo.model.GoodsStick;
 import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.model.UserAddress;
@@ -494,12 +495,12 @@ public class MyApplication extends Application {
 		String json = SharedPreUtils.getString(this, AppConfig.FILE_SAVE_ADS,
 				AppConfig.KEY_SAVE_ADS);
 		if (!json.equals("")) {
-			ads = new Gson().fromJson(json,
-					new TypeToken<ActionValue<Ad>>() {
-					}.getType());
+			ads = new Gson().fromJson(json, new TypeToken<ActionValue<Ad>>() {
+			}.getType());
 		}
 		return ads;
 	}
+
 	/*----------------------------------------------保存首页商品--------------------------------------------------------*/
 	/**
 	 * @描述：保存首页商品
@@ -521,32 +522,32 @@ public class MyApplication extends Application {
 		String json = SharedPreUtils.getString(this, AppConfig.FILE_SAVE_GOODS,
 				AppConfig.KEY_SAVE_GOODS);
 		if (!json.equals("")) {
-			goods = new Gson().fromJson(json,
-					new TypeToken<ActionValue<Ad>>() {
-					}.getType());
+			goods = new Gson().fromJson(json, new TypeToken<ActionValue<Ad>>() {
+			}.getType());
 		}
 		return goods;
 	}
+
 	/*----------------------------------------------保存首页专区--------------------------------------------------------*/
 	/**
-	 * @描述：保存首页商品
+	 * @描述：保存首页专区
 	 * @param ads
 	 *            2014-9-20
 	 */
 	public void saveCenterCategory(ActionValue<Ad> category) {
 		String json_goods = new Gson().toJson(category).toString();
-		SharedPreUtils.setString(this, json_goods, AppConfig.FILE_SAVE_CATEGORY,
-				AppConfig.KEY_SAVE_CATEGORY);
+		SharedPreUtils.setString(this, json_goods,
+				AppConfig.FILE_SAVE_CATEGORY, AppConfig.KEY_SAVE_CATEGORY);
 	}
 
 	/**
-	 * @描述：获取首页商品
+	 * @描述：获取首专区
 	 * @return 2014-9-21
 	 */
 	public ActionValue<Ad> getCenterCategory() {
 		ActionValue<Ad> category = null;
-		String json = SharedPreUtils.getString(this, AppConfig.FILE_SAVE_CATEGORY,
-				AppConfig.KEY_SAVE_CATEGORY);
+		String json = SharedPreUtils.getString(this,
+				AppConfig.FILE_SAVE_CATEGORY, AppConfig.KEY_SAVE_CATEGORY);
 		if (!json.equals("")) {
 			category = new Gson().fromJson(json,
 					new TypeToken<ActionValue<Ad>>() {
@@ -554,6 +555,7 @@ public class MyApplication extends Application {
 		}
 		return category;
 	}
+
 	/*----------------------------------------------论坛广告--------------------------------------------------------*/
 	/**
 	 * @描述：保存广告
@@ -561,9 +563,9 @@ public class MyApplication extends Application {
 	 *            2014-9-20
 	 */
 	public void saveBBSAds(ActionValue<BBSPost> ads) {
-			String json_ads = new Gson().toJson(ads).toString();
-			SharedPreUtils.setString(this, json_ads,
-					AppConfig.FILE_SAVE_BBS_ADS, AppConfig.KEY_SAVE_BBS_ADS);
+		String json_ads = new Gson().toJson(ads).toString();
+		SharedPreUtils.setString(this, json_ads, AppConfig.FILE_SAVE_BBS_ADS,
+				AppConfig.KEY_SAVE_BBS_ADS);
 	}
 
 	/**
@@ -701,7 +703,7 @@ public class MyApplication extends Application {
 		}
 		return version_code;
 	}
-	
+
 	/*--------------------------------------------保存论坛板块------------------------------------------*/
 	/**
 	 * @描述：保存论坛板块
@@ -710,8 +712,8 @@ public class MyApplication extends Application {
 	 */
 	public void saveBBSPlate(ActionValue<BBSPlate> plates) {
 		String json_stcik = new Gson().toJson(plates).toString();
-		SharedPreUtils.setString(this, json_stcik, AppConfig.FILE_SAVE_BBS_PLATE,
-				AppConfig.KEY_SAVE_BBS_PLATE);
+		SharedPreUtils.setString(this, json_stcik,
+				AppConfig.FILE_SAVE_BBS_PLATE, AppConfig.KEY_SAVE_BBS_PLATE);
 	}
 
 	/**
@@ -720,13 +722,41 @@ public class MyApplication extends Application {
 	 */
 	public ActionValue<BBSPlate> getBBSPlate() {
 		ActionValue<BBSPlate> plates = null;
-		String json = SharedPreUtils.getString(this, AppConfig.FILE_SAVE_BBS_PLATE,
-				AppConfig.KEY_SAVE_BBS_PLATE);
+		String json = SharedPreUtils.getString(this,
+				AppConfig.FILE_SAVE_BBS_PLATE, AppConfig.KEY_SAVE_BBS_PLATE);
 		if (!json.equals("")) {
 			plates = new Gson().fromJson(json,
 					new TypeToken<ActionValue<BBSPlate>>() {
 					}.getType());
 		}
 		return plates;
+	}
+
+	/*---------------------------------------------保存商品分类---------------------------------------------*/
+	/**
+	 * @描述：商品分类
+	 * @param ads
+	 *            2014-9-20
+	 */
+	public void saveCategory(ActionValue<Classify> classify) {
+		String json_ads = new Gson().toJson(classify).toString();
+		SharedPreUtils.setString(this, json_ads, AppConfig.FILE_CATEGORY,
+				AppConfig.KEY_CATEGORY);
+	}
+
+	/**
+	 * @描述：获取商品分类
+	 * @return 2014-9-21
+	 */
+	public ActionValue<Classify> getCategory() {
+		ActionValue<Classify> classify = null;
+		String json = SharedPreUtils.getString(this, AppConfig.FILE_CATEGORY,
+				AppConfig.KEY_CATEGORY);
+		if (!json.equals("")) {
+			classify = new Gson().fromJson(json,
+					new TypeToken<ActionValue<Classify>>() {
+					}.getType());
+		}
+		return classify;
 	}
 }

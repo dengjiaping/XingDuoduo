@@ -141,6 +141,17 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					public void onLoadingCancelled(String arg0, View arg1) {
 					}
 				});
+		if (post.getJinghua() == 1) {
+			holder.tv_item_bbs_plate_post_title
+					.setCompoundDrawablesRelativeWithIntrinsicBounds(
+							context.getResources().getDrawable(
+									R.drawable.icon_post_jinghua), null, null,
+							null);
+		} else if (post.getJinghua() == 0) {
+			holder.tv_item_bbs_plate_post_title
+					.setCompoundDrawablesRelativeWithIntrinsicBounds(null,
+							null, null, null);
+		}
 		holder.tv_item_bbs_plate_post_title.setText(post.getTitle());
 		holder.tv_item_bbs_plate_post_content.setText(post.getContent());
 		holder.tv_item_bbs_plate_post_user.setText(post.getNickname());

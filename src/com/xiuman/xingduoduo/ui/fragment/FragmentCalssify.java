@@ -23,6 +23,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.ClassifyGridviewAdapter;
 import com.xiuman.xingduoduo.adapter.ClassifyListViewAdapter;
@@ -30,8 +33,8 @@ import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.callback.TaskClassifyBack;
-import com.xiuman.xingduoduo.constants.ConstantParameter;
 import com.xiuman.xingduoduo.model.ActionValue;
+import com.xiuman.xingduoduo.model.BClassify;
 import com.xiuman.xingduoduo.model.Classify;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.activity.ClassifyActivity;
@@ -40,7 +43,6 @@ import com.xiuman.xingduoduo.ui.base.BaseFragment;
 import com.xiuman.xingduoduo.util.SizeUtil;
 
 /**
- * 
  * @名称：FragmentCalssify.java
  * @描述：商品分类界面
  * @author danding
@@ -58,25 +60,28 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	private ListView lv_goods_classify;
 	// ImageView indicator
 	private ImageView iv_classify_indicator;
-	//一级分类Adapter
-	private ClassifyListViewAdapter adapter_aCategory;
-	// 进度加载
-	// private LoadingDialog loadingdialog;
 
 	/*--------------------------------------adapter------------------------------*/
+	// 一级分类Adapter
+	private ClassifyListViewAdapter adapter_aCategory;
+	// 二级分类
 	private ClassifyGridviewAdapter classify_adapter;
+	// 二级分类宽度
+	private int bcWidth = 0;
+
+	/*-------------------------------------ImageLoader-------------------------*/
+	// ImageLoader
+	public ImageLoader imageLoader = ImageLoader.getInstance();
+	// 配置图片加载及显示选项
+	public DisplayImageOptions options;
 
 	/*--------------------------------------数据-------------------------*/
-	// 无网络时读取配置文件里的分类Id
-	private String[] classifyes_ids;
-	// 分类名
-	private String[] classifyes_names;
-	// 网络连接情况
-	private boolean isNet = true;
 	// 请求接口返回的数据
 	private ActionValue<Classify> value = new ActionValue<Classify>();
 	// 返回的分类列表
 	private ArrayList<Classify> classies = new ArrayList<Classify>();
+	// 当前限时的二级分类数据
+	private ArrayList<BClassify> b_classies = new ArrayList<BClassify>();
 	// Handler
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
@@ -84,19 +89,21 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case AppConfig.NET_SUCCED:// 请求数据成功
-				// loadingdialog.dismiss();
 				value = (ActionValue<Classify>) msg.obj;
-				classies = (ArrayList<Classify>) value.getDatasource();
-				classify_adapter = new ClassifyGridviewAdapter(getActivity());
-				gridview_good_classify.setAdapter(classify_adapter);
-				lv_goods_classify.setAdapter(classify_adapter);
-				isNet = true;
+				if (value.isSuccess()) {
+					MyApplication.getInstance().saveCategory(value);
+					// 获取一级分类
+					classies = (ArrayList<Classify>) value.getDatasource();
+					setData(classies);
+				}
 				break;
 			case AppConfig.NET_ERROR_NOTNET:// 无网络(使用本地保存的数据)
-				// loadingdialog.dismiss();
-				classify_adapter = new ClassifyGridviewAdapter(getActivity());
-				gridview_good_classify.setAdapter(classify_adapter);
-				isNet = false;
+				value = MyApplication.getInstance().getCategory();
+				if (value != null) {
+					// 获取一级分类
+					classies = (ArrayList<Classify>) value.getDatasource();
+					setData(classies);
+				}
 				break;
 			default:
 				break;
@@ -119,10 +126,25 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	/**
 	 * 数据初始化
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
-		classifyes_ids = getResources().getStringArray(R.array.classify_id);
-		classifyes_names = getResources().getStringArray(R.array.classify_name);
+		options = new DisplayImageOptions.Builder()
+				// 在ImageView加载过程中显示图片
+				.showImageOnLoading(R.drawable.onloading)
+				.showImageForEmptyUri(R.drawable.onloading)
+				// image连接地址为空时
+				.showImageOnFail(R.drawable.onloading)
+				// image加载失败
+				.cacheInMemory(false)
+				// 加载图片时会在内存中加载缓存
+				.cacheOnDisc(true)
+				// 加载图片时会在磁盘中加载缓存
+				.bitmapConfig(Bitmap.Config.RGB_565)
+				.imageScaleType(ImageScaleType.NONE).build();
+		bcWidth = (int) (MyApplication.getInstance().getScreenWidth() / 4.0 * 2.9 - SizeUtil
+				.dip2px(getActivity(), 30)) / 2;
+
 	}
 
 	/**
@@ -135,7 +157,6 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 		iv_classify_indicator = (ImageView) view
 				.findViewById(R.id.iv_classify_indicator);
 		tv_title = (TextView) view.findViewById(R.id.tv_title);
-		// loadingdialog = new LoadingDialog(getActivity());
 		gridview_good_classify = (GridView) view
 				.findViewById(R.id.gridview_good_classify);
 		btn_search = (Button) view.findViewById(R.id.btn_search);
@@ -146,25 +167,53 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	 */
 	@Override
 	protected void initUI() {
-		// initClassify();
+		//加载上次保存的数据
+		value = MyApplication.getInstance().getCategory();
+		if (value != null) {
+			// 获取一级分类
+			classies = (ArrayList<Classify>) value.getDatasource();
+			setData(classies);
+		}
+		
+		//请求数据
+		initClassify();
 		tv_title.setText("分类");
-		
-		classify_adapter = new ClassifyGridviewAdapter(getActivity());
-		gridview_good_classify.setAdapter(classify_adapter);
-		isNet = false;
-		
-		//一级分类
-		adapter_aCategory = new ClassifyListViewAdapter(getActivity(), ConstantParameter.aCategory);
+
+	}
+
+	/**
+	 * @描述：设置数据
+	 * @时间 2014-10-23
+	 */
+	private void setData(ArrayList<Classify> classies) {
+		// 一级分类
+		adapter_aCategory = new ClassifyListViewAdapter(getActivity(), options,
+				imageLoader, classies);
 		lv_goods_classify.setAdapter(adapter_aCategory);
 		initLayout(lv_goods_classify);
-		
-		//设置滑块的初始位置
-		double currentWdith = MyApplication.getInstance().getScreenWidth()/4*1.1-SizeUtil.dip2px(getActivity(), 15);
-		int currentHeight = (int) (currentWdith/128*149);
-		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon_classify_indicator);
+		// 设置滑块的初始位置
+		setIndicatorLocation();
+
+		// 初始二级分类
+		b_classies = classies.get(0).getGoodsCategoryparams();
+		classify_adapter = new ClassifyGridviewAdapter(options, imageLoader,
+				b_classies, getActivity(), bcWidth);
+		gridview_good_classify.setAdapter(classify_adapter);
+	}
+
+	/**
+	 * @描述：设置滑块初始位置
+	 * @时间 2014-10-23
+	 */
+	private void setIndicatorLocation() {
+		double currentWdith = MyApplication.getInstance().getScreenWidth() / 4
+				* 1.1 - SizeUtil.dip2px(getActivity(), 15);
+		int currentHeight = (int) (currentWdith / 128 * 149);
+		Bitmap bmp = BitmapFactory.decodeResource(getResources(),
+				R.drawable.icon_classify_indicator);
 		int width = bmp.getHeight();
 		bmp.recycle();
-		iv_classify_indicator.setY(currentHeight/2-width/2);
+		iv_classify_indicator.setY(currentHeight / 2 - width / 2);
 		lv_goods_classify.setSelection(0);
 	}
 
@@ -184,53 +233,42 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						String classify_name = classifyes_names[position];
-						if (isNet) {
-							Classify classify = classies.get(position);
-							String classify_id = classify.getCategoryId();
-
-							Intent intent = new Intent(getActivity(),
-									ClassifyActivity.class);
-							Bundle bundle = new Bundle();
-							bundle.putString("classify_id", classify_id);
-							bundle.putString("classify_name", classify_name);
-							intent.putExtras(bundle);
-							getActivity().startActivity(intent);
-							getActivity().overridePendingTransition(
-									R.anim.translate_horizontal_start_in,
-									R.anim.translate_horizontal_start_out);
-						} else {
-							String classify_id = classifyes_ids[position];
-							Intent intent = new Intent(getActivity(),
-									ClassifyActivity.class);
-							Bundle bundle = new Bundle();
-							bundle.putString("classify_id", classify_id);
-							bundle.putString("classify_name", classify_name);
-							intent.putExtras(bundle);
-							getActivity().startActivity(intent);
-							getActivity().overridePendingTransition(
-									R.anim.translate_horizontal_start_in,
-									R.anim.translate_horizontal_start_out);
-						}
-
 						Object obj = gridview_good_classify
 								.getItemAtPosition(position);
-						if (obj instanceof Classify) {
-
+						if (obj instanceof BClassify) {
+							BClassify bc_classify = (BClassify) obj;
+							Intent intent = new Intent(getActivity(),
+									ClassifyActivity.class);
+							Bundle bundle = new Bundle();
+							bundle.putString("classify_id",
+									bc_classify.getCategoryId());
+							bundle.putString("classify_name",
+									bc_classify.getCategoryName());
+							intent.putExtras(bundle);
+							getActivity().startActivity(intent);
+							getActivity().overridePendingTransition(
+									R.anim.translate_horizontal_start_in,
+									R.anim.translate_horizontal_start_out);
 						}
 					}
 
 				});
-		//一级分类点击事件
+		// 一级分类点击事件
 		lv_goods_classify.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				b_classies = classies.get(position).getGoodsCategoryparams();
+				classify_adapter = new ClassifyGridviewAdapter(options,
+						imageLoader, b_classies, getActivity(), bcWidth);
+				gridview_good_classify.setAdapter(classify_adapter);
+				gridview_good_classify.smoothScrollToPosition(0);
 				startSildingInAnimation(position);
 				lv_goods_classify.smoothScrollToPosition(position);
 				lv_goods_classify.requestFocusFromTouch();
 				lv_goods_classify.setSelection(position);
+
 			}
 		});
 	}
@@ -246,7 +284,6 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	private void initClassify() {
 		HttpUrlProvider.getIntance().getClassify(getActivity(),
 				new TaskClassifyBack(handler), URLConfig.CLASSIFY);
-		// loadingdialog.show(getActivity());
 	}
 
 	/**
@@ -268,6 +305,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 			break;
 		}
 	}
+
 	/**
 	 * @描述：
 	 * @param leftView
@@ -294,24 +332,26 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 		});
 
 	}
-	//设置一级分类ListView的高度
+
+	// 设置一级分类ListView的高度
 	private Dictionary<Integer, Integer> listViewItemHeights = new Hashtable<Integer, Integer>();
-	//过度
+	// 过度
 	private int tempScrollY;
+
 	/**
 	 * @描述：获取滑动距离
 	 * @return
 	 * @时间 2014-10-16
 	 */
 	private int getScroll() {
-		View c = lv_goods_classify.getChildAt(0); 
+		View c = lv_goods_classify.getChildAt(0);
 		int scrollY = -c.getTop();
 		listViewItemHeights.put(lv_goods_classify.getFirstVisiblePosition(),
 				c.getHeight());
 		for (int i = 0; i < lv_goods_classify.getFirstVisiblePosition(); ++i) {
-			if (listViewItemHeights.get(i) != null) 
-				scrollY += listViewItemHeights.get(i); 
-														
+			if (listViewItemHeights.get(i) != null)
+				scrollY += listViewItemHeights.get(i);
+
 		}
 		return scrollY;
 	}

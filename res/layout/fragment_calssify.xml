@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/txt_style_base3"
-    android:background="@color/color_bg"
+    android:background="@color/color_white"
     android:focusableInTouchMode="true"
     android:orientation="vertical" >
 
@@ -51,7 +51,7 @@
             android:scrollbars="none" >
 
             <LinearLayout
-                style="@style/txt_style_base2"
+                style="@style/txt_style_base3"
                 android:orientation="vertical"
                 android:padding="10dip" >
 

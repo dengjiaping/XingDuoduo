@@ -35,6 +35,7 @@
 
                 <LinearLayout
                     style="@style/txt_style_base2"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
                     <!-- 用户名 -->
@@ -48,6 +49,7 @@
                     <ImageView
                         android:id="@+id/iv_item_post_plate_post_sex"
                         android:layout_width="25dip"
+                        android:layout_marginLeft="5dip"
                         android:layout_height="25dip"
                         android:src="@drawable/sex_female" />
                 </LinearLayout>
@@ -66,8 +68,9 @@
         <TextView
             android:id="@+id/tv_item_bbs_plate_post_title"
             android:layout_marginTop="5dip"
+            android:singleLine="true"
             style="@style/txt_style_22"
-            android:textSize="@dimen/txt_size_14" />
+            android:textSize="@dimen/txt_size_15" />
         <!-- 内容 -->
 
         <TextView
@@ -75,6 +78,7 @@
             android:paddingTop="5dip"
             android:singleLine="true"
             style="@style/txt_style_21"
+            android:gravity="center_vertical"
             android:textSize="@dimen/txt_size_12" />
         <!-- 图片列表(3张) -->
 

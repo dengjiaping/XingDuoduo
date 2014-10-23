@@ -21,7 +21,6 @@ import com.xiuman.xingduoduo.ui.fragment.FragmentBBS;
 import com.xiuman.xingduoduo.ui.fragment.FragmentCalssify;
 import com.xiuman.xingduoduo.ui.fragment.FragmentMe;
 import com.xiuman.xingduoduo.ui.fragment.FragmentShoppingCart;
-import com.xiuman.xingduoduo.ui.fragment.FragmentShoppingCenter;
 import com.xiuman.xingduoduo.ui.fragment.FragmentShoppingCenter2;
 import com.xiuman.xingduoduo.util.NetUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
@@ -54,9 +53,8 @@ public class MainActivity extends BaseActivity implements
 	private RadioGroup radiogroup_main_bottom_menu;
 	// 商城
 	private RadioButton rbtn_shopping_center;
-	//全套
+	// 论坛
 	private RadioButton rbtn_bbs;
-
 	Timer timer = new Timer();
 
 	// 屏幕宽高
@@ -64,9 +62,9 @@ public class MainActivity extends BaseActivity implements
 	// 退出;
 	private CustomDialog2 dialog_cancel;
 
-	//当前页面
+	// 当前页面
 	private int current_index = 0;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -136,12 +134,14 @@ public class MainActivity extends BaseActivity implements
 		case R.id.rbtn_calssify:// 分类
 			selectTab(1);
 			break;
-		case R.id.rbtn_shopping_cart:// 购物车
+		case R.id.rbtn_communication:// 交流
 			selectTab(2);
 			break;
-		case R.id.rbtn_communication:// 交流
+
+		case R.id.rbtn_shopping_cart:// 购物车
 			selectTab(3);
 			break;
+		
 		case R.id.rbtn_me:// 个人中心
 			selectTab(4);
 			break;
@@ -160,7 +160,8 @@ public class MainActivity extends BaseActivity implements
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		// 隐藏当前显示的Fragment
 		hideFragment(transaction);
-//		transaction.setCustomAnimations(R.anim.fragment_horizontal_start_in, R.anim.fragment_horizontal_start_out);
+		// transaction.setCustomAnimations(R.anim.fragment_horizontal_start_in,
+		// R.anim.fragment_horizontal_start_out);
 		// Fragment切换
 		switch (index) {
 		case 0:// 商城
@@ -181,21 +182,23 @@ public class MainActivity extends BaseActivity implements
 			}
 
 			break;
-		case 2:// 购物车
+		case 3:// 购物车
 			if (fragmentShoppingCart == null) {
 				fragmentShoppingCart = new FragmentShoppingCart();
 				transaction.add(R.id.content, fragmentShoppingCart);
 			} else {
 				transaction.show(fragmentShoppingCart);
 			}
+			System.out.println("我是购物车1111");
 			break;
-		case 3:// 交流
+		case 2:// 交流
 			if (fragmentCommunication == null) {
 				fragmentCommunication = new FragmentBBS();
 				transaction.add(R.id.content, fragmentCommunication);
 			} else {
 				transaction.show(fragmentCommunication);
 			}
+			System.out.println("我是购物车2222");
 			rbtn_bbs.setChecked(true);
 			break;
 		case 4:// 个人中心
@@ -236,7 +239,6 @@ public class MainActivity extends BaseActivity implements
 		}
 	}
 
-
 	/**
 	 * @描述：取消修改Dialog 2014-9-23
 	 */
@@ -251,7 +253,7 @@ public class MainActivity extends BaseActivity implements
 					@Override
 					public void onClick(View v) {
 						dialog_cancel.dismiss();
-						
+
 					}
 				});
 		dialog_cancel.btn_custom_dialog_cancel
@@ -274,9 +276,9 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) { // 返回键
-			if(current_index==0){
+			if (current_index == 0) {
 				cancelDialog();
-			}else{
+			} else {
 				selectTab(0);
 			}
 		}
