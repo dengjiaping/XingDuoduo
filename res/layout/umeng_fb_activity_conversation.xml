@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:background="@color/color_bg"
     tools:context=".ConversationActivity" >
 
     <RelativeLayout
@@ -10,7 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:layout_alignParentTop="true"
-        android:background="@color/color_mian" >
+        android:background="@drawable/bg_title_3" >
 
         <Button
             android:id="@+id/umeng_fb_back"
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/umeng_fb_title"
-            android:textColor="#ffffff"
+            android:textColor="@color/color_mian"
             android:textSize="@dimen/txt_size_18" />
     </RelativeLayout>
 

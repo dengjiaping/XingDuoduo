@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="46dip"
-    android:background="@color/color_mian"
+    android:background="@drawable/bg_title_3"
     android:gravity="center_vertical" >
 
     <!-- 公共标题 -->
@@ -25,7 +25,7 @@
             android:id="@+id/tv_common_title"
             style="@style/txt_style_base1"
             android:text="@string/user_receipt_address_manager"
-            android:textColor="@color/color_white"
+            android:textColor="@color/color_mian"
             android:textSize="@dimen/txt_size_18" />
     </LinearLayout>
 

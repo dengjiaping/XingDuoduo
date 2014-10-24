@@ -3,7 +3,7 @@
     android:id="@+id/rlyt_title"
     android:layout_width="match_parent"
     android:layout_height="46dip"
-    android:background="@color/color_mian"
+    android:background="@drawable/bg_title_3"
     android:gravity="center_vertical" >
 
     <!-- 个人中心界面的标题栏 -->
@@ -21,7 +21,7 @@
         style="@style/txt_style_1"
         android:layout_centerInParent="true"
         android:layout_margin="2dip"
-        android:textColor="@color/color_white"
+        android:textColor="@color/color_mian"
         android:textSize="25sp"
         android:text="@string/title_name"
          />

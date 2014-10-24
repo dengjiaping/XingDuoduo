@@ -204,7 +204,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	private void setIndicatorLocation() {
 		double currentWdith = MyApplication.getInstance().getScreenWidth() / 4
 				* 1.1 - SizeUtil.dip2px(getActivity(), 15);
-		int currentHeight = (int) (currentWdith / 128 * 149);
+		int currentHeight = (int) (currentWdith / 128 * 100);
 		Bitmap bmp = BitmapFactory.decodeResource(getResources(),
 				R.drawable.icon_classify_indicator);
 		int width = bmp.getHeight();
@@ -258,11 +258,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 				classify_adapter = new ClassifyGridviewAdapter(options,
 						imageLoader, b_classies, getActivity(), bcWidth);
 				gridview_good_classify.setAdapter(classify_adapter);
-				gridview_good_classify.smoothScrollToPosition(0);
 				startSildingInAnimation(position);
-//				lv_goods_classify.smoothScrollToPosition(position);
-//				lv_goods_classify.requestFocusFromTouch();
-//				lv_goods_classify.setSelection(position);
 
 			}
 		});

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dip"
-    android:background="@color/color_mian"
+    android:background="@drawable/bg_title_3"
     android:gravity="center_vertical"
     android:orientation="horizontal" >
 
@@ -49,7 +49,7 @@
         android:layout_margin="5dip"
         android:background="@android:color/transparent"
         android:text="@string/search_cancel"
-        android:textColor="@color/color_white"
+        android:textColor="@color/color_mian"
         android:textSize="@dimen/txt_size_18" />
 
 </LinearLayout>

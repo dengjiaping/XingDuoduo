@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@color/color_bg"
     android:orientation="vertical" >
 
     <!-- 商品图文加评论界面 -->
@@ -12,7 +12,7 @@
         android:id="@+id/rlyt_title"
         android:layout_width="match_parent"
         android:layout_height="46dip"
-        android:background="@color/color_mian"
+        android:background="@drawable/bg_title_3"
         android:gravity="center_vertical"
         android:padding="5dip" >
 

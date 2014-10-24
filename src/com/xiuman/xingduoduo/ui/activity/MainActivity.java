@@ -189,7 +189,6 @@ public class MainActivity extends BaseActivity implements
 			} else {
 				transaction.show(fragmentShoppingCart);
 			}
-			System.out.println("我是购物车1111");
 			break;
 		case 2:// 交流
 			if (fragmentCommunication == null) {
@@ -198,7 +197,6 @@ public class MainActivity extends BaseActivity implements
 			} else {
 				transaction.show(fragmentCommunication);
 			}
-			System.out.println("我是购物车2222");
 			rbtn_bbs.setChecked(true);
 			break;
 		case 4:// 个人中心
