@@ -148,7 +148,7 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 				}
 			}
 			cunhuan = true;
-			mHandler.postDelayed(switchTask, 2000);
+			mHandler.postDelayed(switchTask, 3000);
 		}
 	};
 	Handler mHandler = new Handler();
@@ -378,7 +378,7 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 
 	@Override
 	protected void initUI() {
-		tv_title.setText("商城");
+		tv_title.setText("性多多");
 		// 加载上次请求的数据
 		setLastData();
 
@@ -683,7 +683,7 @@ public class FragmentShoppingCenter2 extends BaseFragment implements
 
 			case R.id.btn_center_7_jingpin_more:// 进入精品专区(恶搞)
 			case R.id.iv_center_7_jingpin:// 进入精品专区
-				classify_name = "精品专区";
+				classify_name = "性情四色";
 				classify_url = "isSpoof";
 				break;
 			}

@@ -249,6 +249,7 @@ public class BadgeView extends TextView {
 		toggle(true, animIn, animOut);
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void show(boolean animate, Animation anim) {
 		if (getBackground() == null) {
 			if (badgeBg == null) {

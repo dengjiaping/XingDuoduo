@@ -42,7 +42,7 @@
                 android:gravity="center"
                 android:paddingLeft="20dip"
                 android:paddingRight="20dip"
-                android:text="最新帖子"
+                android:text="最新"
                 android:textColor="@color/rbtn_goods_info_discuss_color_selector"
                 android:textSize="@dimen/txt_size_14" />
 
@@ -55,7 +55,7 @@
                 android:gravity="center"
                 android:paddingLeft="20dip"
                 android:paddingRight="20dip"
-                android:text="精华帖子"
+                android:text="精华"
                 android:textColor="@color/rbtn_goods_info_discuss_color_selector"
                 android:textSize="@dimen/txt_size_14" />
         </RadioGroup>

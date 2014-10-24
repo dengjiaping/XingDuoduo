@@ -127,7 +127,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 				}
 			}
 			cunhuan = true;
-			mHandler.postDelayed(switchTask, 2000);
+			mHandler.postDelayed(switchTask, 3000);
 		}
 	};
 	Handler mHandler = new Handler();

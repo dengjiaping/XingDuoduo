@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="46dip"
-    android:background="@color/color_title_back"
+    android:background="@color/color_mian"
     android:gravity="center_vertical" >
 
     <!-- 商城界面的标题栏 -->

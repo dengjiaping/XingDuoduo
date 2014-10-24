@@ -16,23 +16,6 @@
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
-        <!-- 最近 -->
-
-        <LinearLayout
-            android:id="@+id/llyt_search_recently"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/tv_search_recently"
-                style="@style/txt_style_base2"
-                android:gravity="center"
-                android:text="@string/search_recently"
-                android:textSize="@dimen/txt_size_15" />
-        </LinearLayout>
         <!-- 热门 -->
 
         <LinearLayout
@@ -50,6 +33,23 @@
                 android:text="@string/search_hot"
                 android:textSize="@dimen/txt_size_15" />
         </LinearLayout>
+        <!-- 最近 -->
+
+        <LinearLayout
+            android:id="@+id/llyt_search_recently"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_search_recently"
+                style="@style/txt_style_base2"
+                android:gravity="center"
+                android:text="@string/search_recently"
+                android:textSize="@dimen/txt_size_15" />
+        </LinearLayout>
     </LinearLayout>
     <!-- 搜索指示器 -->
 
@@ -57,8 +57,8 @@
         android:id="@+id/iv_tab_indicator"
         android:layout_width="wrap_content"
         android:layout_height="5dip"
-        android:layout_marginTop="-10dip"
         android:layout_gravity="center"
+        android:layout_marginTop="-10dip"
         android:background="@drawable/custom_line" />
 
     <!-- 分割线 -->

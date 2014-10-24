@@ -11,7 +11,6 @@ import android.util.Log;
 
 import com.xiuman.xingduoduo.app.AppConfig;
 import com.xiuman.xingduoduo.app.MyApplication;
-import com.xiuman.xingduoduo.app.Mylog;
 import com.xiuman.xingduoduo.util.NetUtil;
 
 /**

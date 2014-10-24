@@ -157,7 +157,7 @@ public abstract class HttpConnWorker {
 	 * @return
 	 */
 	public String invokeGet(String url) {
-		Log.e(TAG, "------HttpPostStart请求服务器开始--------" + url);
+//		Log.e(TAG, "------HttpPostStart请求服务器开始--------" + url);
 		String userAgent = getUserAgent();
 		HttpClient httpClient = null;
 		GetMethod httpGet = null;

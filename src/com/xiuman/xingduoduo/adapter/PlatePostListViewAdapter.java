@@ -24,6 +24,7 @@ import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.ui.activity.HeadImgViewActivity;
+import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 
@@ -96,7 +97,12 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.iv_item_post_plate_post_head);
 			holder.iv_item_post_plate_post_sex = (ImageView) convertView
 					.findViewById(R.id.iv_item_post_plate_post_sex);
-
+			holder.iv_item_post_plate_post_tuijian = (ImageView) convertView
+					.findViewById(R.id.iv_item_post_plate_post_tuijian);
+			holder.iv_item_post_plate_post_jinghua = (ImageView) convertView
+					.findViewById(R.id.iv_item_post_plate_post_jinghua);
+			holder.iv_item_post_plate_post_banzhu = (ImageView) convertView
+					.findViewById(R.id.iv_item_post_plate_banzhu);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -141,16 +147,24 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					public void onLoadingCancelled(String arg0, View arg1) {
 					}
 				});
+		//精化
 		if (post.getJinghua() == 1) {
-			holder.tv_item_bbs_plate_post_title
-					.setCompoundDrawablesRelativeWithIntrinsicBounds(
-							context.getResources().getDrawable(
-									R.drawable.icon_center_tag_1), null, null,
-							null);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+					SizeUtil.dip2px(context, 20), SizeUtil.dip2px(context, 20));
+			holder.iv_item_post_plate_post_jinghua.setLayoutParams(params);
+			holder.iv_item_post_plate_post_jinghua.setVisibility(View.VISIBLE);
 		} else if (post.getJinghua() == 0) {
-			holder.tv_item_bbs_plate_post_title
-					.setCompoundDrawablesRelativeWithIntrinsicBounds(null,
-							null, null, null);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0,
+					0);
+			holder.iv_item_post_plate_post_jinghua.setLayoutParams(params);
+			holder.iv_item_post_plate_post_jinghua
+					.setVisibility(View.INVISIBLE);
+		}
+		//版主
+		if(post.isModeratorReply()){
+			holder.iv_item_post_plate_post_banzhu.setVisibility(View.VISIBLE);
+		}else{
+			holder.iv_item_post_plate_post_banzhu.setVisibility(View.INVISIBLE);
 		}
 		holder.tv_item_bbs_plate_post_title.setText(post.getTitle());
 		holder.tv_item_bbs_plate_post_content.setText(post.getContent());
@@ -161,7 +175,13 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 		holder.tv_item_bbs_plate_post_reply.setText(post.getReplyCount() + "");
 		holder.tv_item_bbs_plate_post_time.setText(TimeUtil.getTimeStr(
 				TimeUtil.strToDate(post.getLastTime()), new Date()));
-
+		//推荐
+		if (post.getStyleColor() == null || post.getStyleColor() == "") {
+			holder.iv_item_post_plate_post_tuijian
+					.setVisibility(View.INVISIBLE);
+		} else {
+			holder.iv_item_post_plate_post_tuijian.setVisibility(View.VISIBLE);
+		}
 		// 图片数
 		int number = 0;
 		if (post.getImgList() != null) {
@@ -235,8 +255,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 						intent.putExtras(bundle);
 						context.startActivity(intent);
 						((Activity) context).overridePendingTransition(
-								R.anim.img_start,
-								R.anim.img_exit);
+								R.anim.img_start, R.anim.img_exit);
 					}
 				});
 
@@ -268,6 +287,12 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 		public ImageView iv_item_bbs_plate_post_img_3;
 		// 没有使用
 		public LinearLayout llyt_item_bbs_plate_post_img_container;
+		// 是否推荐
+		public ImageView iv_item_post_plate_post_tuijian;
+		// 是否精化
+		public ImageView iv_item_post_plate_post_jinghua;
+		// 是否版主
+		public ImageView iv_item_post_plate_post_banzhu;
 	}
 
 }

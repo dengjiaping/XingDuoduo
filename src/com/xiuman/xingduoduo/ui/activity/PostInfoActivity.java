@@ -179,7 +179,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					// adapter = new ReplyStarterListViewAdapter(
 					// PostInfoActivity.this, bbsReply);
 					// lv_postinfo_replys.setAdapter(adapter);
-
+					et_reply.setText("");
 				} else {
 					ToastUtil.ToastView(PostInfoActivity.this, "回复失败请重试");
 

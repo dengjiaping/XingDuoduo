@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.BBSPostReply;
 import com.xiuman.xingduoduo.ui.activity.HeadImgViewActivity;
 import com.xiuman.xingduoduo.ui.activity.PostImgViewActivity;
+import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.view.CircleImageView;
 
@@ -75,24 +77,43 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 		if (position == 0) {
 			View view = View.inflate(context,
 					R.layout.include_postinfo_container, null);
+			// 头像
 			final CircleImageView iv_postinfo_starter_head = (CircleImageView) view
 					.findViewById(R.id.iv_postinfo_starter_head);
+			// 性别
 			ImageView iv_postinfo_starter_sex = (ImageView) view
 					.findViewById(R.id.iv_postinfo_starter_sex);
+			// 推荐
 			ImageView iv_postinfo_tag = (ImageView) view
 					.findViewById(R.id.iv_postinfo_tag);
+			// 用户名
 			TextView tv_postinfo_starter_name = (TextView) view
 					.findViewById(R.id.tv_postinfo_starter_name);
+			// 时间
 			TextView tv_postinfo_starter_time = (TextView) view
 					.findViewById(R.id.tv_postinfo_starter_time);
+			// 内容
 			TextView tv_postinfo_starter_content = (TextView) view
 					.findViewById(R.id.tv_postinfo_starter_content);
+			// 标题
 			TextView tv_postinfo_starter_title = (TextView) view
 					.findViewById(R.id.tv_postinfo_starter_title);
 			Button btn_postinfo_starter_reply = (Button) view
 					.findViewById(R.id.btn_postinfo_starter_reply);
+			// 图片
 			ListView lv_postinfo_starter_imgs = (ListView) view
 					.findViewById(R.id.lv_postinfo_starter_imgs);
+			// 等级
+			ImageView iv_postinfo_starter_level = (ImageView) view
+					.findViewById(R.id.iv_postinfo_starter_level);
+			// 精化
+			ImageView iv_postinfo_plate_post_jinghua = (ImageView) view
+					.findViewById(R.id.iv_postinfo_plate_post_jinghua);
+			
+			//版主
+			ImageView iv_postinfo_starter_banzhu = (ImageView) view.findViewById(R.id.iv_postinfo_starter_banzhu);
+			
+			// 设置数据
 			final BBSPostReply postinfo_starter = replys.get(position);
 			// 头像
 			imageLoader.displayImage(
@@ -128,6 +149,32 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 
 						}
 					});
+			// 精化
+			if (postinfo_starter.getJinghua() == 1) {
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+						SizeUtil.dip2px(context, 20), SizeUtil.dip2px(context,
+								20));
+				iv_postinfo_plate_post_jinghua.setLayoutParams(params);
+				iv_postinfo_plate_post_jinghua.setVisibility(View.VISIBLE);
+			} else if (postinfo_starter.getJinghua() == 0) {
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+						0, 0);
+				iv_postinfo_plate_post_jinghua.setLayoutParams(params);
+				iv_postinfo_plate_post_jinghua.setVisibility(View.INVISIBLE);
+			}
+			// 推荐
+			if (postinfo_starter.getStyleColor() == null
+					|| postinfo_starter.getStyleColor() == "") {
+				iv_postinfo_tag.setVisibility(View.INVISIBLE);
+			} else {
+				iv_postinfo_tag.setVisibility(View.VISIBLE);
+			}
+			//是否版主
+			if(postinfo_starter.isModeratorReply()){
+				iv_postinfo_starter_banzhu.setVisibility(View.VISIBLE);
+			}else{
+				iv_postinfo_starter_banzhu.setVisibility(View.INVISIBLE);
+			}
 			// 性别
 			if (postinfo_starter.isSex()) {
 				iv_postinfo_starter_sex.setImageResource(R.drawable.sex_male);
@@ -148,33 +195,32 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 			PostInfoImgsListViewAdapter adapter_img = new PostInfoImgsListViewAdapter(
 					context, options, imageLoader,
 					postinfo_starter.getImgList());
-			if(postinfo_starter.getImgList()!=null){
+			if (postinfo_starter.getImgList() != null) {
 				lv_postinfo_starter_imgs.setAdapter(adapter_img);
 			}
 
-			
 			lv_postinfo_starter_imgs
-			.setOnItemClickListener(new OnItemClickListener() {
+					.setOnItemClickListener(new OnItemClickListener() {
 
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					Intent intent = new Intent(context,
-							PostImgViewActivity.class);
-					Bundle bundle = new Bundle();
-					bundle.putInt("current", position);
-					bundle.putSerializable("imgs",
-							postinfo_starter.getImgList());
-					intent.putExtras(bundle);
+						@Override
+						public void onItemClick(AdapterView<?> parent,
+								View view, int position, long id) {
+							Intent intent = new Intent(context,
+									PostImgViewActivity.class);
+							Bundle bundle = new Bundle();
+							bundle.putInt("current", position);
+							bundle.putSerializable("imgs",
+									postinfo_starter.getImgList());
+							intent.putExtras(bundle);
 
-					context.startActivity(intent);
-					((Activity) context).overridePendingTransition(R.anim.img_start, R.anim.img_exit);
+							context.startActivity(intent);
+							((Activity) context).overridePendingTransition(
+									R.anim.img_start, R.anim.img_exit);
 
-				}
-			});
-			
-			iv_postinfo_starter_head
-			.setOnClickListener(new OnClickListener() {
+						}
+					});
+
+			iv_postinfo_starter_head.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -185,10 +231,11 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 					bundle.putBoolean("user_sex", postinfo_starter.isSex());
 					intent.putExtras(bundle);
 					context.startActivity(intent);
-					((Activity) context).overridePendingTransition(R.anim.img_start, R.anim.img_exit);
+					((Activity) context).overridePendingTransition(
+							R.anim.img_start, R.anim.img_exit);
 				}
 			});
-			
+
 			return view;
 		} else {
 			View view2 = View.inflate(context,
@@ -282,7 +329,8 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 							bundle.putBoolean("user_sex", reply.isSex());
 							intent.putExtras(bundle);
 							context.startActivity(intent);
-							((Activity) context).overridePendingTransition(R.anim.img_start, R.anim.img_exit);
+							((Activity) context).overridePendingTransition(
+									R.anim.img_start, R.anim.img_exit);
 						}
 					});
 

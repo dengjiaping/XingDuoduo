@@ -97,6 +97,8 @@ public class URLConfig {
 	public static final String CLASSIFY = "/goods!getGoodsCategoryApp.action";
 	// 搜索
 	public static final String SEARCH = "/goods!getSerachGoodsApp.action?";
+	//热门搜索关键字
+	public static final String HOT_SEARCH = "/goods!getSearchKey.action";
 
 	/*--------------------商品分类排序接口-------------------*/
 	// 综合排序
@@ -136,5 +138,6 @@ public class URLConfig {
 	public static final String STICK_GOODS = "/goods!getGoodsIsTop.action?";
 	//应用推荐
 	public static final String APP_RECOMMEND = "/comment!androidAppRecommen.action";
+	
 	
 }

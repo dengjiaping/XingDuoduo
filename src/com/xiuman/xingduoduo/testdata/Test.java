@@ -1,9 +1,9 @@
 package com.xiuman.xingduoduo.testdata;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.xiuman.xingduoduo.model.BBSPlate;
+import com.xiuman.xingduoduo.model.SearchKeyWord;
 
 /**
  * 
@@ -21,17 +21,17 @@ public class Test {
 	 * 
 	 * @return
 	 */
-	public static List<String> getTestSearchHot() {
-		List<String> hot_keywords = new ArrayList<String>();
+	public static ArrayList<SearchKeyWord> getTestSearchHot() {
+		ArrayList<SearchKeyWord> hot_keywords = new ArrayList<SearchKeyWord>();
 
-		hot_keywords.add("避孕套");
-		hot_keywords.add("延时");
-		hot_keywords.add("振动棒");
-		hot_keywords.add("制服诱惑");
-		hot_keywords.add("比基尼");
-		hot_keywords.add("杜蕾斯");
-		hot_keywords.add("飞机杯");
-		hot_keywords.add("蕾丝");
+		hot_keywords.add(new SearchKeyWord("避孕套"));
+		hot_keywords.add(new SearchKeyWord("延时"));
+		hot_keywords.add(new SearchKeyWord("振动棒"));
+		hot_keywords.add(new SearchKeyWord("制服诱惑"));
+		hot_keywords.add(new SearchKeyWord("比基尼"));
+		hot_keywords.add(new SearchKeyWord("杜蕾斯"));
+		hot_keywords.add(new SearchKeyWord("飞机杯"));
+		hot_keywords.add(new SearchKeyWord("蕾丝"));
 		return hot_keywords;
 	}
 

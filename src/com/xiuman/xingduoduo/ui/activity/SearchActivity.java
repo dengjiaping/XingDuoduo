@@ -6,7 +6,6 @@ import java.util.List;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -80,16 +79,15 @@ public class SearchActivity extends BaseActivity implements
 	/*------------------------------------数据----------------------------*/
 	// Fragments
 	private List<Fragment> fragments = new ArrayList<Fragment>();
-	//热门搜索Fragment
+	// 热门搜索Fragment
 	private FragmentSearchHot fragment_searchHot;
-	//最近搜索Fragment
+	// 最近搜索Fragment
 	private FragmentSearchRecently fragment_searchRecently;
 	// 数据库操作
 	private SearchRecentlyDao recently_dao;
-	//ViewPager Adapter
-	private SearchViewPagerAdapter viewpager_adapter; 
-	
-	
+	// ViewPager Adapter
+	private SearchViewPagerAdapter viewpager_adapter;
+
 	/*----------------------------------滑动结束--------------------------*/
 	private SwipeBackActivityHelper mHelper;
 	public SwipeBackLayout mSwipeBackLayout;
@@ -115,13 +113,12 @@ public class SearchActivity extends BaseActivity implements
 		tabWidth = dm.widthPixels;
 		one = tabWidth / 2; // 设置水平动画平移大小
 		two = one * 2;
-		
-		
+
 		fragment_searchHot = new FragmentSearchHot();
 		fragment_searchRecently = new FragmentSearchRecently();
 		fragmentManager = getSupportFragmentManager();
-		fragments.add(fragment_searchRecently);
 		fragments.add(fragment_searchHot);
+		fragments.add(fragment_searchRecently);
 
 		// 数据库
 		recently_dao = new SearchRecentlyDao(this);
@@ -159,8 +156,8 @@ public class SearchActivity extends BaseActivity implements
 	@Override
 	protected void initUI() {
 		viewpager_search_content.setOffscreenPageLimit(2);
-		viewpager_adapter = new SearchViewPagerAdapter(
-				fragments, this, fragmentManager);
+		viewpager_adapter = new SearchViewPagerAdapter(fragments, this,
+				fragmentManager);
 		viewpager_search_content.setAdapter(viewpager_adapter);
 
 		// 以下是设置移动条的初始位置
@@ -184,7 +181,8 @@ public class SearchActivity extends BaseActivity implements
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				if (et_search_input_keyword.getText().toString().trim().length() > 0) {
+				if (et_search_input_keyword.getText().toString().trim()
+						.length() > 0) {
 					btn_clear_search_input.setVisibility(View.VISIBLE);
 					btn_start_search.setText("搜索");
 				} else {
@@ -206,8 +204,8 @@ public class SearchActivity extends BaseActivity implements
 			}
 		});
 
-		llyt_search_recently.setOnClickListener(new MyOnClickListener(0));
-		llyt_search_hot.setOnClickListener(new MyOnClickListener(1));
+		llyt_search_recently.setOnClickListener(new MyOnClickListener(1));
+		llyt_search_hot.setOnClickListener(new MyOnClickListener(0));
 		viewpager_search_content
 				.setOnPageChangeListener(new OnPageChangeListener() {
 
@@ -266,16 +264,20 @@ public class SearchActivity extends BaseActivity implements
 			// 添加操作
 			if (btn_start_search.getText().equals("搜索")) {
 				// 打开搜索结果界面，将搜索关键字添加到数据库
-				fragment_searchRecently.add2DB(et_search_input_keyword.getText().toString().trim());
+				fragment_searchRecently.add2DB(et_search_input_keyword
+						.getText().toString().trim());
 				viewpager_adapter.notifyDataSetChanged();
-				
-				//打开搜索到的商品列表界面
-				Intent intent_keyword = new Intent(SearchActivity.this,SearchGoodsListActivity.class);
+
+				// 打开搜索到的商品列表界面
+				Intent intent_keyword = new Intent(SearchActivity.this,
+						SearchGoodsListActivity.class);
 				Bundle bundle = new Bundle();
-				bundle.putString("keyword", et_search_input_keyword.getText().toString().trim());
+				bundle.putString("keyword", et_search_input_keyword.getText()
+						.toString().trim());
 				intent_keyword.putExtras(bundle);
 				startActivity(intent_keyword);
-				overridePendingTransition(R.anim.translate_horizontal_start_in, R.anim.translate_horizontal_start_out);
+				overridePendingTransition(R.anim.translate_horizontal_start_in,
+						R.anim.translate_horizontal_start_out);
 			} else if (btn_start_search.getText().equals("取消")) {
 				// 关闭搜索界面
 				finish();
@@ -285,7 +287,7 @@ public class SearchActivity extends BaseActivity implements
 			}
 
 			break;
-		case R.id.btn_clear_search_input://清除输入
+		case R.id.btn_clear_search_input:// 清除输入
 			et_search_input_keyword.setText("");
 		default:
 			break;
@@ -302,15 +304,16 @@ public class SearchActivity extends BaseActivity implements
 		switch (index) {
 		case 0:
 			tv_search_recently.setTextColor(getResources().getColor(
-					R.color.color_mian));
-			tv_search_hot.setTextColor(getResources().getColor(
 					R.color.color_black));
+			tv_search_hot.setTextColor(getResources().getColor(
+					R.color.color_mian));
 			break;
 		case 1:
+
 			tv_search_recently.setTextColor(getResources().getColor(
-					R.color.color_black));
-			tv_search_hot.setTextColor(getResources().getColor(
 					R.color.color_mian));
+			tv_search_hot.setTextColor(getResources().getColor(
+					R.color.color_black));
 			break;
 		}
 	}

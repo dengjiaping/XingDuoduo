@@ -37,11 +37,18 @@ public class BBSPostReply implements Serializable {
 	private String username;
 	// 图片列表
 	private ArrayList<PostImg> imgList;
+	// 是否精化
+	private int jinghua;
+	// 是否推荐(非空推荐，空，不推荐)
+	private String styleColor;
+	// 是否版主
+	private boolean moderatorReply;
 
 	public BBSPostReply(String groupName, String content, String createTime,
 			String title, String nickname, String id, String postTypeId,
 			String editCount, boolean sex, String avatar, String username,
-			ArrayList<PostImg> imgList) {
+			ArrayList<PostImg> imgList, int jinghua, String styleColor,
+			boolean moderatorReply) {
 		super();
 		this.groupName = groupName;
 		this.content = content;
@@ -55,6 +62,33 @@ public class BBSPostReply implements Serializable {
 		this.avatar = avatar;
 		this.username = username;
 		this.imgList = imgList;
+		this.jinghua = jinghua;
+		this.styleColor = styleColor;
+		this.moderatorReply = moderatorReply;
+	}
+
+	public boolean isModeratorReply() {
+		return moderatorReply;
+	}
+
+	public void setModeratorReply(boolean moderatorReply) {
+		this.moderatorReply = moderatorReply;
+	}
+
+	public int getJinghua() {
+		return jinghua;
+	}
+
+	public void setJinghua(int jinghua) {
+		this.jinghua = jinghua;
+	}
+
+	public String getStyleColor() {
+		return styleColor;
+	}
+
+	public void setStyleColor(String styleColor) {
+		this.styleColor = styleColor;
 	}
 
 	public String getGroupName() {

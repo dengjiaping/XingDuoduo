@@ -633,7 +633,8 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param context
 	 * @param httpTaskListener
 	 * @param singleurl
-	 * @param showAdress 1：广告，2：专区，3：商品
+	 * @param showAdress
+	 *            1：广告，2：专区，3：商品
 	 * @时间 2014-10-18
 	 */
 	public void getCenterAd(Context context, HttpTaskListener httpTaskListener,
@@ -810,7 +811,8 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 */
 	public void getDisCussGoods(Context mContext,
 			HttpTaskListener httpTaskListener, String singleurl,
-			String reviesUID, String reviesgoodsId, String contendApp,float goodsQuality,float serviceAttitude,float deliverySpeed) {
+			String reviesUID, String reviesgoodsId, String contendApp,
+			float goodsQuality, float serviceAttitude, float deliverySpeed) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -884,6 +886,22 @@ public class HttpUrlProvider extends HttpConnWorker {
 	}
 
 	/**
+	 * @描述：热门搜索关键字
+	 * @param mContext
+	 * @param httpTaskListener
+	 * @param pageApp
+	 * @param serachName
+	 * @时间 2014-10-24
+	 */
+	public void getSearchKeyWords(Context mContext,
+			HttpTaskListener httpTaskListener) {
+		String url = URLConfig.BASE_IP + URLConfig.HOT_SEARCH;
+		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
+		httpDataTask.setHttpMethod("get");
+		httpDataTask.execute(url);
+	}
+
+	/**
 	 * @描述:获取支付宝签名字串
 	 * @param mContext
 	 * @param httpTaskListener
@@ -928,9 +946,9 @@ public class HttpUrlProvider extends HttpConnWorker {
 	 * @param httpTaskListener
 	 * @param forumId
 	 */
-	public void getPost(Context mContext, HttpTaskListener httpTaskListener,String singleUrl,
-			String forumId, int pageNo, int pageSize) {
-		String url = URLConfig.PRIVATE_IP+singleUrl;
+	public void getPost(Context mContext, HttpTaskListener httpTaskListener,
+			String singleUrl, String forumId, int pageNo, int pageSize) {
+		String url = URLConfig.PRIVATE_IP + singleUrl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 
@@ -1111,19 +1129,21 @@ public class HttpUrlProvider extends HttpConnWorker {
 		url += httpDataTask.jointToUrl("forumId", forumId);
 		httpDataTask.execute(url);
 	}
+
 	/**
 	 * @描述：获取论坛板块
 	 * @param mContext
 	 * @param httpTaskListener
 	 * @时间 2014-10-22
 	 */
-	public void getBBSPlate(Context mContext, HttpTaskListener httpTaskListener){
+	public void getBBSPlate(Context mContext, HttpTaskListener httpTaskListener) {
 		String url = URLConfig.PRIVATE_IP + URLConfig.BBS_PLATE;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
 
 		httpDataTask.execute(url);
 	}
+
 	/**
 	 * @描述：应用推荐
 	 * @param mContext

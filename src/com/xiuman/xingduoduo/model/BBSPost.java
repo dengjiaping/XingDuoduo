@@ -24,6 +24,10 @@ public class BBSPost implements Serializable {
 	private String lastTime;
 	// 是否精化贴(0非精化，1精化)
 	private int jinghua;
+	// 是否推荐(非空推荐，空，不推荐)
+	private String styleColor;
+	//发帖人是否版主
+	private boolean moderatorReply;
 	// 帖子标题
 	private String title;
 	// 昵称
@@ -43,17 +47,21 @@ public class BBSPost implements Serializable {
 	private int forumId;
 	private String primeLevel;
 
+	
+
 	public BBSPost(String content, ArrayList<PostImg> imgList,
-			String createTime, String lastTime, int jinghua, String title,
-			String nickname, boolean sex, String id, String username,
-			String postTypeId, String replyCount, String avatar, int forumId,
-			String primeLevel) {
+			String createTime, String lastTime, int jinghua, String styleColor,
+			boolean moderatorReply, String title, String nickname, boolean sex,
+			String id, String username, String postTypeId, String replyCount,
+			String avatar, int forumId, String primeLevel) {
 		super();
 		this.content = content;
 		this.imgList = imgList;
 		this.createTime = createTime;
 		this.lastTime = lastTime;
 		this.jinghua = jinghua;
+		this.styleColor = styleColor;
+		this.moderatorReply = moderatorReply;
 		this.title = title;
 		this.nickname = nickname;
 		this.sex = sex;
@@ -64,6 +72,22 @@ public class BBSPost implements Serializable {
 		this.avatar = avatar;
 		this.forumId = forumId;
 		this.primeLevel = primeLevel;
+	}
+
+	public boolean isModeratorReply() {
+		return moderatorReply;
+	}
+
+	public void setModeratorReply(boolean moderatorReply) {
+		this.moderatorReply = moderatorReply;
+	}
+
+	public String getStyleColor() {
+		return styleColor;
+	}
+
+	public void setStyleColor(String styleColor) {
+		this.styleColor = styleColor;
 	}
 
 	public String getLastTime() {

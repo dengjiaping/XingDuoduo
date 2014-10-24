@@ -17,11 +17,10 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -52,8 +51,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 
 	/*--------------------------------------组件---------------------------------*/
 	// 搜索按钮
-	private Button btn_search;
-	private TextView tv_title;
+	private EditText et_search_input_keyword;
 	// 分类
 	private GridView gridview_good_classify;
 	// 一级分类
@@ -156,10 +154,9 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 				.findViewById(R.id.lv_goods_classify);
 		iv_classify_indicator = (ImageView) view
 				.findViewById(R.id.iv_classify_indicator);
-		tv_title = (TextView) view.findViewById(R.id.tv_title);
 		gridview_good_classify = (GridView) view
 				.findViewById(R.id.gridview_good_classify);
-		btn_search = (Button) view.findViewById(R.id.btn_search);
+		et_search_input_keyword = (EditText) view.findViewById(R.id.et_search_input_keyword);
 	}
 
 	/**
@@ -177,7 +174,6 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 		
 		//请求数据
 		initClassify();
-		tv_title.setText("分类");
 
 	}
 
@@ -222,8 +218,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	 */
 	@Override
 	protected void setListener() {
-		btn_search.setOnClickListener(this);
-
+		et_search_input_keyword.setOnClickListener(this);
 		/**
 		 * 分类点击
 		 */
@@ -265,9 +260,9 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 				gridview_good_classify.setAdapter(classify_adapter);
 				gridview_good_classify.smoothScrollToPosition(0);
 				startSildingInAnimation(position);
-				lv_goods_classify.smoothScrollToPosition(position);
-				lv_goods_classify.requestFocusFromTouch();
-				lv_goods_classify.setSelection(position);
+//				lv_goods_classify.smoothScrollToPosition(position);
+//				lv_goods_classify.requestFocusFromTouch();
+//				lv_goods_classify.setSelection(position);
 
 			}
 		});
@@ -292,7 +287,7 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_search:// 搜索
+		case R.id.et_search_input_keyword:// 搜索
 			Intent intent_search = new Intent(getActivity(),
 					SearchActivity.class);
 			startActivity(intent_search);

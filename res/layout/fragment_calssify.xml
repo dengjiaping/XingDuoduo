@@ -7,8 +7,68 @@
 
     <!-- 标题栏 -->
 
-    <include layout="@layout/include_title_1" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dip"
+        android:background="@color/color_mian"
+        android:gravity="center_vertical" >
 
+        <!-- 商城界面的标题栏 -->
+
+        <Button
+            android:id="@+id/btn_sweep_1"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_margin="3dip"
+            android:background="@drawable/bg_btn_sweep"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/txt_style_base1"
+            android:layout_centerInParent="true"
+            android:layout_margin="2dip"
+            android:text="分类"
+            android:textColor="@color/color_white"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:layout_margin="3dip"
+            android:visibility="invisible"
+            android:background="@drawable/bg_btn_search" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="@color/color_bg"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <!-- 搜索界面的标题栏 -->
+
+        <!-- 输入框 -->
+
+        <EditText
+            android:id="@+id/et_search_input_keyword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dip"
+            android:background="@drawable/et_input_search_keyword_bg"
+            android:drawableLeft="@drawable/bg_txt_search_tag"
+            android:editable="false"
+            android:hint="@string/search_hint"
+            android:paddingRight="30dip"
+            android:singleLine="true"
+            android:textSize="@dimen/txt_size_15" />
+    </LinearLayout>
+	<include layout="@layout/line_match"/>
     <LinearLayout
         style="@style/txt_style_base3"
         android:orientation="horizontal"
