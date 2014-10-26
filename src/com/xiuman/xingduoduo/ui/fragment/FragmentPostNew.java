@@ -87,7 +87,8 @@ public class FragmentPostNew extends BaseFragment implements OnClickListener {
 	private boolean isUp = true;
 
 	private int currentPage = 1;
-
+	// 标记是否还有帖子
+	private boolean flag = true;
 	/*--------------------------------------数据--------------------------------*/
 	// 从上级界面接收到的板块信息
 	private BBSPlate plate;
@@ -129,24 +130,20 @@ public class FragmentPostNew extends BaseFragment implements OnClickListener {
 						lv_posts.setAdapter(adapter);
 						// 下拉加载完成
 						pullsv_post.onPullDownRefreshComplete();
-						// 上拉刷新完成
-						pullsv_post.onPullUpRefreshComplete();
 						// 设置是否有更多的数据
 						TimeUtil.setLastUpdateTime(pullsv_post);
 					} else {
 						bbspost.addAll(bbspost_get);
 						adapter.notifyDataSetChanged();
 						pullsv_post.onPullUpRefreshComplete();
-						TimeUtil.setLastUpdateTime(pullsv_post);
-						loadingdialog.dismiss(getActivity());
 					}
-					pullsv_post.setHasMoreData(true);
+					flag = true;
 				} else {
 					ToastUtil.ToastView(getActivity(), "没有更多帖子！");
 					// 上拉刷新完成
+					flag = false;
 					pullsv_post.onPullUpRefreshComplete();
 					pullsv_post.setHasMoreData(false);
-					loadingdialog.dismiss(getActivity());
 				}
 				loadingdialog.dismiss(getActivity());
 				llyt_network_error.setVisibility(View.INVISIBLE);
@@ -220,12 +217,6 @@ public class FragmentPostNew extends BaseFragment implements OnClickListener {
 		pullsv_post.setScrollLoadEnabled(true);
 		lv_posts = pullsv_post.getRefreshableView();
 
-		lv_posts.setDivider(getResources().getDrawable(
-				R.drawable.drawable_transparent));
-		lv_posts.setDividerHeight(SizeUtil.dip2px(getActivity(), 8));
-		lv_posts.setSelector(getResources().getDrawable(
-				R.drawable.drawable_transparent));
-
 		// container
 		View view2 = View.inflate(getActivity(),
 				R.layout.include_bbs_posts_container, null);
@@ -236,6 +227,11 @@ public class FragmentPostNew extends BaseFragment implements OnClickListener {
 		iv_plate_icon = (ImageView) view2.findViewById(R.id.iv_bbs_plate_icon);
 
 		lv_posts.addHeaderView(view2);
+		lv_posts.setDivider(getResources().getDrawable(
+				R.drawable.drawable_transparent));
+		lv_posts.setDividerHeight(SizeUtil.dip2px(getActivity(), 8));
+		lv_posts.setSelector(getResources().getDrawable(
+				R.drawable.drawable_transparent));
 		button_floating_action.attachToListView(lv_posts);
 	}
 
@@ -323,8 +319,19 @@ public class FragmentPostNew extends BaseFragment implements OnClickListener {
 			public void onPullUpToRefresh(
 					PullToRefreshBase<ListView> refreshView) {
 				isUp = false;
-				currentPage += 1;
-				initFirstData(currentPage);
+				if (flag) {
+					currentPage += 1;
+					initFirstData(currentPage);
+				} else {
+					ToastUtil.ToastView(getActivity(), getResources()
+							.getString(R.string.no_more));
+					// 下拉加载完成
+					pullsv_post.onPullDownRefreshComplete();
+					// 上拉刷新完成
+					pullsv_post.onPullUpRefreshComplete();
+					// 设置是否有更多的数据
+					pullsv_post.setHasMoreData(false);
+				}
 			}
 		});
 		// 滑动时不加载图片

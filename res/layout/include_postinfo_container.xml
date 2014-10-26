@@ -63,7 +63,7 @@
                             android:id="@+id/iv_postinfo_starter_banzhu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/icon_post_louzhu" />
+                            android:src="@drawable/icon_post_banzhu" />
                     </LinearLayout>
                     <!-- 发表时间 -->
 

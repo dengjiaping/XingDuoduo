@@ -29,6 +29,7 @@ import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.SizeUtil;
+import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
@@ -109,13 +110,15 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 						lv_posts.setAdapter(adapter);
 						// 下拉加载完成
 						pulllv_my_post.onPullDownRefreshComplete();
+						//设置刷新时间
+						TimeUtil.setLastUpdateTime(pulllv_my_post);
 					} else {
 						bbspost.addAll(bbspost_get);
 						adapter.notifyDataSetChanged();
 						// 上拉刷新完成
 						pulllv_my_post.onPullUpRefreshComplete();
 					}
-
+					flag = true;
 				} else {
 					ToastUtil.ToastView(MyPostActivity.this, "没有更多帖子！");
 					pulllv_my_post.setHasMoreData(false);

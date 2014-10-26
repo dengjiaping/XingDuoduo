@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.umeng.socialize.bean.RequestType;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -220,7 +221,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				// 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true)
 				// 加载图片时会在磁盘中加载缓存
-				.imageScaleType(ImageScaleType.EXACTLY)
+				.imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		// 从上级界面接收到的帖子
@@ -268,6 +269,8 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	protected void initUI() {
 		tv_postinfo_title.setText(R.string.postinfo_title);
 		initPostInfo();
+		lv_postinfo_replys.setOnScrollListener(new PauseOnScrollListener(ImageLoader
+				.getInstance(), true, false));
 	}
 
 	@Override
