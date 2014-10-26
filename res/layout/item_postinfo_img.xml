@@ -9,6 +9,7 @@
         android:id="@+id/iv_item_postinfo_img_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/pull_to_refresh_header_hint_loading"
         android:scaleType="fitXY" />
 

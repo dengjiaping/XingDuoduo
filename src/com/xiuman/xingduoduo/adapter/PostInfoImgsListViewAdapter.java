@@ -67,8 +67,9 @@ public class PostInfoImgsListViewAdapter extends BaseAdapter {
 		convertView = View.inflate(context, R.layout.item_postinfo_img, null);
 		final ImageView iv_item_postinfo_img_item = (ImageView) convertView
 				.findViewById(R.id.iv_item_postinfo_img_item);
-		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP + imgs.get(position).getImgurl(),
-				iv_item_postinfo_img_item, options, new ImageLoadingListener() {
+		imageLoader.displayImage(URLConfig.PRIVATE_IMG_IP
+				+ imgs.get(position).getImgurl(), iv_item_postinfo_img_item,
+				options, new ImageLoadingListener() {
 
 					@Override
 					public void onLoadingStarted(String arg0, View arg1) {
