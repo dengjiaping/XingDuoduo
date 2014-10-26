@@ -104,6 +104,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_margin="7dip"
-        android:background="@drawable/bg_btn_back" />
+        android:background="@drawable/bg_btn_back_wihte" />
 
 </RelativeLayout>

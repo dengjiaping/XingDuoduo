@@ -17,6 +17,7 @@
             android:id="@+id/pulllv_posts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/color_bg"
             android:fadingEdge="none" />
 
         <com.xiuman.xingduoduo.view.floatbutton.FloatingActionButton
