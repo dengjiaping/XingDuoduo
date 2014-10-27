@@ -97,7 +97,7 @@ public class AppRecommendListViewAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	static class ViewHolder {
+	class ViewHolder {
 		ImageView iv_app_head;
 		TextView tv_app_desc;
 		TextView tv_app_name;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/txt_style_base3"
-    android:background="@color/color_bg"
+    android:background="@color/color_white"
     android:orientation="vertical" >
 
     <!-- 用户注册界面 -->
@@ -11,277 +11,111 @@
 
     <!-- 注册信息 -->
 
-    <com.xiuman.xingduoduo.view.StretchScrollView
-        style="@style/txt_style_base3"
-        android:fadingEdge="none"
-        android:scrollbars="none" >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dip" />
 
-        <LinearLayout
-            style="@style/txt_style_base2"
+    <include layout="@layout/line_match" />
+
+    <LinearLayout
+        style="@style/txt_style_base2"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="10dip" >
+
+        <!-- 用户名 -->
+
+        <EditText
+            android:id="@+id/et_register_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="60dip"
+            android:background="@drawable/et_input_register_bg"
             android:gravity="center_vertical"
-            android:orientation="vertical" >
+            android:hint="@string/register_hint_user_name"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:textSize="@dimen/txt_size_15" />
 
-            <!-- 用户名 -->
+        <include layout="@layout/line_match" />
+        <!-- 昵称 -->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dip"
-                android:background="@drawable/et_input_register_bg"
-                android:gravity="center_vertical"
-                android:padding="10dip" >
+        <EditText
+            android:id="@+id/et_register_nick_name"
+            android:layout_width="match_parent"
+            android:layout_height="60dip"
+            android:background="@drawable/et_input_register_bg"
+            android:gravity="center_vertical"
+            android:hint="@string/register_hint_nick_name"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:textSize="@dimen/txt_size_15" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/register_tag_user_name"
-                    android:textColor="@color/color_black2"
-                    android:textSize="@dimen/txt_size_15" />
+        <include layout="@layout/line_match" />
 
-                <EditText
-                    android:id="@+id/et_register_user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dip"
-                    android:background="@drawable/et_input_register_bg"
-                    android:gravity="center_vertical"
-                    android:hint="@string/register_hint_user_name"
-                    android:paddingBottom="5dip"
-                    android:paddingTop="5dip"
-                    android:textSize="@dimen/txt_size_15" />
-            </LinearLayout>
+        <!-- 密码 -->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dip"
-                android:background="@drawable/custom_line_2" />
-            <!-- 昵称 -->
+        <EditText
+            android:id="@+id/et_register_psw_1"
+            android:layout_width="match_parent"
+            android:layout_height="60dip"
+            android:background="@drawable/et_input_register_bg"
+            android:gravity="center_vertical"
+            android:hint="@string/register_hint_psw"
+            android:inputType="textPassword"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:textSize="@dimen/txt_size_15" />
+    </LinearLayout>
+    <!-- 查看性多多服务协议 -->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dip"
-                android:background="@drawable/et_input_register_bg"
-                android:gravity="center_vertical"
-                android:padding="10dip" >
+    <include layout="@layout/line_match" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/register_tag_nick_name"
-                    android:textColor="@color/color_black2"
-                    android:textSize="@dimen/txt_size_15" />
+    <LinearLayout
+        android:id="@+id/llyt_register_read_protocol"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:background="@drawable/et_input_register_bg"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingLeft="10dip" >
 
-                <EditText
-                    android:id="@+id/et_register_nick_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dip"
-                    android:background="@drawable/et_input_register_bg"
-                    android:gravity="center_vertical"
-                    android:hint="@string/register_hint_nick_name"
-                    android:paddingBottom="5dip"
-                    android:paddingTop="5dip"
-                    android:textSize="@dimen/txt_size_15" />
-            </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/icon_register_protocol"
+            android:text="@string/register_please_read_protocol_1"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/txt_size_15" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dip"
-                android:background="@drawable/custom_line_2" />
-            <!-- 性别 -->
+        <TextView
+            android:id="@+id/tv_register_protocol"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/register_please_read_protocol_2"
+            android:textColor="@color/color_mian"
+            android:textSize="@dimen/txt_size_16" />
 
-            <LinearLayout
-                android:id="@+id/llyt_register_sex"
-                android:layout_width="match_parent"
-                android:layout_height="60dip"
-                android:background="@drawable/et_input_register_bg"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dip" >
+    </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/update_info_sex"
-                    android:textColor="@color/color_black2"
-                    android:textSize="@dimen/txt_size_15" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:background="@color/color_mian" />
+    <!-- 确认注册 -->
 
-                <TextView
-                    android:id="@+id/tv_register_sex"
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/update_hint_sex"
-                    android:paddingLeft="5dip"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/txt_size_15" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dip"
-                android:background="@drawable/custom_line_2" />
-            <!-- 邮箱 -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dip"
-                android:background="@drawable/et_input_register_bg"
-                android:gravity="center_vertical"
-                android:padding="10dip" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/register_tag_email"
-                    android:textColor="@color/color_black2"
-                    android:textSize="@dimen/txt_size_15" />
-
-                <EditText
-                    android:id="@+id/et_register_email"
-                    android:layout_width="0dip"
-                    android:layout_height="60dip"
-                    android:layout_weight="1"
-                    android:background="@drawable/et_input_register_bg"
-                    android:gravity="center_vertical"
-                    android:hint="@string/register_hint_phone_number"
-                    android:inputType="textEmailAddress"
-                    android:paddingBottom="5dip"
-                    android:paddingTop="5dip"
-                    android:textSize="@dimen/txt_size_15" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dip"
-                android:background="@drawable/custom_line_2" />
-
-            <!-- 密码 -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dip"
-                android:background="@drawable/et_input_register_bg"
-                android:gravity="center_vertical"
-                android:padding="10dip" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/register_tag_psw1"
-                    android:textColor="@color/color_black2"
-                    android:textSize="@dimen/txt_size_15" />
-
-                <EditText
-                    android:id="@+id/et_register_psw_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dip"
-                    android:background="@drawable/et_input_register_bg"
-                    android:gravity="center_vertical"
-                    android:hint="@string/register_hint_psw"
-                    android:inputType="textPassword"
-                    android:paddingBottom="5dip"
-                    android:paddingTop="5dip"
-                    android:textSize="@dimen/txt_size_15" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dip"
-                android:background="@drawable/custom_line_2" />
-
-            <!-- 确认密码 -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dip"
-                android:background="@drawable/et_input_register_bg"
-                android:gravity="center_vertical"
-                android:padding="10dip" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/register_tag_psw2"
-                    android:textColor="@color/color_black2"
-                    android:textSize="@dimen/txt_size_15" />
-
-                <EditText
-                    android:id="@+id/et_register_psw_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dip"
-                    android:background="@drawable/et_input_register_bg"
-                    android:gravity="center_vertical"
-                    android:hint="@string/register_hint_psw2"
-                    android:inputType="textPassword"
-                    android:paddingBottom="5dip"
-                    android:paddingTop="5dip"
-                    android:textSize="@dimen/txt_size_15" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dip"
-                android:background="@drawable/custom_line_2" />
-
-            <!-- 查看性多多服务协议 -->
-
-            <LinearLayout
-                android:id="@+id/llyt_register_read_protocol"
-                android:layout_width="match_parent"
-                android:layout_height="60dip"
-                android:background="@drawable/et_input_register_bg"
-                android:clickable="true"
-                android:orientation="horizontal"
-                android:paddingLeft="25dip" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="@string/register_please_read_protocol_1"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/txt_size_15" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="@string/app_name"
-                    android:textColor="@color/color_mian"
-                    android:textSize="@dimen/txt_size_15" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="@string/register_please_read_protocol_2"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/txt_size_15" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dip"
-                android:background="@color/color_mian" />
-            <!-- 确认注册 -->
-
-            <Button
-                android:id="@+id/btn_register_agress2register"
-                android:layout_width="150dip"
-                android:layout_height="50dip"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dip"
-                android:background="@drawable/btn_color_selector"
-                android:gravity="center"
-                android:padding="10dip"
-                android:text="@string/register_agree_protocol"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/txt_size_18" />
-        </LinearLayout>
-    </com.xiuman.xingduoduo.view.StretchScrollView>
+    <Button
+        android:id="@+id/btn_register_agress2register"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dip"
+        android:background="@drawable/btn_color_selector"
+        android:gravity="center"
+        android:padding="10dip"
+        android:text="@string/register_agree_protocol"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/txt_size_18" />
 
 </LinearLayout>

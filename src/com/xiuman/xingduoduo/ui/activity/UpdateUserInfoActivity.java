@@ -66,6 +66,8 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 	private EditText et_update_user_info_name;
 	// 昵称
 	private EditText et_update_user_info_nickname;
+	//邮箱
+	private EditText et_update_user_info_email;
 	// 性别
 	private LinearLayout llyt_update_user_info_sex;
 	private TextView tv_update_user_info_sex;
@@ -231,7 +233,8 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 		et_update_user_info_address_info = (EditText) findViewById(R.id.et_update_user_info_address_info);
 		et_update_user_info_phone = (EditText) findViewById(R.id.et_update_user_info_phone);
 		et_update_user_info_ems = (EditText) findViewById(R.id.et_update_user_info_ems);
-
+		et_update_user_info_email = (EditText) findViewById(R.id.et_update_user_info_email);
+		
 		llyt_update_user_info_address = (LinearLayout) findViewById(R.id.llyt_update_user_info_address);
 		tv_update_user_info_address = (TextView) findViewById(R.id.tv_update_user_info_address);
 		llyt_update_user_info_birth = (LinearLayout) findViewById(R.id.llyt_update_user_info_birth);
@@ -263,7 +266,7 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 		et_update_user_info_name.setText(user.getName());
 		et_update_user_info_nickname.setText(user.getNickname());
 		et_update_user_info_phone.setText(user.getPhone());
-
+		et_update_user_info_email.setText(user.getEmail());
 	}
 
 	@Override
@@ -603,6 +606,7 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 				.trim();
 		String ems = et_update_user_info_ems.getText().toString().trim();
 		String phone = et_update_user_info_phone.getText().toString().trim();
+		String email = et_update_user_info_email.getText().toString().trim();
 
 		if (nickname.equals("")) {
 			ToastUtil.ToastView(this, "请输入您的昵称");
@@ -613,11 +617,14 @@ public class UpdateUserInfoActivity extends Base2Activity implements
 		} else if (!ems.equals("") && !ems.matches(RegexUtil.regex_ems)) {
 			ToastUtil.ToastView(this, "请填写正确的邮政编码");
 			return;
+		}else if(!email.equals("")&&!email.matches(RegexUtil.regex_email)) {
+			ToastUtil.ToastView(this, "请输入正确的邮箱地址");
+			return;
 		}
 		HttpUrlProvider.getIntance().getUpdateUserInfo(this,
 				new TaskUpdateUserInfoBack(handler),
 				URLConfig.UPDATE_USER_INFO, user.getUserId(), gender, birth,
-				name, area, address, ems, phone, nickname);
+				name, area, address, ems, phone, nickname,email);
 		loadingdialog.show(UpdateUserInfoActivity.this);
 
 	}

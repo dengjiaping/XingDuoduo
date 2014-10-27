@@ -33,7 +33,6 @@ public class LoadingDialog {
 			public boolean onKey(DialogInterface dialog, int keyCode,
 					KeyEvent event) {
 				if (keyCode == KeyEvent.KEYCODE_BACK) {
-					dismiss(context);
 					return true;
 				}
 				return false;

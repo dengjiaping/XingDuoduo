@@ -387,7 +387,7 @@
         <!-- 渠道 -->
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="nuannuan" />
+            android:value="dianqu3" />
     </application>
 
 </manifest>

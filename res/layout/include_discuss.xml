@@ -35,7 +35,7 @@
             android:isIndicator="true"
             android:numStars="5"
             android:rating="5"
-            android:stepSize="0.5" />
+            android:stepSize="0.1" />
     </LinearLayout>
 
     <View
@@ -68,7 +68,7 @@
                 android:isIndicator="true"
                 android:numStars="5"
                 android:rating="5"
-                android:stepSize="0.5" />
+                android:stepSize="0.1" />
 
             <TextView
                 android:id="@+id/tv_total_zhiliang"
@@ -100,7 +100,7 @@
                 android:isIndicator="true"
                 android:numStars="5"
                 android:rating="5"
-                android:stepSize="0.5" />
+                android:stepSize="0.1" />
 
             <TextView
                 android:id="@+id/tv_total_taidu"
@@ -132,7 +132,7 @@
                 android:isIndicator="true"
                 android:numStars="5"
                 android:rating="5"
-                android:stepSize="0.5" />
+                android:stepSize="0.1" />
 
             <TextView
                 android:id="@+id/tv_total_sudu"

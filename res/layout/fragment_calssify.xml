@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/txt_style_base3"
-    android:background="@color/color_white"
+    android:background="@color/color_bg"
     android:focusableInTouchMode="true"
     android:orientation="vertical" >
 
@@ -107,6 +107,7 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="2.9"
+            android:background="@color/color_white"
             android:fadingEdge="none"
             android:scrollbars="none" >
 

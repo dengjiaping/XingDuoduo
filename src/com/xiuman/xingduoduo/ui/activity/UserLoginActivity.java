@@ -3,6 +3,7 @@ package com.xiuman.xingduoduo.ui.activity;
 import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.AppConfig;
@@ -38,14 +40,16 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 	private EditText et_login_user_psw;
 	// 登录
 	private Button btn_login_login;
-	// 找回密码
-	private Button btn_login_find_psw;
-	// 注册
-	private Button btn_login_register;
+	//注册文字
+	private TextView tv_register;
 	// 加载进度
 	private LoadingDialog loadingdialog;
 	// 返回
 	private Button btn_login_back;
+	// 标题栏
+	private TextView tv_title;
+	// 右侧
+	private Button btn_right;
 	/*---------------------------------数据----------------------------------*/
 	// 登录结果
 	private ActionValue<?> value = new ActionValue<T>();
@@ -112,9 +116,10 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 		et_login_user_name = (EditText) findViewById(R.id.et_login_user_name);
 		et_login_user_psw = (EditText) findViewById(R.id.et_login_user_psw);
 		btn_login_login = (Button) findViewById(R.id.btn_login_login);
-		btn_login_find_psw = (Button) findViewById(R.id.btn_login_find_psw);
-		btn_login_register = (Button) findViewById(R.id.btn_login_register);
-		btn_login_back = (Button) findViewById(R.id.btn_login_back);
+		btn_login_back = (Button) findViewById(R.id.btn_common_back);
+		tv_title = (TextView) findViewById(R.id.tv_common_title);
+		btn_right = (Button) findViewById(R.id.btn_common_right);
+		tv_register = (TextView) findViewById(R.id.tv_register);
 	}
 
 	/**
@@ -122,7 +127,9 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 	 */
 	@Override
 	protected void initUI() {
-
+		tv_title.setText("登录");
+		btn_right.setVisibility(View.INVISIBLE);
+		tv_register.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 	}
 
 	/**
@@ -131,19 +138,18 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 	@Override
 	protected void setListener() {
 		btn_login_login.setOnClickListener(this);
-		btn_login_find_psw.setOnClickListener(this);
-		btn_login_register.setOnClickListener(this);
+		tv_register.setOnClickListener(this);
 		btn_login_back.setOnClickListener(this);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(loadingdialog==null){
+		if (loadingdialog == null) {
 			loadingdialog = new LoadingDialog(this);
 		}
 	}
-	
+
 	/**
 	 * 点击事件
 	 */
@@ -153,17 +159,17 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 		case R.id.btn_login_login:// 登陆
 			login();
 			break;
-		case R.id.btn_login_find_psw:// 找回密码
-			break;
-		case R.id.btn_login_register:// 注册帐号
+		case R.id.tv_register:// 注册帐号
 			startActivity(new Intent(UserLoginActivity.this,
 					UserRegisterActivity.class));
 			finish();
 			overridePendingTransition(R.anim.translate_horizontal_start_in,
 					R.anim.translate_horizontal_start_out);
 			break;
-		case R.id.btn_login_back:
+		case R.id.btn_common_back:
 			finish();
+			overridePendingTransition(R.anim.translate_vertical_finish_in,
+					R.anim.translate_vertical_finish_out);
 			break;
 		}
 	}
@@ -174,6 +180,14 @@ public class UserLoginActivity extends Base2Activity implements OnClickListener 
 	private void login() {
 		String user_name = et_login_user_name.getText().toString().trim();
 		String user_psw = et_login_user_psw.getText().toString().trim();
+		if(user_name.equals("")){
+			ToastUtil.ToastView(UserLoginActivity.this, "请输入您的用户名！");
+			return;
+		}else if(user_psw.equals("")){
+			ToastUtil.ToastView(UserLoginActivity.this, "请输入您的密码！");
+			return;
+		}
+		
 		loadingdialog.show(UserLoginActivity.this);
 		HttpUrlProvider.getIntance().getUserLogin(this,
 				new TaskUserLoginBack(handler), URLConfig.USER_LOGION,

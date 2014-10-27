@@ -77,17 +77,18 @@
     
     
     <!-- 用户注册界面 -->
-    <string name="register_title">注册账户</string>
+    <string name="register_title">用户注册</string>
     <string name="register_hint_phone_number">请输入注册邮箱</string>
     <string name="register_sms_identified">短信验证</string>
     <string name="register_hint_identifying_code">请输入验证码</string>
-    <string name="register_hint_psw">输入6-16位的数字或字母</string>
+    <string name="register_hint_psw">请输入您的密码(6~16位)</string>
     <string name="register_hint_psw2">确认密码</string>
-    <string name="register_hint_user_name">用户名(推荐手机号码)</string>
-    <string name="register_hint_nick_name">昵称</string>
+    <string name="register_hint_user_name">请输入您的手机号码</string>
+    <string name="register_hint_nick_name">请输入您喜欢的昵称</string>
+    <string name="register_hint_email">用户邮箱</string>
     <string name="register_hint_invitation_code">请填写邀请码，没有可以不填</string>
-    <string name="register_please_read_protocol_1">请阅读《</string>
-    <string name="register_please_read_protocol_2">服务协议》</string>
+    <string name="register_please_read_protocol_1">已阅读并同意性多多</string>
+    <string name="register_please_read_protocol_2">注册协议</string>
     <string name="register_agree_protocol">同意协议并注册</string>
     <string name="register_tag_user_name">用户名：</string>
     <string name="register_tag_nick_name">昵称：</string>
@@ -112,11 +113,13 @@
     <string name="update_submit">提交修改</string>
     
     <!-- 用户登录界面 -->
-    <string name="login_hint_user_name">输入您注册的用户名</string>
+    <string name="login_hint_user_name">手机号码/用户名/邮箱</string>
     <string name="login_find_psw">找回密码</string>
-    <string name="login_register">注册帐号</string>
+    <string name="login_register1">没有账户？没关系！</string>
+    <string name="login_register2">注册</string>
+    <string name="login_register3">只需3秒哦~</string>
     <string name="login">登录</string>
-    <string name="login_hint_psw">6到16位字符</string>
+    <string name="login_hint_psw">6~16位密码</string>
 
     <!-- 修改密码界面 -->
     <string name="update_psw_title">修改密码</string>

@@ -186,7 +186,7 @@
 
             <TextView
                 style="@style/txt_style_3"
-                android:text="@string/discuss_taidu"
+                android:text="@string/discuss_sudu"
                 android:textSize="@dimen/txt_size_14" />
 
             <RatingBar

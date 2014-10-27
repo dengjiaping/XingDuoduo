@@ -39,7 +39,7 @@ public class DiscussTotal implements Serializable {
 	}
 
 	public float getGoodsQualityTotal() {
-		return goodsQualityTotal;
+		return (float) ((Math.round(goodsQualityTotal*10))/10.0);
 	}
 
 	public void setGoodsQualityTotal(float goodsQualityTotal) {
@@ -47,7 +47,7 @@ public class DiscussTotal implements Serializable {
 	}
 
 	public float getServiceAttitudeTotal() {
-		return serviceAttitudeTotal;
+		return (float) ((Math.round(serviceAttitudeTotal*10))/10.0);
 	}
 
 	public void setServiceAttitudeTotal(float serviceAttitudeTotal) {
@@ -55,7 +55,7 @@ public class DiscussTotal implements Serializable {
 	}
 
 	public float getDeliverySpeedTotal() {
-		return deliverySpeedTotal;
+		return (float) ((Math.round(deliverySpeedTotal*10))/10.0);
 	}
 
 	public void setDeliverySpeedTotal(float deliverySpeedTotal) {
@@ -63,7 +63,7 @@ public class DiscussTotal implements Serializable {
 	}
 
 	public float getComprScore() {
-		return comprScore;
+		return (float) ((Math.round(comprScore*10))/10.0);
 	}
 
 	public void setComprScore(float comprScore) {

@@ -3,15 +3,20 @@ package com.xiuman.xingduoduo.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
+import com.xiuman.xingduoduo.app.MyApplication;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.model.GoodsOne;
 
@@ -54,7 +59,7 @@ public class LimitBuyGiftListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
+		final ViewHolder holder;
 		if (convertView == null) {
 			convertView = View.inflate(context, R.layout.item_litmitbuy_gift,
 					null);
@@ -72,7 +77,36 @@ public class LimitBuyGiftListViewAdapter extends BaseAdapter {
 		// 添加操作，测试数据
 		imageLoader.displayImage(
 				URLConfig.IMG_IP + goodsone.getSourceImagePath(),
-				holder.iv_lg_goods_poster, options);
+				holder.iv_lg_goods_poster, options, new ImageLoadingListener() {
+
+					@Override
+					public void onLoadingStarted(String arg0, View arg1) {
+
+					}
+
+					@Override
+					public void onLoadingFailed(String arg0, View arg1,
+							FailReason arg2) {
+
+					}
+
+					@Override
+					public void onLoadingComplete(String arg0, View arg1,
+							Bitmap arg2) {
+						int img_width = MyApplication.getInstance()
+								.getScreenWidth();
+						int img_height = (int) (img_width
+								/ (arg2.getWidth() * 1.0) * arg2.getHeight());
+						LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+								img_width, img_height);
+						holder.iv_lg_goods_poster.setLayoutParams(params);
+					}
+
+					@Override
+					public void onLoadingCancelled(String arg0, View arg1) {
+
+					}
+				});
 		holder.tv_lg_goods_name.setText(goodsone.getName());
 
 		return convertView;
@@ -83,7 +117,7 @@ public class LimitBuyGiftListViewAdapter extends BaseAdapter {
 	 * @描述：优化
 	 * @author danding 2014-9-17
 	 */
-	static class ViewHolder {
+	class ViewHolder {
 		// 海报图
 		ImageView iv_lg_goods_poster;
 		// 名字

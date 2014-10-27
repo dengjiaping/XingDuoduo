@@ -246,7 +246,7 @@ public class FragmentBBS extends BaseFragment implements OnClickListener {
 		setLastAdData();
 		// 请求加载数据
 		initFirstData();
-		tv_title.setText("圈套");
+		tv_title.setText("泡吧");
 
 	}
 

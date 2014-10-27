@@ -89,7 +89,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 			e.printStackTrace();
 		}
 		// 注册渠道标识
-		url += httpDataTask.jointToUrl("channel", "nuannuan");
+		url += httpDataTask.jointToUrl("channel", "dianqu3");
 		httpDataTask.execute(url);
 	}
 
@@ -192,7 +192,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 			HttpTaskListener httpTaskListener, String singleurl,
 			String usernameId, String gender, String birth, String name,
 			String areaStore, String address, String zipCode, String phone,
-			String nickname) {
+			String nickname,String email) {
 		String url = URLConfig.BASE_IP + singleurl;
 		HttpDataTask httpDataTask = new HttpDataTask(mContext, httpTaskListener);
 		httpDataTask.setHttpMethod("get");
@@ -230,6 +230,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		url += httpDataTask.jointToUrl("email", email);
 		httpDataTask.execute(url);
 	}
 

@@ -343,7 +343,7 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 	 * @描述：优化
 	 * @author danding 2014-8-16
 	 */
-	static class ViewHolder {
+	class ViewHolder {
 		// 头像
 		CircleImageView iv_item_postinfo_reply_head;
 		// 性别
