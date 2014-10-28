@@ -9,21 +9,25 @@ package com.xiuman.xingduoduo.app;
  * @date：2014-7-29
  */
 public class URLConfig {
-	// 内网图片ip
-	public static final String PRIVATE_IMG_IP = "http://110.81.238.163:8080/bbs3";
-	// bbs内网测试地址
-	public static final String PRIVATE_IP = "http://110.81.238.163:8080/bbs3/app/";
-	//板块图片
-	public static final String PLATE_IMG_IP = "http://110.81.238.163:8080";
-	// 内网图片ip
-//	public static final String PRIVATE_IMG_IP = "http://192.168.16.50:8080";
-	// bbs内网测试地址
-//	public static final String PRIVATE_IP = "http://192.168.16.50:8080/bbs/app/";
+	// // 论坛图片ip
+	// public static final String PRIVATE_IMG_IP =
+	// "http://110.81.238.163:8080/bbs3";
+	// // 论坛帖子ip
+	// public static final String PRIVATE_IP =
+	// "http://110.81.238.163:8080/bbs3/app/";
+	// //板块图片地址
+	// public static final String PLATE_IMG_IP = "http://110.81.238.163:8080";
+	// 论坛图片ip
+	public static final String PRIVATE_IMG_IP = "http://112.124.58.43:8080/bbs3";
+	// 论坛帖子ip
+	public static final String PRIVATE_IP = "http://112.124.58.43:8080/bbs3/app/";
+	// 板块图片地址
+	public static final String PLATE_IMG_IP = "http://112.124.58.43:8080";
 	// 普通帖子
 	public static final String FORUM_LIST_IP = "/new/appTopForumList.jhtml?";
 	// 置顶帖子
 	public static final String FORUM_TOP_LIST_IP = "/new/appUpTopForumList.jhtml?";
-	//精化帖子列表
+	// 精化帖子列表
 	public static final String FORUM_JINGHUA = "/new/appTopForumJingList.jhtml?";
 	// 帖子详情
 	public static final String FORUM_REPLY_LIST_IP = "/new/appPostInfo.jhtml?";
@@ -37,17 +41,16 @@ public class URLConfig {
 	public static final String MY_REPLY_POST_IP = "/new/appMyReplyList.jhtml?";
 	// 我的广告贴
 	public static final String MY_AD_POST_IP = "/new/appUpTopForumList.jhtml?";
-	//论坛板块
+	// 论坛板块
 	public static final String BBS_PLATE = "new/appForumList.jhtml";
-	//上传头像
+	// 上传头像
 	public static final String UPLOAD_HEAD = "/member!updateHeadImage.action?";
-	
 
 	// 接口地址前缀 121.199.57.38
 	public static final String BASE_IP = "http://121.199.57.38/shopxx/shop";
 	// 图片地址前缀
 	public static final String IMG_IP = "http://121.199.57.38/shopxx";
-	//头像上传
+	// 头像上传
 	public static final String MY_HEAD_PHOTO_IP = "/member!fileUpload.action?";
 	// 图文详情
 	public static final String IMG_TXT_IP = "http://121.199.57.38/shopxx/shop/goods!introduction.action?goodId=";
@@ -59,7 +62,7 @@ public class URLConfig {
 	public static final String USER_LOGION = "/member!LonginVer.action?";
 	// 修改密码
 	public static final String UPDATE_PSW = "/member!updateUser.action?";
-	//修改个人信息
+	// 修改个人信息
 	public static final String UPDATE_USER_INFO = "/member!updateProfile.action?";
 	// 收货地址列表
 	public static final String USER_ADDRESSES = "/member!MemberRecive.action?";
@@ -84,20 +87,20 @@ public class URLConfig {
 	public static final String DELETE_ORDER = "/member!DeleteOrderAppList.action?";
 	// 订单列表
 	public static final String ORDER_HISTORY = "/member!OrderListApp.action?";
-	//订单详情
+	// 订单详情
 	public static final String ORDER_INFO = "/member!OrderListDetail.action?";
-	//取消订单
+	// 取消订单
 	public static final String CANCEL_ORDR = "/member!CancelOrder.action?";
-	//确认收货
+	// 确认收货
 	public static final String ORDER_TAKER = "/member!ConfirmReceipt.action?";
-	//平价商品
+	// 平价商品
 	public static final String DISCUSS_GOODS = "/comment!SaveReview.action?";
-	
+
 	// 获取分类
 	public static final String CLASSIFY = "/goods!getGoodsCategoryApp.action";
 	// 搜索
 	public static final String SEARCH = "/goods!getSerachGoodsApp.action?";
-	//热门搜索关键字
+	// 热门搜索关键字
 	public static final String HOT_SEARCH = "/goods!getSearchKey.action";
 
 	/*--------------------商品分类排序接口-------------------*/
@@ -127,17 +130,16 @@ public class URLConfig {
 	/*----------------------------------支付宝相关---------------------------------------*/
 	// 支付宝支付接口
 	public static final String ALIPAY_URL = "/member!payOrderStatus.action?";
-	//传递支付结果到服务端
+	// 传递支付结果到服务端
 	public static final String PAY_STATUS_CODE = "/member!payorderApp.action?";
-	
-	//商城首页广告
+
+	// 商城首页广告
 	public static final String CENTER_AD = "/goods!getHomeAd.action?";
-	//商城首页板块
+	// 商城首页板块
 	public static final String CENTER_HOME_PLATE = "/goods!getGoodsAppByIt.action?";
-	//置顶商品
+	// 置顶商品
 	public static final String STICK_GOODS = "/goods!getGoodsIsTop.action?";
-	//应用推荐
+	// 应用推荐
 	public static final String APP_RECOMMEND = "/comment!androidAppRecommen.action";
-	
-	
+
 }

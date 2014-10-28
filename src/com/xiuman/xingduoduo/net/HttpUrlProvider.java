@@ -89,7 +89,7 @@ public class HttpUrlProvider extends HttpConnWorker {
 			e.printStackTrace();
 		}
 		// 注册渠道标识
-		url += httpDataTask.jointToUrl("channel", "dianqu3");
+		url += httpDataTask.jointToUrl("channel", "androidzhijia");
 		httpDataTask.execute(url);
 	}
 

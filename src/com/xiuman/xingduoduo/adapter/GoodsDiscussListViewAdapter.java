@@ -88,6 +88,9 @@ public class GoodsDiscussListViewAdapter extends BaseAdapter {
 		holder.ratingbar_item.setRating((discuss.getDeliverySpeed()+discuss.getServiceAttitude()+discuss.getGoodsQuality())/3);
 		holder.tv_item_discuss_index.setText(position + 1 + "、");
 		holder.tv_item_discuss_name.setText(discuss.getNickname());
+		if(discuss.getNickname()==null){
+			holder.tv_item_discuss_name.setText("***");
+		}
 		holder.tv_item_discuss_time.setText(TimeUtil.getTimeStr(
 				TimeUtil.strToDate(discuss.getCreateTime()), new Date()));
 		holder.tv_item_discuss_content.setText(discuss.getContent());
