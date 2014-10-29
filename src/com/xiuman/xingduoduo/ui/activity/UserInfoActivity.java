@@ -154,7 +154,7 @@ public class UserInfoActivity extends Base2Activity implements OnClickListener {
 		// 在ImageView加载过程中显示图片
 				.showImageForEmptyUri(R.drawable.bg_head) // image连接地址为空时
 				.showImageOnFail(R.drawable.bg_head) // image加载失败
-				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
+				.cacheInMemory(false) // 加载图片时会在内存中加载缓存
 				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
 				.imageScaleType(ImageScaleType.NONE).build();
 		cropUtils = new ImageCropUtils(this);

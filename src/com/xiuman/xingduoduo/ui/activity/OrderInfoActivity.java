@@ -3,7 +3,6 @@ package com.xiuman.xingduoduo.ui.activity;
 import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import com.alipay.android.app.sdk.AliPay;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.OrderInfoListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
@@ -40,6 +38,7 @@ import com.xiuman.xingduoduo.pay.alipay.Result;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
+import com.xiuman.xingduoduo.util.options.CustomOptions;
 import com.xiuman.xingduoduo.view.CustomDialog;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 
@@ -252,19 +251,9 @@ public class OrderInfoActivity extends Base2Activity implements OnClickListener 
 		setListener();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
-		options = new DisplayImageOptions.Builder()
-		// .showStubImage(R.drawable.weiboitem_pic_loading) //
-		// 在ImageView加载过程中显示图片
-		.showImageOnLoading(R.drawable.onloading)
-				.showImageForEmptyUri(R.drawable.onloading) // image连接地址为空时
-				.showImageOnFail(R.drawable.onloading) // image加载失败
-				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
-				.bitmapConfig(Bitmap.Config.RGB_565)
-				.imageScaleType(ImageScaleType.NONE).build();
+		options = CustomOptions.getOptions2();
 
 		order_id = getIntent().getExtras().getString("order_id");
 		// 设置默认返回值cancel(列表界面是否刷新)

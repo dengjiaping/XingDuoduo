@@ -147,12 +147,12 @@ public class CircleImageView extends ImageView {
         setup();
     }
 
-    @Override
-    public void setImageDrawable(Drawable drawable) {
-        super.setImageDrawable(drawable);
-        mBitmap = getBitmapFromDrawable(drawable);
-        setup();
-    }
+//    @Override
+//    public void setImageDrawable(Drawable drawable) {
+//        super.setImageDrawable(drawable);
+//        mBitmap = getBitmapFromDrawable(drawable);
+//        setup();
+//    }
 
     @Override
     public void setImageResource(int resId) {

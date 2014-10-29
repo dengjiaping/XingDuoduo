@@ -22,7 +22,7 @@
 
             <!-- 头像 -->
 
-            <com.xiuman.xingduoduo.view.CircleImageView
+            <ImageView
                 android:id="@+id/iv_item_post_plate_post_head"
                 android:layout_width="40dip"
                 android:layout_height="40dip"

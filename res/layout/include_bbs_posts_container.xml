@@ -13,6 +13,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="10dip"
+        android:paddingLeft="10dip"
         android:paddingTop="10dip" >
 
         <ImageView
@@ -38,7 +39,7 @@
                 android:id="@+id/tv_bbs_plate_description"
                 style="@style/txt_style_23"
                 android:layout_marginTop="8dip"
-                android:lines="3"
+                android:lines="2"
                 android:paddingRight="10dip"
                 android:textSize="@dimen/txt_size_15" />
         </LinearLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 import com.xiuman.xingduoduo.app.AppManager;
 
@@ -27,6 +28,7 @@ public abstract class BaseActivity extends FragmentActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		ImageLoader.getInstance().clearMemoryCache();
 		AppManager.getAppManager().finishActivity(this);
 	}
 	@Override

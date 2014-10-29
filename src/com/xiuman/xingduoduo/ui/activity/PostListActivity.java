@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import com.umeng.analytics.MobclickAgent;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.model.BBSPlate;
 import com.xiuman.xingduoduo.ui.base.BaseActivity;
@@ -58,6 +59,8 @@ public class PostListActivity extends BaseActivity implements OnClickListener,
 		// 从上级界面接收到的板块信息
 		plate = (BBSPlate) getIntent().getExtras().getSerializable("bbs_plate");
 		setPlate(plate);
+		// 统计页面时长开始
+		MobclickAgent.onEventBegin(this, "BBS_" + plate.getId());
 	}
 
 	@Override
@@ -77,6 +80,12 @@ public class PostListActivity extends BaseActivity implements OnClickListener,
 		btn_back.setOnClickListener(this);
 		rg_container.setOnCheckedChangeListener(this);
 		btn_right.setOnClickListener(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		MobclickAgent.onEventEnd(this, "BBS_" + plate.getId());
 	}
 
 	/**

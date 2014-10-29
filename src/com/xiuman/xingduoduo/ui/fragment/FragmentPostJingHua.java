@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -18,9 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.PlatePostListViewAdapter;
@@ -39,6 +36,7 @@ import com.xiuman.xingduoduo.ui.base.BaseFragment;
 import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
+import com.xiuman.xingduoduo.util.options.CustomOptions;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.floatbutton.FloatingActionButton;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
@@ -81,8 +79,6 @@ public class FragmentPostJingHua extends BaseFragment implements
 	/*-------------------------------------ImageLoader-------------------------*/
 	// ImageLoader
 	public ImageLoader imageLoader = ImageLoader.getInstance();
-	// 配置图片加载及显示选项
-	public DisplayImageOptions options;
 
 	/*----------------------------------标记----------------------------------*/
 	// 是上拉还是下拉
@@ -127,7 +123,7 @@ public class FragmentPostJingHua extends BaseFragment implements
 					if (isUp) {
 						bbspost = bbspost_get;
 						adapter = new PlatePostListViewAdapter(getActivity(),
-								options, imageLoader, bbspost);
+								 imageLoader, bbspost);
 						lv_posts.setAdapter(adapter);
 						// 下拉加载完成
 						pullsv_post.onPullDownRefreshComplete();
@@ -184,24 +180,8 @@ public class FragmentPostJingHua extends BaseFragment implements
 		return view;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
-		options = new DisplayImageOptions.Builder()
-				// .showStubImage(R.drawable.onloadong_post) //
-				.showImageOnLoading(R.drawable.onloading)
-				// 在ImageView加载过程中显示图片
-				.showImageForEmptyUri(R.drawable.onloading)
-				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloading)
-				// image加载失败
-				// .resetViewBeforeLoading(false)
-				.cacheInMemory(false)
-				// 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true)
-				// 加载图片时会在磁盘中加载缓存
-				.bitmapConfig(Bitmap.Config.RGB_565)
-				.imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
 		activity = (PostListActivity) getActivity();
 		plate = activity.getPlate();
 	}
@@ -244,7 +224,7 @@ public class FragmentPostJingHua extends BaseFragment implements
 	@Override
 	protected void initUI() {
 		imageLoader.displayImage(URLConfig.PLATE_IMG_IP + plate.getLogo(),
-				iv_plate_icon, options);
+				iv_plate_icon, CustomOptions.getOptions2());
 		tv_plate_name.setText(plate.getTitle());
 		tv_plate_description.setText(plate.getDescription());
 

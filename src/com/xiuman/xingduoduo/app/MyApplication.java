@@ -29,8 +29,8 @@ import android.os.Environment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
-import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -96,7 +96,6 @@ public class MyApplication extends Application {
 		}
 		File cacheDir = getOwnCacheDirectory(getApplicationContext(),
 				"xddcache");
-
 		/** 初始化图片加载类配置信息 **/
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				this)
@@ -141,12 +140,15 @@ public class MyApplication extends Application {
 
 				// 现
 				.threadPoolSize(threadPoolSize).threadPriority(0)
+				.memoryCacheExtraOptions(480, 800) // 在内存中存放的图片大小
 				.denyCacheImageMultipleSizesInMemory()
-				.memoryCache(new WeakMemoryCache())
+				.memoryCache(new LruMemoryCache((int) (Runtime.getRuntime().maxMemory()*0.2f)))
 				.discCache(new UnlimitedDiscCache(cacheDir))
-				.discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+				.memoryCacheSize((int) (Runtime.getRuntime().maxMemory()*0.2f))
+				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
 				.defaultDisplayImageOptions(DisplayImageOptions.createSimple())
-				.tasksProcessingOrder(QueueProcessingType.LIFO).build();
+				.tasksProcessingOrder(QueueProcessingType.LIFO)
+				.build();
 		ImageLoader.getInstance().init(config);
 		httpClient = this.createHttpClient();
 	}

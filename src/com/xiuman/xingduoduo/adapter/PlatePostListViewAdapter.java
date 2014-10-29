@@ -26,7 +26,7 @@ import com.xiuman.xingduoduo.model.BBSPost;
 import com.xiuman.xingduoduo.ui.activity.HeadImgViewActivity;
 import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.TimeUtil;
-import com.xiuman.xingduoduo.view.CircleImageView;
+import com.xiuman.xingduoduo.util.options.CustomOptions;
 
 /**
  * @名称：PlatePostListViewAdapter.java
@@ -36,16 +36,15 @@ import com.xiuman.xingduoduo.view.CircleImageView;
 public class PlatePostListViewAdapter extends BaseAdapter {
 
 	private Context context;
-	public DisplayImageOptions options;// 配置图片加载及显示选项
+	public DisplayImageOptions options = CustomOptions.getOptions2();// 配置图片加载及显示选项
+	public DisplayImageOptions options2 = CustomOptions.getOptions3();// 配置图片加载及显示选项
 	public ImageLoader imageLoader;
 	private ArrayList<BBSPost> posts;
 
-	public PlatePostListViewAdapter(Context context,
-			DisplayImageOptions options, ImageLoader imageLoader,
+	public PlatePostListViewAdapter(Context context, ImageLoader imageLoader,
 			ArrayList<BBSPost> posts) {
 		super();
 		this.context = context;
-		this.options = options;
 		this.imageLoader = imageLoader;
 		this.posts = posts;
 	}
@@ -93,7 +92,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 			holder.llyt_item_bbs_plate_post_img_container = (LinearLayout) convertView
 					.findViewById(R.id.llyt_item_bbs_plate_post_img_container);
 
-			holder.iv_item_post_plate_post_head = (CircleImageView) convertView
+			holder.iv_item_post_plate_post_head = (ImageView) convertView
 					.findViewById(R.id.iv_item_post_plate_post_head);
 			holder.iv_item_post_plate_post_sex = (ImageView) convertView
 					.findViewById(R.id.iv_item_post_plate_post_sex);
@@ -119,7 +118,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 		}
 		// 头像
 		imageLoader.displayImage(URLConfig.IMG_IP + post.getAvatar(),
-				holder.iv_item_post_plate_post_head, options,
+				holder.iv_item_post_plate_post_head, options2,
 				new ImageLoadingListener() {
 
 					@Override
@@ -147,7 +146,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 					public void onLoadingCancelled(String arg0, View arg1) {
 					}
 				});
-		//精化
+		// 精化
 		if (post.getJinghua() == 1) {
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 					SizeUtil.dip2px(context, 20), SizeUtil.dip2px(context, 20));
@@ -160,10 +159,10 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 			holder.iv_item_post_plate_post_jinghua
 					.setVisibility(View.INVISIBLE);
 		}
-		//版主
-		if(post.isModeratorReply()){
+		// 版主
+		if (post.isModeratorReply()) {
 			holder.iv_item_post_plate_post_banzhu.setVisibility(View.VISIBLE);
-		}else{
+		} else {
 			holder.iv_item_post_plate_post_banzhu.setVisibility(View.INVISIBLE);
 		}
 		holder.tv_item_bbs_plate_post_title.setText(post.getTitle());
@@ -175,12 +174,12 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 		holder.tv_item_bbs_plate_post_reply.setText(post.getReplyCount() + "");
 		holder.tv_item_bbs_plate_post_time.setText(TimeUtil.getTimeStr(
 				TimeUtil.strToDate(post.getLastTime()), new Date()));
-		//推荐
-		if (post.getStyleColor() == null || post.getStyleColor() == "") {
+		// 推荐
+		if (post.getStyleColor()!=null&&!post.getStyleColor().equals("")&&post.getStyleColor().equals("FF0000")) {
+			holder.iv_item_post_plate_post_tuijian.setVisibility(View.VISIBLE);
+		} else {
 			holder.iv_item_post_plate_post_tuijian
 					.setVisibility(View.INVISIBLE);
-		} else {
-			holder.iv_item_post_plate_post_tuijian.setVisibility(View.VISIBLE);
 		}
 		// 图片数
 		int number = 0;
@@ -264,7 +263,7 @@ public class PlatePostListViewAdapter extends BaseAdapter {
 
 	static class ViewHolder {
 		// 用户头像
-		public CircleImageView iv_item_post_plate_post_head;
+		public ImageView iv_item_post_plate_post_head;
 		// 用户性别
 		public ImageView iv_item_post_plate_post_sex;
 		// 标题

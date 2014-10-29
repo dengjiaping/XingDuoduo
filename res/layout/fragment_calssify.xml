@@ -38,20 +38,21 @@
             android:layout_height="40dip"
             android:layout_alignParentRight="true"
             android:layout_margin="3dip"
-            android:visibility="invisible"
-            android:background="@drawable/bg_btn_search" />
+            android:background="@drawable/bg_btn_search"
+            android:visibility="invisible" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dip"
         android:background="@color/color_bg"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip" >
 
         <!-- 搜索界面的标题栏 -->
+
 
         <!-- 输入框 -->
 
@@ -68,7 +69,9 @@
             android:singleLine="true"
             android:textSize="@dimen/txt_size_15" />
     </LinearLayout>
-	<include layout="@layout/line_match"/>
+
+    <include layout="@layout/line_match" />
+
     <LinearLayout
         style="@style/txt_style_base3"
         android:orientation="horizontal"

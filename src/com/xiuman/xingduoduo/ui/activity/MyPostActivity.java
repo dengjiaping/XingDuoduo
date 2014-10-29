@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -16,9 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.PlatePostListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
@@ -64,8 +61,6 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 	/*-------------------------------------ImageLoader-------------------------*/
 	// ImageLoader
 	public ImageLoader imageLoader = ImageLoader.getInstance();
-	// 配置图片加载及显示选项
-	public DisplayImageOptions options;
 
 	/*----------------------------------标记----------------------------------*/
 	// 是上拉还是下拉
@@ -105,7 +100,7 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 					if (isUp) {
 						bbspost = bbspost_get;
 						adapter = new PlatePostListViewAdapter(
-								MyPostActivity.this, options, imageLoader,
+								MyPostActivity.this, imageLoader,
 								bbspost);
 						lv_posts.setAdapter(adapter);
 						// 下拉加载完成
@@ -150,23 +145,8 @@ public class MyPostActivity extends Base2Activity implements OnClickListener {
 		setListener();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
-		options = new DisplayImageOptions.Builder()
-				// .showStubImage(R.drawable.weiboitem_pic_loading) //
-				// 在ImageView加载过程中显示图片
-				.showImageOnLoading(R.drawable.onloading)
-				.showImageForEmptyUri(R.drawable.onloading)
-				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloading)
-				// image加载失败
-				.cacheInMemory(false)
-				// 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true)
-				// 加载图片时会在磁盘中加载缓存
-				.bitmapConfig(Bitmap.Config.RGB_565)
-				.imageScaleType(ImageScaleType.NONE).build();
 		if (MyApplication.getInstance().isUserLogin()) {
 			userId = MyApplication.getInstance().getUserInfo().getUser_id();
 		}

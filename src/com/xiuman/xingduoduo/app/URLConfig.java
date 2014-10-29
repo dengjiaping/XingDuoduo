@@ -140,6 +140,6 @@ public class URLConfig {
 	// 置顶商品
 	public static final String STICK_GOODS = "/goods!getGoodsIsTop.action?";
 	// 应用推荐
-	public static final String APP_RECOMMEND = "/comment!androidAppRecommen.action";
+	public static final String APP_RECOMMEND = "/comment!androidIosAppRecommend.action?systemCategory=1&pageApp=1&pageSizeApp=100";
 
 }

@@ -3,7 +3,6 @@ package com.xiuman.xingduoduo.ui.fragment;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,9 +16,7 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.GoodsDiscussListViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
@@ -100,8 +97,6 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 	/*-----------------------ImageLoader-----------------------------*/
 	// ImageLoader
 	public ImageLoader imageLoader = ImageLoader.getInstance();
-	// 配置图片加载及显示选项
-	public DisplayImageOptions options;
 
 	// 数据处理
 	@SuppressLint("HandlerLeak")
@@ -129,8 +124,7 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 						setTotal(discussTotal);
 
 						adapter = new GoodsDiscussListViewAdapter(
-								getActivity(), discusses_current, options,
-								imageLoader);
+								getActivity(), discusses_current, imageLoader);
 						// 下拉加载完成
 						pulllistview_discuss.onPullDownRefreshComplete();
 						lv_discuss.setAdapter(adapter);
@@ -177,23 +171,8 @@ public class FragmentGoodsDiscuss extends BaseFragment implements
 		return view;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
-		options = new DisplayImageOptions.Builder()
-				// .showStubImage(R.drawable.weiboitem_pic_loading) //
-				// 在ImageView加载过程中显示图片
-				.showImageOnLoading(R.drawable.onloading)
-				.showImageForEmptyUri(R.drawable.ic_male)
-				// image连接地址为空时
-				.showImageOnFail(R.drawable.ic_male)
-				// image加载失败
-				.cacheInMemory(true)
-				// 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true)
-				// 加载图片时会在磁盘中加载缓存
-				.bitmapConfig(Bitmap.Config.RGB_565)
-				.imageScaleType(ImageScaleType.NONE).build();
 		activity = (GoodsInfoDiscussActivity) getActivity();
 		goods_id = activity.getGoods_id();
 	}

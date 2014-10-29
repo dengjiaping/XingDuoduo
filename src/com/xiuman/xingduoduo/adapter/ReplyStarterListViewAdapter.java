@@ -32,7 +32,7 @@ import com.xiuman.xingduoduo.ui.activity.HeadImgViewActivity;
 import com.xiuman.xingduoduo.ui.activity.PostImgViewActivity;
 import com.xiuman.xingduoduo.util.SizeUtil;
 import com.xiuman.xingduoduo.util.TimeUtil;
-import com.xiuman.xingduoduo.view.CircleImageView;
+import com.xiuman.xingduoduo.util.options.CustomOptions;
 
 /**
  * @名称：PostReplyListViewAdapter.java
@@ -43,16 +43,15 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 
 	private Context context;
 	private ArrayList<BBSPostReply> replys;
-	public DisplayImageOptions options;// 配置图片加载及显示选项
+	public DisplayImageOptions options = CustomOptions.getOptions1();// 配置图片加载及显示选项
+	public DisplayImageOptions options2 = CustomOptions.getOptions3();// 配置图片加载及显示选项
 	public ImageLoader imageLoader;
 
 	public ReplyStarterListViewAdapter(Context context,
-			ArrayList<BBSPostReply> replys, DisplayImageOptions options,
-			ImageLoader imageLoader) {
+			ArrayList<BBSPostReply> replys, ImageLoader imageLoader) {
 		super();
 		this.context = context;
 		this.replys = replys;
-		this.options = options;
 		this.imageLoader = imageLoader;
 	}
 
@@ -73,12 +72,11 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final ViewHolder holder;
 		if (position == 0) {
 			View view = View.inflate(context,
 					R.layout.include_postinfo_container, null);
 			// 头像
-			final CircleImageView iv_postinfo_starter_head = (CircleImageView) view
+			final ImageView iv_postinfo_starter_head = (ImageView) view
 					.findViewById(R.id.iv_postinfo_starter_head);
 			// 性别
 			ImageView iv_postinfo_starter_sex = (ImageView) view
@@ -109,16 +107,17 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 			// 精化
 			ImageView iv_postinfo_plate_post_jinghua = (ImageView) view
 					.findViewById(R.id.iv_postinfo_plate_post_jinghua);
-			
-			//版主
-			ImageView iv_postinfo_starter_banzhu = (ImageView) view.findViewById(R.id.iv_postinfo_starter_banzhu);
-			
+
+			// 版主
+			ImageView iv_postinfo_starter_banzhu = (ImageView) view
+					.findViewById(R.id.iv_postinfo_starter_banzhu);
+
 			// 设置数据
 			final BBSPostReply postinfo_starter = replys.get(position);
 			// 头像
 			imageLoader.displayImage(
 					URLConfig.IMG_IP + postinfo_starter.getAvatar(),
-					iv_postinfo_starter_head, options,
+					iv_postinfo_starter_head, options2,
 					new ImageLoadingListener() {
 
 						@Override
@@ -163,16 +162,17 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 				iv_postinfo_plate_post_jinghua.setVisibility(View.INVISIBLE);
 			}
 			// 推荐
-			if (postinfo_starter.getStyleColor() == null
-					|| postinfo_starter.getStyleColor() == "") {
-				iv_postinfo_tag.setVisibility(View.INVISIBLE);
-			} else {
+			if (postinfo_starter.getStyleColor() != null
+					&& !postinfo_starter.getStyleColor().equals("")
+					&& postinfo_starter.getStyleColor().equals("FF0000")) {
 				iv_postinfo_tag.setVisibility(View.VISIBLE);
+			} else {
+				iv_postinfo_tag.setVisibility(View.INVISIBLE);
 			}
-			//是否版主
-			if(postinfo_starter.isModeratorReply()){
+			// 是否版主
+			if (postinfo_starter.isModeratorReply()) {
 				iv_postinfo_starter_banzhu.setVisibility(View.VISIBLE);
-			}else{
+			} else {
 				iv_postinfo_starter_banzhu.setVisibility(View.INVISIBLE);
 			}
 			// 性别
@@ -238,10 +238,11 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 
 			return view;
 		} else {
+			final ViewHolder holder;
 			View view2 = View.inflate(context,
 					R.layout.item_postinfo_reply_starter, null);
 			holder = new ViewHolder();
-			holder.iv_item_postinfo_reply_head = (CircleImageView) view2
+			holder.iv_item_postinfo_reply_head = (ImageView) view2
 					.findViewById(R.id.iv_item_postinfo_reply_head);
 			holder.iv_item_postinfo_reply_sex = (ImageView) view2
 					.findViewById(R.id.iv_item_postinfo_reply_sex);
@@ -255,11 +256,10 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.tv_item_postinfo_reply_floor);
 			holder.btn_item_postinfo_starter_reply = (Button) view2
 					.findViewById(R.id.btn_item_postinfo_starter_reply);
-
 			final BBSPostReply reply = replys.get(position);
 			// 头像
 			imageLoader.displayImage(URLConfig.IMG_IP + reply.getAvatar(),
-					holder.iv_item_postinfo_reply_head, options,
+					holder.iv_item_postinfo_reply_head, options2,
 					new ImageLoadingListener() {
 
 						@Override
@@ -345,7 +345,7 @@ public class ReplyStarterListViewAdapter extends BaseAdapter {
 	 */
 	class ViewHolder {
 		// 头像
-		CircleImageView iv_item_postinfo_reply_head;
+		ImageView iv_item_postinfo_reply_head;
 		// 性别
 		ImageView iv_item_postinfo_reply_sex;
 		// 用户名

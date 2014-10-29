@@ -11,11 +11,11 @@ import android.view.View;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.app.URLConfig;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
+import com.xiuman.xingduoduo.util.options.CustomOptions;
 import com.xiuman.xingduoduo.view.OnlyImageView;
 
 /**
@@ -56,19 +56,10 @@ public class HeadImgViewActivity extends Base2Activity implements
 		doGestureEvent();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
 		// 配置图片加载及显示选项（还有一些其他的配置，查阅doc文档吧）
-		options = new DisplayImageOptions.Builder()
-				// .showStubImage(R.drawable.weiboitem_pic_loading) //
-				// 在ImageView加载过程中显示图片
-				.showImageOnLoading(R.drawable.onloading)
-				.showImageForEmptyUri(R.drawable.onloading) // image连接地址为空时
-				.showImageOnFail(R.drawable.onloading) // image加载失败
-				.cacheInMemory(true) // 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
-				.imageScaleType(ImageScaleType.NONE).build();
+		options = CustomOptions.getOptions2();
 
 		user_sex = getIntent().getExtras().getBoolean("user_sex");
 		user_head = getIntent().getExtras().getString("user_head");
@@ -116,6 +107,12 @@ public class HeadImgViewActivity extends Base2Activity implements
 	protected void setListener() {
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		imageLoader.stop();
+		imageLoader.clearMemoryCache();
+	}
 	public void doGestureEvent() {
 		gestureScanner = new GestureDetector(this, this);
 		gestureScanner

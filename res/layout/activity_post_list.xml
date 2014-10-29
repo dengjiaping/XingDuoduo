@@ -28,8 +28,8 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:layout_margin="3dip"
-            android:checkedButton="@+id/rbtn_post_new"
             android:background="@drawable/rbtn_goods_info_discuss_bg_selector"
+            android:checkedButton="@+id/rbtn_post_new"
             android:orientation="horizontal"
             android:padding="1dip" >
 

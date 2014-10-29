@@ -86,8 +86,8 @@
 -keep class android.support.v4.**{*;}
 -dontwarn android.support.v4.**
 
-#universal-image-loader-1.9.2.jar
--libraryjars libs/universal-image-loader-1.9.2.jar
+#universal-image-loader-1.9.3.jar
+-libraryjars libs/universal-image-loader-1.9.3.jar
 -keep class com.nostra13.universalimageloader.** { *; }
 -dontwarn com.nostra13.universalimageloader.**
 

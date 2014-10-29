@@ -3,10 +3,8 @@ package com.xiuman.xingduoduo.ui.activity;
 import java.util.ArrayList;
 
 import u.aly.T;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.CollectionGridViewAdapter;
 import com.xiuman.xingduoduo.app.AppConfig;
@@ -35,6 +32,7 @@ import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.TimeUtil;
 import com.xiuman.xingduoduo.util.ToastUtil;
+import com.xiuman.xingduoduo.util.options.CustomOptions;
 import com.xiuman.xingduoduo.view.LoadingDialog;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase;
 import com.xiuman.xingduoduo.view.pulltorefresh.PullToRefreshBase.OnRefreshListener;
@@ -113,7 +111,8 @@ public class CollectionActivity extends Base2Activity implements
 				collection_get = (ArrayList<GoodsOne>) value_collections
 						.getDatasource();
 
-				if (!value_collections.isSuccess()&&collection_current.size()==0) {// 收藏列表为空
+				if (!value_collections.isSuccess()
+						&& collection_current.size() == 0) {// 收藏列表为空
 					llyt_collection_null_collection.setVisibility(View.VISIBLE);
 				} else {
 					if (isUp) {// 下拉
@@ -200,19 +199,9 @@ public class CollectionActivity extends Base2Activity implements
 		setListener();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
-		options = new DisplayImageOptions.Builder()
-		// .showStubImage(R.drawable.weiboitem_pic_loading) //
-		// 在ImageView加载过程中显示图片
-		.showImageOnLoading(R.drawable.onloading)
-				.showImageForEmptyUri(R.drawable.onloading) // image连接地址为空时
-				.showImageOnFail(R.drawable.onloading) // image加载失败
-				.cacheInMemory(false) // 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
-				.bitmapConfig(Bitmap.Config.RGB_565)
-				.imageScaleType(ImageScaleType.NONE).build();
+		options = CustomOptions.getOptions2();
 		// 上级界面传递过来的用户数据
 		user = (User) getIntent().getExtras().getSerializable("user");
 	}
@@ -320,7 +309,7 @@ public class CollectionActivity extends Base2Activity implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(loadingdialog==null){
+		if (loadingdialog == null) {
 			loadingdialog = new LoadingDialog(this);
 		}
 	}
@@ -351,7 +340,7 @@ public class CollectionActivity extends Base2Activity implements
 			startActivity(intent_main);
 			finish();
 			break;
-		case R.id.llyt_network_error://重新加载
+		case R.id.llyt_network_error:// 重新加载
 			currentPage = 1;
 			initFirstData(currentPage);
 			break;
@@ -371,16 +360,18 @@ public class CollectionActivity extends Base2Activity implements
 		loadingdialog.show(CollectionActivity.this);
 
 	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode==AppConfig.RESULT_CODE_OK){
+		if (resultCode == AppConfig.RESULT_CODE_OK) {
 			// 加载数据，测试数据，添加操作
 			pullgridview.doPullRefreshing(true, 500);
 			// 设置刷新时间
 			TimeUtil.setLastUpdateTime2(pullgridview);
 		}
 	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

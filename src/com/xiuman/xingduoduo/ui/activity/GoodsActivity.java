@@ -6,7 +6,6 @@ import java.util.List;
 import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -40,7 +39,6 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.GoodsImgsViewPagerAdapter;
 import com.xiuman.xingduoduo.adapter.GoodsRecommendHListViewAdapter;
@@ -61,6 +59,7 @@ import com.xiuman.xingduoduo.model.User;
 import com.xiuman.xingduoduo.net.HttpUrlProvider;
 import com.xiuman.xingduoduo.ui.base.Base2Activity;
 import com.xiuman.xingduoduo.util.ToastUtil;
+import com.xiuman.xingduoduo.util.options.CustomOptions;
 import com.xiuman.xingduoduo.view.BadgeView;
 import com.xiuman.xingduoduo.view.CustomDialog;
 import com.xiuman.xingduoduo.view.HorizontalListView;
@@ -361,24 +360,10 @@ public class GoodsActivity extends Base2Activity implements OnClickListener {
 		setListener();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
 
-		options = new DisplayImageOptions.Builder()
-				// .showStubImage(R.drawable.weiboitem_pic_loading) //
-				// 在ImageView加载过程中显示图片
-				.showImageOnLoading(R.drawable.onloading)
-				.showImageForEmptyUri(R.drawable.onloading)
-				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloading)
-				// image加载失败
-				.cacheInMemory(true)
-				// 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true)
-				// 加载图片时会在磁盘中加载缓存
-				.bitmapConfig(Bitmap.Config.RGB_565)
-				.imageScaleType(ImageScaleType.NONE).build();
+		options = CustomOptions.getOptions2();
 
 		// 获取屏幕宽高
 		DisplayMetrics dm = new DisplayMetrics();

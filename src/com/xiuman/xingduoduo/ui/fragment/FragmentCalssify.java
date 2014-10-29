@@ -25,6 +25,7 @@ import android.widget.ListView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.umeng.analytics.MobclickAgent;
 import com.xiuman.xingduoduo.R;
 import com.xiuman.xingduoduo.adapter.ClassifyGridviewAdapter;
 import com.xiuman.xingduoduo.adapter.ClassifyListViewAdapter;
@@ -195,6 +196,8 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 		classify_adapter = new ClassifyGridviewAdapter(options, imageLoader,
 				b_classies, getActivity(), bcWidth);
 		gridview_good_classify.setAdapter(classify_adapter);
+		//统计第一个一级分类
+		MobclickAgent.onEvent(getActivity(), "Category_"+1);
 	}
 
 	/**
@@ -259,6 +262,8 @@ public class FragmentCalssify extends BaseFragment implements OnClickListener {
 						imageLoader, b_classies, getActivity(), bcWidth);
 				gridview_good_classify.setAdapter(classify_adapter);
 				startSildingInAnimation(position);
+				//统计第一个一级分类
+				MobclickAgent.onEvent(getActivity(), "Category_"+(position+1));
 
 			}
 		});

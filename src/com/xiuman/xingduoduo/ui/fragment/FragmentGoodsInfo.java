@@ -63,6 +63,7 @@ public class FragmentGoodsInfo extends BaseFragment {
 				.findViewById(R.id.llyt_goods_null_img);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void initUI() {
 		// 图片连接是否为空

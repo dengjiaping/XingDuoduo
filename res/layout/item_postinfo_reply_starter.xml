@@ -7,10 +7,11 @@
     <!-- 回复楼主的帖子item -->
     <!-- 头像 -->
 
-    <com.xiuman.xingduoduo.view.CircleImageView
+    <ImageView
         android:id="@+id/iv_item_postinfo_reply_head"
         android:layout_width="30dip"
         android:layout_height="30dip"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_male" />
 
     <LinearLayout

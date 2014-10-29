@@ -6,7 +6,6 @@ import u.aly.T;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -27,9 +26,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.umeng.socialize.bean.RequestType;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -79,7 +76,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	// 回复帖子列表
 	private ListView lv_postinfo_replys;
 
-	//回复container
+	// 回复container
 	private LinearLayout llyt_reply_container;
 	// 回复输入框
 	private EditText et_reply;
@@ -94,8 +91,6 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	/*---------------------------ImageLoader------------------------------------*/
 	// ImageLoader
 	public ImageLoader imageLoader = ImageLoader.getInstance();
-	// 配置图片加载及显示选项
-	public DisplayImageOptions options;
 
 	// 控制软键盘的显示与隐藏
 	private InputMethodManager imm;
@@ -145,7 +140,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 						postinfo_starter = bbsReply.get(0);
 						// 回复楼层
 						adapter = new ReplyStarterListViewAdapter(
-								PostInfoActivity.this, bbsReply, options,
+								PostInfoActivity.this, bbsReply,
 								imageLoader);
 						lv_postinfo_replys.setAdapter(adapter);
 						// 下拉加载完成
@@ -160,7 +155,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					}
 					pulllv_postinfo.setHasMoreData(true);
 				} else {
-//					ToastUtil.ToastView(PostInfoActivity.this, "没有更多回复！");
+					// ToastUtil.ToastView(PostInfoActivity.this, "没有更多回复！");
 					// 上拉刷新完成
 					pulllv_postinfo.onPullUpRefreshComplete();
 					pulllv_postinfo.setHasMoreData(false);
@@ -208,34 +203,19 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		setListener();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void initData() {
-		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.onloading)
-				.showImageForEmptyUri(R.drawable.onloading)
-				// image连接地址为空时
-				.showImageOnFail(R.drawable.onloading)
-				// image加载失败
-				.cacheInMemory(true)
-				// 加载图片时会在内存中加载缓存
-				.cacheOnDisc(true)
-				// 加载图片时会在磁盘中加载缓存
-				.imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)
-				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		// 从上级界面接收到的帖子
-		// BBSPost postinfo_starte = (BBSPost)
-		// getIntent().getExtras().getSerializable(
-		// "postinfo_starter");
+		// 帖子id
 		post_id = getIntent().getExtras().getString("postinfo_starter");
+		// 板块id
 		forumId = getIntent().getExtras().getString("forumId");
 		if (MyApplication.getInstance().isUserLogin()) {
 			user = MyApplication.getInstance().getUserInfo();
 			userId = user.getUser_id();
 		}
-		
-		//初始化微信分享
+
+		// 初始化微信分享
 		initShare();
 	}
 
@@ -269,8 +249,8 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	protected void initUI() {
 		tv_postinfo_title.setText(R.string.postinfo_title);
 		initPostInfo();
-		lv_postinfo_replys.setOnScrollListener(new PauseOnScrollListener(ImageLoader
-				.getInstance(), true, false));
+		lv_postinfo_replys.setOnScrollListener(new PauseOnScrollListener(
+				ImageLoader.getInstance(), true, false));
 	}
 
 	@Override
@@ -295,12 +275,13 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 				getReply(currentPage);
 			}
 		});
+
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(loadingdialog==null){
+		if (loadingdialog == null) {
 			loadingdialog = new LoadingDialog(this);
 		}
 		if (MyApplication.getInstance().isUserLogin()) {
@@ -385,15 +366,15 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			overridePendingTransition(R.anim.translate_horizontal_start_in,
 					R.anim.translate_horizontal_start_out);
 			break;
-		case R.id.btn_weixin://分享到微信
-//			startShare(true);
+		case R.id.btn_weixin:// 分享到微信
+			// startShare(true);
 			dismissPop();
 			break;
-		case R.id.btn_weixin_circle://朋友圈
-//			startShare(false);
+		case R.id.btn_weixin_circle:// 朋友圈
+			// startShare(false);
 			dismissPop();
 			break;
-		case R.id.btn_pop_post_cancel://取消分享
+		case R.id.btn_pop_post_cancel:// 取消分享
 			dismissPop();
 			break;
 		}
@@ -444,8 +425,8 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 	private Button btn_pop_post_cancel;
 	/*--------------------------友盟分享--------------------------*/
 	public static final String DESCRIPTOR = "com.umeng.share";
-	private UMSocialService mController = UMServiceFactory
-			.getUMSocialService(DESCRIPTOR,RequestType.SOCIAL);
+	private UMSocialService mController = UMServiceFactory.getUMSocialService(
+			DESCRIPTOR, RequestType.SOCIAL);
 
 	/**
 	 * @描述：初始化微信分享
@@ -466,11 +447,13 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 		wxCircleHandler.setToCircle(true);
 		wxCircleHandler.addToSocialSDK();
 	}
+
 	/**
 	 * @描述：设置分享内容
 	 * @时间 2014-10-16
 	 */
-	private void share(String content,String title,String imgUrl,String contentUrl) {
+	private void share(String content, String title, String imgUrl,
+			String contentUrl) {
 		UMImage urlImage = new UMImage(PostInfoActivity.this,
 				"http://www.umeng.com/images/pic/home/social/img-1.png");
 		// 设置微信好友分享内容
@@ -507,8 +490,7 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 					LayoutParams.WRAP_CONTENT);
 		}
 
-		btn_weixin = (Button) popview
-				.findViewById(R.id.btn_weixin);
+		btn_weixin = (Button) popview.findViewById(R.id.btn_weixin);
 		btn_weixin_circle = (Button) popview
 				.findViewById(R.id.btn_weixin_circle);
 		btn_pop_post_cancel = (Button) popview
@@ -542,12 +524,14 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 			pop.dismiss();
 		}
 	}
+
 	/**
 	 * @描述：开始分享
 	 * @param flag
 	 * @时间 2014-10-16
 	 */
-	private void startShare(boolean flag,String content,String title,String imgUrl,String contentUrl) {
+	private void startShare(boolean flag, String content, String title,
+			String imgUrl, String contentUrl) {
 		share(content, title, imgUrl, contentUrl);
 		if (flag) {
 			// 分享到微信
@@ -556,7 +540,8 @@ public class PostInfoActivity extends Base2Activity implements OnClickListener {
 						@Override
 						public void onStart() {
 							// 分享
-							Toast.makeText(PostInfoActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+							Toast.makeText(PostInfoActivity.this, "开始分享.",
+									Toast.LENGTH_SHORT).show();
 						}
 
 						@Override
